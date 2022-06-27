@@ -1,0 +1,21 @@
+{
+  "name": "rc",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "watch": "webpack --mode development --watch",
+    "build": "webpack --mode production"
+  },
+  "keywords": [],
+  "author": "niiy",
+  "license": "ISC",
+  "devDependencies": {
+    "@citizenfx/client": "^2.0.5151-1",
+    "@citizenfx/server": "^2.0.5151-1",
+    "@types/node": "^17.0.5",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.4",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1"
+  }
+}
