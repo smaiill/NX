@@ -1,25 +1,25 @@
-// class Client {
+import './main'
 
-//     Vehicles: Vehicle
+class Teste {
+  name: string
+  constructor() {
+    this.name = 'niiy'
+  }
 
-//     constructor() {
-//         this.Vehicles = new Vehicle()
-//     }
+  getName() {
+    return this.name
+  }
 
-//     logClient() {
-//         console.log('Hello client !')
+  setName(name: string) {
+    return (this.name = name)
+  }
+}
 
-//     }
-// }
+const client = new Teste()
 
-// globalThis.exports('useClient', () => {
-//     const client = new Client();
-
-//     return {
-//         logClient: client.logClient.bind(client),
-
-//         Vehicles: {
-//             Spawn: client.Vehicles.spawnCar.bind(client.Vehicles)
-//         }
-//     };
-// })
+globalThis.exports('useCaca', () => {
+  return {
+    getName: client.getName.bind(client),
+    setName: client.setName.bind(client),
+  }
+})

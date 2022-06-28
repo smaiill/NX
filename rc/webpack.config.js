@@ -19,7 +19,7 @@ const server = () => {
       minimize: true,
     },
     resolve: {
-      extensions: ['.ts'],
+      extensions: ['.ts', '.js', '.cjs'],
     },
     output: {
       filename: 'server.min.js',
@@ -44,7 +44,7 @@ const client = () => {
       minimize: true,
     },
     resolve: {
-      extensions: ['.ts'],
+      extensions: ['.ts', '.js', '.cjs'],
     },
     output: {
       filename: 'client.min.js',

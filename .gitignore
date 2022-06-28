@@ -2,7 +2,9 @@
 *.txt
 run.bat
 node_modules
+.sql
 
 ### RC
 rc/node_modules
+rc/yarn-error.log
 rc/dist
