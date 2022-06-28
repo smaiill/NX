@@ -1,6 +1,6 @@
-const webpack = require('webpack');
-const path = require('path');
-const buildPath = path.resolve(__dirname, 'dist');
+const webpack = require('webpack')
+const path = require('path')
+const buildPath = path.resolve(__dirname, 'dist')
 
 const server = () => {
   return {
@@ -25,8 +25,8 @@ const server = () => {
       filename: 'server.min.js',
       path: path.resolve(buildPath, 'server'),
     },
-  };
-};
+  }
+}
 
 const client = () => {
   return {
@@ -50,7 +50,7 @@ const client = () => {
       filename: 'client.min.js',
       path: path.resolve(buildPath, 'client'),
     },
-  };
-};
+  }
+}
 
-module.exports = [server, client];
+module.exports = [server, client]

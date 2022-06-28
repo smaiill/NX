@@ -1,0 +1,14 @@
+{
+  "name": "naf",
+  "version": "1.0.0",
+  "main": "",
+  "repository": "https://github.com/niiyy/NAF.git",
+  "author": "niiyy & af0xz",
+  "license": "MIT",
+  "scripts": {
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1"
+  }
+}

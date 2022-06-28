@@ -1,2 +1,8 @@
+### ./
+*.txt
+run.bat
+node_modules
+
+### RC
 rc/node_modules
 rc/dist

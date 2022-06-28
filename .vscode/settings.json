@@ -1,0 +1,11 @@
+{
+  "Lua.diagnostics.globals": [
+    "server_script",
+    "client_script",
+    "games",
+    "version",
+    "author",
+    "description",
+    "fx_version"
+  ]
+}

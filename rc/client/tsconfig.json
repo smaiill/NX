@@ -1,17 +1,16 @@
 {
-    "compilerOptions": {
-      "target": "es2016",
-      "module": "commonjs",
-      "esModuleInterop": true,
-      "forceConsistentCasingInFileNames": true,
-      "strict": true,
-      "skipLibCheck": true,
-      "noImplicitAny": true,
-      "lib": ["es2015", "DOM"],
-      "types": ["@citizenfx/client", "@types/node"],
-      "outDir": "./"
-    },
-    "include": ["./**/*"],
-    "exclude": ["**/node_modules"]
-  }
-  
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "lib": ["es2015", "DOM"],
+    "types": ["@citizenfx/client", "@types/node"],
+    "outDir": "./"
+  },
+  "include": ["./**/*"],
+  "exclude": ["**/node_modules"]
+}

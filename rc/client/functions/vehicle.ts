@@ -1,27 +1,36 @@
-
-
-
-'qzdqzdqzdqzd' // string
-182383 // number
-true // boolean
-
-
 class Vehicle {
-    constructor() {}
+  constructor() {}
 
+  Spawn(model: string) {
+    RequestModel(model)
+    if (!IsModelAVehicle(model)) return
+    let i = setInterval(() => {
+      if (HasModelLoaded(model)) {
+        let playerPed = PlayerPedId()
+        let pos = GetEntityCoords(playerPed, true)
+        let vehicle = CreateVehicle(
+          model,
+          pos[0],
+          pos[1],
+          pos[2],
+          GetEntityHeading(playerPed),
+          true,
+          false
+        )
+        SetPedIntoVehicle(playerPed, vehicle, -1)
 
-    Spawn(vehicle: string) {
-        // code !
-    }
+        SetEntityAsNoLongerNeeded(vehicle)
+        SetModelAsNoLongerNeeded(model)
 
-    DeleteObject() {
-        // code !
-    }
+        clearInterval(i)
+      }
+    }, 500)
+  }
 
+  // NAF.Vehicles.Delete()
+
+//   Delete() {
+//     if (IsPedInVehicle()) {
+//     }
+//   }
 }
-
-// NAF.Vehicle.Spawn('t20')
-
-
-export default Vehicle
-
