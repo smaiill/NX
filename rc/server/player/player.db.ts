@@ -23,6 +23,10 @@ export class _PlayerDB {
         'INSERT INTO naf_users (identifier) VALUES (?)',
         [license]
       )
+
+      if (!res) return reject('')
+
+      resolve(res)
     })
   }
 }

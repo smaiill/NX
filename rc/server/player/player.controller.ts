@@ -1,6 +1,7 @@
+import { PlayerEventsE } from '../../types/events'
 import _PlayerService from './player.service'
 
-onNet('naf::newPlayer', () => {
+onNet(PlayerEventsE.NEW_PLAYER, () => {
   const source = globalThis.source
   _PlayerService.newPlayer(getPlayerIdentifiers(source.toString()), source)
 })

@@ -14,14 +14,16 @@
 
 //     return {}
 // })
-
 import './player/index'
-import PlayerService from './player/player.service'
+import Player from './player/player.service'
+import Events from './events'
 
 class Server {
-  Players: typeof PlayerService
+  Players: typeof Player
+  Events: typeof Events
   constructor() {
-    this.Players = PlayerService
+    this.Players = Player
+    this.Events = Events
   }
 }
 
@@ -29,6 +31,9 @@ const server = new Server()
 
 globalThis.exports('useServer', () => {
   return {
-    getPlayers: server.Players.getPlayers.bind(server.Players),
+    Players: {
+      GetPlayers: server.Players.getPlayers.bind(server.Players),
+      GetPlayer: server.Players.getPlayer.bind(server.Players),
+    },
   }
 })

@@ -1,7 +1,7 @@
 export class _Object {
   constructor() {}
 
-  Create(entity: number) {
+  create(entity: number): void {
     if (!IsEntityAnObject(entity)) return
     RequestModel(entity)
     const i: NodeJS.Timer = setInterval(() => {
@@ -23,7 +23,7 @@ export class _Object {
     })
   }
 
-  Delete(entity: number) {
+  delete(entity: number): void {
     if (entity && IsEntityAnObject(entity)) {
       DeleteObject(entity)
     }
