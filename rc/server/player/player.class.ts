@@ -7,6 +7,7 @@ class _Player {
   permissions: string
   name: string
   source: number
+  weight: number
 
   constructor(
     identifier: string,
@@ -15,6 +16,7 @@ class _Player {
     accounts: any,
     position: any,
     permissions: string,
+    weight: number,
     name: string,
     source: number
   ) {
@@ -26,6 +28,11 @@ class _Player {
     this.permissions = permissions
     this.name = name
     this.source = source
+    this.weight = weight
+  }
+
+  getWeight(): number {
+    return this.weight
   }
 
   getName(): string {
@@ -38,6 +45,49 @@ class _Player {
 
   getIdentifier(): string {
     return this.identifier
+  }
+
+  getCoords(): any {
+    return this.position
+  }
+
+  getInventory() {
+    return this.inventory
+  }
+
+  setCoords(x: number, y: number, z: number, heading: number): void {
+    this.position = {
+      x,
+      y,
+      z,
+      heading,
+    }
+    return
+  }
+
+  hasItem(itemName: string): boolean | number {
+    const item = this.inventory[itemName]
+    if (item) {
+      return item
+    }
+
+    return false
+  }
+
+  async removeInventoryItem(itemName: string, amount: number) {
+    const item = await this.hasItem(itemName)
+
+    if (item) {
+      if (amount > item || amount <= 0) {
+        return console.log('NONONONONONONOON')
+      }
+
+      if (amount === item) {
+        delete this.inventory[itemName]
+      } else {
+        this.inventory[itemName] = (item as number) - amount
+      }
+    }
   }
 
   getAccountMoney(account: string) {

@@ -3,6 +3,7 @@ import { _PlayerUtils } from './player.utils'
 import { PlayerI } from '../../types/player'
 import _Player from './player.class'
 import { PlayerEventsE } from '../../types/events'
+import _ItemsService from '../items/items.service'
 
 class _PlayerService {
   PlayersCollection: any[]
@@ -26,20 +27,60 @@ class _PlayerService {
     const naPlayer = this.PlayersCollection.find(
       (player) => player.source === source
     )
-    console.log(naPlayer)
-    return (this.PlayersCollection = this.PlayersCollection.filter(
-      (player) => player.source !== source
-    ))
+
+    _PlayerDB
+      .savePlayer(naPlayer)
+      .then(() => {
+        console.log('Saved player')
+        this.PlayersCollection = this.PlayersCollection.filter(
+          (player) => player.source !== source
+        )
+        console.log(this.PlayersCollection)
+      })
+      .catch(() => {
+        console.log('CANT SAVE')
+      })
   }
 
   private async loadPlayer(player: PlayerI, source: number) {
+    console.log('loading player !')
+    player.charinfo = JSON.parse(player.charinfo)
+    player.inventory = JSON.parse(player.inventory)
+    player.accounts = JSON.parse(player.accounts)
+    player.position = JSON.parse(player.position)
+
+    const naPlayerData: any = {
+      inventory: {},
+      weight: 0,
+    }
+
+    if (Object.getOwnPropertyNames(player.inventory).length > 0) {
+      let itemsWeight = 0
+      for (const property in player.inventory) {
+        const item = _ItemsService.isItem(property)
+        if (item) {
+          naPlayerData.inventory[property] = Math.floor(
+            player.inventory[property]
+          )
+
+          const itemWeight =
+            player.inventory[property] * _ItemsService.getItemWeight(property)
+
+          itemsWeight += itemWeight
+        }
+      }
+
+      naPlayerData.weight = itemsWeight
+    }
+
     const naPlayer = new _Player(
       player.identifier,
-      JSON.parse(player.charinfo),
-      JSON.parse(player.inventory),
-      JSON.parse(player.accounts),
-      JSON.parse(player.position),
+      player.charinfo,
+      naPlayerData.inventory,
+      player.accounts,
+      player.position,
       player.permissions,
+      naPlayerData.weight,
       GetPlayerName(source.toString()),
       source
     )
@@ -55,7 +96,7 @@ class _PlayerService {
       skin: player.skin ?? {},
     })
 
-    console.log(this.PlayersCollection)
+    // console.log(this.PlayersCollection)
   }
 
   async playerDropped(reason: string, source: number) {
@@ -79,13 +120,18 @@ class _PlayerService {
     const naPlayer = this.PlayersCollection.find(
       (player) => player.source === source
     )
-
     return {
       data: naPlayer,
       GetName: naPlayer.getName.bind(naPlayer),
       GetIdentifier: naPlayer.getIdentifier.bind(naPlayer),
       GetAccountMoney: naPlayer.getAccountMoney.bind(naPlayer),
       GetCharInfo: naPlayer.getCharInfo.bind(naPlayer),
+      GetCoords: naPlayer.getCoords.bind(naPlayer),
+      SetCoords: naPlayer.setCoords.bind(naPlayer),
+      GetWeight: naPlayer.getWeight.bind(naPlayer),
+      GetInventory: naPlayer.getInventory.bind(naPlayer),
+      HasItem: naPlayer.hasItem.bind(naPlayer),
+      RemoveInventoryItem: naPlayer.removeInventoryItem.bind(naPlayer),
     }
   }
 }

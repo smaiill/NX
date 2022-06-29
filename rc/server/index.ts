@@ -32,8 +32,8 @@ const server = new Server()
 globalThis.exports('useServer', () => {
   return {
     Players: {
-      GetPlayers: server.Players.getPlayers.bind(server.Players),
-      GetPlayer: server.Players.getPlayer.bind(server.Players),
+      GetAll: server.Players.getPlayers.bind(server.Players),
+      Get: server.Players.getPlayer.bind(server.Players),
     },
   }
 })

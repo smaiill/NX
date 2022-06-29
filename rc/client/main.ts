@@ -1,14 +1,33 @@
 import { PlayerEventsE } from '../types/events'
-
 ;(() => {
-  globalThis.exports.spawnmanager.setAutoSpawn(false)
-  setTimeout(() => {
-    emitNet(PlayerEventsE.NEW_PLAYER)
-  }, 1000)
+  const interval = setInterval(() => {
+    if (NetworkIsPlayerActive(PlayerId())) {
+      ShutdownLoadingScreen()
+      ShutdownLoadingScreenNui()
+      console.log('Player active')
+      globalThis.exports.spawnmanager.setAutoSpawn(false)
+      setTimeout(() => {
+        console.log('Timeout finished')
+        emitNet(PlayerEventsE.NEW_PLAYER)
+      }, 6000)
+      clearInterval(interval)
+    }
+  }, 500)
 })()
 
+const syncPlayer = () => {
+  setInterval(() => {
+    const naPlayer = PlayerPedId()
+    if (IsEntityAPed(naPlayer)) {
+      const coords = GetEntityCoords(naPlayer, false)
+      const heading = GetEntityHeading(naPlayer)
+      emitNet(PlayerEventsE.UPDATE_COORDS, coords, heading)
+    }
+  }, 5000)
+}
+
 onNet(PlayerEventsE.PLAYER_LOADED, (naPlayer: any) => {
-  FreezeEntityPosition(PlayerPedId(), true)
+  console.log('RECEIVED EVENT TO SET POSITION')
   const skin = {
     blemishes_2: 0,
     glasses_1: 0,
@@ -104,4 +123,6 @@ onNet(PlayerEventsE.PLAYER_LOADED, (naPlayer: any) => {
       }
     )
   }, 2000)
+
+  syncPlayer()
 })
