@@ -1,21 +1,21 @@
 import { PlayerEventsE } from '../types/events'
+import './items/index'
 ;(() => {
   const interval = setInterval(() => {
     if (NetworkIsPlayerActive(PlayerId())) {
       ShutdownLoadingScreen()
       ShutdownLoadingScreenNui()
-      console.log('Player active')
       globalThis.exports.spawnmanager.setAutoSpawn(false)
       setTimeout(() => {
-        console.log('Timeout finished')
         emitNet(PlayerEventsE.NEW_PLAYER)
-      }, 6000)
+      }, 2_000)
       clearInterval(interval)
     }
   }, 500)
 })()
 
 const syncPlayer = () => {
+  console.log('Starting sync player')
   setInterval(() => {
     const naPlayer = PlayerPedId()
     if (IsEntityAPed(naPlayer)) {
@@ -27,7 +27,7 @@ const syncPlayer = () => {
 }
 
 onNet(PlayerEventsE.PLAYER_LOADED, (naPlayer: any) => {
-  console.log('RECEIVED EVENT TO SET POSITION')
+  console.log('Player loaded')
   const skin = {
     blemishes_2: 0,
     glasses_1: 0,
@@ -103,26 +103,26 @@ onNet(PlayerEventsE.PLAYER_LOADED, (naPlayer: any) => {
     pants_1: 23,
   }
 
-  setTimeout(() => {
-    globalThis.exports.spawnmanager.spawnPlayer(
-      {
-        x: naPlayer.position.x,
-        y: naPlayer.position.y,
-        z: naPlayer.position.z,
-        heading: naPlayer.position.heading,
-        model: GetHashKey('mp_m_freemode_01'),
-        skipFade: true,
-      },
-      () => {
-        console.log('callback !')
-        if (naPlayer.skin === {}) {
-          emit('skinchanger:loadDefaultModel', naPlayer.charinfo.sex == 0)
-        } else {
-          emit('skinchanger:loadSkin', skin)
-        }
+  // ! if not works get position if !== naPlayer.positoon trigger spawnmanager.
+
+  globalThis.exports.spawnmanager.spawnPlayer(
+    {
+      x: naPlayer.position.x,
+      y: naPlayer.position.y,
+      z: naPlayer.position.z,
+      heading: naPlayer.position.heading,
+      model: GetHashKey('mp_m_freemode_01'),
+      skipFade: true,
+    },
+    () => {
+      console.log('callback !')
+      if (naPlayer.skin === {}) {
+        emit('skinchanger:loadDefaultModel', naPlayer.charinfo.sex == 0)
+      } else {
+        emit('skinchanger:loadSkin', skin)
       }
-    )
-  }, 2000)
+    }
+  )
 
   syncPlayer()
 })

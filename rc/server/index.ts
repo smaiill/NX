@@ -1,23 +1,7 @@
-// import { logger } from "./utils/logger";
-
-// class Server {
-//     constructor() {}
-
-// }
-
-// import mysql from 'mysql2';
-
-// // create the connection to database
-
-// globalThis.exports('useServer', () => {
-//     const server = new Server()
-
-//     return {}
-// })
-import './player/index'
 import Player from './player/player.service'
 import Events from './events'
-
+import './player/index'
+import './items/index'
 class Server {
   Players: typeof Player
   Events: typeof Events
@@ -34,6 +18,10 @@ globalThis.exports('useServer', () => {
     Players: {
       GetAll: server.Players.getPlayers.bind(server.Players),
       Get: server.Players.getPlayer.bind(server.Players),
+    },
+
+    Misc: {
+      OnServerEvent: server.Events.onServerEvent.bind(server.Events),
     },
   }
 })

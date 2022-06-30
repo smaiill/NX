@@ -16,39 +16,37 @@ export class _Vehicle {
     ]
   }
 
-  create(model: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      RequestModel(model)
-      if (!IsModelAVehicle(model)) return
-      const i = setInterval(() => {
-        if (HasModelLoaded(model)) {
-          const playerPed = PlayerPedId()
-          const pos = GetEntityCoords(playerPed, true)
-          const vehicle = CreateVehicle(
-            model,
-            pos[0],
-            pos[1],
-            pos[2],
-            GetEntityHeading(playerPed),
-            true,
-            false
-          )
-          SetPedIntoVehicle(playerPed, vehicle, -1)
+  create(model: string): any {
+    RequestModel(model)
+    if (!IsModelAVehicle(model)) return
+    const i: NodeJS.Timer = setInterval(() => {
+      if (HasModelLoaded(model)) {
+        const playerPed: number = PlayerPedId()
+        const pos: number[] = GetEntityCoords(playerPed, true)
+        const vehicle: number = CreateVehicle(
+          model,
+          pos[0],
+          pos[1],
+          pos[2],
+          GetEntityHeading(playerPed),
+          true,
+          false
+        )
+        SetPedIntoVehicle(playerPed, vehicle, -1)
 
-          SetEntityAsNoLongerNeeded(vehicle)
-          SetModelAsNoLongerNeeded(model)
+        SetEntityAsNoLongerNeeded(vehicle)
+        SetModelAsNoLongerNeeded(model)
 
-          clearInterval(i)
-          return resolve(vehicle)
-        }
-      }, 500)
-    })
+        return vehicle
+        clearInterval(i)
+      }
+    }, 500)
   }
 
   delete() {
-    const playerPed = PlayerPedId()
+    const playerPed: number = PlayerPedId()
     if (IsPedInAnyVehicle(playerPed, true)) {
-      const vehicle = GetVehiclePedIsIn(playerPed, true)
+      const vehicle: number = GetVehiclePedIsIn(playerPed, true)
       SetEntityAsMissionEntity(vehicle, false, true)
       DeleteVehicle(vehicle)
     }
@@ -57,7 +55,7 @@ export class _Vehicle {
   repair(vehicle?: number): void {
     const playerPed = PlayerPedId()
     if (!vehicle || !IsEntityAVehicle(vehicle)) {
-      const vehicle = GetVehiclePedIsIn(playerPed, true)
+      const vehicle: number = GetVehiclePedIsIn(playerPed, true)
       if (vehicle) {
         SetVehicleFixed(vehicle)
         SetVehicleDeformationFixed(vehicle)
@@ -73,14 +71,17 @@ export class _Vehicle {
   }
 
   async random() {
-    const ped = PlayerPedId()
-    const randomCar =
+    const ped: number = PlayerPedId()
+    const randomCar: string =
       this.RandomVehicles[
         Math.floor(Math.random() * this.RandomVehicles.length)
       ]
     const vehicle = await this.create(randomCar)
-    const randomColor = Math.floor(Math.random() * 159)
-    const randomColor2 = Math.floor(Math.random() * 159)
+    const randomColor: number = Math.floor(Math.random() * 159)
+    const randomColor2: number = Math.floor(Math.random() * 159)
     SetVehicleColours(vehicle, randomColor, randomColor2)
   }
 }
+
+const VehicleManager = new _Vehicle()
+export default VehicleManager

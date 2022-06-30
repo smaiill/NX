@@ -6,6 +6,8 @@
     "version",
     "author",
     "description",
-    "fx_version"
+    "fx_version",
+    "shared_scripts",
+    "files"
   ]
 }

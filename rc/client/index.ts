@@ -1,19 +1,19 @@
-import { _Object } from './class/object'
-import { _Vehicle } from './class/vehicle'
-import { _Misc } from './class/misc'
+import Object from './class/object'
+import Vehicle from './class/vehicle'
+import Misc from './class/misc'
 import Events from './events'
 import './main'
 
 class Client {
-  Vehicles: _Vehicle
-  Objects: _Object
-  Misc: _Misc
+  Vehicles: typeof Vehicle
+  Objects: typeof Object
+  Misc: typeof Misc
   Events: typeof Events
   constructor() {
     this.Events = Events
-    this.Objects = new _Object()
-    this.Vehicles = new _Vehicle()
-    this.Misc = new _Misc()
+    this.Objects = Object
+    this.Vehicles = Vehicle
+    this.Misc = Misc
   }
 }
 
@@ -33,7 +33,8 @@ globalThis.exports('useClient', () => {
     },
     Misc: {
       CreatePed: client.Misc.createPed.bind(client.Misc),
-      Keyboard: client.Misc.keyboard.bind(client.Misc),
+
+      EmitServerEvent: client.Events.emitServerEvent.bind(client.Events),
     },
   }
 })

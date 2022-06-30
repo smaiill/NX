@@ -11,6 +11,6 @@
     "types": ["@citizenfx/client", "@types/node"],
     "outDir": "./"
   },
-  "include": ["./**/*", "../types/**/*"],
+  "include": ["./**/*", "../types/**/*", "../shared/**/*"],
   "exclude": ["**/node_modules"]
 }

@@ -1,33 +1,15 @@
 export class _Misc {
   constructor() {}
 
-  keyboard(state: boolean = false): void {
-    DisplayOnscreenKeyboard(0, 'FMMC_KEY_TIP8', '', '', '', '', '', 64)
-
-    if (state) {
-      HideHudAndRadarThisFrame()
-      if (UpdateOnscreenKeyboard() === 3) {
-        state = false
-      } else if (UpdateOnscreenKeyboard() === 1) {
-        const inputText = GetOnscreenKeyboardResult()
-        if (inputText.length > 0) {
-          DisplayOnscreenKeyboard(0, 'FMMC_KEY_TIP8', '', '', '', '', '', 64)
-        } else if (UpdateOnscreenKeyboard() === 2) {
-          state = false
-        }
-      }
-    }
-  }
-
-  createPed(pedType: number, model: string): void {
+  createPed(pedType: string, model: string) {
     RequestModel(model)
     if (!IsModelAPed(model)) return
-    const i = setInterval(() => {
+    const i: NodeJS.Timer = setInterval(() => {
       if (HasModelLoaded(model)) {
-        const playerPed = PlayerPedId()
-        const pos = GetEntityCoords(playerPed, true)
-        const ped = CreatePed(
-          pedType,
+        const playerPed: number = PlayerPedId()
+        const pos: number[] = GetEntityCoords(playerPed, true)
+        const ped: number = CreatePed(
+          pedType as unknown as number,
           model,
           pos[0],
           pos[1],
@@ -36,9 +18,11 @@ export class _Misc {
           true,
           false
         )
-
         clearInterval(i)
       }
     }, 500)
   }
 }
+
+const MiscManager = new _Misc()
+export default MiscManager

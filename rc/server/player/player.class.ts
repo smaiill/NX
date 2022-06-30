@@ -5,9 +5,9 @@ class _Player {
   accounts: any
   position: any
   permissions: string
+  weight: number
   name: string
   source: number
-  weight: number
 
   constructor(
     identifier: string,
@@ -26,9 +26,9 @@ class _Player {
     this.accounts = accounts
     this.position = position
     this.permissions = permissions
+    this.weight = weight
     this.name = name
     this.source = source
-    this.weight = weight
   }
 
   getWeight(): number {
@@ -55,18 +55,70 @@ class _Player {
     return this.inventory
   }
 
+  getAccounts(): any {
+    return this.accounts
+  }
+
+  getPermissions(): any {
+    return this.permissions
+  }
+
   setCoords(x: number, y: number, z: number, heading: number): void {
+    if (!x || !y || !z || !heading) {
+      return
+    }
+
+    const NUMBER_AFTER_DOT: number = 3
+
+    const minCoords = {
+      x: x.toString().split('.'),
+      y: y.toString().split('.'),
+      z: z.toString().split('.'),
+      heading: heading.toString().split('.'),
+    }
+
+    const newCoords = {
+      x: `${minCoords.x[0]}.${minCoords.x[1].slice(0, NUMBER_AFTER_DOT)}`,
+      y: `${minCoords.y[0]}.${minCoords.y[1].slice(0, NUMBER_AFTER_DOT)}`,
+      z: `${minCoords.z[0]}.${minCoords.z[1].slice(0, NUMBER_AFTER_DOT)}`,
+      heading: `${minCoords.heading[0]}.${minCoords.heading[1].slice(
+        0,
+        NUMBER_AFTER_DOT
+      )}`,
+    }
+
     this.position = {
-      x,
-      y,
-      z,
-      heading,
+      x: parseFloat(newCoords.x),
+      y: parseFloat(newCoords.y),
+      z: parseFloat(newCoords.z),
+      heading: parseFloat(newCoords.x),
     }
     return
   }
 
+  getAccountMoney(account: string) {
+    if (
+      !account ||
+      (account !== 'money' && account !== 'bank' && account !== 'black_money')
+    ) {
+      return console.log('Error not account')
+    }
+
+    return this.accounts[account]
+  }
+
   hasItem(itemName: string): boolean | number {
     const item = this.inventory[itemName]
+    if (item) {
+      return item
+    }
+
+    return false
+  }
+
+  getInventoryItem(itemName: string): any {
+    const item = this.inventory[itemName]
+
     if (item) {
       return item
     }
@@ -79,7 +131,7 @@ class _Player {
 
     if (item) {
       if (amount > item || amount <= 0) {
-        return console.log('NONONONONONONOON')
+        return
       }
 
       if (amount === item) {
@@ -88,17 +140,6 @@ class _Player {
         this.inventory[itemName] = (item as number) - amount
       }
     }
-  }
-
-  getAccountMoney(account: string) {
-    if (
-      !account ||
-      (account !== 'money' && account !== 'bank' && account !== 'black_money')
-    ) {
-      return console.log('Error not account')
-    }
-
-    return this.accounts[account]
   }
 }
 

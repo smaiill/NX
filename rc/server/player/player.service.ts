@@ -4,6 +4,7 @@ import { PlayerI } from '../../types/player'
 import _Player from './player.class'
 import { PlayerEventsE } from '../../types/events'
 import _ItemsService from '../items/items.service'
+import { logger } from '../utils/logger'
 
 class _PlayerService {
   PlayersCollection: any[]
@@ -31,19 +32,18 @@ class _PlayerService {
     _PlayerDB
       .savePlayer(naPlayer)
       .then(() => {
-        console.log('Saved player')
+        logger.info(`Player saved.`)
         this.PlayersCollection = this.PlayersCollection.filter(
           (player) => player.source !== source
         )
         console.log(this.PlayersCollection)
       })
       .catch(() => {
-        console.log('CANT SAVE')
+        logger.error(`Error while saving player.`)
       })
   }
 
   private async loadPlayer(player: PlayerI, source: number) {
-    console.log('loading player !')
     player.charinfo = JSON.parse(player.charinfo)
     player.inventory = JSON.parse(player.inventory)
     player.accounts = JSON.parse(player.accounts)
@@ -57,7 +57,7 @@ class _PlayerService {
     if (Object.getOwnPropertyNames(player.inventory).length > 0) {
       let itemsWeight = 0
       for (const property in player.inventory) {
-        const item = _ItemsService.isItem(property)
+        const item = _ItemsService.isValidItem(property)
         if (item) {
           naPlayerData.inventory[property] = Math.floor(
             player.inventory[property]
@@ -86,6 +86,7 @@ class _PlayerService {
     )
 
     this.PlayersCollection.push(naPlayer)
+
     emitNet(PlayerEventsE.PLAYER_LOADED, source, {
       accounts: naPlayer.accounts,
       position: naPlayer.position,
@@ -95,8 +96,6 @@ class _PlayerService {
       permissions: naPlayer.permissions,
       skin: player.skin ?? {},
     })
-
-    // console.log(this.PlayersCollection)
   }
 
   async playerDropped(reason: string, source: number) {
@@ -104,7 +103,6 @@ class _PlayerService {
   }
 
   private async createPlayer(license: string, source: number) {
-    console.log('create player !')
     const res = await _PlayerDB.createPlayer(license)
     if (res) {
       const [player] = await _PlayerDB.getPlayerFromDB(license)
@@ -112,14 +110,29 @@ class _PlayerService {
     }
   }
 
-  async getPlayers() {
-    return this.PlayersCollection
+  async getPlayers(): Promise<number[] | []> {
+    const naPlayersSources: number[] = []
+
+    if (this.PlayersCollection.length > 0) {
+      this.PlayersCollection.forEach((naPlayer) => {
+        naPlayersSources.push(naPlayer.source)
+      })
+
+      return naPlayersSources
+    }
+
+    return []
   }
 
   async getPlayer(source: number) {
     const naPlayer = this.PlayersCollection.find(
       (player) => player.source === source
     )
+
+    if (!naPlayer) {
+      return false
+    }
+
     return {
       data: naPlayer,
       GetName: naPlayer.getName.bind(naPlayer),
@@ -127,9 +140,12 @@ class _PlayerService {
       GetAccountMoney: naPlayer.getAccountMoney.bind(naPlayer),
       GetCharInfo: naPlayer.getCharInfo.bind(naPlayer),
       GetCoords: naPlayer.getCoords.bind(naPlayer),
-      SetCoords: naPlayer.setCoords.bind(naPlayer),
       GetWeight: naPlayer.getWeight.bind(naPlayer),
       GetInventory: naPlayer.getInventory.bind(naPlayer),
+      GetAccounts: naPlayer.getAccounts.bind(naPlayer),
+      GetPermissions: naPlayer.getPermissions.bind(naPlayer),
+      GetInventoryItem: naPlayer.getInventoryItem.bind(naPlayer),
+      SetCoords: naPlayer.setCoords.bind(naPlayer),
       HasItem: naPlayer.hasItem.bind(naPlayer),
       RemoveInventoryItem: naPlayer.removeInventoryItem.bind(naPlayer),
     }
@@ -139,5 +155,4 @@ class _PlayerService {
 // 644270566e360a57fd3810d581e6e46773250193
 
 const PlayerService = new _PlayerService()
-
 export default PlayerService

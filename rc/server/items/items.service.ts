@@ -1,20 +1,23 @@
-import { ItemI, NAFItems } from '../../config/naf.items.config'
+import { Console } from 'console'
+import { items } from '../../shared/load.file'
+import { PlayerEventsE } from '../../types/events'
+import PlayerService from '../player/player.service'
+import { _Utils } from '../utils/misc'
 
 export class _ItemsService {
-  Items: ItemI[]
+  Items: any[]
+  Pickups: any[]
   constructor() {
-    this.Items = NAFItems
+    this.Items = items
+    this.Pickups = []
   }
 
-  // registerUsableItem(itemName: string, callback: Function): any {
-  //     if(!callback) {
-  //         return console.log('No callback !')
-  //     }
+  isValidItem(itemName: string): boolean {
+    const item = this.Items.find((item) => item.name === itemName)
 
-  // }
+    if (!item) return false
 
-  isItem(itemName: string): any {
-    return this.Items.find((item) => item.name === itemName)
+    return true
   }
 
   getItemWeight(itemName: string): number {

@@ -1,22 +1,14 @@
-export class _Object {
+class _Object {
   constructor() {}
 
-  create(entity: number): void {
-    if (!IsEntityAnObject(entity)) return
+  create(entity: string): any {
+    let object = null
     RequestModel(entity)
     const i: NodeJS.Timer = setInterval(() => {
       if (HasModelLoaded(entity)) {
-        let playerPed: number = PlayerPedId()
-        let pos: number[] = GetEntityCoords(playerPed, true)
-        let object: number = CreateObject(
-          entity,
-          pos[0],
-          pos[1],
-          pos[2],
-          true,
-          false,
-          true
-        )
+        const playerPed: number = PlayerPedId()
+        const pos: number[] = GetEntityCoords(playerPed, true)
+        object = CreateObject(entity, pos[0], pos[1], pos[2], true, false, true)
 
         clearInterval(i)
       }
@@ -29,3 +21,6 @@ export class _Object {
     }
   }
 }
+
+const ObjectManager = new _Object()
+export default ObjectManager

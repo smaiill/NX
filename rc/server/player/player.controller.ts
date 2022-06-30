@@ -16,6 +16,8 @@ onNet(
   async (coords: number[], heading: number) => {
     const source = globalThis.source
     const naPlayer = await _PlayerService.getPlayer(source)
-    naPlayer.SetCoords(coords[0], coords[1], coords[2], heading)
+    if (naPlayer) {
+      naPlayer.SetCoords(coords[0], coords[1], coords[2], heading)
+    }
   }
 )

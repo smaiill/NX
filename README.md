@@ -1,5 +1,5 @@
 <div align="center">
-    <img href="https://projecterror.dev" width="500" src="https://media.discordapp.net/attachments/780476129324171275/991791778044854373/logopng.png?width=1133&height=546" alt="Material-UI logo" />
+    <img width="500" src="https://media.discordapp.net/attachments/780476129324171275/991791778044854373/logopng.png?width=1133&height=546" alt="Material-UI logo" />
 </div>
 <h1 align="center">NAF</h1>
 
