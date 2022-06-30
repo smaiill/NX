@@ -10,7 +10,7 @@ export const generateConnectionPool = (): mysql.Pool | undefined => {
       connectTimeout: 60000,
     })
   } catch (e: any) {
-    logger.error(`SQL Connection Pool Error: ${e.message}`)
+    logger.error(`Error while creating pool connection: ${e}`)
   }
 }
 

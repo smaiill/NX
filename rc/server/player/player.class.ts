@@ -1,3 +1,5 @@
+import { logger } from '../utils/logger'
+
 class _Player {
   identifier: string
   charinfo: any
@@ -101,7 +103,7 @@ class _Player {
       !account ||
       (account !== 'money' && account !== 'bank' && account !== 'black_money')
     ) {
-      return console.log('Error not account')
+      return logger.error(`Trying to acces not valid account.`)
     }
 
     return this.accounts[account]

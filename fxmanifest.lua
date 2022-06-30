@@ -11,9 +11,16 @@ games {
 
 client_script "rc/dist/client/client.min.js"
 server_script "rc/dist/server/server.min.js"
+
 shared_scripts {
   'rc/shared/load.file.ts',
+  'rc/shared/**/*'
 }
+
+ui_page 'ui/dist/index.html'
+
 files {
+  'ui/dist/index.html',
   'config/*.json',
+  'ui/dist/**/*'
 }

@@ -1,15 +1,25 @@
-export default class logger {
-  constructor() {}
-
-  static error(message: string) {
-    console.log(`^1[ERROR]: ${message}`)
+class _Logger {
+  errorCode: string
+  infoCode: string
+  warnCode: string
+  constructor() {
+    this.errorCode = '^9[ERROR]'
+    this.infoCode = '^2[INFO]'
+    this.warnCode = '^3[WARN]'
   }
 
-  static info(message: string) {
-    console.log(`^2[INFO]: ${message}`)
+  error(message: string) {
+    console.log(`${this.errorCode}: ${message}`)
   }
 
-  static warn(message: string) {
-    console.log(`^3[WARN]: ${message}`)
+  info(message: string) {
+    console.log(`${this.infoCode}: ${message}`)
+  }
+
+  warn(message: string) {
+    console.log(`${this.warnCode}: ${message}`)
   }
 }
+
+const Logger = new _Logger()
+export default Logger

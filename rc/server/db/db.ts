@@ -1,3 +1,4 @@
+import { logger } from '../utils/logger'
 import { pool } from './pool'
 
 export class _DB {
@@ -8,11 +9,10 @@ export class _DB {
       try {
         const res = await pool?.execute(query, values)
         return resolve(res)
-      } catch (error) {
-        reject(error)
+      } catch (e) {
+        reject(e)
+        logger.error(`DB: ${e}`)
       }
     })
   }
 }
-
-// 644270566e360a57fd3810d581e6e46773250193

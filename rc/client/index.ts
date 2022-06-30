@@ -33,7 +33,6 @@ globalThis.exports('useClient', () => {
     },
     Misc: {
       CreatePed: client.Misc.createPed.bind(client.Misc),
-
       EmitServerEvent: client.Events.emitServerEvent.bind(client.Events),
     },
   }

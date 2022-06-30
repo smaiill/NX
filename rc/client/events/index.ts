@@ -1,5 +1,5 @@
 import logger from '../utils/logger'
-import { uuid } from '../utils/misc'
+import Utils from '../../shared/utils/misc'
 
 export class _Events {
   Events: any
@@ -8,13 +8,19 @@ export class _Events {
   }
 
   emitServerEvent(eventName: string, callback: Function, ...args: any[]) {
+    if (!callback || typeof callback !== 'function') {
+      return logger.error(
+        `Can't trigger event: ^2[${eventName}] ^9callback not provided !`
+      )
+    }
+
     if (eventName in this.Events) {
       logger.warn(`Event : ${eventName} already declared.`)
     } else {
       this.Events[eventName] = callback
     }
 
-    const randomID = uuid()
+    const randomID = Utils.uuid()
 
     const respEventName: string = `${eventName}::${randomID}`
 
@@ -23,8 +29,8 @@ export class _Events {
       removeEventListener(respEventName, handleRespEvent)
     }
 
-    onNet(respEventName, handleRespEvent)
     emitNet(eventName, respEventName, ...args)
+    onNet(respEventName, handleRespEvent)
   }
 }
 

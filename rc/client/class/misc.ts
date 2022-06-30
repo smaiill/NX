@@ -1,7 +1,7 @@
 export class _Misc {
   constructor() {}
 
-  createPed(pedType: string, model: string) {
+  createPed(pedType: string, model: string, cb: Function) {
     RequestModel(model)
     if (!IsModelAPed(model)) return
     const i: NodeJS.Timer = setInterval(() => {
@@ -19,6 +19,10 @@ export class _Misc {
           false
         )
         clearInterval(i)
+
+        if (cb && typeof cb === 'function') {
+          cb(ped)
+        }
       }
     }, 500)
   }

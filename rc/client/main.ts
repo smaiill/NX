@@ -8,17 +8,16 @@ import './items/index'
       globalThis.exports.spawnmanager.setAutoSpawn(false)
       setTimeout(() => {
         emitNet(PlayerEventsE.NEW_PLAYER)
-      }, 2_000)
+      }, 3_000)
       clearInterval(interval)
     }
   }, 500)
 })()
 
 const syncPlayer = () => {
-  console.log('Starting sync player')
+  const naPlayer = PlayerPedId()
   setInterval(() => {
-    const naPlayer = PlayerPedId()
-    if (IsEntityAPed(naPlayer)) {
+    if (naPlayer) {
       const coords = GetEntityCoords(naPlayer, false)
       const heading = GetEntityHeading(naPlayer)
       emitNet(PlayerEventsE.UPDATE_COORDS, coords, heading)
@@ -27,7 +26,6 @@ const syncPlayer = () => {
 }
 
 onNet(PlayerEventsE.PLAYER_LOADED, (naPlayer: any) => {
-  console.log('Player loaded')
   const skin = {
     blemishes_2: 0,
     glasses_1: 0,
@@ -103,8 +101,6 @@ onNet(PlayerEventsE.PLAYER_LOADED, (naPlayer: any) => {
     pants_1: 23,
   }
 
-  // ! if not works get position if !== naPlayer.positoon trigger spawnmanager.
-
   globalThis.exports.spawnmanager.spawnPlayer(
     {
       x: naPlayer.position.x,
@@ -115,7 +111,6 @@ onNet(PlayerEventsE.PLAYER_LOADED, (naPlayer: any) => {
       skipFade: true,
     },
     () => {
-      console.log('callback !')
       if (naPlayer.skin === {}) {
         emit('skinchanger:loadDefaultModel', naPlayer.charinfo.sex == 0)
       } else {

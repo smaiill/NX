@@ -13,7 +13,9 @@ export const logger = createLogger({
     }),
     new transports.Console({
       format: format.combine(
-        format.timestamp(),
+        format.timestamp({
+          format: '[on] MM-DD-YYYY [at] HH:mm',
+        }),
         format.colorize({ all: true }),
         format.label({
           label: 'NAF',

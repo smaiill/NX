@@ -13,7 +13,7 @@ export class _PlayerDB {
         return resolve(res)
       }
 
-      reject('ERROR')
+      reject('')
     })
   }
 

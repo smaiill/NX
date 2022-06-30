@@ -1,6 +1,5 @@
 import { _PlayerDB } from './player.db'
 import { _PlayerUtils } from './player.utils'
-import { PlayerI } from '../../types/player'
 import _Player from './player.class'
 import { PlayerEventsE } from '../../types/events'
 import _ItemsService from '../items/items.service'
@@ -32,18 +31,18 @@ class _PlayerService {
     _PlayerDB
       .savePlayer(naPlayer)
       .then(() => {
-        logger.info(`Player saved.`)
+        logger.info(`Player: ${naPlayer.name} [saved] with succes.`)
         this.PlayersCollection = this.PlayersCollection.filter(
           (player) => player.source !== source
         )
-        console.log(this.PlayersCollection)
       })
-      .catch(() => {
-        logger.error(`Error while saving player.`)
+      .catch((error: any) => {
+        logger.error(`Error while saving player: ${naPlayer.name}`)
+        logger.error(error)
       })
   }
 
-  private async loadPlayer(player: PlayerI, source: number) {
+  private async loadPlayer(player: any, source: number) {
     player.charinfo = JSON.parse(player.charinfo)
     player.inventory = JSON.parse(player.inventory)
     player.accounts = JSON.parse(player.accounts)

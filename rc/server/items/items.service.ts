@@ -1,8 +1,4 @@
-import { Console } from 'console'
 import { items } from '../../shared/load.file'
-import { PlayerEventsE } from '../../types/events'
-import PlayerService from '../player/player.service'
-import { _Utils } from '../utils/misc'
 
 export class _ItemsService {
   Items: any[]

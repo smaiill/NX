@@ -8,6 +8,7 @@
     "description",
     "fx_version",
     "shared_scripts",
-    "files"
+    "files",
+    "ui_page"
   ]
 }

@@ -16,7 +16,7 @@ export class _Vehicle {
     ]
   }
 
-  create(model: string): any {
+  create(model: string, cb: Function): any {
     RequestModel(model)
     if (!IsModelAVehicle(model)) return
     const i: NodeJS.Timer = setInterval(() => {
@@ -37,18 +37,25 @@ export class _Vehicle {
         SetEntityAsNoLongerNeeded(vehicle)
         SetModelAsNoLongerNeeded(model)
 
-        return vehicle
         clearInterval(i)
+
+        if (cb && typeof cb === 'function') {
+          cb(vehicle)
+        }
       }
     }, 500)
   }
 
-  delete() {
+  delete(cb: Function) {
     const playerPed: number = PlayerPedId()
     if (IsPedInAnyVehicle(playerPed, true)) {
       const vehicle: number = GetVehiclePedIsIn(playerPed, true)
       SetEntityAsMissionEntity(vehicle, false, true)
       DeleteVehicle(vehicle)
+
+      if (cb && typeof cb === 'function') {
+        cb()
+      }
     }
   }
 
@@ -76,10 +83,11 @@ export class _Vehicle {
       this.RandomVehicles[
         Math.floor(Math.random() * this.RandomVehicles.length)
       ]
-    const vehicle = await this.create(randomCar)
-    const randomColor: number = Math.floor(Math.random() * 159)
-    const randomColor2: number = Math.floor(Math.random() * 159)
-    SetVehicleColours(vehicle, randomColor, randomColor2)
+    this.create(randomCar, (vehicle: number) => {
+      const randomColor: number = Math.floor(Math.random() * 159)
+      const randomColor2: number = Math.floor(Math.random() * 159)
+      SetVehicleColours(vehicle, randomColor, randomColor2)
+    })
   }
 }
 

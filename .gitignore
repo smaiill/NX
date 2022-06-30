@@ -8,3 +8,7 @@ node_modules
 rc/node_modules
 rc/yarn-error.log
 rc/dist
+
+### UI
+ui/node_modules
+ui/dist
