@@ -7,4 +7,7 @@ export enum PlayerEventsE {
 export enum ItemsEventsE {
   DROP_ITEM = 'NAF::dropItem',
   CREATE_PICKUP = 'NAF::createPickup',
+  CREATE_MISSING_PICKUPS = 'NAF::createMissingPickups',
+  PICKUP_ITEM = 'NAF::pickupItem',
+  REMOVE_PICKUP = 'NAF::removePickup',
 }

@@ -12,7 +12,7 @@ class _PlayerService {
     this.PlayersCollection = []
   }
 
-  async newPlayer(identifiers: string[], source: number) {
+  async newPlayer(identifiers: string[], source: number): Promise<void> {
     const license = await _PlayerUtils.getPlayerLicense(identifiers)
     if (!license) return
     const [player] = await _PlayerDB.getPlayerFromDB(license)
@@ -23,7 +23,7 @@ class _PlayerService {
     }
   }
 
-  private async unloadPlayer(source: number) {
+  private async unloadPlayer(source: number): Promise<void> {
     const naPlayer = this.PlayersCollection.find(
       (player) => player.source === source
     )
@@ -31,18 +31,21 @@ class _PlayerService {
     _PlayerDB
       .savePlayer(naPlayer)
       .then(() => {
-        logger.info(`Player: ${naPlayer.name} [saved] with succes.`)
+        logger.info(`Player: [${naPlayer.name}] saved with succes.`)
         this.PlayersCollection = this.PlayersCollection.filter(
           (player) => player.source !== source
         )
       })
       .catch((error: any) => {
-        logger.error(`Error while saving player: ${naPlayer.name}`)
-        logger.error(error)
+        logger.error(
+          `Error while saving player: [${GetPlayerName(
+            source as unknown as string
+          )}]`
+        )
       })
   }
 
-  private async loadPlayer(player: any, source: number) {
+  private async loadPlayer(player: any, source: number): Promise<void> {
     player.charinfo = JSON.parse(player.charinfo)
     player.inventory = JSON.parse(player.inventory)
     player.accounts = JSON.parse(player.accounts)
@@ -61,7 +64,6 @@ class _PlayerService {
           naPlayerData.inventory[property] = Math.floor(
             player.inventory[property]
           )
-
           const itemWeight =
             player.inventory[property] * _ItemsService.getItemWeight(property)
 
@@ -95,13 +97,15 @@ class _PlayerService {
       permissions: naPlayer.permissions,
       skin: player.skin ?? {},
     })
+
+    _ItemsService.createMissingPickups(source)
   }
 
-  async playerDropped(reason: string, source: number) {
+  async playerDropped(reason: string, source: number): Promise<void> {
     await this.unloadPlayer(source)
   }
 
-  private async createPlayer(license: string, source: number) {
+  private async createPlayer(license: string, source: number): Promise<void> {
     const res = await _PlayerDB.createPlayer(license)
     if (res) {
       const [player] = await _PlayerDB.getPlayerFromDB(license)
@@ -123,7 +127,7 @@ class _PlayerService {
     return []
   }
 
-  async getPlayer(source: number) {
+  async getPlayer(source: number): Promise<any> {
     const naPlayer = this.PlayersCollection.find(
       (player) => player.source === source
     )
@@ -147,6 +151,9 @@ class _PlayerService {
       SetCoords: naPlayer.setCoords.bind(naPlayer),
       HasItem: naPlayer.hasItem.bind(naPlayer),
       RemoveInventoryItem: naPlayer.removeInventoryItem.bind(naPlayer),
+      AddInventoryItem: naPlayer.addInventoryItem.bind(naPlayer),
+      RemoveAccountMoney: naPlayer.removeAccountMoney.bind(naPlayer),
+      AddMoneyToAccount: naPlayer.addMoneyToAccount.bind(naPlayer)
     }
   }
 }

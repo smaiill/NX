@@ -1,7 +1,12 @@
+import logger from '../utils/logger'
+
 class _Object {
   constructor() {}
 
-  create(entity: string, cb: Function): any {
+  create(entity: string, cb: Function): (number | void) {
+    if (!entity) {
+      return logger.error('not valid object.')
+    }
     RequestModel(entity)
     const i: NodeJS.Timer = setInterval(() => {
       if (HasModelLoaded(entity)) {
@@ -18,20 +23,23 @@ class _Object {
         )
         clearInterval(i)
 
-        if (cb && typeof cb === 'function') {
+        if (object && cb && typeof cb === 'function') {
           cb(object)
         }
       }
     })
   }
 
-  delete(entity: number, cb: Function): void {
-    if (entity && IsEntityAnObject(entity)) {
-      DeleteObject(entity)
+  delete(entity: number, cb?: Function): void {
+    if (!entity || typeof entity !== 'number') {
+      return logger.error('not valid params for object delete.')
+    }
 
-      if (cb && typeof cb === 'function') {
-        cb()
-      }
+    SetEntityAsMissionEntity(entity, false, true)
+    DeleteObject(entity)
+
+    if (cb && typeof cb === 'function') {
+      cb()
     }
   }
 }

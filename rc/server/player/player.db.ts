@@ -9,11 +9,9 @@ export class _PlayerDB {
         'SELECT * FROM naf_users WHERE identifier = ? ',
         [license]
       )
-      if (res) {
-        return resolve(res)
-      }
+      if (!res) return reject()
 
-      reject('')
+      resolve(res)
     })
   }
 
@@ -24,7 +22,7 @@ export class _PlayerDB {
         [license]
       )
 
-      if (!res) return reject('')
+      if (!res) return reject()
 
       resolve(res)
     })
@@ -32,6 +30,7 @@ export class _PlayerDB {
 
   static savePlayer(naPlayer: any): Promise<any> {
     return new Promise(async (resolve, reject) => {
+      if (!naPlayer) return reject('')
       const res = await _DB.exec(
         'UPDATE naf_users SET charinfo = ?, inventory = ?, accounts = ?, position = ?, permissions = ? WHERE identifier = ?',
         [
@@ -44,7 +43,7 @@ export class _PlayerDB {
         ]
       )
 
-      if (!res) return reject('')
+      if (!res) return reject()
 
       resolve(res)
     })

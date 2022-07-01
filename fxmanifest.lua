@@ -8,7 +8,6 @@ games {
   "gta5",
 }
 
-
 client_script "rc/dist/client/client.min.js"
 server_script "rc/dist/server/server.min.js"
 

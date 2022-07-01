@@ -1,31 +1,28 @@
 import { PlayerEventsE } from '../types/events'
 import './items/index'
+import ItemsService from './items/items.service'
 ;(() => {
   const interval = setInterval(() => {
     if (NetworkIsPlayerActive(PlayerId())) {
-      ShutdownLoadingScreen()
-      ShutdownLoadingScreenNui()
       globalThis.exports.spawnmanager.setAutoSpawn(false)
       setTimeout(() => {
         emitNet(PlayerEventsE.NEW_PLAYER)
-      }, 3_000)
+      }, 1_000)
       clearInterval(interval)
     }
   }, 500)
 })()
 
 const syncPlayer = () => {
-  const naPlayer = PlayerPedId()
+  const ped = PlayerPedId()
   setInterval(() => {
-    if (naPlayer) {
-      const coords = GetEntityCoords(naPlayer, false)
-      const heading = GetEntityHeading(naPlayer)
-      emitNet(PlayerEventsE.UPDATE_COORDS, coords, heading)
-    }
-  }, 5000)
+    const coords = GetEntityCoords(ped, false)
+    const heading = GetEntityHeading(ped)
+    emitNet(PlayerEventsE.UPDATE_COORDS, coords, heading)
+  }, 2_500)
 }
 
-onNet(PlayerEventsE.PLAYER_LOADED, (naPlayer: any) => {
+on('playerSpawned', () => {
   const skin = {
     blemishes_2: 0,
     glasses_1: 0,
@@ -101,23 +98,18 @@ onNet(PlayerEventsE.PLAYER_LOADED, (naPlayer: any) => {
     pants_1: 23,
   }
 
-  globalThis.exports.spawnmanager.spawnPlayer(
-    {
-      x: naPlayer.position.x,
-      y: naPlayer.position.y,
-      z: naPlayer.position.z,
-      heading: naPlayer.position.heading,
-      model: GetHashKey('mp_m_freemode_01'),
-      skipFade: true,
-    },
-    () => {
-      if (naPlayer.skin === {}) {
-        emit('skinchanger:loadDefaultModel', naPlayer.charinfo.sex == 0)
-      } else {
-        emit('skinchanger:loadSkin', skin)
-      }
-    }
-  )
-
+  ItemsService.handlePickupsPickup()
+  emit('skinchanger:loadSkin', skin)
   syncPlayer()
+})
+
+onNet(PlayerEventsE.PLAYER_LOADED, async (naPlayer: any) => {
+  globalThis.exports.spawnmanager.spawnPlayer({
+    x: naPlayer.position.x,
+    y: naPlayer.position.y,
+    z: naPlayer.position.z,
+    heading: naPlayer.position.heading,
+    model: GetHashKey('mp_m_freemode_01'),
+    skipFade: true,
+  })
 })

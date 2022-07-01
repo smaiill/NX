@@ -1,22 +1,20 @@
 export class _Vehicle {
-  RandomVehicles: string[]
-  constructor() {
-    this.RandomVehicles = [
-      'asbo',
-      'blista',
-      'panto',
-      'sentinel',
-      'jackal',
-      'akuma',
-      'bf400',
-      'dominator',
-      'imperator',
-      'balle',
-      'mesa',
-    ]
-  }
+  RandomVehicles: ReadonlyArray<string> = [
+    'asbo',
+    'blista',
+    'panto',
+    'sentinel',
+    'jackal',
+    'akuma',
+    'bf400',
+    'dominator',
+    'imperator',
+    'balle',
+    'mesa',
+  ]
+  constructor() {}
 
-  create(model: string, cb: Function): any {
+  create(model: string, cb: Function): (number | void) {
     RequestModel(model)
     if (!IsModelAVehicle(model)) return
     const i: NodeJS.Timer = setInterval(() => {
@@ -46,7 +44,7 @@ export class _Vehicle {
     }, 500)
   }
 
-  delete(cb: Function) {
+  delete(cb: Function): void {
     const playerPed: number = PlayerPedId()
     if (IsPedInAnyVehicle(playerPed, true)) {
       const vehicle: number = GetVehiclePedIsIn(playerPed, true)
@@ -77,8 +75,7 @@ export class _Vehicle {
     SetVehicleUndriveable(vehicle, false)
   }
 
-  async random() {
-    const ped: number = PlayerPedId()
+  async random(): Promise<void> {
     const randomCar: string =
       this.RandomVehicles[
         Math.floor(Math.random() * this.RandomVehicles.length)

@@ -1,3 +1,4 @@
+import ItemsService from '../items/items.service'
 import { logger } from '../utils/logger'
 
 class _Player {
@@ -128,22 +129,82 @@ class _Player {
     return false
   }
 
-  async removeInventoryItem(itemName: string, amount: number) {
-    const item = await this.hasItem(itemName)
+  async removeInventoryItem(name: string, amount: number, cb?: Function) {
+    const item = await this.hasItem(name)
 
-    if (item) {
-      if (amount > item || amount <= 0) {
-        return
-      }
-
-      if (amount === item) {
-        delete this.inventory[itemName]
-      } else {
-        this.inventory[itemName] = (item as number) - amount
-      }
+    if (!item) {
+      return logger.error(`You dont have item ${name}`)
     }
+
+    if (amount > item || amount <= 0) {
+      return
+    }
+
+    if (amount === item) {
+      delete this.inventory[name]
+    } else {
+      this.inventory[name] = (item as number) - amount
+    }
+
+    cb && typeof cb === 'function' && cb()
+  }
+
+  async addInventoryItem(name: string, amount: number, cb?: Function) {
+    const item = ItemsService.isValidItem(name)
+    if (item) {
+      const hasItem = this.hasItem(name)
+      console.log(JSON.stringify(this.inventory))
+
+      if (hasItem) {
+        this.inventory[name] += amount
+      } else {
+        this.inventory[name] = amount
+      }
+
+      cb && typeof cb === 'function' && cb()
+    }
+  }
+
+  async addMoneyToAccount(account: string, amount: number) {
+    if (
+      account !== 'money' &&
+      account !== 'bank' &&
+      account !== 'black_money'
+    ) {
+      return logger.error('Not Valid account !')
+    }
+
+    if (amount <= 0) return
+
+    amount = ~~amount
+
+    if (account !== 'bank') {
+      this.addInventoryItem(account, amount)
+    }
+
+    this.accounts[account] += this.accounts[account] + amount
+  }
+
+  async removeAccountMoney(account: string, amount: number) {
+    const item = await this.hasItem(account)
+
+    if (
+      account !== 'money' &&
+      account !== 'bank' &&
+      account !== 'black_money'
+    ) {
+      return logger.error('not Valid Account !')
+    }
+    if (amount <= 0) return
+
+    amount = ~~amount
+
+    if (account !== 'bank') {
+      this.removeInventoryItem(account, amount)
+    }
+
+    this.accounts[account] - amount
   }
 }
 
-// {"blemishes_2":0,"glasses_1":0,"lipstick_4":0,"arms_2":0,"helmet_2":0,"face":0,"eyebrows_1":0,"sun_1":0,"sun_2":0,"eye_color":0,"eyebrows_4":0,"bags_1":0,"makeup_2":0,"decals_2":0,"skin":0,"chest_3":0,"chest_1":0,"tshirt_2":0,"beard_4":0,"hair_color_2":0,"beard_2":0,"mask_1":0,"helmet_1":-1,"hair_color_1":0,"age_2":0,"pants_2":0,"chest_2":0,"complexion_2":0,"age_1":0,"chain_1":0,"sex":0,"blush_2":0,"moles_1":0,"decals_1":0,"makeup_3":0,"mask_2":0,"bproof_2":0,"hair_1":0,"tshirt_1":0,"makeup_4":0,"beard_1":0,"blush_1":0,"bodyb_2":0,"ears_1":-1,"bracelets_1":-1,"torso_2":0,"lipstick_3":0,"beard_3":0,"complexion_1":0,"moles_2":0,"bracelets_2":0,"makeup_1":0,"ears_2":0,"bodyb_1":0,"bags_2":0,"eyebrows_2":0,"blemishes_1":0,"arms":0,"watches_2":0,"glasses_2":0,"lipstick_1":0,"hair_2":0,"shoes_1":0,"bproof_1":0,"torso_1":0,"eyebrows_3":0,"shoes_2":0,"chain_2":0,"blush_3":0,"watches_1":-1,"lipstick_2":0,"pants_1":23}
 export default _Player
