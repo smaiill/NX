@@ -47,31 +47,50 @@ class _PlayerService {
 
   private async loadPlayer(player: any, source: number): Promise<void> {
     player.charinfo = JSON.parse(player.charinfo)
-    player.inventory = JSON.parse(player.inventory)
     player.accounts = JSON.parse(player.accounts)
     player.position = JSON.parse(player.position)
 
+    if (player.inventory) {
+      player.inventory = JSON.parse(player.inventory)
+    }
+
     const naPlayerData: any = {
       inventory: {},
+      skin: {},
       weight: 0,
     }
 
-    if (Object.getOwnPropertyNames(player.inventory).length > 0) {
+    if (
+      player.inventory &&
+      Object.getOwnPropertyNames(player.inventory).length > 0
+    ) {
       let itemsWeight = 0
       for (const property in player.inventory) {
         const item = _ItemsService.isValidItem(property)
         if (item) {
-          naPlayerData.inventory[property] = Math.floor(
-            player.inventory[property]
-          )
+          naPlayerData.inventory[property] = {
+            amount: ~~player.inventory[property].amount,
+            type: item.type,
+          }
           const itemWeight =
-            player.inventory[property] * _ItemsService.getItemWeight(property)
+            player.inventory[property].amount *
+            _ItemsService.getItemWeight(property)
 
           itemsWeight += itemWeight
         }
       }
 
       naPlayerData.weight = itemsWeight
+    }
+
+    if (player.skin) {
+      naPlayerData.skin = JSON.parse(player.skin)
+    } else {
+      if (player.charinfo.sex === 'female') {
+        naPlayerData.skin = { sex: 1 }
+      } else {
+        naPlayerData.skin = { sex: 0 }
+      }
     }
 
     const naPlayer = new _Player(
@@ -95,7 +114,7 @@ class _PlayerService {
       inventory: naPlayer.inventory,
       charinfo: naPlayer.charinfo,
       permissions: naPlayer.permissions,
-      skin: player.skin ?? {},
+      skin: naPlayerData.skin,
     })
 
     _ItemsService.createMissingPickups(source)
@@ -152,8 +171,7 @@ class _PlayerService {
       HasItem: naPlayer.hasItem.bind(naPlayer),
       RemoveInventoryItem: naPlayer.removeInventoryItem.bind(naPlayer),
       AddInventoryItem: naPlayer.addInventoryItem.bind(naPlayer),
-      RemoveAccountMoney: naPlayer.removeAccountMoney.bind(naPlayer),
-      AddMoneyToAccount: naPlayer.addMoneyToAccount.bind(naPlayer)
+      EmitEvent: naPlayer.emitEvent.bind(naPlayer),
     }
   }
 }

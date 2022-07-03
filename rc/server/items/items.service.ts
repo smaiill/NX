@@ -1,6 +1,7 @@
 import { items } from '../../shared/load.file'
 import Utils from '../../shared/utils/misc'
 import { ItemsEventsE } from '../../types/events'
+import { PickupT } from '../../types/items'
 import PlayerService from '../player/player.service'
 
 export class _ItemsService {
@@ -11,12 +12,12 @@ export class _ItemsService {
     this.Pickups = []
   }
 
-  isValidItem(itemName: string): boolean {
+  isValidItem(itemName: string) {
     const item = this.Items.find((item) => item.name === itemName)
 
     if (!item) return false
 
-    return true
+    return item
   }
 
   getItemWeight(itemName: string): number {
@@ -29,7 +30,21 @@ export class _ItemsService {
     return item.weight
   }
 
-  createPickup(name: string, amount: number, coords: number[], label: string): void {
+  getItemType(name: string): any {
+    const item = this.isValidItem(name)
+
+    if (item) {
+      return item.type
+    }
+  }
+
+  createPickup(
+    name: string,
+    amount: number,
+    coords: number[],
+    label: string,
+    propsType: string
+  ): void {
     const uuid = Utils.uuid()
     this.Pickups.push({
       name,
@@ -37,9 +52,19 @@ export class _ItemsService {
       coords,
       uuid,
       label,
+      propsType,
     })
 
-    emitNet(ItemsEventsE.CREATE_PICKUP, -1, name, amount, coords, uuid, label)
+    emitNet(
+      ItemsEventsE.CREATE_PICKUP,
+      -1,
+      name,
+      amount,
+      coords,
+      uuid,
+      label,
+      propsType
+    )
   }
 
   findItem(name: string): any {
@@ -57,10 +82,12 @@ export class _ItemsService {
 
     if (naPlayer) {
       const itemInfo = await this.findItem(name)
-      const label = `${amount} ${itemInfo.label}`
+      itemInfo.label = itemInfo.label.toLowerCase()
+      const label = `~r~${amount} ~s~${itemInfo.label}`
+      const propsToCreate = itemInfo.props
       naPlayer.RemoveInventoryItem(name, amount, () => {
         const { x, y, z } = naPlayer.GetCoords()
-        this.createPickup(name, amount, [x, y, z], label)
+        this.createPickup(name, amount, [x, y, z], label, propsToCreate)
       })
     }
   }
@@ -75,23 +102,27 @@ export class _ItemsService {
     return new Promise((resolve, reject) => {
       const pickup = this.Pickups.find((pickup) => pickup.uuid === uuid)
 
-      pickup && resolve(pickup)
+      if (pickup) {
+        return resolve(pickup)
+      }
 
-      reject()
+      reject('')
     })
   }
 
   async takePickup(uuid: string, source: number): Promise<void> {
-    const pickup = await this.findPickupById(uuid)
-    if (pickup) {
-      const naPlayer = await PlayerService.getPlayer(source)
-      if (naPlayer) {
-        naPlayer.AddInventoryItem(pickup.name, pickup.amount, () => {
-          this.Pickups = this.Pickups.filter((pic) => pic.uuid !== pickup.uuid)
-          emitNet(ItemsEventsE.REMOVE_PICKUP, -1, pickup.uuid)
-        })
-      }
-    }
+    this.findPickupById(uuid)
+      .then(async (pickup: PickupT) => {
+        this.Pickups = this.Pickups.filter((pic) => pic.uuid !== pickup.uuid)
+        const naPlayer = await PlayerService.getPlayer(source)
+        if (naPlayer) {
+          console.log(naPlayer)
+          naPlayer.AddInventoryItem(pickup.name, pickup.amount, () => {
+            emitNet(ItemsEventsE.REMOVE_PICKUP, -1, pickup.uuid)
+          })
+        }
+      })
+      .catch((err) => {})
   }
 }
 

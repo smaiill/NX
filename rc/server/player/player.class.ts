@@ -1,5 +1,4 @@
 import ItemsService from '../items/items.service'
-import { logger } from '../utils/logger'
 
 class _Player {
   identifier: string
@@ -66,6 +65,14 @@ class _Player {
     return this.permissions
   }
 
+  getAccountMoney(account: string) {
+    if (!account || account !== 'bank') {
+      return
+    }
+
+    return this.accounts[account]
+  }
+
   setCoords(x: number, y: number, z: number, heading: number): void {
     if (!x || !y || !z || !heading) {
       return
@@ -96,21 +103,15 @@ class _Player {
       z: parseFloat(newCoords.z),
       heading: parseFloat(newCoords.x),
     }
+
     return
   }
 
-  getAccountMoney(account: string) {
-    if (
-      !account ||
-      (account !== 'money' && account !== 'bank' && account !== 'black_money')
-    ) {
-      return logger.error(`Trying to acces not valid account.`)
-    }
-
-    return this.accounts[account]
+  emitEvent(eventName: string, ...args: any[]) {
+    emitNet(eventName, this.source, ...args)
   }
 
-  hasItem(itemName: string): boolean | number {
+  hasItem(itemName: string): boolean | any {
     const item = this.inventory[itemName]
     if (item) {
       return item
@@ -132,78 +133,47 @@ class _Player {
   async removeInventoryItem(name: string, amount: number, cb?: Function) {
     const item = await this.hasItem(name)
 
-    if (!item) {
-      return logger.error(`You dont have item ${name}`)
-    }
+    if (!item) return
+    if (amount > item.amount || amount <= 0) return
 
-    if (amount > item || amount <= 0) {
-      return
-    }
-
-    if (amount === item) {
+    if (amount === item.amount) {
       delete this.inventory[name]
     } else {
-      this.inventory[name] = (item as number) - amount
+      this.inventory[name] = {
+        ...this.inventory[name],
+        amount: (item.amount as number) - amount,
+      }
     }
+
+    this.weight = this.weight - amount * ItemsService.getItemWeight(name)
 
     cb && typeof cb === 'function' && cb()
   }
 
   async addInventoryItem(name: string, amount: number, cb?: Function) {
-    const item = ItemsService.isValidItem(name)
-    if (item) {
-      const hasItem = this.hasItem(name)
-      console.log(JSON.stringify(this.inventory))
+    const isItemValid = ItemsService.isValidItem(name)
+    if (isItemValid) {
+      console.log(`Added item to player ${this.getName()}`)
+      const item = this.hasItem(name)
 
-      if (hasItem) {
-        this.inventory[name] += amount
+      amount = ~~amount
+
+      if (item) {
+        this.inventory[name] = {
+          ...this.inventory[name],
+          amount: item.amount + amount,
+        }
       } else {
-        this.inventory[name] = amount
+        this.inventory[name] = {
+          type: ItemsService.getItemType(name),
+          amount: amount,
+        }
       }
 
-      cb && typeof cb === 'function' && cb()
+      this.weight = this.weight + amount * ItemsService.getItemWeight(name)
+
+      cb && typeof cb === 'function' && cb(this.inventory[name])
     }
-  }
-
-  async addMoneyToAccount(account: string, amount: number) {
-    if (
-      account !== 'money' &&
-      account !== 'bank' &&
-      account !== 'black_money'
-    ) {
-      return logger.error('Not Valid account !')
-    }
-
-    if (amount <= 0) return
-
-    amount = ~~amount
-
-    if (account !== 'bank') {
-      this.addInventoryItem(account, amount)
-    }
-
-    this.accounts[account] += this.accounts[account] + amount
-  }
-
-  async removeAccountMoney(account: string, amount: number) {
-    const item = await this.hasItem(account)
-
-    if (
-      account !== 'money' &&
-      account !== 'bank' &&
-      account !== 'black_money'
-    ) {
-      return logger.error('not Valid Account !')
-    }
-    if (amount <= 0) return
-
-    amount = ~~amount
-
-    if (account !== 'bank') {
-      this.removeInventoryItem(account, amount)
-    }
-
-    this.accounts[account] - amount
   }
 }
 

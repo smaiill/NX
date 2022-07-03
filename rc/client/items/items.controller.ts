@@ -1,4 +1,6 @@
 import { ItemsEventsE } from '../../types/events'
+import { PickupT } from '../../types/items'
+
 import ItemsService from './items.service'
 
 onNet(
@@ -8,13 +10,14 @@ onNet(
     amount: number,
     coords: number[],
     uuid: string,
-    label: string
+    label: string,
+    propsType: string
   ) => {
-    ItemsService.createDrop(name, amount, coords, uuid, label)
+    ItemsService.createDrop(name, amount, coords, uuid, label, propsType)
   }
 )
 
-onNet(ItemsEventsE.CREATE_MISSING_PICKUPS, (pickups: any[]) => {
+onNet(ItemsEventsE.CREATE_MISSING_PICKUPS, (pickups: PickupT[]) => {
   ItemsService.refreshPickups(pickups)
 })
 

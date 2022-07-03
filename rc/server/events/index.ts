@@ -11,7 +11,7 @@ export class _Events {
   async onServerEvent(eventName: string, callback: Function) {
     if (!callback || typeof callback !== 'function') {
       return logger.error(
-        `Can't register event: ${eventName} callback not provided !`
+        `Can't register event: ${eventName} callback most be provided !`
       )
     }
 

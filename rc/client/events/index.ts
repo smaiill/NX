@@ -10,7 +10,7 @@ export class _Events {
   emitServerEvent(eventName: string, callback: Function, ...args: any[]) {
     if (!callback || typeof callback !== 'function') {
       return logger.error(
-        `Can't trigger event: ^2[${eventName}] ^9callback not provided !`
+        `Can't trigger event: ^2[${eventName}] ^9callback most be provided !`
       )
     }
 

@@ -1,13 +1,16 @@
 import { ItemsEventsE } from '../../types/events'
+import { PickupT } from '../../types/items'
 import MiscManager from '../class/misc'
 import ObjectManager from '../class/object'
 
 class _ItemsService {
   Pickups: any[]
-  defaultModel: string
+  pickupAnimation: string
+  pickupAnimationDict: string
   constructor() {
     this.Pickups = []
-    this.defaultModel = 'v_serv_abox_02'
+    this.pickupAnimation = 'putdown_low'
+    this.pickupAnimationDict = 'pickup_object'
   }
 
   createDrop(
@@ -15,13 +18,14 @@ class _ItemsService {
     amount: number,
     coords: number[],
     uuid: string,
-    label: string
+    label: string,
+    propsType: string
   ): void {
-    RequestModel(this.defaultModel)
+    RequestModel(propsType)
     const interval = setInterval(() => {
-      if (HasModelLoaded(this.defaultModel)) {
+      if (HasModelLoaded(propsType)) {
         const object = CreateObject(
-          this.defaultModel,
+          propsType,
           coords[0],
           coords[1],
           coords[2],
@@ -41,6 +45,7 @@ class _ItemsService {
           uuid,
           object,
           label,
+          propsType,
         })
 
         clearInterval(interval)
@@ -48,13 +53,13 @@ class _ItemsService {
     }, 500)
   }
 
-  refreshPickups(pickups: any[]): void {
+  refreshPickups(pickups: PickupT[]): void {
     pickups.forEach((pickup) => {
-      RequestModel(this.defaultModel)
+      RequestModel(pickup.propsType)
       const interval = setInterval(() => {
-        if (HasModelLoaded(this.defaultModel)) {
+        if (HasModelLoaded(pickup.propsType)) {
           const object = CreateObject(
-            this.defaultModel,
+            pickup.propsType,
             pickup.coords[0],
             pickup.coords[1],
             pickup.coords[2],
@@ -73,6 +78,7 @@ class _ItemsService {
             coords: pickup.coords,
             uuid: pickup.uuid,
             label: pickup.label,
+            propsType: pickup.propsType,
             object,
           })
 
@@ -83,13 +89,13 @@ class _ItemsService {
   }
 
   handlePickupsPickup(): void {
-    // ! I CANT OPTI THIS PART CAUSE OF FIVEM !
-    const REFRESH_TIME = 50_000
-    const player = PlayerPedId()
+    // ! I CANT OPTI THIS PART CAUSE OF FIVEM (setTick takes to much :( )) !
+    let REFRESH_TIME = 0
 
     setInterval(() => {
-      const coords = GetEntityCoords(player, false)
-      this.Pickups.forEach((pickup) => {
+      const player: number = PlayerPedId()
+      const coords: number[] = GetEntityCoords(player, false)
+      this.Pickups.forEach((pickup: PickupT) => {
         const distance = GetDistanceBetweenCoords(
           coords[0],
           coords[1],
@@ -101,27 +107,45 @@ class _ItemsService {
         )
 
         if (distance < 4) {
-          MiscManager.drawText3D(pickup.coords, pickup.label)
+          MiscManager.drawText3D(pickup.coords, pickup.label, 1, 6)
         }
 
-        if (distance < 4) {
+        if (distance < 1) {
           if (IsControlJustReleased(1, 51)) {
-            emitNet(ItemsEventsE.PICKUP_ITEM, pickup.uuid)
+            MiscManager.requestAnim(this.pickupAnimationDict, () => {
+              TaskPlayAnim(
+                player,
+                this.pickupAnimationDict,
+                this.pickupAnimation,
+                8.0,
+                1.0,
+                1000,
+                16,
+                0.0,
+                false,
+                false,
+                false
+              )
+              RemoveAnimDict(this.pickupAnimationDict)
+              setTimeout(() => {
+                emitNet(ItemsEventsE.PICKUP_ITEM, pickup.uuid)
+              }, 500)
+            })
           }
         }
       })
-    })
+    }, REFRESH_TIME)
   }
 
   findPickup(uuid: number): Promise<any> {
-    return new Promise((res, rej) => {
+    return new Promise((resolve, reject) => {
       const pickup = this.Pickups.find((pickup) => pickup.uuid === uuid)
 
       if (pickup) {
-        return res(pickup)
+        return resolve(pickup)
       }
 
-      rej()
+      reject()
     })
   }
 

@@ -1,3 +1,5 @@
+import logger from '../utils/logger'
+
 export class _Vehicle {
   RandomVehicles: ReadonlyArray<string> = [
     'asbo',
@@ -14,7 +16,17 @@ export class _Vehicle {
   ]
   constructor() {}
 
-  create(model: string, cb: Function): (number | void) {
+  create(model: string | number, cb: Function): number | void {
+    if (!model || typeof model !== 'string' || typeof model !== 'number') {
+      return logger.error(
+        'not valid params to create vehicle. [Vehicle.Create]'
+      )
+    }
+
+    if (cb && typeof cb !== 'function') {
+      return logger.error('callback must be a function. [Vehicles.Create].')
+    }
+
     RequestModel(model)
     if (!IsModelAVehicle(model)) return
     const i: NodeJS.Timer = setInterval(() => {
@@ -37,23 +49,23 @@ export class _Vehicle {
 
         clearInterval(i)
 
-        if (cb && typeof cb === 'function') {
-          cb(vehicle)
-        }
+        cb && cb()
       }
     }, 500)
   }
 
-  delete(cb: Function): void {
+  delete(cb?: Function): void {
+    if (cb && typeof cb !== 'function') {
+      return logger.error('callback must be a function. [Vehicles.Delete].')
+    }
+
     const playerPed: number = PlayerPedId()
     if (IsPedInAnyVehicle(playerPed, true)) {
       const vehicle: number = GetVehiclePedIsIn(playerPed, true)
       SetEntityAsMissionEntity(vehicle, false, true)
       DeleteVehicle(vehicle)
 
-      if (cb && typeof cb === 'function') {
-        cb()
-      }
+      cb && cb()
     }
   }
 

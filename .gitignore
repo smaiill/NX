@@ -2,6 +2,7 @@
 *.txt
 run.bat
 node_modules
+naf.logs.log
 .sql
 
 ### RC

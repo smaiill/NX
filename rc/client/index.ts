@@ -30,11 +30,13 @@ globalThis.exports('useClient', () => {
       Repair: client.Vehicles.repair.bind(client.Vehicles),
       Delete: client.Vehicles.delete.bind(client.Vehicles),
     },
-    Object: {
+    Objects: {
       Create: client.Objects.create.bind(client.Objects),
       Delete: client.Objects.delete.bind(client.Objects),
     },
     Misc: {
+      DrawText3D: client.Misc.drawText3D.bind(client.Misc),
+      RequestAnim: client.Misc.requestAnim.bind(client.Misc),
       CreatePed: client.Misc.createPed.bind(client.Misc),
       EmitServerEvent: client.Events.emitServerEvent.bind(client.Events),
     },

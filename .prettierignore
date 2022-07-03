@@ -1,2 +1,14 @@
+### ./
+*.txt
+node_modules
+naf.logs.log
+.sql
+
+### RC
 rc/node_modules
+rc/yarn-error.log
 rc/dist
+
+### UI
+ui/node_modules
+ui/dist

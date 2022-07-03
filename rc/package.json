@@ -1,7 +1,6 @@
 {
   "name": "rc",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.0",
   "scripts": {
     "watch": "webpack --mode development --watch",
     "build": "webpack --mode production"

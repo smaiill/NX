@@ -3,10 +3,15 @@ import logger from '../utils/logger'
 export class _Misc {
   constructor() {}
 
-  createPed(pedType: string, model: string, cb: Function): (number | void) {
+  createPed(pedType: number, model: string, cb?: Function): number | void {
     if (!pedType || !model) {
-      return logger.error('not valid params to draw create ped.')
+      return logger.error('not valid params to create ped. [Misc.CreatePed]')
     }
+
+    if (cb && typeof cb !== 'function') {
+      return logger.error('callback must be a function. [Misc.CreatePed].')
+    }
+
     RequestModel(model)
     if (!IsModelAPed(model)) return
     const i: NodeJS.Timer = setInterval(() => {
@@ -14,7 +19,7 @@ export class _Misc {
         const playerPed: number = PlayerPedId()
         const pos: number[] = GetEntityCoords(playerPed, true)
         const ped: number = CreatePed(
-          pedType as unknown as number,
+          pedType,
           model,
           pos[0],
           pos[1],
@@ -25,9 +30,7 @@ export class _Misc {
         )
         clearInterval(i)
 
-        if (cb && typeof cb === 'function') {
-          cb(ped)
-        }
+        cb && cb(ped)
       }
     }, 500)
   }
@@ -35,11 +38,12 @@ export class _Misc {
   drawText3D(
     coords: number[],
     text: string,
-    size: number = 1,
-    font: number = 0
+    size: number,
+    font: number,
+    color: [number, number, number] = [255, 255, 255]
   ): void {
-    if (!coords || !text) {
-      return logger.error('not valid params to draw 3D text.')
+    if (!coords || !text || !size || !font) {
+      return logger.error('not valid params to draw 3D text. [Misc.DrawText3D]')
     }
     const camCoords = GetFinalRenderedCamCoord()
     const distance = GetDistanceBetweenCoords(
@@ -58,13 +62,33 @@ export class _Misc {
 
     SetTextScale(0.0 * scale, 0.55 * scale)
     SetTextFont(font)
-    SetTextColour(255, 255, 255, 215)
+    SetTextColour(color[0], color[1], color[2], 215)
     BeginTextCommandDisplayText('STRING')
     SetTextCentre(true)
     AddTextComponentSubstringPlayerName(text)
     SetDrawOrigin(coords[0], coords[1], coords[2], 0)
     EndTextCommandDisplayText(0.0, 0.0)
     ClearDrawOrigin()
+  }
+
+  requestAnim(anim: string, cb?: Function): void {
+    if (!anim || typeof anim !== 'string') {
+      return logger.error(
+        'not valid params to load animation. [Misc.RequestAnim]'
+      )
+    }
+
+    if (cb && typeof cb !== 'function') {
+      return logger.error('callback must be a function. [Misc.RequestAnim].')
+    }
+
+    const interval = setInterval(() => {
+      RequestAnimDict(anim)
+      if (HasAnimDictLoaded(anim)) {
+        cb && cb()
+        clearInterval(interval)
+      }
+    }, 500)
   }
 }
 
