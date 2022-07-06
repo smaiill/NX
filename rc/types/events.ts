@@ -13,3 +13,7 @@ export enum ItemsEventsE {
   HANDLE_PICKUPS = 'NAF::handlePickups',
   USE_ITEM = 'NAF::useItem',
 }
+
+export interface EventE {
+  [property: string]: Function
+}

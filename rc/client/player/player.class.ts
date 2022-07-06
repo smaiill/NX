@@ -17,6 +17,10 @@ class _Player {
   getPlayerData() {
     return this.playerData
   }
+
+  setValue(key: string, value: any) {
+    return (this.playerData[key] = value)
+  }
 }
 
 const Player = new _Player()

@@ -1,14 +1,14 @@
 [
   {
     "name": "bread",
-    "label": "Pain",
+    "label": "Bread",
     "weight": 2,
     "type": "normal",
     "props": "v_ret_247_bread1"
   },
   {
     "name": "water",
-    "label": "Eau",
+    "label": "Water",
     "weight": 4,
     "type": "normal",
     "props": "prop_ld_flow_bottle"
@@ -22,49 +22,49 @@
   },
   {
     "name": "phone",
-    "label": "Telephone",
+    "label": "Phone",
     "weight": 2,
     "type": "normal",
     "props": "v_serv_abox_02"
   },
   {
     "name": "wood",
-    "label": "Rondelle de bois",
+    "label": "Wood",
     "weight": 10,
     "type": "normal",
     "props": "prop_log_af"
   },
   {
     "name": "fish",
-    "label": "Poisson",
+    "label": "Fish",
     "weight": 6,
     "type": "normal",
     "props": "v_serv_abox_02"
   },
   {
     "name": "petrol",
-    "label": "Huile",
+    "label": "Oil",
     "weight": 15,
     "type": "normal",
     "props": "v_serv_abox_02"
   },
   {
     "name": "money",
-    "label": "Argent",
+    "label": "Money",
     "weight": 1,
     "type": "money",
     "props": "prop_cash_pile_02"
   },
   {
     "name": "black_money",
-    "label": "Argent sale",
+    "label": "Black money",
     "weight": 1,
     "type": "money",
     "props": "prop_cash_pile_02"
   },
   {
     "name": "knife",
-    "label": "Couteau",
+    "label": "Knife",
     "weight": 75,
     "type": "gun",
     "props": "prop_gun_case_01"
@@ -78,21 +78,21 @@
   },
   {
     "name": "combat_pistol",
-    "label": "Pistolet de combat",
+    "label": "Combat Pistol",
     "weight": 50,
     "type": "gun",
     "props": "w_pi_heavypistol"
   },
   {
     "name": "pistol_ammo",
-    "label": "Munitions de pistol",
+    "label": "Pistol Ammo",
     "weight": 50,
     "type": "gun",
     "props": "prop_ld_ammo_pack_01"
   },
   {
     "name": "assault_ammo",
-    "label": "Munitions de fusil",
+    "label": "Assault Ammo",
     "weight": 75,
     "type": "gun",
     "props": "prop_ld_ammo_pack_03"

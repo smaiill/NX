@@ -1,13 +1,14 @@
+import { Logger } from 'winston'
 import { items } from '../../shared/load.file'
 import Utils from '../../shared/utils/misc'
 import { ItemsEventsE } from '../../types/events'
-import { PickupT } from '../../types/items'
+import { ItemT, PickupT } from '../../types/items'
 import PlayerService from '../player/player.service'
 import { logger } from '../utils/logger'
 
 export class _ItemsService {
-  Items: any[]
-  Pickups: any[]
+  Items: ItemT[]
+  Pickups: PickupT[]
   UsableItems: any
   constructor() {
     this.Items = items
@@ -15,7 +16,7 @@ export class _ItemsService {
     this.UsableItems = {}
   }
 
-  isValidItem(itemName: string) {
+  isValidItem(itemName: string): false | ItemT {
     const item = this.Items.find((item) => item.name === itemName)
 
     if (!item) return false
@@ -33,12 +34,14 @@ export class _ItemsService {
     return item.weight
   }
 
-  getItemType(name: string): any {
+  getItemType(name: string): string | null {
     const item = this.isValidItem(name)
 
     if (item) {
       return item.type
     }
+
+    return null
   }
 
   createPickup(
@@ -53,7 +56,7 @@ export class _ItemsService {
       name,
       amount,
       coords,
-      uuid,
+      uuid: uuid as string,
       label,
       propsType,
     })
@@ -70,7 +73,7 @@ export class _ItemsService {
     )
   }
 
-  findItem(name: string): any {
+  findItem(name: string): false | ItemT {
     const item = this.Items.find((item) => item.name === name)
 
     if (item) {
@@ -85,13 +88,15 @@ export class _ItemsService {
 
     if (naPlayer) {
       const itemInfo = await this.findItem(name)
-      itemInfo.label = itemInfo.label.toLowerCase()
-      const label = `~r~${amount} ~s~${itemInfo.label}`
-      const propsToCreate = itemInfo.props
-      naPlayer.RemoveInventoryItem(name, amount, () => {
-        const { x, y, z } = naPlayer.GetCoords()
-        this.createPickup(name, amount, [x, y, z], label, propsToCreate)
-      })
+      if (itemInfo) {
+        itemInfo.label = itemInfo.label.toLowerCase()
+        const label = `~r~${amount} ~s~${itemInfo.label}`
+        const propsToCreate = itemInfo.props
+        naPlayer.RemoveInventoryItem(name, amount, () => {
+          const { x, y, z } = naPlayer.GetCoords()
+          this.createPickup(name, amount, [x, y, z], label, propsToCreate)
+        })
+      }
     }
   }
 
@@ -128,11 +133,12 @@ export class _ItemsService {
       .catch((err) => {})
   }
 
-  registerUsableItem(name: string, cb: Function) {
+  registerUsableItem(name: string, cb: Function): void {
     if (!cb || typeof cb !== 'function') {
-      return logger.error(
+      logger.error(
         'function callback most be provided. [Misc.RegisterUsableItem]'
       )
+      return
     }
 
     if (this.UsableItems[name]) {
@@ -144,9 +150,10 @@ export class _ItemsService {
     this.UsableItems[name] = cb
   }
 
-  async useItem(name: string, source: number, ...args: any[]) {
+  async useItem(name: string, source: number, ...args: any[]): Promise<void> {
     if (!this.UsableItems[name]) {
-      return logger.error(`can't use item: ${name} he is not registerd.`)
+      logger.error(`can't use item: ${name} he is not registerd.`)
+      return
     }
 
     this.UsableItems[name](source, args)

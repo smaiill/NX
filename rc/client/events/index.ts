@@ -7,25 +7,25 @@ export class _Events {
     this.Events = {}
   }
 
-  emitServerEvent(eventName: string, callback: Function, ...args: any[]) {
+  emitServerEvent(eventName: string, callback: Function, ...args: any[]): void {
     if (!callback || typeof callback !== 'function') {
       return logger.error(
-        `Can't trigger event: ^2[${eventName}] ^9callback most be provided !`
+        `can't trigger event: ^2[${eventName}] ^9callback most be provided !`
       )
     }
 
     if (eventName in this.Events) {
-      logger.warn(`Event : ${eventName} already declared.`)
+      logger.warn(`event : ^2[${eventName}] ^3already declared.`)
     } else {
       this.Events[eventName] = callback
     }
 
     const randomID = Utils.uuid()
 
-    const respEventName: string = `${eventName}::${randomID}`
+    const respEventName: string = `${eventName}::NAF::${randomID}`
 
     const handleRespEvent: Function = (...args: any[]) => {
-      callback(args)
+      callback(...args)
       removeEventListener(respEventName, handleRespEvent)
     }
 

@@ -6,7 +6,7 @@ onNet(PlayerEventsE.NEW_PLAYER, () => {
   _PlayerService.newPlayer(getPlayerIdentifiers(source.toString()), source)
 })
 
-on('playerDropped', (reason: string) => {
+on('playerDropped', (reason: string): void => {
   const source = globalThis.source
   _PlayerService.playerDropped(reason, source)
 })

@@ -1,5 +1,6 @@
 import { PlayerEventsE } from '../../types/events'
 import ItemsService from '../items/items.service'
+import Player from './player.class'
 import PlayerService from './player.service'
 
 const interval = setInterval(() => {
@@ -16,8 +17,7 @@ const interval = setInterval(() => {
 }, 500)
 
 onNet(PlayerEventsE.PLAYER_LOADED, async (naPlayer: any) => {
-  ShutdownLoadingScreen()
-  ShutdownLoadingScreenNui()
+  Player.setPlayerData(naPlayer)
   globalThis.exports.spawnmanager.spawnPlayer({
     x: naPlayer.position.x,
     y: naPlayer.position.y,

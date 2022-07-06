@@ -1,4 +1,3 @@
-import { logger } from '../utils/logger'
 import { pool } from './pool'
 
 export class _DB {

@@ -1,3 +1,4 @@
+import { ItemT } from '../../types/items'
 import ItemsService from '../items/items.service'
 import JobsService from '../jobs/jobs.service'
 import { logger } from '../utils/logger'
@@ -51,11 +52,11 @@ class _Player {
     return this.identifier
   }
 
-  getCoords(): any {
+  getCoords(): number[] {
     return this.position
   }
 
-  getInventory() {
+  getInventory(): any {
     return this.inventory
   }
 
@@ -63,11 +64,11 @@ class _Player {
     return this.accounts
   }
 
-  getPermissions(): any {
+  getPermissions(): string {
     return this.permissions
   }
 
-  getJob(type: number) {
+  getJob(type: number): { name: string; grade: number } {
     let job: {
       name: string
       grade: number
@@ -89,7 +90,7 @@ class _Player {
     }
   }
 
-  getAccountMoney(account: string) {
+  getAccountMoney(account: string): number | undefined {
     if (!account || account !== 'bank') {
       return
     }
@@ -97,7 +98,7 @@ class _Player {
     return this.accounts[account]
   }
 
-  async setJob(name: string, grade: string, cb?: Function) {
+  async setJob(name: string, grade: string, cb?: Function): Promise<void> {
     const isValid = await JobsService.isValid(name, grade, 1)
 
     if (isValid) {
@@ -108,7 +109,7 @@ class _Player {
     }
   }
 
-  async setJob2(name: string, grade: string, cb?: Function) {
+  async setJob2(name: string, grade: string, cb?: Function): Promise<void> {
     const isValid = await JobsService.isValid(name, grade, 2)
 
     if (isValid) {
@@ -166,7 +167,7 @@ class _Player {
     return false
   }
 
-  getInventoryItem(itemName: string): any {
+  getInventoryItem(itemName: string): ItemT | false {
     const item = this.inventory[itemName]
 
     if (item) {
@@ -176,7 +177,11 @@ class _Player {
     return false
   }
 
-  async removeInventoryItem(name: string, amount: number, cb?: Function) {
+  async removeInventoryItem(
+    name: string,
+    amount: number,
+    cb?: Function
+  ): Promise<void> {
     const item = await this.hasItem(name)
 
     if (!item) return
@@ -196,7 +201,11 @@ class _Player {
     cb && typeof cb === 'function' && cb()
   }
 
-  async addInventoryItem(name: string, amount: number, cb?: Function) {
+  async addInventoryItem(
+    name: string,
+    amount: number,
+    cb?: Function
+  ): Promise<void> {
     const isItemValid = ItemsService.isValidItem(name)
     if (isItemValid) {
       console.log(`Added item to player ${this.getName()}`)

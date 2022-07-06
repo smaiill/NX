@@ -1,7 +1,8 @@
+import { EventE } from '../../types/events'
 import { logger } from '../utils/logger'
 
 export class _Events {
-  Events: any
+  Events: EventE
   ActiveEvents: string[]
   constructor() {
     this.Events = {}
@@ -11,7 +12,7 @@ export class _Events {
   async onServerEvent(eventName: string, callback: Function) {
     if (!callback || typeof callback !== 'function') {
       return logger.error(
-        `Can't register event: ${eventName} callback most be provided !`
+        `Can't register event: [${eventName}] callback most be provided !`
       )
     }
 

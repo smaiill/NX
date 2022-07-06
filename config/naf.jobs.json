@@ -6,7 +6,7 @@
     "grades": [
       {
         "name": "unemployed",
-        "label": "unemployed",
+        "label": "Unemployed",
         "salary": 0,
         "skin": {
           "male": {},
@@ -22,7 +22,7 @@
     "grades": [
       {
         "name": "unemployed",
-        "label": "unemployed",
+        "label": "Unemployed",
         "salary": 0,
         "skin": {
           "male": {},
@@ -38,7 +38,7 @@
     "grades": [
       {
         "name": "medic",
-        "label": "Medcin",
+        "label": "Medic",
         "salary": 100,
         "skin": {
           "male": {},
@@ -47,7 +47,7 @@
       },
       {
         "name": "boss",
-        "label": "Chirurgien en chef.",
+        "label": "Medic Chef.",
         "salary": 500,
         "skin": {
           "male": {},
@@ -63,7 +63,7 @@
     "grades": [
       {
         "name": "officer",
-        "label": "Officier",
+        "label": "Officer I",
         "salary": 100,
         "skin": {
           "male": {},
@@ -72,7 +72,7 @@
       },
       {
         "name": "boss",
-        "label": "Commandant",
+        "label": "Commander",
         "salary": 500,
         "skin": {
           "male": {},

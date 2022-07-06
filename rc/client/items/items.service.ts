@@ -4,7 +4,7 @@ import MiscManager from '../class/misc'
 import ObjectManager from '../class/object'
 
 class _ItemsService {
-  Pickups: any[]
+  Pickups: PickupT[]
   pickupAnimation: string
   pickupAnimationDict: string
   constructor() {
@@ -22,7 +22,7 @@ class _ItemsService {
     propsType: string
   ): void {
     RequestModel(propsType)
-    const interval = setInterval(() => {
+    const interval: NodeJS.Timer = setInterval(() => {
       if (HasModelLoaded(propsType)) {
         const object = CreateObject(
           propsType,
@@ -139,7 +139,9 @@ class _ItemsService {
 
   findPickup(uuid: number): Promise<any> {
     return new Promise((resolve, reject) => {
-      const pickup = this.Pickups.find((pickup) => pickup.uuid === uuid)
+      const pickup = this.Pickups.find(
+        (pickup) => (pickup.uuid as unknown) === uuid
+      )
 
       if (pickup) {
         return resolve(pickup)

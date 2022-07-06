@@ -4,6 +4,7 @@ node_modules
 naf.logs.log
 .sql
 run.bat
+dist
 
 ### RC
 rc/node_modules

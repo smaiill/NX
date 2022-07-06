@@ -8,8 +8,8 @@ games {
   "gta5",
 }
 
-client_script "rc/dist/client/client.min.js"
-server_script "rc/dist/server/server.min.js"
+client_script "dist/client/client.min.js"
+server_script "dist/server/server.min.js"
 
 shared_scripts {
   'rc/shared/load.file.ts',

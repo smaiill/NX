@@ -4,7 +4,7 @@ import { logger } from '../utils/logger'
 class _BootService {
   constructor() {}
 
-  checkDatabaseConnection() {
+  checkDatabaseConnection(): void {
     _DB
       .exec('SELECT now()')
       .then(() => {
@@ -15,7 +15,7 @@ class _BootService {
       })
   }
 
-  checkResource() {
+  checkResource(): void {
     this.checkDatabaseConnection()
     // this.checkIsServerOpen()
   }
