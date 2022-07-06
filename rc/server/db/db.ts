@@ -11,7 +11,6 @@ export class _DB {
         return resolve(res)
       } catch (e) {
         reject(e)
-        logger.error(`DB: ${e}`)
       }
     })
   }

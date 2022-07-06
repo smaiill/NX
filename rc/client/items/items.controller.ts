@@ -21,6 +21,8 @@ onNet(ItemsEventsE.CREATE_MISSING_PICKUPS, (pickups: PickupT[]) => {
   ItemsService.refreshPickups(pickups)
 })
 
+on(ItemsEventsE.HANDLE_PICKUPS, () => {})
+
 onNet(ItemsEventsE.REMOVE_PICKUP, (uuid: number) => {
   ItemsService.removePickup(uuid)
 })

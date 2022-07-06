@@ -1,4 +1,5 @@
 import Player from './player/player.service'
+import Items from './items/items.service'
 import Events from './events'
 import './player/index'
 import './items/index'
@@ -7,9 +8,11 @@ import './boot'
 class Server {
   Players: typeof Player
   Events: typeof Events
+  Items: typeof Items
   constructor() {
     this.Players = Player
     this.Events = Events
+    this.Items = Items
   }
 }
 
@@ -23,6 +26,7 @@ globalThis.exports('useServer', () => {
     },
 
     Misc: {
+      RegisterUsableItem: server.Items.registerUsableItem.bind(server.Items),
       OnServerEvent: server.Events.onServerEvent.bind(server.Events),
     },
   }

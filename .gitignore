@@ -1,9 +1,9 @@
 ### ./
 *.txt
-run.bat
 node_modules
 naf.logs.log
 .sql
+run.bat
 
 ### RC
 rc/node_modules

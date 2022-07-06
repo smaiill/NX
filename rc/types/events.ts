@@ -10,4 +10,6 @@ export enum ItemsEventsE {
   CREATE_MISSING_PICKUPS = 'NAF::createMissingPickups',
   PICKUP_ITEM = 'NAF::pickupItem',
   REMOVE_PICKUP = 'NAF::removePickup',
+  HANDLE_PICKUPS = 'NAF::handlePickups',
+  USE_ITEM = 'NAF::useItem',
 }

@@ -1,4 +1,6 @@
 import ItemsService from '../items/items.service'
+import JobsService from '../jobs/jobs.service'
+import { logger } from '../utils/logger'
 
 class _Player {
   identifier: string
@@ -65,12 +67,56 @@ class _Player {
     return this.permissions
   }
 
+  getJob(type: number) {
+    let job: {
+      name: string
+      grade: number
+    } = {
+      name: 'unemployed',
+      grade: 0,
+    }
+    switch (type) {
+      case 1:
+        job.name = this.charinfo.job
+        job.grade = this.charinfo.job_grade
+        return job
+      case 2:
+        job.name = this.charinfo.job2
+        job.grade = this.charinfo.job2_grade
+        return job
+      default:
+        return job
+    }
+  }
+
   getAccountMoney(account: string) {
     if (!account || account !== 'bank') {
       return
     }
 
     return this.accounts[account]
+  }
+
+  async setJob(name: string, grade: string, cb?: Function) {
+    const isValid = await JobsService.isValid(name, grade, 1)
+
+    if (isValid) {
+      this.charinfo.job = name
+      this.charinfo.job_grade = grade
+
+      cb && cb()
+    }
+  }
+
+  async setJob2(name: string, grade: string, cb?: Function) {
+    const isValid = await JobsService.isValid(name, grade, 2)
+
+    if (isValid) {
+      this.charinfo.job2 = name
+      this.charinfo.job2_grade = grade
+
+      cb && cb()
+    }
   }
 
   setCoords(x: number, y: number, z: number, heading: number): void {

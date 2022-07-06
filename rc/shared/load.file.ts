@@ -15,3 +15,12 @@ export const items = (() => {
 
   return items
 })()
+
+export const jobs = (() => {
+  const resourceName = GetCurrentResourceName()
+  const jobs = JSON.parse(
+    LoadResourceFile(resourceName, 'config/naf.jobs.json')
+  )
+
+  return jobs
+})()

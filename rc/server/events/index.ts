@@ -16,7 +16,8 @@ export class _Events {
     }
 
     const eventHandler = (respEventName: string, ...args: any[]) => {
-      this.Events[eventName](...args, (...respArgs: any[]) => {
+      const source = globalThis.source
+      this.Events[eventName](source, ...args, (...respArgs: any[]) => {
         emitNet(respEventName, globalThis.source, ...respArgs)
       })
     }

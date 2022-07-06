@@ -1,4 +1,5 @@
-import './main'
+import './player/index'
+import './items/index'
 import Object from './class/object'
 import Vehicle from './class/vehicle'
 import Misc from './class/misc'
@@ -24,6 +25,10 @@ const client = new Client()
 
 globalThis.exports('useClient', () => {
   return {
+    Player: {
+      HasLoaded: client.Player.hasLoaded.bind(client.Player),
+      GetPlayerData: client.Player.getPlayerData.bind(client.Player),
+    },
     Vehicles: {
       Create: client.Vehicles.create.bind(client.Vehicles),
       Random: client.Vehicles.random.bind(client.Vehicles),

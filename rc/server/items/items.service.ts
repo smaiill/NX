@@ -3,13 +3,16 @@ import Utils from '../../shared/utils/misc'
 import { ItemsEventsE } from '../../types/events'
 import { PickupT } from '../../types/items'
 import PlayerService from '../player/player.service'
+import { logger } from '../utils/logger'
 
 export class _ItemsService {
   Items: any[]
   Pickups: any[]
+  UsableItems: any
   constructor() {
     this.Items = items
     this.Pickups = []
+    this.UsableItems = {}
   }
 
   isValidItem(itemName: string) {
@@ -123,6 +126,30 @@ export class _ItemsService {
         }
       })
       .catch((err) => {})
+  }
+
+  registerUsableItem(name: string, cb: Function) {
+    if (!cb || typeof cb !== 'function') {
+      return logger.error(
+        'function callback most be provided. [Misc.RegisterUsableItem]'
+      )
+    }
+
+    if (this.UsableItems[name]) {
+      logger.warn(
+        `item: [${name}] has already being registerd. [MISC.RegisterUsableItem]`
+      )
+    }
+
+    this.UsableItems[name] = cb
+  }
+
+  async useItem(name: string, source: number, ...args: any[]) {
+    if (!this.UsableItems[name]) {
+      return logger.error(`can't use item: ${name} he is not registerd.`)
+    }
+
+    this.UsableItems[name](source, args)
   }
 }
 

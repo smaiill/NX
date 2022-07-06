@@ -9,6 +9,7 @@
     "fx_version",
     "shared_scripts",
     "files",
-    "ui_page"
+    "ui_page",
+    "client_scripts"
   ]
 }

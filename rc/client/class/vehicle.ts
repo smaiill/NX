@@ -17,7 +17,7 @@ export class _Vehicle {
   constructor() {}
 
   create(model: string | number, cb: Function): number | void {
-    if (!model || typeof model !== 'string' || typeof model !== 'number') {
+    if (!model || (typeof model !== 'string' && typeof model !== 'number')) {
       return logger.error(
         'not valid params to create vehicle. [Vehicle.Create]'
       )
@@ -27,8 +27,11 @@ export class _Vehicle {
       return logger.error('callback must be a function. [Vehicles.Create].')
     }
 
+    if (!IsModelAVehicle(model)) {
+      return logger.error('model provided is not a vehicle. [Vehicles.Create].')
+    }
+
     RequestModel(model)
-    if (!IsModelAVehicle(model)) return
     const i: NodeJS.Timer = setInterval(() => {
       if (HasModelLoaded(model)) {
         const playerPed: number = PlayerPedId()

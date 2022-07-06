@@ -166,8 +166,10 @@ class _PlayerService {
       GetInventory: naPlayer.getInventory.bind(naPlayer),
       GetAccounts: naPlayer.getAccounts.bind(naPlayer),
       GetPermissions: naPlayer.getPermissions.bind(naPlayer),
+      GetJob: naPlayer.getJob.bind(naPlayer),
       GetInventoryItem: naPlayer.getInventoryItem.bind(naPlayer),
       SetCoords: naPlayer.setCoords.bind(naPlayer),
+      SetJob: naPlayer.setJob.bind(naPlayer),
       HasItem: naPlayer.hasItem.bind(naPlayer),
       RemoveInventoryItem: naPlayer.removeInventoryItem.bind(naPlayer),
       AddInventoryItem: naPlayer.addInventoryItem.bind(naPlayer),
@@ -175,8 +177,6 @@ class _PlayerService {
     }
   }
 }
-
-// 644270566e360a57fd3810d581e6e46773250193
 
 const PlayerService = new _PlayerService()
 export default PlayerService

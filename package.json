@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "repository": "https://github.com/niiyy/NAF.git",
   "author": "niiyy & af0xz",
-  "license": "",
+  "license": "CC-BY-NC-SA-4.0",
   "scripts": {
     "format": "prettier --write ."
   },
