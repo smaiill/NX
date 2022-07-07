@@ -208,7 +208,6 @@ class _Player {
   ): Promise<void> {
     const isItemValid = ItemsService.isValidItem(name)
     if (isItemValid) {
-      console.log(`Added item to player ${this.getName()}`)
       const item = this.hasItem(name)
 
       amount = ~~amount

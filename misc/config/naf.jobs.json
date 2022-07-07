@@ -1,0 +1,84 @@
+[
+  {
+    "name": "unemployed",
+    "label": "Unemployed",
+    "type": 1,
+    "grades": [
+      {
+        "name": "unemployed",
+        "label": "Unemployed",
+        "salary": 0,
+        "skin": {
+          "male": {},
+          "female": {}
+        }
+      }
+    ]
+  },
+  {
+    "name": "unemployed2",
+    "label": "Unemployed",
+    "type": 2,
+    "grades": [
+      {
+        "name": "unemployed",
+        "label": "Unemployed",
+        "salary": 0,
+        "skin": {
+          "male": {},
+          "female": {}
+        }
+      }
+    ]
+  },
+  {
+    "name": "ambulance",
+    "label": "Ambulance",
+    "type": 1,
+    "grades": [
+      {
+        "name": "medic",
+        "label": "Medic",
+        "salary": 100,
+        "skin": {
+          "male": {},
+          "female": {}
+        }
+      },
+      {
+        "name": "boss",
+        "label": "Medic Chef.",
+        "salary": 500,
+        "skin": {
+          "male": {},
+          "female": {}
+        }
+      }
+    ]
+  },
+  {
+    "name": "police",
+    "label": "LSPD",
+    "type": 1,
+    "grades": [
+      {
+        "name": "officer",
+        "label": "Officer I",
+        "salary": 100,
+        "skin": {
+          "male": {},
+          "female": {}
+        }
+      },
+      {
+        "name": "boss",
+        "label": "Commander",
+        "salary": 500,
+        "skin": {
+          "male": {},
+          "female": {}
+        }
+      }
+    ]
+  }
+]

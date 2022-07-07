@@ -3,6 +3,7 @@
 node_modules
 naf.logs.log
 .sql
+dist
 
 ### RC
 rc/node_modules

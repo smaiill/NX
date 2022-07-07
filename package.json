@@ -5,7 +5,8 @@
   "author": "niiyy & af0xz",
   "license": "CC-BY-NC-SA-4.0",
   "scripts": {
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "build": "node build"
   },
   "devDependencies": {
     "prettier": "^2.7.1"
