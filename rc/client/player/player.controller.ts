@@ -18,28 +18,20 @@ const interval = setInterval(() => {
 
 onNet(PlayerEventsE.PLAYER_LOADED, async (naPlayer: any) => {
   Player.setPlayerData(naPlayer)
-  globalThis.exports.spawnmanager.spawnPlayer({
-    x: naPlayer.position.x,
-    y: naPlayer.position.y,
-    z: naPlayer.position.z,
-    heading: naPlayer.position.heading,
-    model: GetHashKey('mp_m_freemode_01'),
-    skipFade: true,
-  })
-
-  setTimeout(() => {
-    SetEntityCoordsNoOffset(
-      PlayerPedId(),
-      naPlayer.position.x,
-      naPlayer.position.y,
-      naPlayer.position.z,
-      true,
-      false,
-      true
-    )
-
-    emit('skinchanger:loadSkin', naPlayer.skin)
-    ItemsService.handlePickupsPickup()
-    PlayerService.syncPlayer()
-  }, 500)
+  Player.loaded = true
+  globalThis.exports.spawnmanager.spawnPlayer(
+    {
+      x: naPlayer.position.x,
+      y: naPlayer.position.y,
+      z: naPlayer.position.z,
+      heading: naPlayer.position.heading,
+      model: GetHashKey('mp_m_freemode_01'),
+      skipFade: true,
+    },
+    function () {
+      emit('skinchanger:loadSkin', naPlayer.skin)
+      ItemsService.handlePickupsPickup()
+      PlayerService.syncPlayer()
+    }
+  )
 })

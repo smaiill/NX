@@ -17,7 +17,7 @@ class _BootService {
 
   checkResource(): void {
     this.checkDatabaseConnection()
-    // this.checkIsServerOpen()
+    // this.checkResourceVersion()
   }
 }
 

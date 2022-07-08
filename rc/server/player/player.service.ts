@@ -171,8 +171,8 @@ class _PlayerService {
       SetCoords: naPlayer.setCoords.bind(naPlayer),
       SetJob: naPlayer.setJob.bind(naPlayer),
       HasItem: naPlayer.hasItem.bind(naPlayer),
-      AddItem: naPlayer.removeInventoryItem.bind(naPlayer),
-      RemoveItem: naPlayer.addInventoryItem.bind(naPlayer),
+      RemoveItem: naPlayer.removeInventoryItem.bind(naPlayer),
+      AddItem: naPlayer.addInventoryItem.bind(naPlayer),
       EmitEvent: naPlayer.emitEvent.bind(naPlayer),
     }
   }

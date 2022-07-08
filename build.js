@@ -26,10 +26,10 @@ process.exec('cd rc && yarn build', (error, stdout, stderr) => {
       )
     }
     fs.mkdirSync(configDir)
-    fs.readdirSync(path.resolve(__dirname, 'misc/config')).forEach(
+    fs.readdirSync(path.resolve(__dirname, 'config')).forEach(
       async (configFile) => {
         fs.readFile(
-          path.resolve(__dirname, `misc/config/${configFile}`),
+          path.resolve(__dirname, `config/${configFile}`),
           'utf8',
           (err, data) => {
             if (err) {
