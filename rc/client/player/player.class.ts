@@ -1,3 +1,5 @@
+import Logger from '../utils/logger'
+
 class _Player {
   loaded: boolean
   playerData: any
@@ -20,6 +22,14 @@ class _Player {
 
   setValue(key: string, value: any) {
     return (this.playerData[key] = value)
+  }
+
+  setStatus(key: string, value: number) {
+    if (key !== 'hunger' && key !== 'thirst') {
+      return
+    }
+
+    return (this.playerData.charinfo[key] = value)
   }
 }
 

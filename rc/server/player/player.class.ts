@@ -1,3 +1,4 @@
+import { InventoryEeventsE, JobsEventsE } from '../../types/events'
 import { ItemT } from '../../types/items'
 import ItemsService from '../items/items.service'
 import JobsService from '../jobs/jobs.service'
@@ -68,6 +69,26 @@ class _Player {
     return this.permissions
   }
 
+  getBloodType(): string {
+    return this.charinfo.blood_type
+  }
+
+  getThirst(): number {
+    return parseFloat(this.charinfo.thirst)
+  }
+
+  getHunger(): number {
+    return parseFloat(this.charinfo.hunger)
+  }
+
+  setThirst(value: number): void {
+    this.charinfo.thirst = value
+  }
+
+  setHunger(value: number): void {
+    this.charinfo.hunger = value
+  }
+
   getJob(type: number): { name: string; grade: number } {
     let job: {
       name: string
@@ -105,6 +126,7 @@ class _Player {
       this.charinfo.job = name
       this.charinfo.job_grade = grade
 
+      this.emitEvent(JobsEventsE.JOB_UPDATED, { job: name, job_grade: grade })
       cb && cb()
     }
   }
@@ -116,6 +138,7 @@ class _Player {
       this.charinfo.job2 = name
       this.charinfo.job2_grade = grade
 
+      this.emitEvent(JobsEventsE.JOB2_UPDATED, { job: name, job_grade: grade })
       cb && cb()
     }
   }
@@ -198,6 +221,13 @@ class _Player {
 
     this.weight = this.weight - amount * ItemsService.getItemWeight(name)
 
+    this.emitEvent(InventoryEeventsE.ITEM_REMOVED, {
+      weight: this.weight,
+      item: {
+        name,
+        amount,
+      },
+    })
     cb && typeof cb === 'function' && cb()
   }
 
@@ -225,7 +255,13 @@ class _Player {
       }
 
       this.weight = this.weight + amount * ItemsService.getItemWeight(name)
-
+      this.emitEvent(InventoryEeventsE.ITEM_ADDED, {
+        weight: this.weight,
+        item: {
+          name,
+          amount,
+        },
+      })
       cb && typeof cb === 'function' && cb(this.inventory[name])
     }
   }

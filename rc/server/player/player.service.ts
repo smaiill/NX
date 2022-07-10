@@ -1,5 +1,5 @@
 import { _PlayerDB } from './player.db'
-import { _PlayerUtils } from './player.utils'
+import PlayerUtils from './player.utils'
 import _Player from './player.class'
 import { PlayerEventsE } from '../../types/events'
 import _ItemsService from '../items/items.service'
@@ -13,7 +13,7 @@ class _PlayerService {
   }
 
   async newPlayer(identifiers: string[], source: number): Promise<void> {
-    const license = await _PlayerUtils.getPlayerLicense(identifiers)
+    const license = await PlayerUtils.getPlayerLicense(identifiers)
     if (!license) return
     const [player] = await _PlayerDB.getPlayerFromDB(license)
     if (player) {
@@ -49,6 +49,8 @@ class _PlayerService {
     player.charinfo = JSON.parse(player.charinfo)
     player.accounts = JSON.parse(player.accounts)
     player.position = JSON.parse(player.position)
+
+    console.log(player.charinfo)
 
     if (player.inventory) {
       player.inventory = JSON.parse(player.inventory)
@@ -166,10 +168,15 @@ class _PlayerService {
       GetInventory: naPlayer.getInventory.bind(naPlayer),
       GetAccounts: naPlayer.getAccounts.bind(naPlayer),
       GetPermissions: naPlayer.getPermissions.bind(naPlayer),
+      GetBloodType: naPlayer.getBloodType.bind(naPlayer),
+      GetThirst: naPlayer.getThirst.bind(naPlayer),
+      GetHunger: naPlayer.getHunger.bind(naPlayer),
       GetJob: naPlayer.getJob.bind(naPlayer),
       GetInventoryItem: naPlayer.getInventoryItem.bind(naPlayer),
       SetCoords: naPlayer.setCoords.bind(naPlayer),
       SetJob: naPlayer.setJob.bind(naPlayer),
+      SetThirst: naPlayer.setThirst.bind(naPlayer),
+      SetHunger: naPlayer.setHunger.bind(naPlayer),
       HasItem: naPlayer.hasItem.bind(naPlayer),
       RemoveItem: naPlayer.removeInventoryItem.bind(naPlayer),
       AddItem: naPlayer.addInventoryItem.bind(naPlayer),

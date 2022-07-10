@@ -7,11 +7,9 @@ const interval = setInterval(() => {
   const ped = PlayerId()
   if (NetworkIsPlayerActive(ped)) {
     globalThis.exports.spawnmanager.setAutoSpawn(false)
-    setTimeout(() => {
-      emitNet(PlayerEventsE.NEW_PLAYER)
-      SetCanAttackFriendly(ped, true, false)
-      NetworkSetFriendlyFireOption(true)
-    }, 1_000)
+    emitNet(PlayerEventsE.NEW_PLAYER)
+    SetCanAttackFriendly(ped, true, false)
+    NetworkSetFriendlyFireOption(true)
     clearInterval(interval)
   }
 }, 500)
@@ -28,7 +26,7 @@ onNet(PlayerEventsE.PLAYER_LOADED, async (naPlayer: any) => {
       model: GetHashKey('mp_m_freemode_01'),
       skipFade: true,
     },
-    function () {
+    () => {
       emit('skinchanger:loadSkin', naPlayer.skin)
       ItemsService.handlePickupsPickup()
       PlayerService.syncPlayer()

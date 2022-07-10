@@ -1,5 +1,7 @@
+import { randomUUID } from 'node:crypto'
 import { _DB } from '../db/db'
-
+import PlayerUtils from './player.utils'
+// firstname:"",lastname:"",dob:"",nationality:"",height:0,sex:"",job:"unemployed",job_grade:0,job2:"unemployed2",job2_grade:0
 export class _PlayerDB {
   constructor() {}
 
@@ -17,9 +19,27 @@ export class _PlayerDB {
 
   static createPlayer(license: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
+      const bloodType = await PlayerUtils.generateBloodType()
       const res = await _DB.exec(
-        'INSERT INTO naf_users (identifier) VALUES (?)',
-        [license]
+        'INSERT INTO naf_users (identifier, charinfo) VALUES (?, ?)',
+        [
+          license,
+          JSON.stringify({
+            firstname: '',
+            lastname: '',
+            dob: '',
+            nationality: '',
+            height: 0,
+            sex: '',
+            job: 'unemployed',
+            job_grade: 0,
+            job2: 'unemployed2',
+            job2_grade: 0,
+            hunger: 100,
+            thirst: 100,
+            blood_type: bloodType,
+          }),
+        ]
       )
 
       if (!res) return reject()
@@ -49,3 +69,5 @@ export class _PlayerDB {
     })
   }
 }
+
+// '{"firstname":"","lastname":"","dob":"","nationality":"","height":0,"sex":"","job":"unemployed","job_grade":0,"job2":"unemployed2","job2_grade":0}'

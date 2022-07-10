@@ -1,4 +1,5 @@
 import { PlayerEventsE } from '../../types/events'
+import PlayerService from './player.service'
 import _PlayerService from './player.service'
 
 onNet(PlayerEventsE.NEW_PLAYER, () => {
@@ -18,6 +19,18 @@ onNet(
     const naPlayer = await _PlayerService.getPlayer(source)
     if (naPlayer) {
       naPlayer.SetCoords(coords[0], coords[1], coords[2], heading)
+    }
+  }
+)
+
+onNet(
+  PlayerEventsE.UPDATE_STATUS,
+  async ({ thirst, hunger }: { thirst: number; hunger: number }) => {
+    const source = globalThis.source
+    const naPlayer = await PlayerService.getPlayer(source)
+    if (naPlayer) {
+      naPlayer.SetHunger(hunger)
+      naPlayer.SetThirst(thirst)
     }
   }
 )
