@@ -44,6 +44,10 @@ class _PlayerService {
       })
   }
 
+  async savePlayers() {
+    // TODO: Save interval to save all players.
+  }
+
   private async loadPlayer(player: any, source: number): Promise<void> {
     player.charinfo = JSON.parse(player.charinfo)
     player.accounts = JSON.parse(player.accounts)

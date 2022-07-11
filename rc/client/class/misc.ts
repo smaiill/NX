@@ -65,6 +65,7 @@ export class _Misc {
     SetTextColour(color[0], color[1], color[2], 215)
     BeginTextCommandDisplayText('STRING')
     SetTextCentre(true)
+    SetTextOutline()
     AddTextComponentSubstringPlayerName(text)
     SetDrawOrigin(coords[0], coords[1], coords[2], 0)
     EndTextCommandDisplayText(0.0, 0.0)

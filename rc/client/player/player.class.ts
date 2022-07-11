@@ -1,3 +1,4 @@
+import { PlayerEventsE } from '../../types/events'
 import Logger from '../utils/logger'
 
 class _Player {
@@ -29,7 +30,19 @@ class _Player {
       return
     }
 
-    return (this.playerData.charinfo[key] = value)
+    if (value > 100) value = 100
+
+    this.playerData.charinfo[key] = value
+
+    emit(PlayerEventsE.STATUS_UPDATED, {
+      hunger: this.playerData.charinfo.hunger,
+      thirst: this.playerData.charinfo.thirst,
+    })
+
+    emitNet(PlayerEventsE.UPDATE_STATUS, {
+      hunger: this.playerData.charinfo.hunger,
+      thirst: this.playerData.charinfo.thirst,
+    })
   }
 }
 

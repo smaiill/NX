@@ -16,18 +16,8 @@ class _PlayerService {
   syncPlayerStatus() {
     setInterval(() => {
       const naPlayerData = Player.getPlayerData()
-
       Player.setStatus('thirst', parseFloat(naPlayerData.charinfo.thirst) - 0.4)
       Player.setStatus('hunger', parseFloat(naPlayerData.charinfo.hunger) - 0.4)
-
-      emit(PlayerEventsE.STATUS_UPDATED, {
-        hunger: naPlayerData.charinfo.hunger,
-        thirst: naPlayerData.charinfo.thirst,
-      })
-      emitNet(PlayerEventsE.UPDATE_STATUS, {
-        hunger: naPlayerData.charinfo.hunger,
-        thirst: naPlayerData.charinfo.thirst,
-      })
     }, 30_000)
   }
   syncPlayer() {

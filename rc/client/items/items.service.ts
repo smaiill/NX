@@ -106,8 +106,9 @@ class _ItemsService {
           true
         )
 
+        // 2- 4 - 8 - 9
         if (distance < 4) {
-          MiscManager.drawText3D(pickup.coords, pickup.label, 1, 6)
+          MiscManager.drawText3D(pickup.coords, pickup.label, 1, 2)
         }
 
         if (distance < 1) {

@@ -1,12 +1,12 @@
 fx_version "cerulean"
+game 'gta5'
 
+name 'NAF'
 description "FiveM framework."
+repository 'https://github.com/niiyy/NAF'
 author "niiyy"
-version '1.0.0'
+version '0.0.1'
 
-games {
-  "gta5",
-}
 
 client_script "dist/client/client.min.js"
 server_script "dist/server/server.min.js"
@@ -19,3 +19,5 @@ files {
   'config/*.json',
   'ui/dist/**/*'
 }
+
+

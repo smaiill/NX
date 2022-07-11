@@ -4,6 +4,7 @@ export enum PlayerEventsE {
   UPDATE_COORDS = 'NAF::updateCoords',
   UPDATE_STATUS = 'NAF::updateStatus',
   STATUS_UPDATED = 'NAF::statusUpdated',
+  ADD_STATUS = 'NAF::addStatus',
 }
 
 export enum ItemsEventsE {

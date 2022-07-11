@@ -2,7 +2,6 @@
   "Lua.diagnostics.globals": [
     "server_script",
     "client_script",
-    "games",
     "version",
     "author",
     "description",
@@ -10,6 +9,9 @@
     "shared_scripts",
     "files",
     "ui_page",
-    "client_scripts"
+    "client_scripts",
+    "game",
+    "name",
+    "repository"
   ]
 }

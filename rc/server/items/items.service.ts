@@ -90,9 +90,9 @@ export class _ItemsService {
       const itemInfo = await this.findItem(name)
       if (itemInfo) {
         itemInfo.label = itemInfo.label.toLowerCase()
-        const label = `~r~${amount} ~s~${itemInfo.label}`
+        const label = `~s~${itemInfo.label} ~g~${amount}`
         const propsToCreate = itemInfo.props
-        naPlayer.RemoveInventoryItem(name, amount, () => {
+        naPlayer.RemoveItem(name, amount, () => {
           const { x, y, z } = naPlayer.GetCoords()
           this.createPickup(name, amount, [x, y, z], label, propsToCreate)
         })
@@ -124,8 +124,7 @@ export class _ItemsService {
         this.Pickups = this.Pickups.filter((pic) => pic.uuid !== pickup.uuid)
         const naPlayer = await PlayerService.getPlayer(source)
         if (naPlayer) {
-          console.log(naPlayer)
-          naPlayer.AddInventoryItem(pickup.name, pickup.amount, () => {
+          naPlayer.AddItem(pickup.name, pickup.amount, () => {
             emitNet(ItemsEventsE.REMOVE_PICKUP, -1, pickup.uuid)
           })
         }

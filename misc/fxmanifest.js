@@ -3,7 +3,7 @@ fx_version "cerulean"
 
 description "FiveM framework."
 author "niiyy"
-version '1.0.0'
+version '0.0.1'
 
 games {
   "gta5",

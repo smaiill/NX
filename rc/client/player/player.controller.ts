@@ -14,6 +14,17 @@ const interval = setInterval(() => {
   }
 }, 500)
 
+onNet(
+  PlayerEventsE.ADD_STATUS,
+  ({ status, amount }: { status: string; amount: number }) => {
+    if (status !== 'thirst' && status !== 'hunger') {
+      return
+    }
+    const naPlayerData = Player.getPlayerData()
+    Player.setStatus(status, parseFloat(naPlayerData.charinfo[status]) + amount)
+  }
+)
+
 onNet(PlayerEventsE.PLAYER_LOADED, async (naPlayer: any) => {
   Player.setPlayerData(naPlayer)
   Player.loaded = true
