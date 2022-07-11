@@ -1,4 +1,5 @@
 import { PlayerEventsE } from '../../types/events'
+import DeferralsService from '../services/defferals.service'
 import PlayerService from './player.service'
 import _PlayerService from './player.service'
 
@@ -6,6 +7,20 @@ onNet(PlayerEventsE.NEW_PLAYER, () => {
   const source = globalThis.source
   _PlayerService.newPlayer(getPlayerIdentifiers(source.toString()), source)
 })
+
+on(
+  'playerConnecting',
+  (playerName: string, reject: Function, deferrals: any): void => {
+    const source = globalThis.source
+    DeferralsService.validatePlayer(
+      source,
+      playerName,
+      getPlayerIdentifiers(source.toString()),
+      deferrals,
+      reject
+    )
+  }
+)
 
 on('playerDropped', (reason: string): void => {
   const source = globalThis.source

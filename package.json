@@ -2,7 +2,7 @@
   "name": "naf",
   "version": "0.0.1",
   "repository": "https://github.com/niiyy/NAF.git",
-  "author": "niiyy & af0xz",
+  "author": "niiyy",
   "license": "CC-BY-NC-SA-4.0",
   "scripts": {
     "format": "prettier --write .",

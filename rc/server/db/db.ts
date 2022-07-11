@@ -13,4 +13,16 @@ export class _DB {
       }
     })
   }
+
+  static findAll(table: string): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const query = `SELECT * FROM ${table}`
+        const res = await pool?.execute(query)
+        if (res) return resolve(res[0])
+      } catch (e) {
+        reject(e)
+      }
+    })
+  }
 }

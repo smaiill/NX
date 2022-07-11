@@ -14,7 +14,6 @@ class _PlayerService {
 
   async newPlayer(identifiers: string[], source: number): Promise<void> {
     const license = await PlayerUtils.getPlayerLicense(identifiers)
-    if (!license) return
     const [player] = await _PlayerDB.getPlayerFromDB(license)
     if (player) {
       this.loadPlayer(player, source)
@@ -49,8 +48,6 @@ class _PlayerService {
     player.charinfo = JSON.parse(player.charinfo)
     player.accounts = JSON.parse(player.accounts)
     player.position = JSON.parse(player.position)
-
-    console.log(player.charinfo)
 
     if (player.inventory) {
       player.inventory = JSON.parse(player.inventory)
@@ -120,6 +117,18 @@ class _PlayerService {
     })
 
     _ItemsService.createMissingPickups(source)
+  }
+
+  async doesPlayerExist(identifier: string): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      const naPlayer = await this.PlayersCollection.find(
+        (player) => player.identifier === identifier
+      )
+
+      if (naPlayer) return reject(naPlayer)
+
+      resolve('')
+    })
   }
 
   async playerDropped(reason: string, source: number): Promise<void> {

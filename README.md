@@ -14,7 +14,7 @@
 
 # NAF Release (Current version 0.0.0)
 
-**NA** is creating a new framework, which aims to be used without limit, we are working a lot on optimization. We will offer to you some scripts to make the framework work in the best performance.
+im creating a new framework, which aims to be used without limit, we are working a lot on optimization. We will offer to you some scripts to make the framework work in the best performance.
 
 **Important Note:** As this resource is a work in progress, you may experience edge case issues
 You can report problems but also suggest improvements [here](https://github.com/niiyy/NAF/issues) or within the [Discord](https://discord.com/invite/VQjzMmT7zu).

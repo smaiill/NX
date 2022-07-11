@@ -1,7 +1,5 @@
-import { randomUUID } from 'node:crypto'
 import { _DB } from '../db/db'
 import PlayerUtils from './player.utils'
-// firstname:"",lastname:"",dob:"",nationality:"",height:0,sex:"",job:"unemployed",job_grade:0,job2:"unemployed2",job2_grade:0
 export class _PlayerDB {
   constructor() {}
 
@@ -69,5 +67,3 @@ export class _PlayerDB {
     })
   }
 }
-
-// '{"firstname":"","lastname":"","dob":"","nationality":"","height":0,"sex":"","job":"unemployed","job_grade":0,"job2":"unemployed2","job2_grade":0}'
