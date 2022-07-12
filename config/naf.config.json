@@ -4,5 +4,15 @@
     "user": "root",
     "password": "",
     "database": "naf"
+  },
+
+  "discord": {
+    "logs": {
+      "webhook": "",
+      "logsConfiguration": {
+        "playerJoin": true,
+        "playerDropped": true
+      }
+    }
   }
 }
