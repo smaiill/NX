@@ -20,25 +20,25 @@ onNet(
     if (status !== 'thirst' && status !== 'hunger') {
       return
     }
-    const naPlayerData = Player.getPlayerData()
-    Player.setStatus(status, parseFloat(naPlayerData.charinfo[status]) + amount)
+    const nxPlayerData = Player.getPlayerData()
+    Player.setStatus(status, parseFloat(nxPlayerData.charinfo[status]) + amount)
   }
 )
 
-onNet(PlayerEventsE.PLAYER_LOADED, async (naPlayer: any) => {
-  Player.setPlayerData(naPlayer)
+onNet(PlayerEventsE.PLAYER_LOADED, async (nxPlayer: any) => {
+  Player.setPlayerData(nxPlayer)
   Player.loaded = true
   globalThis.exports.spawnmanager.spawnPlayer(
     {
-      x: naPlayer.position.x,
-      y: naPlayer.position.y,
-      z: naPlayer.position.z,
-      heading: naPlayer.position.heading,
+      x: nxPlayer.position.x,
+      y: nxPlayer.position.y,
+      z: nxPlayer.position.z,
+      heading: nxPlayer.position.heading,
       model: GetHashKey('mp_m_freemode_01'),
       skipFade: true,
     },
     () => {
-      emit('skinchanger:loadSkin', naPlayer.skin)
+      emit('skinchanger:loadSkin', nxPlayer.skin)
       ItemsService.handlePickupsPickup()
       PlayerService.syncPlayer()
     }

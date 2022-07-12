@@ -22,7 +22,7 @@ export class _Events {
 
     const randomID = Utils.uuid()
 
-    const respEventName: string = `${eventName}::NAF::${randomID}`
+    const respEventName: string = `${eventName}::NX::${randomID}`
 
     const handleRespEvent: Function = (...args: any[]) => {
       callback(...args)

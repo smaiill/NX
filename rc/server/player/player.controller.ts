@@ -31,9 +31,9 @@ onNet(
   PlayerEventsE.UPDATE_COORDS,
   async (coords: number[], heading: number) => {
     const source = globalThis.source
-    const naPlayer = await _PlayerService.getPlayer(source)
-    if (naPlayer) {
-      naPlayer.SetCoords(coords[0], coords[1], coords[2], heading)
+    const nxPlayer = await _PlayerService.getPlayer(source)
+    if (nxPlayer) {
+      nxPlayer.SetCoords(coords[0], coords[1], coords[2], heading)
     }
   }
 )
@@ -42,10 +42,10 @@ onNet(
   PlayerEventsE.UPDATE_STATUS,
   async ({ thirst, hunger }: { thirst: number; hunger: number }) => {
     const source = globalThis.source
-    const naPlayer = await PlayerService.getPlayer(source)
-    if (naPlayer) {
-      naPlayer.SetHunger(hunger)
-      naPlayer.SetThirst(thirst)
+    const nxPlayer = await PlayerService.getPlayer(source)
+    if (nxPlayer) {
+      nxPlayer.SetHunger(hunger)
+      nxPlayer.SetThirst(thirst)
     }
   }
 )

@@ -1,7 +1,7 @@
 export const config = (() => {
   const resourceName = GetCurrentResourceName()
   const config = JSON.parse(
-    LoadResourceFile(resourceName, 'config/naf.config.json')
+    LoadResourceFile(resourceName, 'config/nx.config.json')
   )
 
   return config
@@ -10,7 +10,7 @@ export const config = (() => {
 export const items = (() => {
   const resourceName = GetCurrentResourceName()
   const items = JSON.parse(
-    LoadResourceFile(resourceName, 'config/naf.items.json')
+    LoadResourceFile(resourceName, 'config/nx.items.json')
   )
 
   return items
@@ -18,9 +18,7 @@ export const items = (() => {
 
 export const jobs = (() => {
   const resourceName = GetCurrentResourceName()
-  const jobs = JSON.parse(
-    LoadResourceFile(resourceName, 'config/naf.jobs.json')
-  )
+  const jobs = JSON.parse(LoadResourceFile(resourceName, 'config/nx.jobs.json'))
 
   return jobs
 })()

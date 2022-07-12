@@ -6,7 +6,7 @@ export class _PlayerDB {
   static getPlayerFromDB(license: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       const [res] = await _DB.exec(
-        'SELECT * FROM naf_users WHERE identifier = ? ',
+        'SELECT * FROM nx_users WHERE identifier = ? ',
         [license]
       )
       if (!res) return reject()
@@ -19,7 +19,7 @@ export class _PlayerDB {
     return new Promise(async (resolve, reject) => {
       const bloodType = await PlayerUtils.generateBloodType()
       const res = await _DB.exec(
-        'INSERT INTO naf_users (identifier, charinfo) VALUES (?, ?)',
+        'INSERT INTO nx_users (identifier, charinfo) VALUES (?, ?)',
         [
           license,
           JSON.stringify({
@@ -46,18 +46,18 @@ export class _PlayerDB {
     })
   }
 
-  static savePlayer(naPlayer: any): Promise<any> {
+  static savePlayer(nxPlayer: any): Promise<any> {
     return new Promise(async (resolve, reject) => {
-      if (!naPlayer) return reject('')
+      if (!nxPlayer) return reject('')
       const res = await _DB.exec(
-        'UPDATE naf_users SET charinfo = ?, inventory = ?, accounts = ?, position = ?, permissions = ? WHERE identifier = ?',
+        'UPDATE nx_users SET charinfo = ?, inventory = ?, accounts = ?, position = ?, permissions = ? WHERE identifier = ?',
         [
-          JSON.stringify(naPlayer.charinfo),
-          JSON.stringify(naPlayer.inventory),
-          JSON.stringify(naPlayer.accounts),
-          JSON.stringify(naPlayer.position),
-          naPlayer.permissions,
-          naPlayer.identifier,
+          JSON.stringify(nxPlayer.charinfo),
+          JSON.stringify(nxPlayer.inventory),
+          JSON.stringify(nxPlayer.accounts),
+          JSON.stringify(nxPlayer.position),
+          nxPlayer.permissions,
+          nxPlayer.identifier,
         ]
       )
 

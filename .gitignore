@@ -1,10 +1,11 @@
 ### ./
 *.txt
 node_modules
-naf.logs.log
+nx.logs.log
 .sql
 run.bat
 dist
+logo.png
 
 ### RC
 rc/node_modules

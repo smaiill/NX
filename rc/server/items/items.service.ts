@@ -84,16 +84,16 @@ export class _ItemsService {
   }
 
   async dropItem(name: string, amount: number, source: number): Promise<void> {
-    const naPlayer = await PlayerService.getPlayer(source)
+    const nxPlayer = await PlayerService.getPlayer(source)
 
-    if (naPlayer) {
+    if (nxPlayer) {
       const itemInfo = await this.findItem(name)
       if (itemInfo) {
         itemInfo.label = itemInfo.label.toLowerCase()
         const label = `~s~${itemInfo.label} ~g~${amount}`
         const propsToCreate = itemInfo.props
-        naPlayer.RemoveItem(name, amount, () => {
-          const { x, y, z } = naPlayer.GetCoords()
+        nxPlayer.RemoveItem(name, amount, () => {
+          const { x, y, z } = nxPlayer.GetCoords()
           this.createPickup(name, amount, [x, y, z], label, propsToCreate)
         })
       }
@@ -122,9 +122,9 @@ export class _ItemsService {
     this.findPickupById(uuid)
       .then(async (pickup: PickupT) => {
         this.Pickups = this.Pickups.filter((pic) => pic.uuid !== pickup.uuid)
-        const naPlayer = await PlayerService.getPlayer(source)
-        if (naPlayer) {
-          naPlayer.AddItem(pickup.name, pickup.amount, () => {
+        const nxPlayer = await PlayerService.getPlayer(source)
+        if (nxPlayer) {
+          nxPlayer.AddItem(pickup.name, pickup.amount, () => {
             emitNet(ItemsEventsE.REMOVE_PICKUP, -1, pickup.uuid)
           })
         }

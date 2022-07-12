@@ -5,7 +5,7 @@ export const logger = createLogger({
   transports: [
     new transports.File({
       dirname: `${path.resolve(GetResourcePath(GetCurrentResourceName()))}`,
-      filename: 'naf.logs.log',
+      filename: 'nx.logs.log',
       level: 'silly',
       format: format.combine(
         format.errors({ stack: true }),
@@ -22,7 +22,7 @@ export const logger = createLogger({
         }),
         format.colorize({ all: true }),
         format.label({
-          label: 'NAF',
+          label: 'NX',
         }),
         format.printf(
           (log: any): string =>

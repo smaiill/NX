@@ -1,7 +1,7 @@
 {
-  "name": "naf",
+  "name": "nx",
   "version": "0.0.1",
-  "repository": "https://github.com/niiyy/NAF.git",
+  "repository": "https://github.com/niiyy/NX.git",
   "author": "niiyy",
   "license": "CC-BY-NC-SA-4.0",
   "scripts": {

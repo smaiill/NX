@@ -2,9 +2,9 @@ module.exports = `
 fx_version "cerulean"
 game 'gta5'
 
-name 'NAF'
+name 'NX'
 description "FiveM framework."
-repository 'https://github.com/niiyy/NAF'
+repository 'https://github.com/niiyy/NX'
 author "niiyy"
 version '0.0.1'
 

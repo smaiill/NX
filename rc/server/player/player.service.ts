@@ -23,14 +23,14 @@ class _PlayerService {
   }
 
   private async unloadPlayer(source: number): Promise<void> {
-    const naPlayer = this.PlayersCollection.find(
+    const nxPlayer = this.PlayersCollection.find(
       (player) => player.source === source
     )
 
     _PlayerDB
-      .savePlayer(naPlayer)
+      .savePlayer(nxPlayer)
       .then(() => {
-        logger.info(`Player: [${naPlayer.name}] saved with succes.`)
+        logger.info(`Player: [${nxPlayer.name}] saved with succes.`)
         this.PlayersCollection = this.PlayersCollection.filter(
           (player) => player.source !== source
         )
@@ -57,7 +57,7 @@ class _PlayerService {
       player.inventory = JSON.parse(player.inventory)
     }
 
-    const naPlayerData: any = {
+    const nxPlayerData: any = {
       inventory: {},
       skin: {},
       weight: 0,
@@ -71,7 +71,7 @@ class _PlayerService {
       for (const property in player.inventory) {
         const item = _ItemsService.isValidItem(property)
         if (item) {
-          naPlayerData.inventory[property] = {
+          nxPlayerData.inventory[property] = {
             amount: ~~player.inventory[property].amount,
             type: item.type,
           }
@@ -83,41 +83,41 @@ class _PlayerService {
         }
       }
 
-      naPlayerData.weight = itemsWeight
+      nxPlayerData.weight = itemsWeight
     }
 
     if (player.skin) {
-      naPlayerData.skin = JSON.parse(player.skin)
+      nxPlayerData.skin = JSON.parse(player.skin)
     } else {
       if (player.charinfo.sex === 'female') {
-        naPlayerData.skin = { sex: 1 }
+        nxPlayerData.skin = { sex: 1 }
       } else {
-        naPlayerData.skin = { sex: 0 }
+        nxPlayerData.skin = { sex: 0 }
       }
     }
 
-    const naPlayer = new _Player(
+    const nxPlayer = new _Player(
       player.identifier,
       player.charinfo,
-      naPlayerData.inventory,
+      nxPlayerData.inventory,
       player.accounts,
       player.position,
       player.permissions,
-      naPlayerData.weight,
+      nxPlayerData.weight,
       GetPlayerName(source.toString()),
       source
     )
 
-    this.PlayersCollection.push(naPlayer)
+    this.PlayersCollection.push(nxPlayer)
 
     emitNet(PlayerEventsE.PLAYER_LOADED, source, {
-      accounts: naPlayer.accounts,
-      position: naPlayer.position,
-      identifier: naPlayer.identifier,
-      inventory: naPlayer.inventory,
-      charinfo: naPlayer.charinfo,
-      permissions: naPlayer.permissions,
-      skin: naPlayerData.skin,
+      accounts: nxPlayer.accounts,
+      position: nxPlayer.position,
+      identifier: nxPlayer.identifier,
+      inventory: nxPlayer.inventory,
+      charinfo: nxPlayer.charinfo,
+      permissions: nxPlayer.permissions,
+      skin: nxPlayerData.skin,
     })
 
     _ItemsService.createMissingPickups(source)
@@ -125,11 +125,11 @@ class _PlayerService {
 
   async doesPlayerExist(identifier: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
-      const naPlayer = await this.PlayersCollection.find(
+      const nxPlayer = await this.PlayersCollection.find(
         (player) => player.identifier === identifier
       )
 
-      if (naPlayer) return reject(naPlayer)
+      if (nxPlayer) return reject(nxPlayer)
 
       resolve('')
     })
@@ -148,52 +148,52 @@ class _PlayerService {
   }
 
   async getPlayers(): Promise<number[] | []> {
-    const naPlayersSources: number[] = []
+    const nxPlayersSources: number[] = []
 
     if (this.PlayersCollection.length > 0) {
-      this.PlayersCollection.forEach((naPlayer) => {
-        naPlayersSources.push(naPlayer.source)
+      this.PlayersCollection.forEach((nxPlayer) => {
+        nxPlayersSources.push(nxPlayer.source)
       })
 
-      return naPlayersSources
+      return nxPlayersSources
     }
 
     return []
   }
 
   async getPlayer(source: number): Promise<any> {
-    const naPlayer = this.PlayersCollection.find(
+    const nxPlayer = this.PlayersCollection.find(
       (player) => player.source === source
     )
 
-    if (!naPlayer) {
+    if (!nxPlayer) {
       return false
     }
 
     return {
-      data: naPlayer,
-      GetName: naPlayer.getName.bind(naPlayer),
-      GetIdentifier: naPlayer.getIdentifier.bind(naPlayer),
-      GetAccountMoney: naPlayer.getAccountMoney.bind(naPlayer),
-      GetCharInfo: naPlayer.getCharInfo.bind(naPlayer),
-      GetCoords: naPlayer.getCoords.bind(naPlayer),
-      GetWeight: naPlayer.getWeight.bind(naPlayer),
-      GetInventory: naPlayer.getInventory.bind(naPlayer),
-      GetAccounts: naPlayer.getAccounts.bind(naPlayer),
-      GetPermissions: naPlayer.getPermissions.bind(naPlayer),
-      GetBloodType: naPlayer.getBloodType.bind(naPlayer),
-      GetThirst: naPlayer.getThirst.bind(naPlayer),
-      GetHunger: naPlayer.getHunger.bind(naPlayer),
-      GetJob: naPlayer.getJob.bind(naPlayer),
-      GetInventoryItem: naPlayer.getInventoryItem.bind(naPlayer),
-      SetCoords: naPlayer.setCoords.bind(naPlayer),
-      SetJob: naPlayer.setJob.bind(naPlayer),
-      SetThirst: naPlayer.setThirst.bind(naPlayer),
-      SetHunger: naPlayer.setHunger.bind(naPlayer),
-      HasItem: naPlayer.hasItem.bind(naPlayer),
-      RemoveItem: naPlayer.removeInventoryItem.bind(naPlayer),
-      AddItem: naPlayer.addInventoryItem.bind(naPlayer),
-      EmitEvent: naPlayer.emitEvent.bind(naPlayer),
+      data: nxPlayer,
+      GetName: nxPlayer.getName.bind(nxPlayer),
+      GetIdentifier: nxPlayer.getIdentifier.bind(nxPlayer),
+      GetAccountMoney: nxPlayer.getAccountMoney.bind(nxPlayer),
+      GetCharInfo: nxPlayer.getCharInfo.bind(nxPlayer),
+      GetCoords: nxPlayer.getCoords.bind(nxPlayer),
+      GetWeight: nxPlayer.getWeight.bind(nxPlayer),
+      GetInventory: nxPlayer.getInventory.bind(nxPlayer),
+      GetAccounts: nxPlayer.getAccounts.bind(nxPlayer),
+      GetPermissions: nxPlayer.getPermissions.bind(nxPlayer),
+      GetBloodType: nxPlayer.getBloodType.bind(nxPlayer),
+      GetThirst: nxPlayer.getThirst.bind(nxPlayer),
+      GetHunger: nxPlayer.getHunger.bind(nxPlayer),
+      GetJob: nxPlayer.getJob.bind(nxPlayer),
+      GetInventoryItem: nxPlayer.getInventoryItem.bind(nxPlayer),
+      SetCoords: nxPlayer.setCoords.bind(nxPlayer),
+      SetJob: nxPlayer.setJob.bind(nxPlayer),
+      SetThirst: nxPlayer.setThirst.bind(nxPlayer),
+      SetHunger: nxPlayer.setHunger.bind(nxPlayer),
+      HasItem: nxPlayer.hasItem.bind(nxPlayer),
+      RemoveItem: nxPlayer.removeInventoryItem.bind(nxPlayer),
+      AddItem: nxPlayer.addInventoryItem.bind(nxPlayer),
+      EmitEvent: nxPlayer.emitEvent.bind(nxPlayer),
     }
   }
 }

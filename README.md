@@ -1,8 +1,8 @@
 <div align="center">
-    <img width="500" src="https://media.discordapp.net/attachments/780476129324171275/991791778044854373/logopng.png?width=1133&height=546" />
+    <img width="500" src="https://media.discordapp.net/attachments/977329291454984262/996467075100975224/logo.png?width=512&height=320" />
 </div>
 
-<h1 align="center">NAF</h1>
+<h1 align="center">NX</h1>
 
 <div align="center">
 
@@ -12,9 +12,9 @@
 
 # WIP
 
-# NAF Release (Current version 0.0.1)
+# NX Release (Current version 0.0.1)
 
 im creating a new framework, which aims to be used without limit, we are working a lot on optimization. We will offer to you some scripts to make the framework work in the best performance.
 
 **Important Note:** As this resource is a work in progress, you may experience edge case issues
-You can report problems but also suggest improvements [here](https://github.com/niiyy/NAF/issues) or within the [Discord](https://discord.com/invite/VQjzMmT7zu).
+You can report problems but also suggest improvements [here](https://github.com/niiyy/NX/issues) or within the [Discord](https://discord.com/invite/VQjzMmT7zu).

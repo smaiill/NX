@@ -1,4 +1,4 @@
-CREATE TABLE `naf_users` (
+CREATE TABLE `nx_users` (
   `id` int(11) NOT NULL,
   `identifier` varchar(100) NOT NULL,
   `accounts` longtext DEFAULT '{"bank":0}',
@@ -11,11 +11,11 @@ CREATE TABLE `naf_users` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-ALTER TABLE `naf_users`
+ALTER TABLE `nx_users`
   ADD PRIMARY KEY (`id`);
 
 
-ALTER TABLE `naf_users`
+ALTER TABLE `nx_users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT;
 
