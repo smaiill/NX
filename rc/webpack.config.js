@@ -23,6 +23,7 @@ const server = () => {
       alias: {
         // server side paths.
         's@boot': path.resolve(__dirname, 'server/boot/'),
+        's@commands': path.resolve(__dirname, 'server/commands/'),
         's@db': path.resolve(__dirname, 'server/db/'),
         's@discord': path.resolve(__dirname, 'server/discord/'),
         's@events': path.resolve(__dirname, 'server/events/'),
@@ -33,7 +34,6 @@ const server = () => {
 
         // shared paths.
         '@shared': path.resolve(__dirname, 'shared/'),
-        '@types': path.resolve(__dirname, 'types/'),
       },
     },
     output: {
@@ -70,7 +70,6 @@ const client = () => {
 
         // shared paths.
         '@shared': path.resolve(__dirname, 'shared/'),
-        '@types': path.resolve(__dirname, 'types/'),
       },
     },
     output: {

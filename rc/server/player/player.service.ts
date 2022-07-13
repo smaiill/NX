@@ -107,7 +107,6 @@ class _PlayerService {
       GetPlayerName(source.toString()),
       source
     )
-
     this.PlayersCollection.push(nxPlayer)
 
     emitNet(PlayerEventsE.PLAYER_LOADED, source, {

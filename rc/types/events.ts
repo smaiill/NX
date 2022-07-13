@@ -27,6 +27,10 @@ export enum InventoryEeventsE {
   ITEM_REMOVED = 'NX::itemRemoved',
 }
 
+export enum MiscEventsE {
+  DB_CONNECTED = 'NX::DBConnected',
+}
+
 export interface EventE {
   [property: string]: Function
 }

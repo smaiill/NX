@@ -17,8 +17,7 @@
       "c@items/*": ["items/*"],
       "c@player/*": ["player/*"],
       "c@utils/*": ["utils/*"],
-      "@shared/*": ["../shared/*"],
-      "@types/*": ["../types/*"]
+      "@shared/*": ["../shared/*"]
     }
   },
   "include": ["./**/*", "../types/**/*", "../shared/**/*"],

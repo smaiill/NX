@@ -13,6 +13,7 @@
     "baseUrl": "./",
     "paths": {
       "s@boot/*": ["boot/*"],
+      "s@commands/*": ["commands/*"],
       "s@db/*": ["db/*"],
       "s@discord/*": ["discord/*"],
       "s@events/*": ["events/*"],
@@ -20,8 +21,7 @@
       "s@jobs/*": ["jobs/*"],
       "s@player/*": ["player/*"],
       "s@utils/*": ["utils/*"],
-      "@shared/*": ["../shared/*"],
-      "@types/*": ["../types/*"]
+      "@shared/*": ["../shared/*"]
     }
   },
   "include": ["./**/*", "../types/**/*", "../shared/**/*"],

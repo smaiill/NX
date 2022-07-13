@@ -13,6 +13,7 @@ class _Player {
   weight: number
   name: string
   source: number
+  maxWeight: number
 
   constructor(
     identifier: string,
@@ -34,6 +35,7 @@ class _Player {
     this.weight = weight
     this.name = name
     this.source = source
+    this.maxWeight = 70
   }
 
   getWeight(): number {
@@ -230,6 +232,18 @@ class _Player {
     cb && typeof cb === 'function' && cb()
   }
 
+  async canTakeItem(name: string, amount: number): Promise<boolean> {
+    console.log(this.weight + amount * ItemsService.getItemWeight(name))
+    if (
+      this.weight + amount * ItemsService.getItemWeight(name) >
+      this.maxWeight
+    ) {
+      return false
+    }
+
+    return true
+  }
+
   async addInventoryItem(
     name: string,
     amount: number,
@@ -240,6 +254,9 @@ class _Player {
       const item = this.hasItem(name)
 
       amount = ~~amount
+
+      const canTakeItem = await this.canTakeItem(name, amount)
+      if (!canTakeItem) return
 
       if (item) {
         this.inventory[name] = {
