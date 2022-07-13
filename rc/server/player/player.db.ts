@@ -1,4 +1,4 @@
-import { _DB } from '../db/db'
+import { _DB } from 's@db/db'
 import PlayerUtils from './player.utils'
 export class _PlayerDB {
   constructor() {}

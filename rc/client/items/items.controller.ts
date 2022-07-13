@@ -1,6 +1,5 @@
 import { ItemsEventsE } from '../../types/events'
 import { PickupT } from '../../types/items'
-
 import ItemsService from './items.service'
 
 onNet(

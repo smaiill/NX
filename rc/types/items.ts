@@ -14,3 +14,7 @@ export interface ItemT {
   type: string
   props: string
 }
+
+export interface UsabeItemsT {
+  [property: string]: Function
+}

@@ -2,8 +2,8 @@ import { _PlayerDB } from './player.db'
 import PlayerUtils from './player.utils'
 import _Player from './player.class'
 import { PlayerEventsE } from '../../types/events'
-import _ItemsService from '../items/items.service'
-import { logger } from '../utils/logger'
+import ItemsService from 's@items/items.service'
+import { logger } from 's@utils/logger'
 
 class _PlayerService {
   PlayersCollection: any[]
@@ -69,7 +69,7 @@ class _PlayerService {
     ) {
       let itemsWeight = 0
       for (const property in player.inventory) {
-        const item = _ItemsService.isValidItem(property)
+        const item = ItemsService.isValidItem(property)
         if (item) {
           nxPlayerData.inventory[property] = {
             amount: ~~player.inventory[property].amount,
@@ -77,7 +77,7 @@ class _PlayerService {
           }
           const itemWeight =
             player.inventory[property].amount *
-            _ItemsService.getItemWeight(property)
+            ItemsService.getItemWeight(property)
 
           itemsWeight += itemWeight
         }
@@ -120,7 +120,7 @@ class _PlayerService {
       skin: nxPlayerData.skin,
     })
 
-    _ItemsService.createMissingPickups(source)
+    ItemsService.createMissingPickups(source)
   }
 
   async doesPlayerExist(identifier: string): Promise<any> {

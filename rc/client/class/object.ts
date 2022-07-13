@@ -1,4 +1,4 @@
-import logger from '../utils/logger'
+import logger from 'c@utils/logger'
 
 class _Object {
   constructor() {}

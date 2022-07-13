@@ -1,4 +1,4 @@
-import { config } from '../../shared/load.file'
+import { config } from '@shared/load.file'
 import DiscordService from './discord.service'
 
 if (config.discord.logs.logsConfiguration['playerJoin']) {

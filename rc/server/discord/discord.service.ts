@@ -1,15 +1,15 @@
+import { config } from '@shared/load.file'
+import { logger } from 's@utils/logger'
 import fetch from 'node-fetch'
-import { config } from '../../shared/load.file'
 import { DiscordWebhookI } from '../../types/main'
-import { logger } from '../utils/logger'
 
 class _DiscordService {
-  private config: any
+  private readonly config: any
   constructor() {
     this.config = config
   }
 
-  sendWebhook({ data, options }: DiscordWebhookI) {
+  sendWebhook({ data, options }: DiscordWebhookI): void {
     if (!data) {
       logger.error('Invalid data for webhook.')
     }

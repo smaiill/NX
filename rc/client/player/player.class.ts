@@ -1,5 +1,4 @@
 import { PlayerEventsE } from '../../types/events'
-import Logger from '../utils/logger'
 
 class _Player {
   loaded: boolean

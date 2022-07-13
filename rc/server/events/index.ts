@@ -1,9 +1,8 @@
+import { logger } from 's@utils/logger'
 import { EventE } from '../../types/events'
-import { logger } from '../utils/logger'
-
 export class _Events {
-  Events: EventE
-  ActiveEvents: string[]
+  private Events: EventE
+  private ActiveEvents: string[]
   constructor() {
     this.Events = {}
     this.ActiveEvents = []
@@ -16,7 +15,7 @@ export class _Events {
       )
     }
 
-    const eventHandler = (respEventName: string, ...args: any[]) => {
+    const eventHandler = (respEventName: string, ...args: any[]): void => {
       const source = globalThis.source
       this.Events[eventName](source, ...args, (...respArgs: any[]) => {
         emitNet(respEventName, globalThis.source, ...respArgs)

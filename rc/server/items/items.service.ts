@@ -1,19 +1,20 @@
-import { Logger } from 'winston'
-import { items } from '../../shared/load.file'
-import Utils from '../../shared/utils/misc'
+import PlayerService from 's@player/player.service'
+import { items } from '@shared/load.file'
+import Utils from '@shared/utils/misc'
+import { logger } from 's@utils/logger'
 import { ItemsEventsE } from '../../types/events'
-import { ItemT, PickupT } from '../../types/items'
-import PlayerService from '../player/player.service'
-import { logger } from '../utils/logger'
+import { ItemT, PickupT, UsabeItemsT } from '../../types/items'
 
 export class _ItemsService {
-  Items: ItemT[]
-  Pickups: PickupT[]
-  UsableItems: any
+  private Items: ItemT[]
+  private Pickups: PickupT[]
+  private UsableItems: UsabeItemsT
+  private utils: typeof Utils
   constructor() {
     this.Items = items
     this.Pickups = []
     this.UsableItems = {}
+    this.utils = Utils
   }
 
   isValidItem(itemName: string): false | ItemT {
@@ -51,7 +52,7 @@ export class _ItemsService {
     label: string,
     propsType: string
   ): void {
-    const uuid = Utils.uuid()
+    const uuid = this.utils.uuid()
     this.Pickups.push({
       name,
       amount,

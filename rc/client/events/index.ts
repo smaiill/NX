@@ -1,5 +1,5 @@
-import logger from '../utils/logger'
-import Utils from '../../shared/utils/misc'
+import Utils from '@shared/utils/misc'
+import logger from 'c@utils/logger'
 
 export class _Events {
   Events: any

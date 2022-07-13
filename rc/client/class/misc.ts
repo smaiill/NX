@@ -1,4 +1,4 @@
-import logger from '../utils/logger'
+import logger from 'c@utils/logger'
 
 export class _Misc {
   constructor() {}

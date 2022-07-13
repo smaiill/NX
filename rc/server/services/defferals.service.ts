@@ -1,6 +1,6 @@
-import PlayerService from '../player/player.service'
-import PlayerUtils from '../player/player.utils'
-import { logger } from '../utils/logger'
+import PlayerService from 's@player/player.service'
+import PlayerUtils from 's@player/player.utils'
+import { logger } from 's@utils/logger'
 
 class _DeferralsService {
   constructor() {}

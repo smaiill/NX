@@ -9,7 +9,17 @@
     "noImplicitAny": true,
     "lib": ["es2015", "DOM"],
     "types": ["@citizenfx/client", "@types/node"],
-    "outDir": "./"
+    "outDir": "./",
+    "baseUrl": "./",
+    "paths": {
+      "c@class/*": ["class/*"],
+      "c@events/*": ["events/*"],
+      "c@items/*": ["items/*"],
+      "c@player/*": ["player/*"],
+      "c@utils/*": ["utils/*"],
+      "@shared/*": ["../shared/*"],
+      "@types/*": ["../types/*"]
+    }
   },
   "include": ["./**/*", "../types/**/*", "../shared/**/*"],
   "exclude": ["**/node_modules"]

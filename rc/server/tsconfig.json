@@ -9,7 +9,20 @@
     "noImplicitAny": true,
     "lib": ["es2015", "DOM"],
     "types": ["@citizenfx/server", "@types/node"],
-    "outDir": "./"
+    "outDir": "./",
+    "baseUrl": "./",
+    "paths": {
+      "s@boot/*": ["boot/*"],
+      "s@db/*": ["db/*"],
+      "s@discord/*": ["discord/*"],
+      "s@events/*": ["events/*"],
+      "s@items/*": ["items/*"],
+      "s@jobs/*": ["jobs/*"],
+      "s@player/*": ["player/*"],
+      "s@utils/*": ["utils/*"],
+      "@shared/*": ["../shared/*"],
+      "@types/*": ["../types/*"]
+    }
   },
   "include": ["./**/*", "../types/**/*", "../shared/**/*"],
   "exclude": ["node_modules"]

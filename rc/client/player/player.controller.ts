@@ -1,5 +1,5 @@
+import ItemsService from 'c@items/items.service'
 import { PlayerEventsE } from '../../types/events'
-import ItemsService from '../items/items.service'
 import Player from './player.class'
 import PlayerService from './player.service'
 
