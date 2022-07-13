@@ -31,13 +31,6 @@ const server = () => {
         's@player': path.resolve(__dirname, 'server/player/'),
         's@utils': path.resolve(__dirname, 'server/utils/'),
 
-        // client paths.
-        'c@class': path.resolve(__dirname, 'client/class/'),
-        'c@events': path.resolve(__dirname, 'client/events/'),
-        'c@items': path.resolve(__dirname, 'client/items/'),
-        'c@player': path.resolve(__dirname, 'client/player/'),
-        'c@utils': path.resolve(__dirname, 'client/utils/'),
-
         // shared paths.
         '@shared': path.resolve(__dirname, 'shared/'),
         '@types': path.resolve(__dirname, 'types/'),
@@ -67,6 +60,18 @@ const client = () => {
     },
     resolve: {
       extensions: ['.ts', '.js', '.cjs'],
+      alias: {
+        // client paths.
+        'c@class': path.resolve(__dirname, 'client/class/'),
+        'c@events': path.resolve(__dirname, 'client/events/'),
+        'c@items': path.resolve(__dirname, 'client/items/'),
+        'c@player': path.resolve(__dirname, 'client/player/'),
+        'c@utils': path.resolve(__dirname, 'client/utils/'),
+
+        // shared paths.
+        '@shared': path.resolve(__dirname, 'shared/'),
+        '@types': path.resolve(__dirname, 'types/'),
+      },
     },
     output: {
       filename: 'client.min.js',
