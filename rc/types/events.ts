@@ -15,6 +15,8 @@ export enum ItemsEventsE {
   REMOVE_PICKUP = 'NX::removePickup',
   HANDLE_PICKUPS = 'NX::handlePickups',
   USE_ITEM = 'NX::useItem',
+  CREATE_ITEM = 'NX::createItem',
+  ITEM_CREATED = 'NX:itemCreated',
 }
 
 export enum JobsEventsE {

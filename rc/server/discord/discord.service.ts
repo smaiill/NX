@@ -12,6 +12,7 @@ class _DiscordService {
   sendWebhook({ data, options }: DiscordWebhookI): void {
     if (!data) {
       logger.error('Invalid data for webhook.')
+      return
     }
     fetch(options?.url ?? this.config.discord.logs.webhook, {
       method: 'POST',

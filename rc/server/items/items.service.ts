@@ -158,6 +158,39 @@ export class _ItemsService {
 
     this.UsableItems[name](source, args)
   }
+
+  public createItem({ name, label, weight, type, props }: ItemT, cb?: Function) {
+    const data = { name, label, weight, type, props }
+    if (
+      !name ||
+      !label ||
+      !weight ||
+      !type ||
+      !props ||
+      typeof weight !== 'number'
+    ) {
+      return logger.error('cant create item invalid args.')
+    }
+    data.name = data.name.toLowerCase()
+
+    try {
+      const loadFile = JSON.parse(
+        LoadResourceFile(GetCurrentResourceName(), 'config/nx.items.json')
+      )
+      loadFile.push(data)
+      SaveResourceFile(
+        GetCurrentResourceName(),
+        'config/nx.items.json',
+        JSON.stringify(loadFile),
+        -1
+      )
+      this.Items.push(data)
+      emitNet(ItemsEventsE.ITEM_CREATED, data)
+      cb && cb(data)
+    } catch (error) {
+      logger.error(`Error while creating item: [${data.name}]}`)
+    }
+  }
 }
 
 const ItemsService = new _ItemsService()
