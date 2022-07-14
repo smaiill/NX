@@ -10,18 +10,27 @@ onNet(
     coords: number[],
     uuid: string,
     label: string,
-    propsType: string
-  ) => {
-    ItemsService.createDrop(name, amount, coords, uuid, label, propsType)
+    propsType: string,
+    itemType: string
+  ): void => {
+    ItemsService.createDrop(
+      name,
+      amount,
+      coords,
+      uuid,
+      label,
+      propsType,
+      itemType
+    )
   }
 )
 
-onNet(ItemsEventsE.CREATE_MISSING_PICKUPS, (pickups: PickupT[]) => {
+onNet(ItemsEventsE.CREATE_MISSING_PICKUPS, (pickups: PickupT[]): void => {
   ItemsService.refreshPickups(pickups)
 })
 
-on(ItemsEventsE.HANDLE_PICKUPS, () => {})
-
-onNet(ItemsEventsE.REMOVE_PICKUP, (uuid: number) => {
+onNet(ItemsEventsE.REMOVE_PICKUP, (uuid: number): void => {
   ItemsService.removePickup(uuid)
 })
+
+on(ItemsEventsE.HANDLE_PICKUPS, () => {})

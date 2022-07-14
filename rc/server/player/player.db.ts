@@ -3,7 +3,7 @@ import PlayerUtils from './player.utils'
 export class _PlayerDB {
   constructor() {}
 
-  static getPlayerFromDB(license: string): Promise<any> {
+  public static getPlayerFromDB(license: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       const [res] = await _DB.exec(
         'SELECT * FROM nx_users WHERE identifier = ? ',
@@ -15,7 +15,7 @@ export class _PlayerDB {
     })
   }
 
-  static createPlayer(license: string): Promise<any> {
+  public static createPlayer(license: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       const bloodType = await PlayerUtils.generateBloodType()
       const res = await _DB.exec(
@@ -46,7 +46,7 @@ export class _PlayerDB {
     })
   }
 
-  static savePlayer(nxPlayer: any): Promise<any> {
+  public static savePlayer(nxPlayer: any): Promise<any> {
     return new Promise(async (resolve, reject) => {
       if (!nxPlayer) return reject('')
       const res = await _DB.exec(

@@ -3,7 +3,7 @@ import { pool } from './pool'
 export class _DB {
   constructor() {}
 
-  static exec(query: string, values?: any[]): Promise<any> {
+  public static exec(query: string, values?: any[]): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
         const res = await pool?.execute(query, values)
@@ -14,7 +14,7 @@ export class _DB {
     })
   }
 
-  static findAll(table: string): Promise<any> {
+  public static findAll(table: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
         const query = `SELECT * FROM ${table}`

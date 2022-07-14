@@ -27,7 +27,7 @@ class _BootService {
     // TODO: Check resource version.
   }
 
-  checkResource(): void {
+  public checkResource(): void {
     this.checkDatabaseConnection()
     this.checkResourceVersion()
   }

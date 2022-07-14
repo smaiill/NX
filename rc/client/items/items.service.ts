@@ -4,21 +4,20 @@ import { ItemsEventsE } from '../../types/events'
 import { PickupT } from '../../types/items'
 class _ItemsService {
   Pickups: PickupT[]
-  pickupAnimation: string
-  pickupAnimationDict: string
+  pickupAnimation: { name: string; dict: string }
   constructor() {
     this.Pickups = []
-    this.pickupAnimation = 'putdown_low'
-    this.pickupAnimationDict = 'pickup_object'
+    this.pickupAnimation = { name: 'putdown_low', dict: 'pickup_object' }
   }
 
-  createDrop(
+  public createDrop(
     name: string,
     amount: number,
     coords: number[],
     uuid: string,
     label: string,
-    propsType: string
+    propsType: string,
+    itemType: string
   ): void {
     RequestModel(propsType)
     const interval: NodeJS.Timer = setInterval(() => {
@@ -34,7 +33,6 @@ class _ItemsService {
         )
         SetEntityAsMissionEntity(object, true, false)
         PlaceObjectOnGroundProperly(object)
-        FreezeEntityPosition(object, true)
         SetEntityCollision(object, false, true)
 
         this.Pickups.push({
@@ -45,6 +43,7 @@ class _ItemsService {
           object,
           label,
           propsType,
+          itemType,
         })
 
         clearInterval(interval)
@@ -52,7 +51,7 @@ class _ItemsService {
     }, 500)
   }
 
-  refreshPickups(pickups: PickupT[]): void {
+  public refreshPickups(pickups: PickupT[]): void {
     pickups.forEach((pickup) => {
       RequestModel(pickup.propsType)
       const interval = setInterval(() => {
@@ -67,7 +66,6 @@ class _ItemsService {
             true
           )
           SetEntityAsMissionEntity(object, true, false)
-          FreezeEntityPosition(object, true)
           SetEntityCollision(object, false, true)
           PlaceObjectOnGroundProperly(object)
 
@@ -78,6 +76,7 @@ class _ItemsService {
             uuid: pickup.uuid,
             label: pickup.label,
             propsType: pickup.propsType,
+            itemType: pickup.itemType,
             object,
           })
 
@@ -87,7 +86,7 @@ class _ItemsService {
     })
   }
 
-  handlePickupsPickup(): void {
+  public handlePickupsPickup(): void {
     // ! I CANT OPTI THIS PART CAUSE OF FIVEM (setTick takes to much :( )) !
     let REFRESH_TIME = 0
 
@@ -112,11 +111,11 @@ class _ItemsService {
 
         if (distance < 1) {
           if (IsControlJustReleased(1, 51)) {
-            MiscManager.requestAnim(this.pickupAnimationDict, () => {
+            MiscManager.requestAnim(this.pickupAnimation.dict, () => {
               TaskPlayAnim(
                 player,
-                this.pickupAnimationDict,
-                this.pickupAnimation,
+                this.pickupAnimation.dict,
+                this.pickupAnimation.name,
                 8.0,
                 1.0,
                 1000,
@@ -126,7 +125,7 @@ class _ItemsService {
                 false,
                 false
               )
-              RemoveAnimDict(this.pickupAnimationDict)
+              RemoveAnimDict(this.pickupAnimation.dict)
               setTimeout(() => {
                 emitNet(ItemsEventsE.PICKUP_ITEM, pickup.uuid)
               }, 500)
@@ -137,7 +136,7 @@ class _ItemsService {
     }, REFRESH_TIME)
   }
 
-  findPickup(uuid: number): Promise<any> {
+  private findPickup(uuid: number): Promise<PickupT | void> {
     return new Promise((resolve, reject) => {
       const pickup = this.Pickups.find(
         (pickup) => (pickup.uuid as unknown) === uuid
@@ -151,7 +150,7 @@ class _ItemsService {
     })
   }
 
-  async removePickup(uuid: number): Promise<void> {
+  public async removePickup(uuid: number): Promise<void> {
     const pickup = await this.findPickup(uuid)
 
     if (pickup) {

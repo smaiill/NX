@@ -35,62 +35,62 @@ class _Player {
     this.weight = weight
     this.name = name
     this.source = source
-    this.maxWeight = 70
+    this.maxWeight = 50000000000
   }
 
-  getWeight(): number {
+  public getWeight(): number {
     return this.weight
   }
 
-  getName(): string {
+  public getName(): string {
     return this.name
   }
 
-  getCharInfo(): any {
+  public getCharInfo(): any {
     return this.charinfo
   }
 
-  getIdentifier(): string {
+  public getIdentifier(): string {
     return this.identifier
   }
 
-  getCoords(): number[] {
+  public getCoords(): number[] {
     return this.position
   }
 
-  getInventory(): any {
+  public getInventory(): any {
     return this.inventory
   }
 
-  getAccounts(): any {
+  public getAccounts(): any {
     return this.accounts
   }
 
-  getPermissions(): string {
+  public getPermissions(): string {
     return this.permissions
   }
 
-  getBloodType(): string {
+  public getBloodType(): string {
     return this.charinfo.blood_type
   }
 
-  getThirst(): number {
+  public getThirst(): number {
     return parseFloat(this.charinfo.thirst)
   }
 
-  getHunger(): number {
+  public getHunger(): number {
     return parseFloat(this.charinfo.hunger)
   }
 
-  setThirst(value: number): void {
+  public setThirst(value: number): void {
     this.charinfo.thirst = value
   }
 
-  setHunger(value: number): void {
+  public setHunger(value: number): void {
     this.charinfo.hunger = value
   }
 
-  getJob(type: number): { name: string; grade: number } {
+  public getJob(type: number): { name: string; grade: number } {
     let job: {
       name: string
       grade: number
@@ -112,7 +112,7 @@ class _Player {
     }
   }
 
-  getAccountMoney(account: string): number | undefined {
+  public getAccountMoney(account: string): number | undefined {
     if (!account || account !== 'bank') {
       return
     }
@@ -120,7 +120,11 @@ class _Player {
     return this.accounts[account]
   }
 
-  async setJob(name: string, grade: string, cb?: Function): Promise<void> {
+  public async setJob(
+    name: string,
+    grade: string,
+    cb?: Function
+  ): Promise<void> {
     const isValid = await JobsService.isValid(name, grade, 1)
 
     if (isValid) {
@@ -132,7 +136,11 @@ class _Player {
     }
   }
 
-  async setJob2(name: string, grade: string, cb?: Function): Promise<void> {
+  public async setJob2(
+    name: string,
+    grade: string,
+    cb?: Function
+  ): Promise<void> {
     const isValid = await JobsService.isValid(name, grade, 2)
 
     if (isValid) {
@@ -144,7 +152,7 @@ class _Player {
     }
   }
 
-  setCoords(x: number, y: number, z: number, heading: number): void {
+  public setCoords(x: number, y: number, z: number, heading: number): void {
     if (!x || !y || !z || !heading) {
       return
     }
@@ -178,11 +186,11 @@ class _Player {
     return
   }
 
-  emitEvent(eventName: string, ...args: any[]) {
+  public emitEvent(eventName: string, ...args: any[]) {
     emitNet(eventName, this.source, ...args)
   }
 
-  hasItem(itemName: string): boolean | any {
+  public hasItem(itemName: string): boolean | any {
     const item = this.inventory[itemName]
     if (item) {
       return item
@@ -191,7 +199,7 @@ class _Player {
     return false
   }
 
-  getInventoryItem(itemName: string): ItemT | false {
+  public getInventoryItem(itemName: string): ItemT | false {
     const item = this.inventory[itemName]
 
     if (item) {
@@ -201,7 +209,7 @@ class _Player {
     return false
   }
 
-  async removeInventoryItem(
+  public async removeInventoryItem(
     name: string,
     amount: number,
     cb?: Function
@@ -232,7 +240,7 @@ class _Player {
     cb && typeof cb === 'function' && cb()
   }
 
-  async canTakeItem(name: string, amount: number): Promise<boolean> {
+  public async canTakeItem(name: string, amount: number): Promise<boolean> {
     console.log(this.weight + amount * ItemsService.getItemWeight(name))
     if (
       this.weight + amount * ItemsService.getItemWeight(name) >
@@ -244,7 +252,7 @@ class _Player {
     return true
   }
 
-  async addInventoryItem(
+  public async addInventoryItem(
     name: string,
     amount: number,
     cb?: Function

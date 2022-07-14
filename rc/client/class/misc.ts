@@ -3,7 +3,11 @@ import logger from 'c@utils/logger'
 export class _Misc {
   constructor() {}
 
-  createPed(pedType: number, model: string, cb?: Function): number | void {
+  public createPed(
+    pedType: number,
+    model: string,
+    cb?: Function
+  ): number | void {
     if (!pedType || !model) {
       return logger.error('not valid params to create ped. [Misc.CreatePed]')
     }
@@ -35,7 +39,7 @@ export class _Misc {
     }, 500)
   }
 
-  drawText3D(
+  public drawText3D(
     coords: number[],
     text: string,
     size: number,
@@ -72,7 +76,7 @@ export class _Misc {
     ClearDrawOrigin()
   }
 
-  requestAnim(anim: string, cb?: Function): void {
+  public requestAnim(anim: string, cb?: Function): void {
     if (!anim || typeof anim !== 'string') {
       return logger.error(
         'not valid params to load animation. [Misc.RequestAnim]'

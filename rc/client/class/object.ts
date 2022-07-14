@@ -3,7 +3,7 @@ import logger from 'c@utils/logger'
 class _Object {
   constructor() {}
 
-  create(entity: string, cb?: Function): number | void {
+  public create(entity: string, cb?: Function): number | void {
     if (!entity) {
       return logger.error('not valid params to create object. [Objects.Create]')
     }
@@ -33,7 +33,7 @@ class _Object {
     })
   }
 
-  delete(entity: number, cb?: Function): void {
+  public delete(entity: number, cb?: Function): void {
     if (!entity || typeof entity !== 'number') {
       return
     }

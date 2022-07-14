@@ -16,7 +16,7 @@ export class _Vehicle {
   ]
   constructor() {}
 
-  create(model: string | number, cb: Function): number | void {
+  public create(model: string | number, cb: Function): number | void {
     if (!model || (typeof model !== 'string' && typeof model !== 'number')) {
       return logger.error(
         'not valid params to create vehicle. [Vehicle.Create]'
@@ -57,7 +57,7 @@ export class _Vehicle {
     }, 500)
   }
 
-  delete(cb?: Function): void {
+  public delete(cb?: Function): void {
     if (cb && typeof cb !== 'function') {
       return logger.error('callback must be a function. [Vehicles.Delete].')
     }
@@ -72,7 +72,7 @@ export class _Vehicle {
     }
   }
 
-  repair(vehicle?: number): void {
+  public repair(vehicle?: number): void {
     const playerPed = PlayerPedId()
     if (!vehicle || !IsEntityAVehicle(vehicle)) {
       const vehicle: number = GetVehiclePedIsIn(playerPed, true)
@@ -90,7 +90,7 @@ export class _Vehicle {
     SetVehicleUndriveable(vehicle, false)
   }
 
-  async random(): Promise<void> {
+  public async random(): Promise<void> {
     const randomCar: string =
       this.RandomVehicles[
         Math.floor(Math.random() * this.RandomVehicles.length)

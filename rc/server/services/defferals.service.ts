@@ -5,7 +5,7 @@ import { logger } from 's@utils/logger'
 class _DeferralsService {
   constructor() {}
 
-  async validatePlayer(
+  public async validatePlayer(
     source: number,
     name: string,
     identifiers: string[],

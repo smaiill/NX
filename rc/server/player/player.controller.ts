@@ -3,7 +3,7 @@ import DeferralsService from '../services/defferals.service'
 import PlayerService from './player.service'
 import _PlayerService from './player.service'
 
-onNet(PlayerEventsE.NEW_PLAYER, () => {
+onNet(PlayerEventsE.NEW_PLAYER, (): void => {
   const source = globalThis.source
   _PlayerService.newPlayer(getPlayerIdentifiers(source.toString()), source)
 })
@@ -29,7 +29,7 @@ on('playerDropped', (reason: string): void => {
 
 onNet(
   PlayerEventsE.UPDATE_COORDS,
-  async (coords: number[], heading: number) => {
+  async (coords: number[], heading: number): Promise<void> => {
     const source = globalThis.source
     const nxPlayer = await _PlayerService.getPlayer(source)
     if (nxPlayer) {

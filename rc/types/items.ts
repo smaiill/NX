@@ -6,6 +6,7 @@ export interface PickupT {
   label: string
   propsType: string
   object?: any
+  itemType: string
 }
 export interface ItemT {
   name: string

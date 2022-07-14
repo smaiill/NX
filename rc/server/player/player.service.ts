@@ -12,7 +12,7 @@ class _PlayerService {
     this.PlayersCollection = []
   }
 
-  async newPlayer(identifiers: string[], source: number): Promise<void> {
+  public async newPlayer(identifiers: string[], source: number): Promise<void> {
     const license = await PlayerUtils.getPlayerLicense(identifiers)
     const [player] = await _PlayerDB.getPlayerFromDB(license)
     if (player) {
@@ -44,8 +44,8 @@ class _PlayerService {
       })
   }
 
-  async savePlayers() {
-    // TODO: Save interval to save all players.
+  private async savePlayers() {
+    // TODO: interval to save all players.
   }
 
   private async loadPlayer(player: any, source: number): Promise<void> {
@@ -122,7 +122,7 @@ class _PlayerService {
     ItemsService.createMissingPickups(source)
   }
 
-  async doesPlayerExist(identifier: string): Promise<any> {
+  public async doesPlayerExist(identifier: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       const nxPlayer = await this.PlayersCollection.find(
         (player) => player.identifier === identifier
@@ -134,7 +134,7 @@ class _PlayerService {
     })
   }
 
-  async playerDropped(reason: string, source: number): Promise<void> {
+  public async playerDropped(reason: string, source: number): Promise<void> {
     await this.unloadPlayer(source)
   }
 
@@ -146,7 +146,7 @@ class _PlayerService {
     }
   }
 
-  async getPlayers(): Promise<number[] | []> {
+  public async getPlayers(): Promise<number[] | []> {
     const nxPlayersSources: number[] = []
 
     if (this.PlayersCollection.length > 0) {
@@ -160,7 +160,7 @@ class _PlayerService {
     return []
   }
 
-  async getPlayer(source: number): Promise<any> {
+  public async getPlayer(source: number): Promise<any> {
     const nxPlayer = this.PlayersCollection.find(
       (player) => player.source === source
     )

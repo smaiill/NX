@@ -3,21 +3,21 @@ import { items } from '@shared/load.file'
 import Utils from '@shared/utils/misc'
 import { logger } from 's@utils/logger'
 import { ItemsEventsE } from '../../types/events'
-import { ItemT, PickupT, UsabeItemsT } from '../../types/items'
+import { ItemT, PickupT } from '../../types/items'
 
 export class _ItemsService {
   private Items: ItemT[]
   private Pickups: PickupT[]
-  private UsableItems: UsabeItemsT
+  private UsableItems: Map<string, Function>
   private utils: typeof Utils
   constructor() {
     this.Items = items
     this.Pickups = []
-    this.UsableItems = {}
+    this.UsableItems = new Map()
     this.utils = Utils
   }
 
-  isValidItem(itemName: string): false | ItemT {
+  public isValidItem(itemName: string): false | ItemT {
     const item = this.Items.find((item) => item.name === itemName)
 
     if (!item) return false
@@ -25,7 +25,7 @@ export class _ItemsService {
     return item
   }
 
-  getItemWeight(itemName: string): number {
+  public getItemWeight(itemName: string): number {
     const item = this.Items.find((item) => item.name === itemName)
 
     if (!item) {
@@ -35,7 +35,7 @@ export class _ItemsService {
     return item.weight
   }
 
-  getItemType(name: string): string | null {
+  public getItemType(name: string): string | null {
     const item = this.isValidItem(name)
 
     if (item) {
@@ -45,12 +45,13 @@ export class _ItemsService {
     return null
   }
 
-  createPickup(
+  public createPickup(
     name: string,
     amount: number,
     coords: number[],
     label: string,
-    propsType: string
+    propsType: string,
+    itemType: string
   ): void {
     const uuid = this.utils.uuid()
     this.Pickups.push({
@@ -60,6 +61,7 @@ export class _ItemsService {
       uuid: uuid as string,
       label,
       propsType,
+      itemType,
     })
 
     emitNet(
@@ -70,11 +72,12 @@ export class _ItemsService {
       coords,
       uuid,
       label,
-      propsType
+      propsType,
+      itemType
     )
   }
 
-  findItem(name: string): false | ItemT {
+  private findItem(name: string): false | ItemT {
     const item = this.Items.find((item) => item.name === name)
 
     if (item) {
@@ -84,7 +87,11 @@ export class _ItemsService {
     return false
   }
 
-  async dropItem(name: string, amount: number, source: number): Promise<void> {
+  public async dropItem(
+    name: string,
+    amount: number,
+    source: number
+  ): Promise<void> {
     const nxPlayer = await PlayerService.getPlayer(source)
 
     if (nxPlayer) {
@@ -95,19 +102,26 @@ export class _ItemsService {
         const propsToCreate = itemInfo.props
         nxPlayer.RemoveItem(name, amount, () => {
           const { x, y, z } = nxPlayer.GetCoords()
-          this.createPickup(name, amount, [x, y, z], label, propsToCreate)
+          this.createPickup(
+            name,
+            amount,
+            [x, y, z],
+            label,
+            propsToCreate,
+            itemInfo.type
+          )
         })
       }
     }
   }
 
-  createMissingPickups(source: number): void {
+  public createMissingPickups(source: number): void {
     if (this.Pickups.length > 0) {
       emitNet(ItemsEventsE.CREATE_MISSING_PICKUPS, source, this.Pickups)
     }
   }
 
-  findPickupById(uuid: string): Promise<any> {
+  private findPickupById(uuid: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const pickup = this.Pickups.find((pickup) => pickup.uuid === uuid)
 
@@ -119,7 +133,7 @@ export class _ItemsService {
     })
   }
 
-  async takePickup(uuid: string, source: number): Promise<void> {
+  public async takePickup(uuid: string, source: number): Promise<void> {
     this.findPickupById(uuid)
       .then(async (pickup: PickupT) => {
         this.Pickups = this.Pickups.filter((pic) => pic.uuid !== pickup.uuid)
@@ -133,7 +147,7 @@ export class _ItemsService {
       .catch((err) => {})
   }
 
-  registerUsableItem(name: string, cb: Function): void {
+  public registerUsableItem(name: string, cb: Function): void {
     if (!cb || typeof cb !== 'function') {
       logger.error(
         'function callback most be provided. [Misc.RegisterUsableItem]'
@@ -141,25 +155,33 @@ export class _ItemsService {
       return
     }
 
-    if (this.UsableItems[name]) {
+    if (this.UsableItems.has(name)) {
       logger.warn(
         `item: [${name}] has already being registerd. [MISC.RegisterUsableItem]`
       )
     }
 
-    this.UsableItems[name] = cb
+    this.UsableItems.set(name, cb)
   }
 
-  async useItem(name: string, source: number, ...args: any[]): Promise<void> {
-    if (!this.UsableItems[name]) {
+  public async useItem(
+    name: string,
+    source: number,
+    ...args: any[]
+  ): Promise<void> {
+    if (!this.UsableItems.has(name)) {
       logger.error(`can't use item: ${name} he is not registerd.`)
       return
     }
 
-    this.UsableItems[name](source, args)
+    const itemCB = this.UsableItems.get(name)
+    itemCB && itemCB(source, args)
   }
 
-  public createItem({ name, label, weight, type, props }: ItemT, cb?: Function) {
+  public createItem(
+    { name, label, weight, type, props }: ItemT,
+    cb?: Function
+  ) {
     const data = { name, label, weight, type, props }
     if (
       !name ||

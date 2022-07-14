@@ -1,30 +1,30 @@
 import { PlayerEventsE } from '../../types/events'
 
 class _Player {
-  loaded: boolean
-  playerData: any
+  public loaded: boolean
+  public playerData: any
   constructor() {
     this.loaded = false
     this.playerData = {}
   }
 
-  hasLoaded() {
+  public hasLoaded() {
     return this.loaded
   }
 
-  setPlayerData(data: any) {
+  public setPlayerData(data: any) {
     return (this.playerData = data)
   }
 
-  getPlayerData() {
+  public getPlayerData() {
     return this.playerData
   }
 
-  setValue(key: string, value: any) {
+  public setValue(key: string, value: any) {
     return (this.playerData[key] = value)
   }
 
-  setStatus(key: string, value: number) {
+  public setStatus(key: string, value: number) {
     if (key !== 'hunger' && key !== 'thirst') {
       return
     }

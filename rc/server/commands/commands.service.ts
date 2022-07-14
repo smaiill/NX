@@ -4,7 +4,7 @@ import { logger } from 's@utils/logger'
 class _CommandsServices {
   constructor() {}
 
-  async addCommand(
+  public async addCommand(
     name: string,
     cb: Function,
     authPermissions: string[] = ['user']

@@ -1,5 +1,5 @@
 class _PlayerUtils {
-  bloodTypes: any
+  private readonly bloodTypes: any
   constructor() {
     this.bloodTypes = {
       'A+': '0-38',
@@ -13,7 +13,7 @@ class _PlayerUtils {
     }
   }
 
-  getPlayerLicense(identifiers: string[]): Promise<string> {
+  public getPlayerLicense(identifiers: string[]): Promise<string> {
     return new Promise((resolve, reject) => {
       identifiers.forEach((identifier) => {
         let [identifierKey, identifierValue] = identifier.split(':')
@@ -34,7 +34,7 @@ class _PlayerUtils {
   // 93 - 96 | AB+
   // 97 - 99 | B-
   // 100 | AB-
-  generateBloodType(): Promise<string> {
+  public generateBloodType(): Promise<string> {
     return new Promise((resolve, reject) => {
       const randomNumber = Math.floor(Math.random() * 100)
       for (const blood in this.bloodTypes) {

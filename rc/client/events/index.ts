@@ -2,22 +2,26 @@ import Utils from '@shared/utils/misc'
 import logger from 'c@utils/logger'
 
 export class _Events {
-  Events: any
+  private Events: Map<string, Function>
   constructor() {
-    this.Events = {}
+    this.Events = new Map()
   }
 
-  emitServerEvent(eventName: string, callback: Function, ...args: any[]): void {
+  public emitServerEvent(
+    eventName: string,
+    callback: Function,
+    ...args: any[]
+  ): void {
     if (!callback || typeof callback !== 'function') {
       return logger.error(
         `can't trigger event: ^2[${eventName}] ^9callback most be provided !`
       )
     }
 
-    if (eventName in this.Events) {
+    if (this.Events.has(eventName)) {
       logger.warn(`event : ^2[${eventName}] ^3already declared.`)
     } else {
-      this.Events[eventName] = callback
+      this.Events.set(eventName, callback)
     }
 
     const randomID = Utils.uuid()

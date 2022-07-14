@@ -9,7 +9,7 @@ class _DiscordService {
     this.config = config
   }
 
-  sendWebhook({ data, options }: DiscordWebhookI): void {
+  public sendWebhook({ data, options }: DiscordWebhookI): void {
     if (!data) {
       logger.error('Invalid data for webhook.')
       return
