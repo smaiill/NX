@@ -87,6 +87,27 @@ export class _ItemsService {
     return false
   }
 
+  private getPropsToCreate(name: string, amount: number, def: string) {
+    let props = def
+
+    if (name === 'money') {
+      switch (true) {
+        case amount >= 7_500 && amount < 30_000:
+          {
+            props = 'prop_cash_case_02'
+          }
+          break
+        case amount >= 30_000:
+          {
+            props = 'prop_cash_crate_01'
+          }
+          break
+      }
+    }
+
+    return props
+  }
+
   public async dropItem(
     name: string,
     amount: number,
@@ -99,7 +120,11 @@ export class _ItemsService {
       if (itemInfo) {
         itemInfo.label = itemInfo.label.toLowerCase()
         const label = `~s~${itemInfo.label} ~g~${amount}`
-        const propsToCreate = itemInfo.props
+        const propsToCreate = await this.getPropsToCreate(
+          name,
+          amount,
+          itemInfo.props
+        )
         nxPlayer.RemoveItem(name, amount, () => {
           const { x, y, z } = nxPlayer.GetCoords()
           this.createPickup(

@@ -32,8 +32,12 @@ class _ItemsService {
           true
         )
         SetEntityAsMissionEntity(object, true, false)
-        PlaceObjectOnGroundProperly(object)
         SetEntityCollision(object, false, true)
+        PlaceObjectOnGroundProperly(object)
+
+        if (itemType === 'gun') {
+          SetEntityRotation(object, 90.0, 0, 0.0, 2, true)
+        }
 
         this.Pickups.push({
           name,
@@ -53,36 +57,15 @@ class _ItemsService {
 
   public refreshPickups(pickups: PickupT[]): void {
     pickups.forEach((pickup) => {
-      RequestModel(pickup.propsType)
-      const interval = setInterval(() => {
-        if (HasModelLoaded(pickup.propsType)) {
-          const object = CreateObject(
-            pickup.propsType,
-            pickup.coords[0],
-            pickup.coords[1],
-            pickup.coords[2],
-            false,
-            false,
-            true
-          )
-          SetEntityAsMissionEntity(object, true, false)
-          SetEntityCollision(object, false, true)
-          PlaceObjectOnGroundProperly(object)
-
-          this.Pickups.push({
-            name: pickup.name,
-            amount: pickup.amount,
-            coords: pickup.coords,
-            uuid: pickup.uuid,
-            label: pickup.label,
-            propsType: pickup.propsType,
-            itemType: pickup.itemType,
-            object,
-          })
-
-          clearInterval(interval)
-        }
-      }, 500)
+      this.createDrop(
+        pickup.name,
+        pickup.amount,
+        pickup.coords,
+        pickup.uuid as string,
+        pickup.label,
+        pickup.propsType,
+        pickup.itemType
+      )
     })
   }
 
@@ -128,7 +111,7 @@ class _ItemsService {
               RemoveAnimDict(this.pickupAnimation.dict)
               setTimeout(() => {
                 emitNet(ItemsEventsE.PICKUP_ITEM, pickup.uuid)
-              }, 500)
+              }, 250)
             })
           }
         }
