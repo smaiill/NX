@@ -1,5 +1,6 @@
 import { ItemsEventsE } from '../../types/events'
 import { ItemT } from '../../types/items'
+import { RespCB } from '../../types/main'
 import ItemsService from './items.service'
 
 onNet(ItemsEventsE.DROP_ITEM, (name: string, amount: number): void => {
@@ -19,7 +20,7 @@ onNet(ItemsEventsE.USE_ITEM, (name: string, ...args: any[]): void => {
 
 onNet(
   ItemsEventsE.CREATE_ITEM,
-  ({ name, label, weight, type, props }: ItemT, cb?: Function): void => {
+  ({ name, label, weight, type, props }: ItemT, cb?: RespCB): void => {
     ItemsService.createItem({ name, label, weight, type, props }, cb)
   }
 )

@@ -4,6 +4,7 @@ import Utils from '@shared/utils/misc'
 import { logger } from 's@utils/logger'
 import { ItemsEventsE } from '../../types/events'
 import { ItemT, PickupT } from '../../types/items'
+import { RespCB } from '../../types/main'
 
 export class _ItemsService {
   private Items: ItemT[]
@@ -203,10 +204,7 @@ export class _ItemsService {
     itemCB && itemCB(source, args)
   }
 
-  public createItem(
-    { name, label, weight, type, props }: ItemT,
-    cb?: Function
-  ) {
+  public createItem({ name, label, weight, type, props }: ItemT, cb?: RespCB) {
     const data = { name, label, weight, type, props }
     if (
       !name ||
@@ -218,6 +216,18 @@ export class _ItemsService {
     ) {
       return logger.error('cant create item invalid args.')
     }
+
+    const alreadyExist = this.findItem(data.name)
+
+    if (alreadyExist) {
+      cb &&
+        cb({
+          status: 'error',
+          message: `cant create item: [${name}] already exists.}`,
+        })
+      return
+    }
+
     data.name = data.name.toLowerCase()
 
     try {
@@ -233,9 +243,9 @@ export class _ItemsService {
       )
       this.Items.push(data)
       emitNet(ItemsEventsE.ITEM_CREATED, data)
-      cb && cb(data)
+      cb && cb({ status: 'succes', message: 'item created.', data })
     } catch (error) {
-      logger.error(`Error while creating item: [${data.name}]}`)
+      cb && cb({ status: 'error', message: error as any })
     }
   }
 }

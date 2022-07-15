@@ -177,6 +177,7 @@ class _PlayerService {
       GetCharInfo: nxPlayer.getCharInfo.bind(nxPlayer),
       GetCoords: nxPlayer.getCoords.bind(nxPlayer),
       GetWeight: nxPlayer.getWeight.bind(nxPlayer),
+      GetMaxWeight: nxPlayer.getMaxWeight.bind(nxPlayer),
       GetInventory: nxPlayer.getInventory.bind(nxPlayer),
       GetAccounts: nxPlayer.getAccounts.bind(nxPlayer),
       GetPermissions: nxPlayer.getPermissions.bind(nxPlayer),

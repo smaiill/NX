@@ -82,6 +82,10 @@ class _Player {
     return parseFloat(this.charinfo.hunger)
   }
 
+  public getMaxWeight(): number {
+    return this.maxWeight
+  }
+
   public setThirst(value: number): void {
     this.charinfo.thirst = value
   }
