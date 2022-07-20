@@ -11,6 +11,16 @@ export interface RespT<T = any> {
   data?: T
 }
 
+export interface BanT {
+  license: string
+  bannedBy: string
+  identifiers: string[]
+  reason: string
+  id: string
+  date: number
+  expire: number
+}
+
 export interface RespCB {
   ({ status, message, data }: RespT): void
 }

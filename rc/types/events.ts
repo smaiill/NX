@@ -5,6 +5,8 @@ export enum PlayerEventsE {
   UPDATE_STATUS = 'NX::updateStatus',
   STATUS_UPDATED = 'NX::statusUpdated',
   ADD_STATUS = 'NX::addStatus',
+  PLAYER_DROPPED = 'NX::playerDropped',
+  BAN_PLAYER = 'NX::banPlayer',
 }
 
 export enum ItemsEventsE {
@@ -17,6 +19,8 @@ export enum ItemsEventsE {
   USE_ITEM = 'NX::useItem',
   CREATE_ITEM = 'NX::createItem',
   ITEM_CREATED = 'NX:itemCreated',
+  CLEAR_ALL_PICKUPS_S = 'NX::clearAllPickupsS',
+  CLEAR_ALL_PICKUPS_C = 'NX::clearAllPickupsC',
 }
 
 export enum JobsEventsE {

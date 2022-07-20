@@ -29,8 +29,14 @@ onNet(ItemsEventsE.CREATE_MISSING_PICKUPS, (pickups: PickupT[]): void => {
   ItemsService.refreshPickups(pickups)
 })
 
-onNet(ItemsEventsE.REMOVE_PICKUP, (uuid: number): void => {
+onNet(ItemsEventsE.REMOVE_PICKUP, (uuid: string): void => {
   ItemsService.removePickup(uuid)
+})
+
+onNet(ItemsEventsE.CLEAR_ALL_PICKUPS_C, (uuids: string[]) => {
+  for (const uuid of uuids) {
+    ItemsService.removePickup(uuid)
+  }
 })
 
 on(ItemsEventsE.HANDLE_PICKUPS, () => {})

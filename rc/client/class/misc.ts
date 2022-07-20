@@ -1,13 +1,10 @@
 import logger from 'c@utils/logger'
+import { RespCB } from '../../types/main'
 
 export class _Misc {
   constructor() {}
 
-  public createPed(
-    pedType: number,
-    model: string,
-    cb?: Function
-  ): number | void {
+  public createPed(pedType: number, model: string, cb?: RespCB): number | void {
     if (!pedType || !model) {
       return logger.error('not valid params to create ped. [Misc.CreatePed]')
     }
@@ -34,7 +31,11 @@ export class _Misc {
         )
         clearInterval(i)
 
-        cb && cb(ped)
+        cb &&
+          cb({
+            status: 'succes',
+            data: ped,
+          })
       }
     }, 500)
   }

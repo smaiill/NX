@@ -12,6 +12,18 @@ class _PlayerService {
     this.PlayersCollection = []
   }
 
+  async findPlayer(source: number): Promise<any> {
+    const nxPlayer = await this.PlayersCollection.find(
+      (player) => player.source === source
+    )
+
+    if (nxPlayer) {
+      return nxPlayer
+    }
+
+    return false
+  }
+
   public async newPlayer(identifiers: string[], source: number): Promise<void> {
     const license = await PlayerUtils.getPlayerLicense(identifiers)
     const [player] = await _PlayerDB.getPlayerFromDB(license)
@@ -23,9 +35,7 @@ class _PlayerService {
   }
 
   private async unloadPlayer(source: number): Promise<void> {
-    const nxPlayer = this.PlayersCollection.find(
-      (player) => player.source === source
-    )
+    const nxPlayer = await this.findPlayer(source)
 
     _PlayerDB
       .savePlayer(nxPlayer)
@@ -34,6 +44,7 @@ class _PlayerService {
         this.PlayersCollection = this.PlayersCollection.filter(
           (player) => player.source !== source
         )
+        emitNet(PlayerEventsE.PLAYER_DROPPED, source)
       })
       .catch((error: any) => {
         logger.error(
@@ -161,9 +172,7 @@ class _PlayerService {
   }
 
   public async getPlayer(source: number): Promise<any> {
-    const nxPlayer = this.PlayersCollection.find(
-      (player) => player.source === source
-    )
+    const nxPlayer = await this.findPlayer(source)
 
     if (!nxPlayer) {
       return false
@@ -194,6 +203,7 @@ class _PlayerService {
       RemoveItem: nxPlayer.removeInventoryItem.bind(nxPlayer),
       AddItem: nxPlayer.addInventoryItem.bind(nxPlayer),
       EmitEvent: nxPlayer.emitEvent.bind(nxPlayer),
+      Kick: nxPlayer.kick.bind(nxPlayer),
     }
   }
 }

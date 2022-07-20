@@ -7,6 +7,7 @@ import './player'
 import './items'
 import './discord'
 import './boot'
+import './services'
 
 class Server {
   Players: typeof Player

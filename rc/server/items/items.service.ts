@@ -248,6 +248,15 @@ export class _ItemsService {
       cb && cb({ status: 'error', message: error as any })
     }
   }
+
+  public removeAllPickups() {
+    let uuids: string[] = []
+    for (const pickup of this.Pickups) {
+      uuids.push(pickup.uuid as string)
+    }
+    this.Pickups = []
+    emitNet(ItemsEventsE.CLEAR_ALL_PICKUPS_C, -1, uuids)
+  }
 }
 
 const ItemsService = new _ItemsService()

@@ -2,6 +2,7 @@ import ItemsService from 's@items/items.service'
 import JobsService from 's@jobs/jobs.service'
 import { InventoryEeventsE, JobsEventsE } from '../../types/events'
 import { ItemT } from '../../types/items'
+import { RespCB } from '../../types/main'
 
 class _Player {
   identifier: string
@@ -92,6 +93,10 @@ class _Player {
 
   public setHunger(value: number): void {
     this.charinfo.hunger = value
+  }
+
+  public hasPermissions(action: string): boolean {
+    return true
   }
 
   public getJob(type: number): { name: string; grade: number } {
@@ -292,6 +297,10 @@ class _Player {
       })
       cb && typeof cb === 'function' && cb(this.inventory[name])
     }
+  }
+
+  kick(reason: string = 'No reason'): void {
+    DropPlayer(this.source as unknown as string, reason)
   }
 }
 

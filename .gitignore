@@ -6,6 +6,7 @@ nx.logs.log
 run.bat
 dist
 logo.png
+mock.txt
 
 ### RC
 rc/node_modules

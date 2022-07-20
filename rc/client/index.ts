@@ -1,19 +1,20 @@
-import './player/index'
-import './items/index'
+import './player'
+import './items'
+import './events'
 import Object from 'c@class/object'
 import Vehicle from 'c@class/vehicle'
 import Misc from 'c@class/misc'
-import Events from './events'
+import Events from './events/events.service'
 import Player from './player/player.class'
 
 class Client {
   Vehicles: typeof Vehicle
   Objects: typeof Object
   Misc: typeof Misc
-  Events: typeof Events
+  EventsService: typeof Events
   Player: typeof Player
   constructor() {
-    this.Events = Events
+    this.EventsService = Events
     this.Objects = Object
     this.Vehicles = Vehicle
     this.Misc = Misc
@@ -44,7 +45,9 @@ globalThis.exports('useClient', () => {
       DrawText3D: client.Misc.drawText3D.bind(client.Misc),
       RequestAnim: client.Misc.requestAnim.bind(client.Misc),
       CreatePed: client.Misc.createPed.bind(client.Misc),
-      EmitServerEvent: client.Events.emitServerEvent.bind(client.Events),
+      EmitServerEvent: client.EventsService.emitServerEvent.bind(
+        client.EventsService
+      ),
     },
   }
 })

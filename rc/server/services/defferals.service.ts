@@ -1,6 +1,7 @@
 import PlayerService from 's@player/player.service'
 import PlayerUtils from 's@player/player.utils'
 import { logger } from 's@utils/logger'
+import BansService from './bans.service'
 
 class _DeferralsService {
   constructor() {}
@@ -19,6 +20,14 @@ class _DeferralsService {
 
     if (!license) {
       return deferrals.done('Not valid license')
+    }
+
+    const isBanned = await BansService.isBanned(license)
+
+    if (isBanned) {
+      deferrals.done(
+        `you are banned from this server.\nReason: ${isBanned.reason}.\nBanned by: ${isBanned.bannedBy}.`
+      )
     }
 
     PlayerService.doesPlayerExist(license)

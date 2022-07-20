@@ -4,10 +4,7 @@ class _Utils {
     this.RANDOM_NUMBER_TIMES = 100_000_000_000
   }
 
-  public uuid(
-    length: number = this.RANDOM_NUMBER_TIMES,
-    base16: boolean = true
-  ): string | number {
+  public uuid(base16: boolean = true): string | number {
     const randomNumber = Math.floor(Math.random() * this.RANDOM_NUMBER_TIMES)
 
     if (base16) {
@@ -17,7 +14,7 @@ class _Utils {
     return randomNumber
   }
 
-  publicwait(ms: number): Promise<void> {
+  public wait(ms: number): Promise<void> {
     return new Promise((res) => {
       setTimeout(res, ms)
     })

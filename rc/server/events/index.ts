@@ -19,7 +19,6 @@ export class _Events {
       ...args: any[]
     ): void => {
       const source: number = globalThis.source
-
       const eventCallback = this.Events.get(eventName)
       if (eventCallback) {
         eventCallback(source, ...args, (...respArgs: any[]) => {

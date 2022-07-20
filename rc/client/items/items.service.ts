@@ -119,11 +119,9 @@ class _ItemsService {
     }, REFRESH_TIME)
   }
 
-  private findPickup(uuid: number): Promise<PickupT | void> {
+  private findPickup(uuid: string): Promise<PickupT | void> {
     return new Promise((resolve, reject) => {
-      const pickup = this.Pickups.find(
-        (pickup) => (pickup.uuid as unknown) === uuid
-      )
+      const pickup = this.Pickups.find((pickup) => pickup.uuid === uuid)
 
       if (pickup) {
         return resolve(pickup)
@@ -133,9 +131,8 @@ class _ItemsService {
     })
   }
 
-  public async removePickup(uuid: number): Promise<void> {
+  public async removePickup(uuid: string): Promise<void> {
     const pickup = await this.findPickup(uuid)
-
     if (pickup) {
       ObjectManager.delete(pickup.object, () => {
         this.Pickups = this.Pickups.filter((pic) => pic.uuid !== pickup.uuid)
