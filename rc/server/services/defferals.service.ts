@@ -1,10 +1,14 @@
+import Utils from '@shared/utils/misc'
 import PlayerService from 's@player/player.service'
 import PlayerUtils from 's@player/player.utils'
 import { logger } from 's@utils/logger'
 import BansService from './bans.service'
 
 class _DeferralsService {
-  constructor() {}
+  utils: typeof Utils
+  constructor() {
+    this.utils = Utils
+  }
 
   public async validatePlayer(
     source: number,
@@ -23,11 +27,18 @@ class _DeferralsService {
     }
 
     const isBanned = await BansService.isBanned(license)
-
     if (isBanned) {
-      deferrals.done(
-        `you are banned from this server.\nReason: ${isBanned.reason}.\nBanned by: ${isBanned.bannedBy}.`
-      )
+      const unban = await BansService.checkUnban(license)
+      if (!unban) {
+        deferrals.done(
+          `you are banned from this server.\nReason: ${
+            isBanned.reason
+          }.\nBan Date: ${this.utils.parseDate(
+            isBanned.date
+          )}.\nExpiration: ${this.utils.parseDate(isBanned.expire)}`
+        )
+        return
+      }
     }
 
     PlayerService.doesPlayerExist(license)

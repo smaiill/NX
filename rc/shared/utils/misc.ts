@@ -19,6 +19,11 @@ class _Utils {
       setTimeout(res, ms)
     })
   }
+
+  public parseDate(ms: number) {
+    const date = new Date(ms * 1000)
+    return date.toLocaleString('fr-FR')
+  }
 }
 
 const Utils = new _Utils()
