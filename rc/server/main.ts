@@ -7,8 +7,7 @@ import './player'
 import './items'
 import './discord'
 import './boot'
-import './services'
-
+import './bans'
 class Server {
   Players: typeof Player
   Events: typeof Events

@@ -1,9 +1,8 @@
 import Utils from '@shared/utils/misc'
+import BansService from '../bans/bans.service'
 import PlayerService from 's@player/player.service'
 import PlayerUtils from 's@player/player.utils'
 import { logger } from 's@utils/logger'
-import BansService from './bans.service'
-
 class _DeferralsService {
   utils: typeof Utils
   constructor() {

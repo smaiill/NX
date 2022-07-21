@@ -95,10 +95,6 @@ class _Player {
     this.charinfo.hunger = value
   }
 
-  public hasPermissions(action: string): boolean {
-    return true
-  }
-
   public getJob(type: number): { name: string; grade: number } {
     let job: {
       name: string

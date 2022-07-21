@@ -1,4 +1,5 @@
 import ItemsService from 'c@items/items.service'
+import logger from 'c@utils/logger'
 import { PlayerEventsE } from '../../types/events'
 import Player from './player.class'
 import PlayerService from './player.service'
@@ -44,3 +45,5 @@ onNet(PlayerEventsE.PLAYER_LOADED, async (nxPlayer: any) => {
     }
   )
 })
+
+logger.debug()

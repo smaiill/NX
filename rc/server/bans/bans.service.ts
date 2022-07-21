@@ -12,7 +12,7 @@ class _BansService {
     this.Utils = Utils
   }
 
-  private loadBans(bans: BanT[]) {
+  private loadBans(bans: BanT[]): void {
     for (const ban of bans) {
       this.Bans.set(ban.id, ban)
     }

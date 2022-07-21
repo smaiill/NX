@@ -1,25 +1,39 @@
+import { ClientColors } from '../../types/misc'
+
 class _Logger {
-  private errorCode: string
-  private infoCode: string
-  private warnCode: string
+  private logsCodes: {
+    error: string
+    info: string
+    warn: string
+    debug: string
+  }
   constructor() {
-    this.errorCode = '^9[ERROR]'
-    this.infoCode = '^2[INFO]'
-    this.warnCode = '^3[WARN]'
+    this.logsCodes = {
+      error: `${ClientColors.RED}[ERROR]`,
+      info: `${ClientColors.GREEN}[INFO]`,
+      warn: `${ClientColors.ORANGE}[WARN]`,
+      debug: `${ClientColors.WHITE}[DEBUG]`,
+    }
   }
 
-  public error(message: string) {
-    console.log(`${this.errorCode}: ${message}`)
+  public error(message: string): void {
+    console.log(`${this.logsCodes.error}: ${message}`)
   }
 
-  public info(message: string) {
-    console.log(`${this.infoCode}: ${message}`)
+  public info(message: string): void {
+    console.log(`${this.logsCodes.info}: ${message}`)
   }
 
-  public warn(message: string) {
-    console.log(`${this.warnCode}: ${message}`)
+  public warn(message: string): void {
+    console.log(`${this.logsCodes.warn}: ${message}`)
+  }
+
+  public debug(message: string = 'debug message.'): void {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`${this.logsCodes.debug}: ${message}`)
+    }
   }
 }
 
-const Logger = new _Logger()
-export default Logger
+const logger = new _Logger()
+export default logger
