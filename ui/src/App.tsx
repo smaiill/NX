@@ -1,8 +1,13 @@
+import { useServices } from './components/useServices'
+import MainProvider from './MainProvider'
+
 const App = () => {
+  useServices()
+
   return (
-    <div className="App">
-      <h1>NX</h1>
-    </div>
+    <MainProvider>
+      <div className="App"></div>
+    </MainProvider>
   )
 }
 

@@ -5,10 +5,10 @@ export interface DiscordWebhookI {
   }
 }
 
-export interface RespT<T = any> {
+export interface RespT {
   status: 'succes' | 'error'
-  message?: string
-  data?: T
+  message?: any
+  data?: any
 }
 
 export interface BanT {

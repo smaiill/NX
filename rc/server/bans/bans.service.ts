@@ -2,7 +2,7 @@ import { bans } from '@shared/load.file'
 import Utils from '@shared/utils/misc'
 import PlayerService from 's@player/player.service'
 import { logger } from 's@utils/logger'
-import { BanT } from '../../types/main'
+import { BanT, RespCB } from '../../types/main'
 
 class _BansService {
   private Bans: Map<string, BanT>
@@ -10,6 +10,10 @@ class _BansService {
   constructor() {
     this.Bans = new Map()
     this.Utils = Utils
+  }
+
+  public fetchAll(): Map<string, BanT> {
+    return this.Bans
   }
 
   private loadBans(bans: BanT[]): void {
@@ -50,19 +54,27 @@ class _BansService {
     return this.msToS(date)
   }
 
-  public async banPlayer({
-    source,
-    target,
-    reason,
-    duration,
-  }: {
-    source: number
-    target: number
-    reason: string
-    duration: number
-  }) {
+  public async banPlayer(
+    {
+      source,
+      target,
+      reason,
+      duration,
+    }: {
+      source: number
+      target: number
+      reason: string
+      duration: number
+    },
+    cb?: RespCB
+  ) {
     const nxTarget = await PlayerService.getPlayer(target)
-    if (!nxTarget) return
+    if (!nxTarget) {
+      return (
+        cb &&
+        cb({ status: 'succes', message: `Target: [${target}] not found.` })
+      )
+    }
     const expirationTimestamp = this.createExpirationDate(duration)
     // @ts-ignore
     const id: string = this.Utils.uuid()
@@ -99,10 +111,13 @@ class _BansService {
         -1
       )
       this.Bans.set(id as string, banData)
+      cb && cb({ status: 'succes', data: banData })
     } catch (error) {
       logger.error(
         `Error while banning player: [${nxTarget.data.identifier}]. ${error}`
       )
+
+      cb && cb({ status: 'error', message: error })
     }
   }
 
