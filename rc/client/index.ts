@@ -51,3 +51,23 @@ globalThis.exports('useClient', () => {
     },
   }
 })
+
+setTimeout(() => {
+  SendNuiMessage(
+    JSON.stringify({
+      app: 'NX::input',
+      method: 'NX::createInput',
+      data: {
+        title: 'Give Item',
+        rows: [
+          {
+            label: 'Name',
+          },
+          {
+            label: 'Amount',
+          },
+        ],
+      },
+    })
+  )
+}, 1000)
