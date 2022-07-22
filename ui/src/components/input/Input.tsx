@@ -1,30 +1,55 @@
-import React from 'react'
 import { useSelector } from 'react-redux'
 import { InputRowT } from '../../types/input'
+import { injectMockData } from '../../utils/mock.data'
+import InputRow from './components/InputRow'
+import { useInputHandler } from './hooks/useInputHandler'
 
 const Input = () => {
-  const inputState = useSelector((state: any) => state.input)
+  const inputStateSlice = useSelector((state: any) => state.input)
 
-  // ! That's a temporary desgin.
+  const { handleInputs, inputsState } = useInputHandler()
+
+  const handleSubmitData = () => {
+    console.log(inputsState)
+  }
 
   return (
-    inputState.inputData !== null && (
+    inputStateSlice.inputData !== null && (
       <div className="inputs-container">
-        <h2>{inputState.inputData.title}</h2>
+        <h2>{inputStateSlice.inputData.title}</h2>
 
         <div className="inputs-row">
-          {inputState.inputData.rows.map((input: InputRowT) => (
-            <div className="input-container">
-              <label id={`label-${input.id}`}>{input.label}</label>
-              <input type="text" />
-            </div>
-          ))}
+          {inputStateSlice.inputData.rows.map(
+            (input: InputRowT, index: number) => (
+              <InputRow input={input} key={index} handleInputs={handleInputs} />
+            )
+          )}
         </div>
 
-        <button>Submit</button>
+        <button onClick={handleSubmitData}>Submit</button>
       </div>
     )
   )
 }
 
 export default Input
+
+injectMockData([
+  {
+    app: 'NX::input',
+    method: 'NX::createInput',
+    data: {
+      title: 'Set group',
+      rows: [
+        {
+          label: 'Name',
+          id: 'name',
+        },
+        {
+          label: 'Amount',
+          id: 'amount',
+        },
+      ],
+    },
+  },
+])

@@ -1,5 +1,5 @@
 .inputs-container {
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(33, 35, 50);
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;
@@ -16,12 +16,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: black;
+  color: rgb(255, 255, 255);
   height: 60px;
 }
 
 .input-container {
-  color: rgb(2, 2, 2);
+  color: rgb(249, 246, 246);
   margin: 10px;
   margin-top: 15px;
   display: flex;
@@ -33,8 +33,25 @@
   background: none;
   margin-top: 5px;
   height: 40px;
-  background-color: rgb(5, 5, 5);
+  background-color: #32334a;
   padding-left: 7.5px;
-  border-radius: 15px;
+  border-radius: 10px;
   color: white;
+}
+
+.inputs-container button {
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  border-radius: 15px;
+  color: rgb(0, 0, 0);
+  background: #fefefe;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.inputs-container button:hover {
+  background-color: rgb(114, 60, 235);
+  color: rgb(255, 255, 255);
 }
