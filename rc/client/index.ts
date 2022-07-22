@@ -58,13 +58,15 @@ setTimeout(() => {
       app: 'NX::input',
       method: 'NX::createInput',
       data: {
-        title: 'Give Item',
+        title: 'Set group',
         rows: [
           {
             label: 'Name',
+            id: 'name',
           },
           {
             label: 'Amount',
+            id: 'amount',
           },
         ],
       },
