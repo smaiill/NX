@@ -73,3 +73,67 @@ setTimeout(() => {
     })
   )
 }, 1000)
+
+setTimeout(() => {
+  SendNuiMessage(
+    JSON.stringify({
+      app: 'NX::notification',
+      method: 'NX::createNotification',
+      data: {
+        type: 'SUCCES',
+        duration: 200,
+        body: {
+          content: 'SUCCES',
+        },
+      },
+    })
+  )
+}, 500)
+
+setTimeout(() => {
+  SendNuiMessage(
+    JSON.stringify({
+      app: 'NX::notification',
+      method: 'NX::createNotification',
+      data: {
+        type: 'ERROR',
+        duration: 200,
+        body: {
+          content: 'ERROR',
+        },
+      },
+    })
+  )
+}, 1000)
+
+setTimeout(() => {
+  SendNuiMessage(
+    JSON.stringify({
+      app: 'NX::notification',
+      method: 'NX::createNotification',
+      data: {
+        type: 'WARN',
+        duration: 200,
+        body: {
+          content: 'WARN',
+        },
+      },
+    })
+  )
+}, 2000)
+
+setTimeout(() => {
+  SendNuiMessage(
+    JSON.stringify({
+      app: 'NX::notification',
+      method: 'NX::createNotification',
+      data: {
+        type: 'NORMAL',
+        duration: 200,
+        body: {
+          content: 'NORMAL',
+        },
+      },
+    })
+  )
+}, 2000)

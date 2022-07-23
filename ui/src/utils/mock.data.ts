@@ -1,7 +1,7 @@
 import { isEnvBrowser } from './misc'
 
 // IMPORTANT otherwise debug wont work properly
-const DEBUG_TIMER: number = 1_000
+const DEBUG_TIMER: number = 100
 
 export interface DebugEvent {
   app: string
