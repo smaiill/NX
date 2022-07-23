@@ -46,4 +46,4 @@ onNet(PlayerEventsE.PLAYER_LOADED, async (nxPlayer: any) => {
   )
 })
 
-logger.debug()
+// logger.debug()

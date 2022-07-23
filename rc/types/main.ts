@@ -21,6 +21,11 @@ export interface BanT {
   expire: number
 }
 
+export enum NuiAPP {
+  NOTIFICATION = 'NX::notification',
+  INPUT = 'NX::input',
+}
+
 export interface RespCB {
   ({ status, message, data }: RespT): void
 }

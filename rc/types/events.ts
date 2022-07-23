@@ -37,6 +37,10 @@ export enum MiscEventsE {
   DB_CONNECTED = 'NX::DBConnected',
 }
 
+export enum InputEvents {
+  CREATE_INPUT = 'NX::createInput',
+}
+
 export interface EventE {
   [property: string]: Function
 }

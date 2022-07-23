@@ -11,7 +11,6 @@ export const useInputHandler = () => {
       // @ts-ignore
       [id]: e.target.value,
     })
-    console.log(inputsState)
   }
 
   return { handleInputs, inputsState }

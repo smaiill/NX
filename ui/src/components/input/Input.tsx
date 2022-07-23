@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
-import { InputRowT } from '../../types/input'
+import { InputMethods, InputRowT } from '../../types/input'
+import { fetchNui } from '../../utils/fetchNui'
 import { injectMockData } from '../../utils/mock.data'
 import InputRow from './components/InputRow'
 import { useInputHandler } from './hooks/useInputHandler'
@@ -10,7 +11,7 @@ const Input = () => {
   const { handleInputs, inputsState } = useInputHandler()
 
   const handleSubmitData = () => {
-    console.log(inputsState)
+    fetchNui(InputMethods.SUBMIT_DATA, inputsState)
   }
 
   return (

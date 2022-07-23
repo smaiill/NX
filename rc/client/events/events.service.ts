@@ -38,6 +38,20 @@ export class _EventsService {
     emitNet(eventName, respEventName, ...args)
     onNet(respEventName, handleRespEvent)
   }
+
+  public emitNuiEvent<T = any>(
+    { app, method, data }: { app: string; method: string; data?: T },
+    useCursor: boolean = true
+  ): void {
+    SetNuiFocus(useCursor, useCursor)
+    SendNuiMessage(
+      JSON.stringify({
+        app,
+        method,
+        data,
+      })
+    )
+  }
 }
 
 const EventsService = new _EventsService()
