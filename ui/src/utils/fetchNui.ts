@@ -14,8 +14,6 @@ export const fetchNui = async <T = any>(eventName: string, req: RespT) => {
     : 'NX'
 
   const resp = await fetch(`https://${resourceName}/${eventName}`, options)
-
   const responseObj = await resp.json()
-
   return responseObj
 }

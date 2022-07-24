@@ -1,5 +1,7 @@
+@import './_variables.scss';
+
 .inputs-container {
-  background-color: rgb(33, 35, 50);
+  background-color: $input-container-color;
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;
@@ -10,31 +12,41 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  color: white;
 
   h2 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: rgb(255, 255, 255);
+    @include flex-center-center();
     height: 60px;
+    text-transform: uppercase;
+    font-size: 20px;
+    letter-spacing: 2px;
+    font-weight: 900;
+    font-family: 'Montserrat';
   }
 
   .input-container {
-    color: rgb(249, 246, 246);
     margin: 10px;
     margin-top: 15px;
     display: flex;
     flex-direction: column;
+
+    label {
+      text-transform: lowercase;
+    }
 
     input {
       border: none;
       background: none;
       margin-top: 5px;
       height: 40px;
-      background-color: #32334a;
+      background-color: $input-bg-color;
       padding-left: 7.5px;
       border-radius: 10px;
       color: white;
+
+      &:focus {
+        border: 1px solid rgb(70, 79, 80);
+      }
     }
   }
 }
@@ -44,14 +56,29 @@
   margin: 10px;
   border: none;
   border-radius: 15px;
-  color: rgb(0, 0, 0);
-  background: #fefefe;
+  color: rgb(255, 255, 255);
+  background: $button-bg-color;
   text-transform: uppercase;
   cursor: pointer;
   transition: 0.3s;
+  letter-spacing: 2px;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+
+  &::before {
+    @include button-pseudo-class-before-after(left, 0);
+  }
+
+  &::after {
+    @include button-pseudo-class-before-after(right, 0);
+  }
 
   &:hover {
-    background-color: rgb(114, 60, 235);
-    color: rgb(255, 255, 255);
+    color: black;
+  }
+
+  &:hover::before, &:hover::after {
+    width: 60%;
   }
 }

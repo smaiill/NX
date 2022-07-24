@@ -47,7 +47,7 @@ injectMockData([
     app: 'NX::input',
     method: 'NX::createInput',
     data: {
-      title: 'Set group',
+      title: 'Give weapon',
       rows: [
         {
           label: 'Name',

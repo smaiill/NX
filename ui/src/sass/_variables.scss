@@ -1,0 +1,25 @@
+$input-container-color: #323741;
+$input-bg-color: #282d37;
+$button-bg-color: #0071ff;
+
+
+
+@mixin flex-center-center() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+@mixin button-pseudo-class-before-after($key, $value) {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 0%;
+    top: 0;
+    border-radius: 15px;
+    transition: .3s;
+    z-index: -1;
+    background-color: white;
+    #{$key}: $value;
+}
+  
