@@ -12,12 +12,12 @@ client_script "dist/client/client.min.js"
 server_script "dist/server/server.min.js"
 
 
-ui_page 'ui/dist/index.html'
+ui_page 'dist/ui/index.html'
 
 files {
-  'ui/dist/index.html',
-  'config/*.json',
-  'ui/dist/**/*'
+  'dist/ui/index.html',
+  'dist/ui/**/*',
+  'config/*.json'
 }
 
 
