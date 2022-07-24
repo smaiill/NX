@@ -6,7 +6,7 @@ import ItemsService from 's@items/items.service'
 import { logger } from 's@utils/logger'
 
 class _PlayerService {
-  PlayersCollection: any[]
+  private PlayersCollection: any[]
 
   constructor() {
     this.PlayersCollection = []

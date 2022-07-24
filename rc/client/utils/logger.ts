@@ -1,7 +1,7 @@
 import { ClientColors } from '../../types/misc'
 
 class _Logger {
-  private logsCodes: {
+  private readonly logsCodes: {
     error: string
     info: string
     warn: string

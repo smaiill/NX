@@ -3,8 +3,8 @@ import ObjectManager from 'c@class/object'
 import { ItemsEventsE } from '../../types/events'
 import { PickupT } from '../../types/items'
 class _ItemsService {
-  Pickups: PickupT[]
-  pickupAnimation: { name: string; dict: string }
+  private Pickups: PickupT[]
+  private readonly pickupAnimation: { name: string; dict: string }
   constructor() {
     this.Pickups = []
     this.pickupAnimation = { name: 'putdown_low', dict: 'pickup_object' }
@@ -70,7 +70,7 @@ class _ItemsService {
   }
 
   public handlePickupsPickup(): void {
-    // ! I CANT OPTI THIS PART CAUSE OF FIVEM (setTick takes to much :( )) !
+    // ! IM GONNA OPTI DONT PANIC !!!!!!!!
     let REFRESH_TIME = 0
 
     setInterval(() => {
@@ -87,7 +87,6 @@ class _ItemsService {
           true
         )
 
-        // 2- 4 - 8 - 9
         if (distance < 4) {
           MiscManager.drawText3D(pickup.coords, pickup.label, 1, 2)
         }

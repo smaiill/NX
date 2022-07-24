@@ -7,7 +7,7 @@ import { ItemT, PickupT } from '../../types/items'
 import { RespCB } from '../../types/main'
 
 export class _ItemsService {
-  private Items: ItemT[]
+  private readonly Items: ItemT[]
   private Pickups: PickupT[]
   private UsableItems: Map<string, Function>
   private utils: typeof Utils

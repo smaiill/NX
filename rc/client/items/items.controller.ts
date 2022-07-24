@@ -38,5 +38,3 @@ onNet(ItemsEventsE.CLEAR_ALL_PICKUPS_C, (uuids: string[]) => {
     ItemsService.removePickup(uuid)
   }
 })
-
-on(ItemsEventsE.HANDLE_PICKUPS, () => {})

@@ -7,9 +7,11 @@ import { BanT, RespCB } from '../../types/main'
 class _BansService {
   private Bans: Map<string, BanT>
   private Utils: typeof Utils
+  private readonly permaBanValue: number
   constructor() {
     this.Bans = new Map()
     this.Utils = Utils
+    this.permaBanValue = 3000000000 // ? 24/01/2065 06:20:00
   }
 
   public fetchAll(): Map<string, BanT> {
@@ -22,7 +24,7 @@ class _BansService {
     }
   }
 
-  private findBanByLicense(license: string) {
+  private findBanByLicense(license: string): BanT | false {
     const [isBanned] = [...this.Bans.entries()]
       .filter(({ 1: ban }) => ban.license === license)
       .map(([id, val]) => val)
@@ -34,7 +36,7 @@ class _BansService {
     return isBanned
   }
 
-  public async isBanned(license: string) {
+  public async isBanned(license: string): Promise<false | BanT> {
     const isBanned = await this.findBanByLicense(license)
     return isBanned
   }
@@ -44,10 +46,8 @@ class _BansService {
     return parseInt(timestamp.toString().split('.')[0])
   }
 
-  private createExpirationDate(days: number) {
-    if (days === 0) {
-      return 3000000000
-    }
+  private createExpirationDate(days: number): number {
+    if (days === 0) return this.permaBanValue;
 
     const date = new Date()
     date.setDate(date.getDate() + days)
@@ -155,7 +155,7 @@ class _BansService {
     })
   }
 
-  public init() {
+  public init(): void {
     this.loadBans(bans)
   }
 }

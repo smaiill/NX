@@ -2,7 +2,7 @@ import { jobs } from '@shared/load.file'
 import { JobT } from '../../types/jobs'
 
 class _JobsService {
-  Jobs: any[]
+  private readonly Jobs: any[]
   constructor() {
     this.Jobs = jobs
   }

@@ -1,5 +1,5 @@
 class _PlayerUtils {
-  private readonly bloodTypes: any
+  private readonly bloodTypes: Record<string, string>
   constructor() {
     this.bloodTypes = {
       'A+': '0-38',
@@ -25,15 +25,6 @@ class _PlayerUtils {
       reject('')
     })
   }
-
-  // 0 - 38 | 0+
-  // 39 - 73 | A+
-  // 74 - 80 | B+
-  // 81 - 86 | O-
-  // 87 - 92 | A-
-  // 93 - 96 | AB+
-  // 97 - 99 | B-
-  // 100 | AB-
   public generateBloodType(): Promise<string> {
     return new Promise((resolve, reject) => {
       const randomNumber = Math.floor(Math.random() * 100)

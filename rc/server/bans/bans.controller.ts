@@ -15,7 +15,7 @@ onNet(
       duration: number
     },
     cb?: RespCB
-  ) => {
+  ): void => {
     const source = globalThis.source
     BansService.banPlayer({ source, target, reason, duration })
   }

@@ -20,7 +20,7 @@ class _Utils {
     })
   }
 
-  public parseDate(ms: number) {
+  public parseDate(ms: number): string {
     const date = new Date(ms * 1000)
     return date.toLocaleString('fr-FR')
   }

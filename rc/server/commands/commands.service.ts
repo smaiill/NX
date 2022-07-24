@@ -13,7 +13,7 @@ class _CommandsServices {
 
     RegisterCommand(
       name,
-      async (source: number, args: any[]) => {
+      async (source: number, args: any[]): Promise<void> => {
         const nxPlayer = await PlayerService.getPlayer(source)
 
         if (nxPlayer) {
@@ -22,6 +22,7 @@ class _CommandsServices {
             logger.warn(
               `[${nxPlayer.GetName()}] tried to execute command [${name}] without having permissions.`
             )
+            return
           }
 
           cb(source, args)

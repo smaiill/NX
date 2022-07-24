@@ -42,7 +42,7 @@ onNet(
 // client -> server
 onNet(
   PlayerEventsE.UPDATE_STATUS,
-  async ({ thirst, hunger }: { thirst: number; hunger: number }) => {
+  async ({ thirst, hunger }: { thirst: number; hunger: number }): Promise<void> => {
     const source = globalThis.source
     const nxPlayer = await PlayerService.getPlayer(source)
     if (nxPlayer) {

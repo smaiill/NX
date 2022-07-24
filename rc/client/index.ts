@@ -1,14 +1,14 @@
-import './player'
-import './items'
-import './events'
-import './input'
-import './notification'
 import Object from 'c@class/object'
 import Vehicle from 'c@class/vehicle'
 import Misc from 'c@class/misc'
 import Events from './events/events.service'
 import Player from './player/player.class'
 import Input from './input/input.service'
+import './player'
+import './items'
+import './events'
+import './input'
+import './notification'
 
 class Client {
   Vehicles: typeof Vehicle
@@ -49,6 +49,7 @@ globalThis.exports('useClient', () => {
     Input: {
       Create: client.Input.create.bind(client.Input),
       IsActive: client.Input.isActive.bind(client.Input),
+      Destroy: client.Input.destroy.bind(client.Input)
     },
     Misc: {
       DrawText3D: client.Misc.drawText3D.bind(client.Misc),
@@ -60,89 +61,3 @@ globalThis.exports('useClient', () => {
     },
   }
 })
-
-// setTimeout(() => {
-//   SendNuiMessage(
-//     JSON.stringify({
-//       app: 'NX::input',
-//       method: 'NX::createInput',
-//       data: {
-//         title: 'Set group',
-//         rows: [
-//           {
-//             label: 'Name',
-//             id: 'name',
-//           },
-//           {
-//             label: 'Amount',
-//             id: 'amount',
-//           },
-//         ],
-//       },
-//     })
-//   )
-// }, 1000)
-
-// setTimeout(() => {
-//   SendNuiMessage(
-//     JSON.stringify({
-//       app: 'NX::notification',
-//       method: 'NX::createNotification',
-//       data: {
-//         type: 'SUCCES',
-//         duration: 200,
-//         body: {
-//           content: 'SUCCES',
-//         },
-//       },
-//     })
-//   )
-// }, 500)
-
-// setTimeout(() => {
-//   SendNuiMessage(
-//     JSON.stringify({
-//       app: 'NX::notification',
-//       method: 'NX::createNotification',
-//       data: {
-//         type: 'ERROR',
-//         duration: 200,
-//         body: {
-//           content: 'ERROR',
-//         },
-//       },
-//     })
-//   )
-// }, 1000)
-
-// setTimeout(() => {
-//   SendNuiMessage(
-//     JSON.stringify({
-//       app: 'NX::notification',
-//       method: 'NX::createNotification',
-//       data: {
-//         type: 'WARN',
-//         duration: 200,
-//         body: {
-//           content: 'WARN',
-//         },
-//       },
-//     })
-//   )
-// }, 2000)
-
-// setTimeout(() => {
-//   SendNuiMessage(
-//     JSON.stringify({
-//       app: 'NX::notification',
-//       method: 'NX::createNotification',
-//       data: {
-//         type: 'NORMAL',
-//         duration: 200,
-//         body: {
-//           content: 'NORMAL',
-//         },
-//       },
-//     })
-//   )
-// }, 2000)

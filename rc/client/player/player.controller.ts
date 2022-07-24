@@ -1,5 +1,4 @@
 import ItemsService from 'c@items/items.service'
-import logger from 'c@utils/logger'
 import { PlayerEventsE } from '../../types/events'
 import Player from './player.class'
 import PlayerService from './player.service'
@@ -18,9 +17,7 @@ const interval = setInterval(() => {
 onNet(
   PlayerEventsE.ADD_STATUS,
   ({ status, amount }: { status: string; amount: number }) => {
-    if (status !== 'thirst' && status !== 'hunger') {
-      return
-    }
+    if (status !== 'thirst' && status !== 'hunger') return;
     const nxPlayerData = Player.getPlayerData()
     Player.setStatus(status, parseFloat(nxPlayerData.charinfo[status]) + amount)
   }
@@ -45,5 +42,3 @@ onNet(PlayerEventsE.PLAYER_LOADED, async (nxPlayer: any) => {
     }
   )
 })
-
-// logger.debug()
