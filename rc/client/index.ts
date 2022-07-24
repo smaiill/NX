@@ -2,11 +2,13 @@ import './player'
 import './items'
 import './events'
 import './input'
+import './notification'
 import Object from 'c@class/object'
 import Vehicle from 'c@class/vehicle'
 import Misc from 'c@class/misc'
 import Events from './events/events.service'
 import Player from './player/player.class'
+import Input from './input/input.service'
 
 class Client {
   Vehicles: typeof Vehicle
@@ -14,12 +16,14 @@ class Client {
   Misc: typeof Misc
   EventsService: typeof Events
   Player: typeof Player
+  Input: typeof Input
   constructor() {
     this.EventsService = Events
     this.Objects = Object
     this.Vehicles = Vehicle
     this.Misc = Misc
     this.Player = Player
+    this.Input = Input
   }
 }
 
@@ -41,6 +45,10 @@ globalThis.exports('useClient', () => {
     Objects: {
       Create: client.Objects.create.bind(client.Objects),
       Delete: client.Objects.delete.bind(client.Objects),
+    },
+    Input: {
+      Create: client.Input.create.bind(client.Input),
+      IsActive: client.Input.isActive.bind(client.Input),
     },
     Misc: {
       DrawText3D: client.Misc.drawText3D.bind(client.Misc),

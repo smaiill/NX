@@ -12,8 +12,12 @@ export const inputSlice = createSlice({
     createInputsRow: (state, action: PayloadAction<InputsDataT>) => {
       state.inputData = action.payload
     },
+
+    deleteInputsRow: (state) => {
+      state.inputData = null
+    },
   },
 })
 
-export const { createInputsRow } = inputSlice.actions
+export const { createInputsRow, deleteInputsRow } = inputSlice.actions
 export default inputSlice.reducer

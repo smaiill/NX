@@ -1,5 +1,6 @@
 import Utils from '@shared/utils/misc'
 import logger from 'c@utils/logger'
+import { RespCB } from '../../types/main'
 
 export class _EventsService {
   private Events: Map<string, Function>
@@ -41,7 +42,7 @@ export class _EventsService {
 
   public emitNuiEvent<T = any>(
     { app, method, data }: { app: string; method: string; data?: T },
-    useCursor: boolean = true
+    useCursor: boolean = false
   ): void {
     SetNuiFocus(useCursor, useCursor)
     SendNuiMessage(
@@ -51,6 +52,13 @@ export class _EventsService {
         data,
       })
     )
+  }
+
+  public onNuiEvent<T = any>(eventName: string, handler: Function): void {
+    RegisterNuiCallbackType(eventName)
+    on(`__cfx_nui:${eventName}`, (data?: T, cb?: RespCB) => {
+      handler(data, cb)
+    })
   }
 }
 

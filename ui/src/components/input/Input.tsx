@@ -1,4 +1,6 @@
+import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
+import { deleteInputsRow } from '../../features/input/input.slice'
 import { InputMethods, InputRowT } from '../../types/input'
 import { fetchNui } from '../../utils/fetchNui'
 import { injectMockData } from '../../utils/mock.data'
@@ -9,9 +11,15 @@ const Input = () => {
   const inputStateSlice = useSelector((state: any) => state.input)
 
   const { handleInputs, inputsState } = useInputHandler()
+  const dispatch = useDispatch()
 
   const handleSubmitData = () => {
-    fetchNui(InputMethods.SUBMIT_DATA, inputsState)
+    fetchNui(InputMethods.SUBMIT_DATA, {
+      status: 'succes',
+      data: inputsState,
+    })
+
+    dispatch(deleteInputsRow())
   }
 
   return (
@@ -26,7 +34,6 @@ const Input = () => {
             )
           )}
         </div>
-
         <button onClick={handleSubmitData}>Submit</button>
       </div>
     )

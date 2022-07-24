@@ -1,13 +1,8 @@
-import logger from 'c@utils/logger'
+import EventsService from 'c@events/events.service'
 import { InputEvents } from '../../types/events'
-import { InputsDataT } from '../../types/input'
+import { RespT } from '../../types/main'
 import InputService from './input.service'
 
-onNet(InputEvents.CREATE_INPUT, (data: InputsDataT) => {
-  if (!data) {
-    return logger.error(`Incorrect data.`)
-  }
-  if (!InputService.isActive()) {
-    InputService.create(data)
-  }
+EventsService.onNuiEvent(InputEvents.SUBMIT_DATA, (res: RespT): void => {
+  InputService.handleInputResponse(res)
 })

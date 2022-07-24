@@ -39,8 +39,12 @@ export enum MiscEventsE {
 
 export enum InputEvents {
   CREATE_INPUT = 'NX::createInput',
+  SUBMIT_DATA = 'NX::inputSubmitData',
 }
 
+export enum NotificationEvents {
+  CREATE_NOTIFICATION = 'NX::createNotification',
+}
 export interface EventE {
   [property: string]: Function
 }
