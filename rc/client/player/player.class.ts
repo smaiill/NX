@@ -24,8 +24,12 @@ class _Player {
     return (this.playerData[key] = value)
   }
 
+  public getValue(key: string): any {
+    return this.playerData[key]
+  }
+
   public setStatus(key: 'hunger' | 'thirst', value: number) {
-    if (key !== 'hunger' && key !== 'thirst') return;
+    if (key !== 'hunger' && key !== 'thirst') return
 
     if (value > 100) value = 100
 

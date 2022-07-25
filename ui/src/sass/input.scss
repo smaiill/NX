@@ -45,7 +45,7 @@
       color: white;
 
       &:focus {
-        border: 1px solid rgb(70, 79, 80);
+        border: 1px solid rgb(21, 23, 23);
       }
     }
   }
@@ -78,7 +78,8 @@
     color: black;
   }
 
-  &:hover::before, &:hover::after {
+  &:hover::before,
+  &:hover::after {
     width: 60%;
   }
 }

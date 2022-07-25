@@ -1,6 +1,7 @@
 export enum InputMethods {
   CREATE_INPUT = 'NX::createInput',
   SUBMIT_DATA = 'NX::inputSubmitData',
+  DESTROY_INPUT = 'NX::destroyInput',
 }
 
 export interface InputRowT {

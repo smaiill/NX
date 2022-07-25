@@ -8,6 +8,7 @@ import './items'
 import './discord'
 import './boot'
 import './bans'
+import './exports'
 class Server {
   Players: typeof Player
   Events: typeof Events

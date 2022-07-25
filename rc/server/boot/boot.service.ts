@@ -1,11 +1,11 @@
 import { MiscEventsE } from '../../types/events'
-import { _DB } from 's@db/db'
+import DB from 's@db/db'
 import { logger } from 's@utils/logger'
 
 class _BootService {
-  private readonly DB: typeof _DB
+  private readonly DB: typeof DB
   constructor() {
-    this.DB = _DB
+    this.DB = DB
   }
 
   private checkDatabaseConnection(): void {

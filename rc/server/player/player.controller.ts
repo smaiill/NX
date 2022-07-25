@@ -3,7 +3,6 @@ import DeferralsService from '../services/defferals.service'
 import PlayerService from './player.service'
 import _PlayerService from './player.service'
 
-// client -> server
 onNet(PlayerEventsE.NEW_PLAYER, (): void => {
   const source = globalThis.source
   _PlayerService.newPlayer(getPlayerIdentifiers(source.toString()), source)
@@ -38,11 +37,15 @@ onNet(
     }
   }
 )
-
-// client -> server
 onNet(
   PlayerEventsE.UPDATE_STATUS,
-  async ({ thirst, hunger }: { thirst: number; hunger: number }): Promise<void> => {
+  async ({
+    thirst,
+    hunger,
+  }: {
+    thirst: number
+    hunger: number
+  }): Promise<void> => {
     const source = globalThis.source
     const nxPlayer = await PlayerService.getPlayer(source)
     if (nxPlayer) {

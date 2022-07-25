@@ -7,6 +7,10 @@ class _NotificationService {
   constructor() {}
 
   create(data: NotificationDataT): void {
+    data.type ??= 'NORMAL'
+    data.duration ??= 5
+    data.body.content ??= 'Hello world !'
+
     EventsService.emitNuiEvent(
       {
         app: NuiAPP.NOTIFICATION,

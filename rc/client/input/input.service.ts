@@ -28,6 +28,10 @@ class _InputService {
     if (this.isActive()) {
       this.setInputState('handler', null)
       this.setInputState('active', false)
+      EventsService.emitNuiEvent({
+        app: NuiAPP.INPUT,
+        method: InputEvents.DESTROY_INPUT,
+      })
       cb &&
         cb({
           status: 'succes',
@@ -61,7 +65,7 @@ class _InputService {
     this.setInputState('active', true)
   }
 
-  public handleInputResponse(res: RespT): void {
+  public handleInputResponse(res: RespT, cb: RespCB): void {
     if (
       typeof this.currentInputData.handler === 'function' &&
       this.currentInputData.active
@@ -69,7 +73,13 @@ class _InputService {
       this.currentInputData.handler(res)
       this.setInputState('handler', null)
       this.setInputState('active', false)
+
+      SetNuiFocus(false, false)
+      cb({ status: 'succes', message: 'succefully removed.' })
+      return
     }
+
+    cb({ status: 'error', message: 'error while removing.' })
   }
 }
 

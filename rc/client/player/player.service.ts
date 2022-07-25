@@ -6,7 +6,7 @@ class _PlayerService {
 
   private syncPlayerCoords(): void {
     setInterval(() => {
-      const ped = PlayerPedId()
+      const ped = Player.getValue('ped')
       const coords = GetEntityCoords(ped, false)
       const heading = GetEntityHeading(ped)
       emitNet(PlayerEventsE.UPDATE_COORDS, coords, heading)

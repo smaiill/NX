@@ -3,6 +3,7 @@ import Notification from './components/notification/Notification'
 import { useControllers } from './components/useControllers'
 import MainProvider from './MainProvider'
 import './sass/index.scss'
+import './debug'
 
 const App = () => {
   useControllers()

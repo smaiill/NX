@@ -1,5 +1,8 @@
 import { useNuiEvent } from 'fivem-nui-react-lib'
-import { createInputsRow } from '../../../features/input/input.slice'
+import {
+  createInputsRow,
+  deleteInputsRow,
+} from '../../../features/input/input.slice'
 import { InputMethods, InputsDataT } from '../../../types/input'
 import { NuiAPP } from '../../../types/main'
 import { useDispatch } from 'react-redux'
@@ -7,9 +10,14 @@ import { useDispatch } from 'react-redux'
 export const useInputController = () => {
   const dispatch = useDispatch()
 
-  const handleCreateInputsRow = async (inputs: InputsDataT) => {
+  const handleCreateInputsRow = (inputs: InputsDataT) => {
     dispatch(createInputsRow(inputs))
   }
 
+  const handleDestroyInput = () => {
+    dispatch(deleteInputsRow())
+  }
+
   useNuiEvent(NuiAPP.INPUT, InputMethods.CREATE_INPUT, handleCreateInputsRow)
+  useNuiEvent(NuiAPP.INPUT, InputMethods.DESTROY_INPUT, handleDestroyInput)
 }

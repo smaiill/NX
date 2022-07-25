@@ -47,7 +47,7 @@ class _BansService {
   }
 
   private createExpirationDate(days: number): number {
-    if (days === 0) return this.permaBanValue;
+    if (days === 0) return this.permaBanValue
 
     const date = new Date()
     date.setDate(date.getDate() + days)

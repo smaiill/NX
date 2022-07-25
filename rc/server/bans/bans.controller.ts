@@ -20,5 +20,3 @@ onNet(
     BansService.banPlayer({ source, target, reason, duration })
   }
 )
-
-console.log(BansService.fetchAll())

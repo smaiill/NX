@@ -40,6 +40,7 @@ export enum MiscEventsE {
 export enum InputEvents {
   CREATE_INPUT = 'NX::createInput',
   SUBMIT_DATA = 'NX::inputSubmitData',
+  DESTROY_INPUT = 'NX::destroyInput',
 }
 
 export enum NotificationEvents {

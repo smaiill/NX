@@ -17,14 +17,15 @@ const interval = setInterval(() => {
 onNet(
   PlayerEventsE.ADD_STATUS,
   ({ status, amount }: { status: string; amount: number }) => {
-    if (status !== 'thirst' && status !== 'hunger') return;
+    if (status !== 'thirst' && status !== 'hunger') return
     const nxPlayerData = Player.getPlayerData()
     Player.setStatus(status, parseFloat(nxPlayerData.charinfo[status]) + amount)
   }
 )
 
-onNet(PlayerEventsE.PLAYER_LOADED, async (nxPlayer: any) => {
+onNet(PlayerEventsE.PLAYER_LOADED, (nxPlayer: any) => {
   Player.setPlayerData(nxPlayer)
+  Player.setValue('ped', PlayerPedId())
   Player.loaded = true
   globalThis.exports.spawnmanager.spawnPlayer(
     {

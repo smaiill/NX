@@ -49,7 +49,7 @@ globalThis.exports('useClient', () => {
     Input: {
       Create: client.Input.create.bind(client.Input),
       IsActive: client.Input.isActive.bind(client.Input),
-      Destroy: client.Input.destroy.bind(client.Input)
+      Destroy: client.Input.destroy.bind(client.Input),
     },
     Misc: {
       DrawText3D: client.Misc.drawText3D.bind(client.Misc),
