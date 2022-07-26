@@ -52,7 +52,7 @@ export class _Vehicle {
 
         clearInterval(i)
 
-        cb && cb()
+        cb && cb(vehicle)
       }
     }, 500)
   }

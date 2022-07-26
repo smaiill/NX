@@ -52,15 +52,15 @@ injectMockData([
     app: 'NX::input',
     method: 'NX::createInput',
     data: {
-      title: 'Give weapon',
+      title: 'title',
       rows: [
         {
-          label: 'Name',
-          id: 'name',
+          label: 'Input 1',
+          id: 'input1',
         },
         {
-          label: 'Amount',
-          id: 'amount',
+          label: 'Input 2',
+          id: 'input2',
         },
       ],
     },
