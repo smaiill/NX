@@ -1,9 +1,10 @@
 import logger from 'c@utils/logger'
+import { RespCB } from '../../types/main'
 
 class _Object {
   constructor() {}
 
-  public create(entity: string, cb?: Function): number | void {
+  public create(entity: string, cb?: RespCB): number | void {
     if (!entity) {
       return logger.error('not valid params to create object. [Objects.Create]')
     }
@@ -28,12 +29,16 @@ class _Object {
         )
         clearInterval(i)
 
-        cb && cb(object)
+        cb &&
+          cb({
+            status: 'succes',
+            data: object,
+          })
       }
     })
   }
 
-  public delete(entity: number, cb?: Function): void {
+  public delete(entity: number, cb?: RespCB): void {
     if (!entity || typeof entity !== 'number') {
       return
     }
@@ -45,7 +50,11 @@ class _Object {
     SetEntityAsMissionEntity(entity, false, true)
     DeleteObject(entity)
 
-    cb && cb()
+    cb &&
+      cb({
+        status: 'succes',
+        message: 'Object deleted.',
+      })
   }
 }
 

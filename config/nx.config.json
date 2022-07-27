@@ -10,9 +10,27 @@
     "logs": {
       "webhook": "",
       "logsConfiguration": {
-        "playerJoin": true,
-        "playerDropped": true
+        "playerJoin": false,
+        "playerDropped": false
       }
+    },
+
+    "richPresence": {
+      "active": false,
+      "appID": "",
+      "image": "",
+      "imageHoverText": "",
+      "buttons": [
+        {
+          "label": "",
+          "href": ""
+        },
+        {
+          "label": "",
+          "href": ""
+        }
+      ],
+      "text": ""
     }
   }
 }

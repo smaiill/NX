@@ -1,5 +1,6 @@
 import ItemsService from 'c@items/items.service'
-import { PlayerEventsE } from '../../types/events'
+import { InventoryEeventsE, PlayerEventsE } from '../../types/events'
+import { InventoryActions } from '../../types/main'
 import Player from './player.class'
 import PlayerService from './player.service'
 
@@ -43,3 +44,16 @@ onNet(PlayerEventsE.PLAYER_LOADED, (nxPlayer: any) => {
     }
   )
 })
+
+onNet(
+  InventoryEeventsE.UPDATE_INVENTORY,
+  ({
+    item,
+    type,
+  }: {
+    type: 'ADD' | 'REMOVE'
+    item: { name: string; amount: number; type: string }
+  }) => {
+    console.log('update')
+  }
+)

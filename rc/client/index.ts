@@ -1,14 +1,13 @@
-import Object from 'c@class/object'
-import Vehicle from 'c@class/vehicle'
-import Misc from 'c@class/misc'
-import Events from './events/events.service'
-import Player from './player/player.class'
-import Input from './input/input.service'
-import './player'
-import './items'
-import './events'
-import './input'
-import './notification'
+import {
+  Events,
+  Input,
+  Misc,
+  Object,
+  Vehicle,
+  Player,
+  Discord,
+} from './services'
+import './controllers'
 
 class Client {
   Vehicles: typeof Vehicle
@@ -17,6 +16,7 @@ class Client {
   EventsService: typeof Events
   Player: typeof Player
   Input: typeof Input
+  Discord: typeof Discord
   constructor() {
     this.EventsService = Events
     this.Objects = Object
@@ -24,6 +24,7 @@ class Client {
     this.Misc = Misc
     this.Player = Player
     this.Input = Input
+    this.Discord = Discord
   }
 }
 
@@ -33,8 +34,8 @@ globalThis.exports('useClient', () => {
   return {
     Player: {
       HasLoaded: client.Player.hasLoaded.bind(client.Player),
-      GetPlayerData: client.Player.getPlayerData.bind(client.Player),
-      SetPlayerData: client.Player.setPlayerData.bind(client.Player),
+      GetData: client.Player.getPlayerData.bind(client.Player),
+      SetData: client.Player.setPlayerData.bind(client.Player),
     },
     Vehicles: {
       Create: client.Vehicles.create.bind(client.Vehicles),

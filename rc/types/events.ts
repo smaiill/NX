@@ -18,7 +18,7 @@ export enum ItemsEventsE {
   HANDLE_PICKUPS = 'NX::handlePickups',
   USE_ITEM = 'NX::useItem',
   CREATE_ITEM = 'NX::createItem',
-  ITEM_CREATED = 'NX:itemCreated',
+  ITEM_CREATED = 'NX::itemCreated',
   CLEAR_ALL_PICKUPS_S = 'NX::clearAllPickupsS',
   CLEAR_ALL_PICKUPS_C = 'NX::clearAllPickupsC',
 }
@@ -29,8 +29,7 @@ export enum JobsEventsE {
 }
 
 export enum InventoryEeventsE {
-  ITEM_ADDED = 'NX::itemAdded',
-  ITEM_REMOVED = 'NX::itemRemoved',
+  UPDATE_INVENTORY = 'NX::updateInventory',
 }
 
 export enum MiscEventsE {

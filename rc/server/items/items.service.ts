@@ -242,7 +242,7 @@ export class _ItemsService {
         -1
       )
       this.Items.push(data)
-      emitNet(ItemsEventsE.ITEM_CREATED, data)
+      emit(ItemsEventsE.ITEM_CREATED, data)
       cb && cb({ status: 'succes', message: 'item created.', data })
     } catch (error) {
       cb && cb({ status: 'error', message: error as any })

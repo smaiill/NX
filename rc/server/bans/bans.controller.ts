@@ -9,14 +9,15 @@ onNet(
       target,
       reason = 'no reason',
       duration = 0,
+      bannedBy = 'Unknown',
     }: {
       target: number
       reason: string
       duration: number
+      bannedBy: string
     },
     cb?: RespCB
   ): void => {
-    const source = globalThis.source
-    BansService.banPlayer({ source, target, reason, duration })
+    BansService.banPlayer({ target, reason, duration, bannedBy })
   }
 )

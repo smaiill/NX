@@ -41,7 +41,7 @@ class _BansService {
     return isBanned
   }
 
-  private msToS(date: Date): number {
+  private msToS(date: Date = new Date()): number {
     const timestamp = date.getTime() / 1000
     return parseInt(timestamp.toString().split('.')[0])
   }
@@ -56,23 +56,22 @@ class _BansService {
 
   public async banPlayer(
     {
-      source,
       target,
       reason,
       duration,
+      bannedBy,
     }: {
-      source: number
       target: number
       reason: string
       duration: number
+      bannedBy: string
     },
     cb?: RespCB
   ) {
     const nxTarget = await PlayerService.getPlayer(target)
     if (!nxTarget) {
       return (
-        cb &&
-        cb({ status: 'succes', message: `Target: [${target}] not found.` })
+        cb && cb({ status: 'error', message: `Target: [${target}] not found.` })
       )
     }
     const expirationTimestamp = this.createExpirationDate(duration)
@@ -80,11 +79,11 @@ class _BansService {
     const id: string = this.Utils.uuid()
     const banData: BanT = {
       license: nxTarget.data.identifier,
-      bannedBy: GetPlayerName(source as unknown as string),
+      bannedBy,
       identifiers: getPlayerIdentifiers(target),
       reason,
       id,
-      date: this.msToS(new Date()),
+      date: this.msToS(),
       expire: expirationTimestamp,
     }
     try {
@@ -96,9 +95,11 @@ class _BansService {
         (ban) => ban.license === nxTarget.data.identifier
       )
       if (alreadyExists) {
-        logger.error(
-          `Error while banning player: [${nxTarget.data.identifier}]. already banned.`
-        )
+        cb &&
+          cb({
+            status: 'error',
+            message: `Error while banning player: [${nxTarget.data.identifier}]. already banned.`,
+          })
         return
       }
 
@@ -113,10 +114,6 @@ class _BansService {
       this.Bans.set(id as string, banData)
       cb && cb({ status: 'succes', data: banData })
     } catch (error) {
-      logger.error(
-        `Error while banning player: [${nxTarget.data.identifier}]. ${error}`
-      )
-
       cb && cb({ status: 'error', message: error })
     }
   }

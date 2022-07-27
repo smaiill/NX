@@ -235,18 +235,18 @@ class _Player {
 
     this.weight = this.weight - amount * ItemsService.getItemWeight(name)
 
-    this.emitEvent(InventoryEeventsE.ITEM_REMOVED, {
-      weight: this.weight,
+    this.emitEvent(InventoryEeventsE.UPDATE_INVENTORY, {
+      type: 'REMOVE',
       item: {
         name,
         amount,
+        type: ItemsService.getItemType(name),
       },
     })
     cb && typeof cb === 'function' && cb()
   }
 
   public async canTakeItem(name: string, amount: number): Promise<boolean> {
-    console.log(this.weight + amount * ItemsService.getItemWeight(name))
     if (
       this.weight + amount * ItemsService.getItemWeight(name) >
       this.maxWeight
@@ -284,11 +284,12 @@ class _Player {
       }
 
       this.weight = this.weight + amount * ItemsService.getItemWeight(name)
-      this.emitEvent(InventoryEeventsE.ITEM_ADDED, {
-        weight: this.weight,
+      this.emitEvent(InventoryEeventsE.UPDATE_INVENTORY, {
+        type: 'ADD',
         item: {
           name,
           amount,
+          type: ItemsService.getItemType(name),
         },
       })
       cb && typeof cb === 'function' && cb(this.inventory[name])

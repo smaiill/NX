@@ -26,6 +26,11 @@ export enum NuiAPP {
   INPUT = 'NX::input',
 }
 
+export enum InventoryActions {
+  ADD = 'ADD',
+  REMOVE = 'REMOVE',
+}
+
 export interface RespCB {
   ({ status, message, data }: RespT): void
 }

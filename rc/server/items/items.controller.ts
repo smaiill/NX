@@ -18,7 +18,7 @@ onNet(ItemsEventsE.USE_ITEM, (name: string, ...args: any[]): void => {
   ItemsService.useItem(name, source, args)
 })
 
-onNet(
+on(
   ItemsEventsE.CREATE_ITEM,
   ({ name, label, weight, type, props }: ItemT, cb?: RespCB): void => {
     ItemsService.createItem({ name, label, weight, type, props }, cb)
