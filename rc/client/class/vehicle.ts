@@ -1,4 +1,5 @@
 import logger from 'c@utils/logger'
+import { RespCB, RespT } from '../../types/main'
 
 export class _Vehicle {
   RandomVehicles: ReadonlyArray<string> = [
@@ -16,19 +17,23 @@ export class _Vehicle {
   ]
   constructor() {}
 
-  public create(model: string | number, cb: Function): number | void {
+  public create(model: string | number, cb: RespCB): number | void {
     if (!model || (typeof model !== 'string' && typeof model !== 'number')) {
-      return logger.error(
-        'not valid params to create vehicle. [Vehicle.Create]'
-      )
-    }
-
-    if (cb && typeof cb !== 'function') {
-      return logger.error('callback must be a function. [Vehicles.Create].')
+      cb &&
+        cb({
+          status: 'error',
+          message: 'not valid params to create vehicle.',
+        })
+      return
     }
 
     if (!IsModelAVehicle(model)) {
-      return logger.error('model provided is not a vehicle. [Vehicles.Create].')
+      cb &&
+        cb({
+          status: 'error',
+          message: 'model provided is not a vehicle.',
+        })
+      return
     }
 
     RequestModel(model)
@@ -52,23 +57,27 @@ export class _Vehicle {
 
         clearInterval(i)
 
-        cb && cb(vehicle)
+        cb &&
+          cb({
+            status: 'succes',
+            data: vehicle,
+          })
       }
     }, 500)
   }
 
-  public delete(cb?: Function): void {
-    if (cb && typeof cb !== 'function') {
-      return logger.error('callback must be a function. [Vehicles.Delete].')
-    }
-
+  public delete(cb?: RespCB): void {
     const playerPed: number = PlayerPedId()
     if (IsPedInAnyVehicle(playerPed, true)) {
       const vehicle: number = GetVehiclePedIsIn(playerPed, true)
       SetEntityAsMissionEntity(vehicle, false, true)
       DeleteVehicle(vehicle)
 
-      cb && cb()
+      cb &&
+        cb({
+          status: 'succes',
+          message: 'Vehicle deleted.',
+        })
     }
   }
 
@@ -95,10 +104,10 @@ export class _Vehicle {
       this.RandomVehicles[
         Math.floor(Math.random() * this.RandomVehicles.length)
       ]
-    this.create(randomCar, (vehicle: number) => {
+    this.create(randomCar, (resp: RespT) => {
       const randomColor: number = Math.floor(Math.random() * 159)
       const randomColor2: number = Math.floor(Math.random() * 159)
-      SetVehicleColours(vehicle, randomColor, randomColor2)
+      SetVehicleColours(resp.data, randomColor, randomColor2)
     })
   }
 }

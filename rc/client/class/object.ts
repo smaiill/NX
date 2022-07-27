@@ -6,11 +6,12 @@ class _Object {
 
   public create(entity: string, cb?: RespCB): number | void {
     if (!entity) {
-      return logger.error('not valid params to create object. [Objects.Create]')
-    }
-
-    if (cb && typeof cb !== 'function') {
-      return logger.error('callback must be a function. [Objects.Create].')
+      cb &&
+        cb({
+          status: 'error',
+          message: 'not valid params to create object.',
+        })
+      return
     }
 
     RequestModel(entity)

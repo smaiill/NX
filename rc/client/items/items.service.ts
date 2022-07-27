@@ -2,6 +2,7 @@ import MiscManager from 'c@class/misc'
 import ObjectManager from 'c@class/object'
 import { ItemsEventsE } from '../../types/events'
 import { PickupT } from '../../types/items'
+import { RespT } from '../../types/main'
 class _ItemsService {
   private Pickups: PickupT[]
   private readonly pickupAnimation: { name: string; dict: string }
@@ -93,25 +94,30 @@ class _ItemsService {
 
         if (distance < 1) {
           if (IsControlJustReleased(1, 51)) {
-            MiscManager.requestAnim(this.pickupAnimation.dict, () => {
-              TaskPlayAnim(
-                player,
-                this.pickupAnimation.dict,
-                this.pickupAnimation.name,
-                8.0,
-                1.0,
-                1000,
-                16,
-                0.0,
-                false,
-                false,
-                false
-              )
-              RemoveAnimDict(this.pickupAnimation.dict)
-              setTimeout(() => {
-                emitNet(ItemsEventsE.PICKUP_ITEM, pickup.uuid)
-              }, 250)
-            })
+            MiscManager.requestAnim(
+              this.pickupAnimation.dict,
+              (resp: RespT) => {
+                if (resp.status === 'succes') {
+                  TaskPlayAnim(
+                    player,
+                    this.pickupAnimation.dict,
+                    this.pickupAnimation.name,
+                    8.0,
+                    1.0,
+                    1000,
+                    16,
+                    0.0,
+                    false,
+                    false,
+                    false
+                  )
+                  RemoveAnimDict(this.pickupAnimation.dict)
+                  setTimeout(() => {
+                    emitNet(ItemsEventsE.PICKUP_ITEM, pickup.uuid)
+                  }, 250)
+                }
+              }
+            )
           }
         }
       })

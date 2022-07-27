@@ -5,12 +5,14 @@ export class _Misc {
   constructor() {}
 
   public createPed(pedType: number, model: string, cb?: RespCB): number | void {
-    if (!pedType || !model) {
-      return logger.error('not valid params to create ped. [Misc.CreatePed]')
-    }
+    if (!pedType || !model || !IsModelAPed(model)) {
+      cb &&
+        cb({
+          status: 'error',
+          message: 'not valid params to create ped.',
+        })
 
-    if (cb && typeof cb !== 'function') {
-      return logger.error('callback must be a function. [Misc.CreatePed].')
+      return
     }
 
     RequestModel(model)
@@ -77,11 +79,14 @@ export class _Misc {
     ClearDrawOrigin()
   }
 
-  public requestAnim(anim: string, cb?: Function): void {
+  public requestAnim(anim: string, cb?: RespCB): void {
     if (!anim || typeof anim !== 'string') {
-      return logger.error(
-        'not valid params to load animation. [Misc.RequestAnim]'
-      )
+      cb &&
+        cb({
+          status: 'error',
+          message: 'not valid params to load animation',
+        })
+      return
     }
 
     if (cb && typeof cb !== 'function') {
@@ -91,7 +96,10 @@ export class _Misc {
     const interval = setInterval(() => {
       RequestAnimDict(anim)
       if (HasAnimDictLoaded(anim)) {
-        cb && cb()
+        cb &&
+          cb({
+            status: 'succes',
+          })
         clearInterval(interval)
       }
     }, 500)
