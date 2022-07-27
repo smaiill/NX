@@ -6,6 +6,7 @@ import {
   Vehicle,
   Player,
   Discord,
+  Notification,
 } from './services'
 import './controllers'
 
@@ -17,6 +18,7 @@ class Client {
   Player: typeof Player
   Input: typeof Input
   Discord: typeof Discord
+  Notification: typeof Notification
   constructor() {
     this.EventsService = Events
     this.Objects = Object
@@ -25,6 +27,7 @@ class Client {
     this.Player = Player
     this.Input = Input
     this.Discord = Discord
+    this.Notification = Notification
   }
 }
 
@@ -56,6 +59,7 @@ globalThis.exports('useClient', () => {
       DrawText3D: client.Misc.drawText3D.bind(client.Misc),
       RequestAnim: client.Misc.requestAnim.bind(client.Misc),
       CreatePed: client.Misc.createPed.bind(client.Misc),
+      CreateNotification: client.Notification.create.bind(client.Notification),
       EmitServerEvent: client.EventsService.emitServerEvent.bind(
         client.EventsService
       ),

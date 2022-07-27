@@ -45,6 +45,9 @@ onNet(PlayerEventsE.PLAYER_LOADED, (nxPlayer: any) => {
   )
 })
 
+//
+// ! i'm gonna refactor this don't worry :)
+//
 onNet(
   InventoryEeventsE.UPDATE_INVENTORY,
   ({
@@ -54,6 +57,27 @@ onNet(
     type: 'ADD' | 'REMOVE'
     item: { name: string; amount: number; type: string }
   }) => {
-    console.log('update')
+    const nxPlayerInventory = Player.getPlayerData().inventory
+
+    if (type === 'REMOVE') {
+      const itemData = nxPlayerInventory[item.name]
+      if (item.amount === 0) {
+        delete nxPlayerInventory[item.name]
+      } else {
+        nxPlayerInventory[item.name] = {
+          type: item.type,
+          amount: item.amount,
+        }
+      }
+    }
+
+    if (type === 'ADD') {
+      nxPlayerInventory[item.name] = {
+        amount: item.amount,
+        type: item.type,
+      }
+    }
+
+    Player.setValue('inventory', nxPlayerInventory)
   }
 )

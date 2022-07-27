@@ -217,16 +217,33 @@ class _Player {
   public async removeInventoryItem(
     name: string,
     amount: number,
-    cb?: Function
+    cb?: RespCB
   ): Promise<void> {
     const item = await this.hasItem(name)
 
-    if (!item) return
-    if (amount > item.amount || amount <= 0) return
+    if (!item) {
+      cb &&
+        cb({
+          status: 'error',
+          message: `Item [${name}] not found.`,
+        })
+      return
+    }
+    if (amount > item.amount || amount <= 0) {
+      cb &&
+        cb({
+          status: 'error',
+          message: `Incorrect amount: [${amount}]`,
+        })
+      return
+    }
+
+    let count: number = 0
 
     if (amount === item.amount) {
       delete this.inventory[name]
     } else {
+      count = (item.amount as number) - amount
       this.inventory[name] = {
         ...this.inventory[name],
         amount: (item.amount as number) - amount,
@@ -239,11 +256,15 @@ class _Player {
       type: 'REMOVE',
       item: {
         name,
-        amount,
+        amount: count,
         type: ItemsService.getItemType(name),
       },
     })
-    cb && typeof cb === 'function' && cb()
+    cb &&
+      cb({
+        status: 'succes',
+        message: `Succefully removed [${amount}-${name}]`,
+      })
   }
 
   public async canTakeItem(name: string, amount: number): Promise<boolean> {
@@ -260,40 +281,61 @@ class _Player {
   public async addInventoryItem(
     name: string,
     amount: number,
-    cb?: Function
+    cb?: RespCB
   ): Promise<void> {
     const isItemValid = ItemsService.isValidItem(name)
-    if (isItemValid) {
-      const item = this.hasItem(name)
-
-      amount = ~~amount
-
-      const canTakeItem = await this.canTakeItem(name, amount)
-      if (!canTakeItem) return
-
-      if (item) {
-        this.inventory[name] = {
-          ...this.inventory[name],
-          amount: item.amount + amount,
-        }
-      } else {
-        this.inventory[name] = {
-          type: ItemsService.getItemType(name),
-          amount: amount,
-        }
-      }
-
-      this.weight = this.weight + amount * ItemsService.getItemWeight(name)
-      this.emitEvent(InventoryEeventsE.UPDATE_INVENTORY, {
-        type: 'ADD',
-        item: {
-          name,
-          amount,
-          type: ItemsService.getItemType(name),
-        },
-      })
-      cb && typeof cb === 'function' && cb(this.inventory[name])
+    if (!isItemValid) {
+      cb &&
+        cb({
+          status: 'error',
+          message: `Invalid item: [${name}]`,
+        })
+      return
     }
+    const item = this.hasItem(name)
+
+    amount = ~~amount
+
+    const canTakeItem = await this.canTakeItem(name, amount)
+    if (!canTakeItem) {
+      cb &&
+        cb({
+          status: 'error',
+          message: `Player cant take item: ${name}`,
+        })
+      return
+    }
+
+    let count: number = 0
+
+    if (item) {
+      count = item.amount + amount
+      this.inventory[name] = {
+        ...this.inventory[name],
+        amount: item.amount + amount,
+      }
+    } else {
+      count = amount
+      this.inventory[name] = {
+        type: ItemsService.getItemType(name),
+        amount: amount,
+      }
+    }
+
+    this.weight = this.weight + amount * ItemsService.getItemWeight(name)
+    this.emitEvent(InventoryEeventsE.UPDATE_INVENTORY, {
+      type: 'ADD',
+      item: {
+        name,
+        amount: count,
+        type: ItemsService.getItemType(name),
+      },
+    })
+    cb &&
+      cb({
+        status: 'succes',
+        data: this.inventory[name],
+      })
   }
 
   kick(reason: string = 'No reason'): void {

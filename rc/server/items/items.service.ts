@@ -4,7 +4,7 @@ import Utils from '@shared/utils/misc'
 import { logger } from 's@utils/logger'
 import { ItemsEventsE } from '../../types/events'
 import { ItemT, PickupT } from '../../types/items'
-import { RespCB } from '../../types/main'
+import { RespCB, RespT } from '../../types/main'
 
 export class _ItemsService {
   private readonly Items: ItemT[]
@@ -126,16 +126,18 @@ export class _ItemsService {
           amount,
           itemInfo.props
         )
-        nxPlayer.RemoveItem(name, amount, () => {
-          const { x, y, z } = nxPlayer.GetCoords()
-          this.createPickup(
-            name,
-            amount,
-            [x, y, z],
-            label,
-            propsToCreate,
-            itemInfo.type
-          )
+        nxPlayer.RemoveItem(name, amount, (resp: RespT) => {
+          if (resp.status === 'succes') {
+            const { x, y, z } = nxPlayer.GetCoords()
+            this.createPickup(
+              name,
+              amount,
+              [x, y, z],
+              label,
+              propsToCreate,
+              itemInfo.type
+            )
+          }
         })
       }
     }
@@ -165,8 +167,10 @@ export class _ItemsService {
         this.Pickups = this.Pickups.filter((pic) => pic.uuid !== pickup.uuid)
         const nxPlayer = await PlayerService.getPlayer(source)
         if (nxPlayer) {
-          nxPlayer.AddItem(pickup.name, pickup.amount, () => {
-            emitNet(ItemsEventsE.REMOVE_PICKUP, -1, pickup.uuid)
+          nxPlayer.AddItem(pickup.name, pickup.amount, (resp: RespT) => {
+            if (resp.status === 'succes') {
+              emitNet(ItemsEventsE.REMOVE_PICKUP, -1, pickup.uuid)
+            }
           })
         }
       })
