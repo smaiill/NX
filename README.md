@@ -18,7 +18,7 @@
 
 # WIP
 
-# NX Release (Current version 0.0.2)
+# NX Release (Current version 1.0.0)
 
 im creating a new framework, which aims to be used without limit, we are working a lot on optimization. We will offer to you some scripts to make the framework work in the best performance.
 
