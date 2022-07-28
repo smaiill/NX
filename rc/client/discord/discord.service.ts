@@ -1,27 +1,32 @@
 import { config } from '@shared/load.file'
+import { ConfigT } from '../../types/configs'
 
 class _DiscordService {
-  private readonly richPresenceConfig: any
+  private readonly richPresenceConfig: ConfigT
   constructor() {
     this.richPresenceConfig = config
   }
 
   public init() {
-    if (!config.discord.richPresence.active) return
-    SetDiscordAppId(config.discord.richPresence.appID)
-    SetDiscordRichPresenceAsset(config.discord.richPresence.image)
-    SetDiscordRichPresenceAssetText(config.discord.richPresence.imageHoverText)
+    if (!this.richPresenceConfig.discord.richPresence.active) return
+    SetDiscordAppId(this.richPresenceConfig.discord.richPresence.appID)
+    SetDiscordRichPresenceAsset(
+      this.richPresenceConfig.discord.richPresence.image
+    )
+    SetDiscordRichPresenceAssetText(
+      this.richPresenceConfig.discord.richPresence.imageHoverText
+    )
     SetDiscordRichPresenceAction(
       0,
-      config.discord.richPresence.buttons[0].label,
-      config.discord.richPresence.buttons[0].href
+      this.richPresenceConfig.discord.richPresence.buttons[0].label,
+      this.richPresenceConfig.discord.richPresence.buttons[0].href
     )
     SetDiscordRichPresenceAction(
       1,
-      config.discord.richPresence.buttons[1].label,
-      config.discord.richPresence.buttons[1].href
+      this.richPresenceConfig.discord.richPresence.buttons[1].label,
+      this.richPresenceConfig.discord.richPresence.buttons[1].href
     )
-    SetRichPresence(config.discord.richPresence.text)
+    SetRichPresence(this.richPresenceConfig.discord.richPresence.text)
   }
 }
 

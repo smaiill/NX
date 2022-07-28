@@ -1,11 +1,10 @@
-import logger from 'c@utils/logger'
 import { RespCB } from '../../types/main'
 
 class _Object {
   constructor() {}
 
   public create(entity: string, cb?: RespCB): number | void {
-    if (!entity) {
+    if (!entity || !IsModelValid(entity)) {
       cb &&
         cb({
           status: 'error',
@@ -29,24 +28,18 @@ class _Object {
           true
         )
         clearInterval(i)
-
+        SetModelAsNoLongerNeeded(entity)
         cb &&
           cb({
             status: 'succes',
             data: object,
           })
       }
-    })
+    }, 0)
   }
 
   public delete(entity: number, cb?: RespCB): void {
-    if (!entity || typeof entity !== 'number') {
-      return
-    }
-
-    if (cb && typeof cb !== 'function') {
-      return logger.error('callback must be a function. [Objects.Delete].')
-    }
+    if (!entity || typeof entity !== 'number') return
 
     SetEntityAsMissionEntity(entity, false, true)
     DeleteObject(entity)

@@ -1,8 +1,7 @@
-import logger from 'c@utils/logger'
 import { RespCB, RespT } from '../../types/main'
 
-export class _Vehicle {
-  RandomVehicles: ReadonlyArray<string> = [
+class _Vehicle {
+  private readonly RandomVehicles: ReadonlyArray<string> = [
     'asbo',
     'blista',
     'panto',
@@ -18,20 +17,11 @@ export class _Vehicle {
   constructor() {}
 
   public create(model: string | number, cb: RespCB): number | void {
-    if (!model || (typeof model !== 'string' && typeof model !== 'number')) {
+    if (!model || !IsModelAVehicle(model)) {
       cb &&
         cb({
           status: 'error',
           message: 'not valid params to create vehicle.',
-        })
-      return
-    }
-
-    if (!IsModelAVehicle(model)) {
-      cb &&
-        cb({
-          status: 'error',
-          message: 'model provided is not a vehicle.',
         })
       return
     }
@@ -105,6 +95,7 @@ export class _Vehicle {
         Math.floor(Math.random() * this.RandomVehicles.length)
       ]
     this.create(randomCar, (resp: RespT) => {
+      if (resp.status !== 'succes') return
       const randomColor: number = Math.floor(Math.random() * 159)
       const randomColor2: number = Math.floor(Math.random() * 159)
       SetVehicleColours(resp.data, randomColor, randomColor2)

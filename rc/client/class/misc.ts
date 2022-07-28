@@ -1,11 +1,17 @@
 import logger from 'c@utils/logger'
 import { RespCB } from '../../types/main'
 
-export class _Misc {
+class _Misc {
   constructor() {}
 
-  public createPed(pedType: number, model: string, cb?: RespCB): number | void {
-    if (!pedType || !model || !IsModelAPed(model)) {
+  public createPed(pedType: 1 | 2, model: string, cb?: RespCB): number | void {
+    if (
+      !pedType ||
+      !model ||
+      // ? pedType === 1 || pedType === 2
+      ![1, 2].includes(pedType) ||
+      !IsModelAPed(model)
+    ) {
       cb &&
         cb({
           status: 'error',
@@ -16,7 +22,6 @@ export class _Misc {
     }
 
     RequestModel(model)
-    if (!IsModelAPed(model)) return
     const i: NodeJS.Timer = setInterval(() => {
       if (HasModelLoaded(model)) {
         const playerPed: number = PlayerPedId()
@@ -27,19 +32,19 @@ export class _Misc {
           pos[0],
           pos[1],
           pos[2],
-          GetEntityHeading(playerPed),
+          100,
           true,
           false
         )
         clearInterval(i)
-
+        SetModelAsNoLongerNeeded(model)
         cb &&
           cb({
             status: 'succes',
             data: ped,
           })
       }
-    }, 500)
+    }, 0)
   }
 
   public drawText3D(
@@ -64,8 +69,7 @@ export class _Misc {
     )
 
     let scale = (size / distance) * 2
-    const fov = (1 / GetGameplayCamFov()) * 100
-    scale = scale * fov
+    scale = scale * (1 / GetGameplayCamFov()) * 100
 
     SetTextScale(0.0 * scale, 0.55 * scale)
     SetTextFont(font)
@@ -89,10 +93,6 @@ export class _Misc {
       return
     }
 
-    if (cb && typeof cb !== 'function') {
-      return logger.error('callback must be a function. [Misc.RequestAnim].')
-    }
-
     const interval = setInterval(() => {
       RequestAnimDict(anim)
       if (HasAnimDictLoaded(anim)) {
@@ -102,7 +102,7 @@ export class _Misc {
           })
         clearInterval(interval)
       }
-    }, 500)
+    }, 0)
   }
 }
 

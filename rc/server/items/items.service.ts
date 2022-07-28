@@ -88,8 +88,8 @@ export class _ItemsService {
     return false
   }
 
-  private getPropsToCreate(name: string, amount: number, def: string) {
-    let props = def
+  private getPropsToCreate(name: string, amount: number, defaultProps: string) {
+    let props = defaultProps
 
     if (name === 'money') {
       switch (true) {
@@ -115,32 +115,29 @@ export class _ItemsService {
     source: number
   ): Promise<void> {
     const nxPlayer = await PlayerService.getPlayer(source)
+    const itemInfo = await this.findItem(name)
 
-    if (nxPlayer) {
-      const itemInfo = await this.findItem(name)
-      if (itemInfo) {
-        itemInfo.label = itemInfo.label.toLowerCase()
-        const label = `~s~${itemInfo.label} ~g~${amount}`
-        const propsToCreate = await this.getPropsToCreate(
+    if (!nxPlayer || !itemInfo) return
+
+    const label = `~s~${itemInfo.label} ~g~${amount}`.toLowerCase()
+    const propsToCreate = await this.getPropsToCreate(
+      name,
+      amount,
+      itemInfo.props
+    )
+    nxPlayer.RemoveItem(name, amount, (resp: RespT) => {
+      if (resp.status === 'succes') {
+        const { x, y, z } = nxPlayer.GetCoords()
+        this.createPickup(
           name,
           amount,
-          itemInfo.props
+          [x, y, z],
+          label,
+          propsToCreate,
+          itemInfo.type
         )
-        nxPlayer.RemoveItem(name, amount, (resp: RespT) => {
-          if (resp.status === 'succes') {
-            const { x, y, z } = nxPlayer.GetCoords()
-            this.createPickup(
-              name,
-              amount,
-              [x, y, z],
-              label,
-              propsToCreate,
-              itemInfo.type
-            )
-          }
-        })
       }
-    }
+    })
   }
 
   public createMissingPickups(source: number): void {
