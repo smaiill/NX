@@ -57,9 +57,9 @@ class _BansService {
   public async banPlayer(
     {
       target,
-      reason,
-      duration,
-      bannedBy,
+      reason = 'no reason',
+      duration = 0,
+      bannedBy = 'unknown',
     }: {
       target: number
       reason: string
@@ -68,11 +68,11 @@ class _BansService {
     },
     cb?: RespCB
   ) {
+    if (typeof globalThis.source !== 'number') return
     const nxTarget = await PlayerService.getPlayer(target)
     if (!nxTarget) {
-      return (
-        cb && cb({ status: 'error', message: `Target: [${target}] not found.` })
-      )
+      cb && cb({ status: 'error', message: `Target: [${target}] not found.` })
+      return
     }
     const expirationTimestamp = this.createExpirationDate(duration)
     // @ts-ignore
@@ -120,7 +120,6 @@ class _BansService {
 
   public unbanPlayer(id: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      this.Bans.delete(id)
       try {
         const bansFile: BanT[] = JSON.parse(
           LoadResourceFile(GetCurrentResourceName(), 'config/nx.bans.json')
@@ -132,6 +131,7 @@ class _BansService {
           JSON.stringify(newBansFile),
           -1
         )
+        this.Bans.delete(id)
         resolve(true)
       } catch (error) {
         reject(false)

@@ -1,20 +1,24 @@
 import { RespCB, RespT } from '../../types/main'
 
 class _Vehicle {
-  private readonly RandomVehicles: ReadonlyArray<string> = [
-    'asbo',
-    'blista',
-    'panto',
-    'sentinel',
-    'jackal',
-    'akuma',
-    'bf400',
-    'dominator',
-    'imperator',
-    'balle',
-    'mesa',
-  ]
-  constructor() {}
+  private readonly MAXIMUM_COLOR_VEHICLES: number
+  private readonly randomVehicles: ReadonlyArray<string>
+  constructor() {
+    this.MAXIMUM_COLOR_VEHICLES = 150
+    this.randomVehicles = [
+      'asbo',
+      'blista',
+      'panto',
+      'sentinel',
+      'jackal',
+      'akuma',
+      'bf400',
+      'dominator',
+      'imperator',
+      'balle',
+      'mesa',
+    ]
+  }
 
   public create(model: string | number, cb: RespCB): number | void {
     if (!model || !IsModelAVehicle(model)) {
@@ -66,7 +70,7 @@ class _Vehicle {
       cb &&
         cb({
           status: 'succes',
-          message: 'Vehicle deleted.',
+          message: 'vehicle deleted.',
         })
     }
   }
@@ -89,15 +93,19 @@ class _Vehicle {
     SetVehicleUndriveable(vehicle, false)
   }
 
-  public async random(): Promise<void> {
+  public random(): void {
     const randomCar: string =
-      this.RandomVehicles[
-        Math.floor(Math.random() * this.RandomVehicles.length)
+      this.randomVehicles[
+        Math.floor(Math.random() * this.randomVehicles.length)
       ]
     this.create(randomCar, (resp: RespT) => {
       if (resp.status !== 'succes') return
-      const randomColor: number = Math.floor(Math.random() * 159)
-      const randomColor2: number = Math.floor(Math.random() * 159)
+      const randomColor: number = Math.floor(
+        Math.random() * this.MAXIMUM_COLOR_VEHICLES
+      )
+      const randomColor2: number = Math.floor(
+        Math.random() * this.MAXIMUM_COLOR_VEHICLES
+      )
       SetVehicleColours(resp.data, randomColor, randomColor2)
     })
   }

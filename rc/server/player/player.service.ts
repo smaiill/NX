@@ -44,7 +44,7 @@ class _PlayerService {
         this.PlayersCollection = this.PlayersCollection.filter(
           (player) => player.source !== source
         )
-        emitNet(PlayerEventsE.PLAYER_DROPPED, source)
+        emit(PlayerEventsE.PLAYER_DROPPED, source)
       })
       .catch((error: any) => {
         logger.error(

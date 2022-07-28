@@ -3,23 +3,27 @@ import ObjectManager from 'c@class/object'
 import { ItemsEventsE } from '../../types/events'
 import { PickupT } from '../../types/items'
 import { RespT } from '../../types/main'
+import Player from '../player/player.class'
+
 class _ItemsService {
   private Pickups: PickupT[]
   private readonly pickupAnimation: { name: string; dict: string }
+  private readonly REFRESH_TIME: number
   constructor() {
     this.Pickups = []
     this.pickupAnimation = { name: 'putdown_low', dict: 'pickup_object' }
+    this.REFRESH_TIME = 0
   }
 
-  public createDrop(
-    name: string,
-    amount: number,
-    coords: number[],
-    uuid: string,
-    label: string,
-    propsType: string,
-    itemType: string
-  ): void {
+  public createDrop({
+    name,
+    amount,
+    coords,
+    uuid,
+    label,
+    propsType,
+    itemType,
+  }: PickupT): void {
     RequestModel(propsType)
     const interval: NodeJS.Timer = setInterval(() => {
       if (HasModelLoaded(propsType)) {
@@ -52,31 +56,32 @@ class _ItemsService {
         })
 
         clearInterval(interval)
+        SetModelAsNoLongerNeeded(propsType)
+        SetEntityAsNoLongerNeeded(propsType as unknown as number)
       }
-    }, 500)
+    }, 0)
   }
 
   public refreshPickups(pickups: PickupT[]): void {
-    pickups.forEach((pickup) => {
-      this.createDrop(
-        pickup.name,
-        pickup.amount,
-        pickup.coords,
-        pickup.uuid as string,
-        pickup.label,
-        pickup.propsType,
-        pickup.itemType
-      )
-    })
+    for (const pickup of pickups) {
+      this.createDrop({
+        name: pickup.name,
+        amount: pickup.amount,
+        coords: pickup.coords,
+        uuid: pickup.uuid as string,
+        label: pickup.label,
+        propsType: pickup.propsType,
+        itemType: pickup.itemType,
+      })
+    }
   }
 
   public handlePickupsPickup(): void {
     // ! IM GONNA OPTI DONT PANIC !!!!!!!!
-    let REFRESH_TIME = 0
-
     setInterval(() => {
-      const player: number = PlayerPedId()
-      const coords: number[] = GetEntityCoords(player, false)
+      const playerPed: number = PlayerPedId()
+      Player.setValue('ped', playerPed)
+      const coords: number[] = GetEntityCoords(playerPed, false)
       this.Pickups.forEach((pickup: PickupT) => {
         const distance = GetDistanceBetweenCoords(
           coords[0],
@@ -87,7 +92,6 @@ class _ItemsService {
           pickup.coords[2],
           true
         )
-
         if (distance < 4) {
           MiscManager.drawText3D(pickup.coords, pickup.label, 1, 2)
         }
@@ -99,7 +103,7 @@ class _ItemsService {
               (resp: RespT) => {
                 if (resp.status === 'succes') {
                   TaskPlayAnim(
-                    player,
+                    playerPed,
                     this.pickupAnimation.dict,
                     this.pickupAnimation.name,
                     8.0,
@@ -121,7 +125,7 @@ class _ItemsService {
           }
         }
       })
-    }, REFRESH_TIME)
+    }, this.REFRESH_TIME)
   }
 
   private findPickup(uuid: string): Promise<PickupT | void> {
@@ -138,11 +142,12 @@ class _ItemsService {
 
   public async removePickup(uuid: string): Promise<void> {
     const pickup = await this.findPickup(uuid)
-    if (pickup) {
-      ObjectManager.delete(pickup.object, () => {
-        this.Pickups = this.Pickups.filter((pic) => pic.uuid !== pickup.uuid)
-      })
-    }
+
+    if (!pickup) return
+
+    ObjectManager.delete(pickup.object, () => {
+      this.Pickups = this.Pickups.filter((pic) => pic.uuid !== pickup.uuid)
+    })
   }
 }
 

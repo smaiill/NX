@@ -136,7 +136,10 @@ class _Player {
       this.charinfo.job = name
       this.charinfo.job_grade = grade
 
-      this.emitEvent(JobsEventsE.JOB_UPDATED, { job: name, job_grade: grade })
+      this.emitEvent(JobsEventsE.ON_JOB_UPDATED, {
+        job: name,
+        job_grade: grade,
+      })
       cb && cb()
     }
   }
@@ -152,7 +155,10 @@ class _Player {
       this.charinfo.job2 = name
       this.charinfo.job2_grade = grade
 
-      this.emitEvent(JobsEventsE.JOB2_UPDATED, { job: name, job_grade: grade })
+      this.emitEvent(JobsEventsE.ON_JOB2_UPDATED, {
+        job: name,
+        job_grade: grade,
+      })
       cb && cb()
     }
   }

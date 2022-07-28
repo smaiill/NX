@@ -12,11 +12,11 @@ class _Player {
     return this.loaded
   }
 
-  public setPlayerData(data: any): void {
+  public setData(data: any): void {
     return (this.playerData = data)
   }
 
-  public getPlayerData(): any {
+  public getData(): any {
     return this.playerData
   }
 
@@ -32,10 +32,11 @@ class _Player {
     if (key !== 'hunger' && key !== 'thirst') return
 
     if (value > 100) value = 100
+    if (value < 0) value = 0
 
     this.playerData.charinfo[key] = value
 
-    emit(PlayerEventsE.STATUS_UPDATED, {
+    emit(PlayerEventsE.ON_STATUS_UPDATED, {
       [key]: this.playerData.charinfo[key],
     })
 

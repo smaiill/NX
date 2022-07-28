@@ -7,9 +7,9 @@ onNet(
   (
     {
       target,
-      reason = 'no reason',
-      duration = 0,
-      bannedBy = 'Unknown',
+      reason,
+      duration,
+      bannedBy,
     }: {
       target: number
       reason: string
@@ -18,6 +18,7 @@ onNet(
     },
     cb?: RespCB
   ): void => {
-    BansService.banPlayer({ target, reason, duration, bannedBy })
+    if (!target) return
+    BansService.banPlayer({ target, reason, duration, bannedBy }, cb)
   }
 )

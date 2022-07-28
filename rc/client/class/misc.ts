@@ -38,6 +38,7 @@ class _Misc {
         )
         clearInterval(i)
         SetModelAsNoLongerNeeded(model)
+        SetEntityAsNoLongerNeeded(model as unknown as number)
         cb &&
           cb({
             status: 'succes',

@@ -19,15 +19,13 @@ onNet(
   PlayerEventsE.ADD_STATUS,
   ({ status, amount }: { status: string; amount: number }) => {
     if (status !== 'thirst' && status !== 'hunger') return
-    const nxPlayerData = Player.getPlayerData()
+    const nxPlayerData = Player.getData()
     Player.setStatus(status, parseFloat(nxPlayerData.charinfo[status]) + amount)
   }
 )
 
-onNet(PlayerEventsE.PLAYER_LOADED, (nxPlayer: any) => {
-  Player.setPlayerData(nxPlayer)
-  Player.setValue('ped', PlayerPedId())
-  Player.loaded = true
+onNet(PlayerEventsE.PLAYER_LOADED, async (nxPlayer: any) => {
+  await PlayerService.setPlayerLoadedData(nxPlayer)
   globalThis.exports.spawnmanager.spawnPlayer(
     {
       x: nxPlayer.position.x,
@@ -57,7 +55,7 @@ onNet(
     type: 'ADD' | 'REMOVE'
     item: { name: string; amount: number; type: string }
   }) => {
-    const nxPlayerInventory = Player.getPlayerData().inventory
+    const nxPlayerInventory = Player.getData().inventory
 
     if (type === 'REMOVE') {
       const itemData = nxPlayerInventory[item.name]

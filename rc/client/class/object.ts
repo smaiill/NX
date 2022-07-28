@@ -28,6 +28,7 @@ class _Object {
           true
         )
         clearInterval(i)
+        SetEntityAsNoLongerNeeded(entity as unknown as number)
         SetModelAsNoLongerNeeded(entity)
         cb &&
           cb({
@@ -47,7 +48,7 @@ class _Object {
     cb &&
       cb({
         status: 'succes',
-        message: 'Object deleted.',
+        message: 'object deleted.',
       })
   }
 }

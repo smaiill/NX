@@ -65,17 +65,15 @@ export class _ItemsService {
       itemType,
     })
 
-    emitNet(
-      ItemsEventsE.CREATE_PICKUP,
-      -1,
+    emitNet(ItemsEventsE.CREATE_PICKUP, -1, {
       name,
       amount,
       coords,
       uuid,
       label,
       propsType,
-      itemType
-    )
+      itemType,
+    })
   }
 
   private findItem(name: string): false | ItemT {

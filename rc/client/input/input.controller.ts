@@ -6,6 +6,6 @@ import InputService from './input.service'
 EventsService.onNuiEvent<RespT>(
   InputEvents.SUBMIT_DATA,
   (res: RespT, cb: RespCB): void => {
-    InputService.handleInputResponse(res, cb)
+    InputService.handleResponse(res, cb)
   }
 )

@@ -10,7 +10,6 @@ export const useNotificationService = () => {
   const dispatch = useDispatch()
 
   const handleRemoveNotification = (duration: number, uuid: string) => {
-    console.log(duration * 1000)
     setTimeout(() => {
       dispatch(removeNotification(uuid))
     }, duration * 1000)

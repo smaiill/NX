@@ -4,7 +4,7 @@ import Player from './player.class'
 class _PlayerService {
   constructor() {}
 
-  private syncPlayerCoords(): void {
+  private syncCoords(): void {
     setInterval(() => {
       const ped = Player.getValue('ped')
       const coords = GetEntityCoords(ped, false)
@@ -13,17 +13,23 @@ class _PlayerService {
     }, 3_000)
   }
 
-  private syncPlayerStatus(): void {
+  private syncStatus(): void {
     setInterval(() => {
-      const nxPlayerData = Player.getPlayerData()
+      const nxPlayerData = Player.getData()
       Player.setStatus('thirst', parseFloat(nxPlayerData.charinfo.thirst) - 0.4)
       Player.setStatus('hunger', parseFloat(nxPlayerData.charinfo.hunger) - 0.4)
-    }, 30_000)
+    }, 250)
+  }
+
+  public setPlayerLoadedData(nxPlayer: any) {
+    Player.setData(nxPlayer)
+    Player.setValue('ped', PlayerPedId())
+    Player.loaded = true
   }
 
   public syncPlayer(): void {
-    this.syncPlayerCoords()
-    this.syncPlayerStatus()
+    this.syncCoords()
+    this.syncStatus()
   }
 }
 

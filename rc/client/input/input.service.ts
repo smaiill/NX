@@ -5,29 +5,29 @@ import { InputsDataT } from '../../types/input'
 import { NuiAPP, RespCB, RespT } from '../../types/main'
 
 class _InputService {
-  private currentInputData: { active: boolean; handler: Function | null }
+  private readonly currentInputState: {
+    active: boolean
+    handler: Function | null
+  }
   constructor() {
-    this.currentInputData = {
+    this.currentInputState = {
       active: false,
       handler: null,
     }
   }
 
   public isActive(): boolean {
-    return this.currentInputData.active
+    return this.currentInputState.active
   }
 
-  private setInputState(
-    key: keyof typeof this.currentInputData,
-    value: any
-  ): void {
-    this.currentInputData[key] = value
+  private setState(key: keyof typeof this.currentInputState, value: any): void {
+    this.currentInputState[key] = value
   }
 
   public destroy(cb?: RespCB): Function | void {
     if (this.isActive()) {
-      this.setInputState('handler', null)
-      this.setInputState('active', false)
+      this.setState('handler', null)
+      this.setState('active', false)
       EventsService.emitNuiEvent({
         app: NuiAPP.INPUT,
         method: InputEvents.DESTROY_INPUT,
@@ -35,6 +35,7 @@ class _InputService {
       cb &&
         cb({
           status: 'succes',
+          message: 'input deleted.',
         })
       return
     }
@@ -48,10 +49,10 @@ class _InputService {
 
   public create(data: InputsDataT, handler: Function): void {
     if (this.isActive()) {
-      return logger.error(`Another input already showed.`)
+      return logger.error(`another input already showed.`)
     }
     if (!data || (handler && typeof handler !== 'function')) {
-      return logger.error('Incorrect input creation arguments.')
+      return logger.error('incorrect input creation arguments.')
     }
     EventsService.emitNuiEvent<InputsDataT>(
       {
@@ -61,18 +62,18 @@ class _InputService {
       },
       true
     )
-    this.setInputState('handler', handler)
-    this.setInputState('active', true)
+    this.setState('handler', handler)
+    this.setState('active', true)
   }
 
-  public handleInputResponse(res: RespT, cb: RespCB): void {
+  public handleResponse(res: RespT, cb: RespCB): void {
     if (
-      typeof this.currentInputData.handler === 'function' &&
-      this.currentInputData.active
+      typeof this.currentInputState.handler === 'function' &&
+      this.currentInputState.active
     ) {
-      this.currentInputData.handler(res)
-      this.setInputState('handler', null)
-      this.setInputState('active', false)
+      this.currentInputState.handler(res)
+      this.setState('handler', null)
+      this.setState('active', false)
 
       SetNuiFocus(false, false)
       cb({ status: 'succes', message: 'succefully removed.' })

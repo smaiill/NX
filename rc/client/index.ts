@@ -37,8 +37,8 @@ globalThis.exports('useClient', () => {
   return {
     Player: {
       HasLoaded: client.Player.hasLoaded.bind(client.Player),
-      GetData: client.Player.getPlayerData.bind(client.Player),
-      SetData: client.Player.setPlayerData.bind(client.Player),
+      GetData: client.Player.getData.bind(client.Player),
+      SetData: client.Player.setData.bind(client.Player),
     },
     Vehicles: {
       Create: client.Vehicles.create.bind(client.Vehicles),

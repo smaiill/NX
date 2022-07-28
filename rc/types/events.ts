@@ -3,7 +3,7 @@ export enum PlayerEventsE {
   NEW_PLAYER = 'NX::newPlayer',
   UPDATE_COORDS = 'NX::updateCoords',
   UPDATE_STATUS = 'NX::updateStatus',
-  STATUS_UPDATED = 'NX::statusUpdated',
+  ON_STATUS_UPDATED = 'NX::onStatusUpdated',
   ADD_STATUS = 'NX::addStatus',
   PLAYER_DROPPED = 'NX::playerDropped',
   BAN_PLAYER = 'NX::banPlayer',
@@ -24,8 +24,8 @@ export enum ItemsEventsE {
 }
 
 export enum JobsEventsE {
-  JOB_UPDATED = 'NX::jobUpdated',
-  JOB2_UPDATED = 'NX::job2Updated',
+  ON_JOB_UPDATED = 'NX::onJobUpdated',
+  ON_JOB2_UPDATED = 'NX::onJob2Updated',
 }
 
 export enum InventoryEeventsE {

@@ -2,26 +2,27 @@ import { ItemsEventsE } from '../../types/events'
 import { PickupT } from '../../types/items'
 import ItemsService from './items.service'
 
+// server -> client.
 onNet(
   ItemsEventsE.CREATE_PICKUP,
-  (
-    name: string,
-    amount: number,
-    coords: number[],
-    uuid: string,
-    label: string,
-    propsType: string,
-    itemType: string
-  ): void => {
-    ItemsService.createDrop(
+  ({
+    name,
+    amount,
+    coords,
+    uuid,
+    label,
+    propsType,
+    itemType,
+  }: PickupT): void => {
+    ItemsService.createDrop({
       name,
       amount,
       coords,
-      uuid,
+      uuid: uuid as string,
       label,
       propsType,
-      itemType
-    )
+      itemType,
+    })
   }
 )
 

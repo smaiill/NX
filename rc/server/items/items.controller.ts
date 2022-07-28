@@ -25,6 +25,6 @@ on(
   }
 )
 
-onNet(ItemsEventsE.CLEAR_ALL_PICKUPS_S, (): void => {
+on(ItemsEventsE.CLEAR_ALL_PICKUPS_S, (): void => {
   ItemsService.removeAllPickups()
 })
