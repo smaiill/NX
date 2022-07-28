@@ -13,8 +13,6 @@ export const useInputServices = () => {
       data,
     }).then((res: RespT) => {
       if (res.status === 'succes') return dispatch(deleteInputsRow())
-
-      console.log(res.message)
     })
   }
 
