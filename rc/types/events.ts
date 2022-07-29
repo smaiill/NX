@@ -30,6 +30,7 @@ export enum JobsEventsE {
 
 export enum InventoryEeventsE {
   UPDATE_INVENTORY = 'NX::updateInventory',
+  ON_INVENTORY_UPDATED = 'NX::onInventoryUpdated',
 }
 
 export enum MiscEventsE {

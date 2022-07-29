@@ -1,5 +1,5 @@
 import { InventoryEeventsE, PlayerEventsE } from '../../types/events'
-import { InventoryActions } from '../../types/main'
+import { InventoryActions, InventoryActionsT } from '../../types/main'
 import Player from './player.class'
 import PlayerService from './player.service'
 import ItemsService from 'c@items/items.service'
@@ -43,39 +43,37 @@ onNet(PlayerEventsE.PLAYER_LOADED, async (nxPlayer: any) => {
   )
 })
 
-//
-// ! i'm gonna refactor this don't worry :)
-//
 onNet(
   InventoryEeventsE.UPDATE_INVENTORY,
   ({
     item,
     type,
   }: {
-    type: 'ADD' | 'REMOVE'
+    type: InventoryActionsT
     item: { name: string; amount: number; type: string }
   }) => {
-    const nxPlayerInventory = Player.getData().inventory
+    emit(InventoryEeventsE.ON_INVENTORY_UPDATED, {
+      type,
+      item,
+    })
 
-    if (type === 'REMOVE') {
-      const itemData = nxPlayerInventory[item.name]
-      if (item.amount === 0) {
-        delete nxPlayerInventory[item.name]
-      } else {
-        nxPlayerInventory[item.name] = {
-          type: item.type,
+    switch (type) {
+      case InventoryActions.ADD:
+        PlayerService.addLocaleItem({
+          name: item.name,
           amount: item.amount,
-        }
-      }
-    }
+          type: item.type,
+        })
+        break
 
-    if (type === 'ADD') {
-      nxPlayerInventory[item.name] = {
-        amount: item.amount,
-        type: item.type,
-      }
-    }
+      case InventoryActions.REMOVE:
+        PlayerService.removeLocaleItem({
+          name: item.name,
+          amount: item.amount,
+          type: item.type,
+        })
 
-    Player.setValue('inventory', nxPlayerInventory)
+        break
+    }
   }
 )

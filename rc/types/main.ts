@@ -26,6 +26,8 @@ export enum NuiAPP {
   INPUT = 'NX::input',
 }
 
+export type InventoryActionsT = 'ADD' | 'REMOVE'
+
 export enum InventoryActions {
   ADD = 'ADD',
   REMOVE = 'REMOVE',

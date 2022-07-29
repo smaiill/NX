@@ -328,6 +328,8 @@ class _Player {
       }
     }
 
+    console.log(this.inventory)
+
     this.weight = this.weight + amount * ItemsService.getItemWeight(name)
     this.emitEvent(InventoryEeventsE.UPDATE_INVENTORY, {
       type: 'ADD',

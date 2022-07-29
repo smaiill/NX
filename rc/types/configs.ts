@@ -1,35 +1,35 @@
 export interface ConfigT {
-  database: {
-    host: string
-    user: string
-    password: string
-    database: string
+  readonly database: {
+    readonly host: string
+    readonly user: string
+    readonly password: string
+    readonly database: string
   }
-  discord: {
-    logs: {
-      webhook: string
-      logsConfiguration: {
-        playerJoin: boolean
-        playerDropped: false
+  readonly discord: {
+    readonly logs: {
+      readonly webhook: string
+      readonly logsConfiguration: {
+        readonly playerJoin: boolean
+        readonly playerDropped: false
       }
     }
 
-    richPresence: {
-      active: boolean
-      appID: string
-      image: string
-      imageHoverText: string
-      buttons: [
+    readonly richPresence: {
+      readonly active: boolean
+      readonly appID: string
+      readonly image: string
+      readonly imageHoverText: string
+      readonly buttons: [
         {
-          label: string
-          href: string
+          readonly label: string
+          readonly href: string
         },
         {
-          label: string
-          href: string
+          readonly label: string
+          readonly href: string
         }
       ]
-      text: string
+      readonly text: string
     }
   }
 }

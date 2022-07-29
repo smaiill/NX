@@ -27,6 +27,50 @@ class _PlayerService {
     Player.loaded = true
   }
 
+  addLocaleItem({
+    name,
+    amount,
+    type,
+  }: {
+    name: string
+    amount: number
+    type: string
+  }): void {
+    const nxPlayerInventory = Player.getData().inventory
+
+    nxPlayerInventory[name] = {
+      amount,
+      type,
+    }
+
+    Player.setValue('inventory', nxPlayerInventory)
+  }
+
+  removeLocaleItem({
+    name,
+    amount,
+    type,
+  }: {
+    name: string
+    amount: number
+    type: string
+  }): void {
+    const nxPlayerInventory = Player.getData().inventory
+
+    if (amount === 0) {
+      delete nxPlayerInventory[name]
+      Player.setValue('inventory', nxPlayerInventory)
+      return
+    }
+
+    nxPlayerInventory[name] = {
+      type,
+      amount,
+    }
+
+    Player.setValue('inventory', nxPlayerInventory)
+  }
+
   public syncPlayer(): void {
     this.syncCoords()
     this.syncStatus()
