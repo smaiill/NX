@@ -1,8 +1,8 @@
+import { BanT, RespCB } from '../../types/main'
 import { bans } from '@shared/load.file'
 import Utils from '@shared/utils/misc'
 import PlayerService from 's@player/player.service'
 import { logger } from 's@utils/logger'
-import { BanT, RespCB } from '../../types/main'
 
 class _BansService {
   private Bans: Map<string, BanT>

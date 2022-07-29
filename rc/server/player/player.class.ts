@@ -1,8 +1,8 @@
-import ItemsService from 's@items/items.service'
-import JobsService from 's@jobs/jobs.service'
 import { InventoryEeventsE, JobsEventsE } from '../../types/events'
 import { ItemT } from '../../types/items'
 import { RespCB } from '../../types/main'
+import ItemsService from 's@items/items.service'
+import JobsService from 's@jobs/jobs.service'
 
 class _Player {
   identifier: string

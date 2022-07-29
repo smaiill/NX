@@ -1,10 +1,10 @@
-import PlayerService from 's@player/player.service'
-import { items } from '@shared/load.file'
-import Utils from '@shared/utils/misc'
-import { logger } from 's@utils/logger'
 import { ItemsEventsE } from '../../types/events'
 import { ItemT, PickupT } from '../../types/items'
 import { RespCB, RespT } from '../../types/main'
+import { items } from '@shared/load.file'
+import Utils from '@shared/utils/misc'
+import PlayerService from 's@player/player.service'
+import { logger } from 's@utils/logger'
 
 export class _ItemsService {
   private readonly Items: ItemT[]

@@ -4,5 +4,7 @@
   "semi": false,
   "singleQuote": true,
   "bracketSpacing": true,
-  "useTabs": false
+  "useTabs": false,
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

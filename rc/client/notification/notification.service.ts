@@ -1,7 +1,7 @@
-import EventsService from 'c@events/events.service'
 import { NotificationEvents } from '../../types/events'
 import { NuiAPP } from '../../types/main'
 import { NotificationDataT } from '../../types/notification'
+import EventsService from 'c@events/events.service'
 
 class _NotificationService {
   constructor() {}

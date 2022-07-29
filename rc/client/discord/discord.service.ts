@@ -1,5 +1,5 @@
-import { config } from '@shared/load.file'
 import { ConfigT } from '../../types/configs'
+import { config } from '@shared/load.file'
 
 class _DiscordService {
   private readonly richPresenceConfig: ConfigT

@@ -1,5 +1,5 @@
-import { createLogger, transports, format } from 'winston'
 import path from 'node:path'
+import { createLogger, format, transports } from 'winston'
 
 export const logger = createLogger({
   transports: [

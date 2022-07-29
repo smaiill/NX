@@ -1,6 +1,6 @@
-import { configureStore } from '@reduxjs/toolkit'
 import inputSlice from '../features/input/input.slice'
 import notificationSlice from '../features/notification/notification.slice'
+import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
   reducer: {

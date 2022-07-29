@@ -1,5 +1,5 @@
-import { config } from '@shared/load.file'
 import DiscordService from './discord.service'
+import { config } from '@shared/load.file'
 
 if (config.discord.logs.logsConfiguration['playerJoin']) {
   on('playerConnecting', (playerName: string): void => {

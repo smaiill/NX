@@ -1,6 +1,6 @@
+import { RespCB } from '../../types/main'
 import Utils from '@shared/utils/misc'
 import logger from 'c@utils/logger'
-import { RespCB } from '../../types/main'
 
 export class _EventsService {
   private Events: Map<string, Function>

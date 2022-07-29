@@ -1,7 +1,7 @@
+import error from '../../../assets/notifications/error.svg'
+import normal from '../../../assets/notifications/normal.svg'
 import succes from '../../../assets/notifications/succes.svg'
 import warn from '../../../assets/notifications/warn.svg'
-import normal from '../../../assets/notifications/normal.svg'
-import error from '../../../assets/notifications/error.svg'
 
 const NotificationIcon = ({ type }: { type: string }) => {
   let source = succes

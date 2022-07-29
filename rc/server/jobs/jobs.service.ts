@@ -1,5 +1,5 @@
-import { jobs } from '@shared/load.file'
 import { JobT } from '../../types/jobs'
+import { jobs } from '@shared/load.file'
 
 class _JobsService {
   private readonly Jobs: any[]

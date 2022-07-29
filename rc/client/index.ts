@@ -1,14 +1,14 @@
+import './controllers'
 import {
+  Discord,
   Events,
   Input,
   Misc,
-  Object,
-  Vehicle,
-  Player,
-  Discord,
   Notification,
+  Object,
+  Player,
+  Vehicle,
 } from './services'
-import './controllers'
 
 class Client {
   Vehicles: typeof Vehicle

@@ -1,8 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
   NotificationDataT,
   NotificationSliceState,
 } from '../../types/notification'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 const initialState: NotificationSliceState = {
   notifications: [],

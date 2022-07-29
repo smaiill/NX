@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { InputsDataT, InputSliceState } from '../../types/input'
+import { InputSliceState, InputsDataT } from '../../types/input'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 const initialState: InputSliceState = {
   inputData: null,

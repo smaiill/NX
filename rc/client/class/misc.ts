@@ -1,5 +1,5 @@
-import logger from 'c@utils/logger'
 import { RespCB } from '../../types/main'
+import logger from 'c@utils/logger'
 
 class _Misc {
   constructor() {}

@@ -1,4 +1,5 @@
 import { logger } from 's@utils/logger'
+
 export class _Events {
   private Events: Map<string, Function>
   private ActiveEvents: string[]

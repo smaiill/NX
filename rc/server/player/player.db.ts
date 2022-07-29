@@ -1,5 +1,6 @@
-import DB from 's@db/db'
 import PlayerUtils from './player.utils'
+import DB from 's@db/db'
+
 export class _PlayerDB {
   private readonly DB: typeof DB
   constructor() {

@@ -1,14 +1,15 @@
-import Player from './player/player.service'
-import Items from './items/items.service'
-import Discord from './discord/discord.service'
-import Commands from './commands/commands.service'
-import Events from './events'
-import './player'
-import './items'
-import './discord'
-import './boot'
 import './bans'
+import './boot'
+import Commands from './commands/commands.service'
+import './discord'
+import Discord from './discord/discord.service'
+import Events from './events'
 import './exports'
+import './items'
+import Items from './items/items.service'
+import './player'
+import Player from './player/player.service'
+
 class Server {
   Players: typeof Player
   Events: typeof Events

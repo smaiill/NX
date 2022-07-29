@@ -1,7 +1,7 @@
+import { PlayerEventsE } from '../../types/events'
+import _Player from './player.class'
 import { _PlayerDB } from './player.db'
 import PlayerUtils from './player.utils'
-import _Player from './player.class'
-import { PlayerEventsE } from '../../types/events'
 import ItemsService from 's@items/items.service'
 import { logger } from 's@utils/logger'
 

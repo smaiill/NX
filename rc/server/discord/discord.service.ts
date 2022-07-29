@@ -1,8 +1,8 @@
-import { config } from '@shared/load.file'
-import { logger } from 's@utils/logger'
-import fetch from 'node-fetch'
-import { DiscordWebhookI } from '../../types/main'
 import { ConfigT } from '../../types/configs'
+import { DiscordWebhookI } from '../../types/main'
+import { config } from '@shared/load.file'
+import fetch from 'node-fetch'
+import { logger } from 's@utils/logger'
 
 class _DiscordService {
   private readonly config: ConfigT

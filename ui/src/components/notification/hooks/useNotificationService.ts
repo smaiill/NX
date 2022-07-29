@@ -1,10 +1,10 @@
-import { useDispatch } from 'react-redux'
 import {
   createNotification,
   removeNotification,
 } from '../../../features/notification/notification.slice'
 import { NotificationDataT } from '../../../types/notification'
 import { uuid } from '../../../utils/misc'
+import { useDispatch } from 'react-redux'
 
 export const useNotificationService = () => {
   const dispatch = useDispatch()

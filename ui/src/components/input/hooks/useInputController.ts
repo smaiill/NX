@@ -1,10 +1,10 @@
-import { useNuiEvent } from 'fivem-nui-react-lib'
 import {
   createInputsRow,
   deleteInputsRow,
 } from '../../../features/input/input.slice'
 import { InputMethods, InputsDataT } from '../../../types/input'
 import { NuiAPP } from '../../../types/main'
+import { useNuiEvent } from 'fivem-nui-react-lib'
 import { useDispatch } from 'react-redux'
 
 export const useInputController = () => {

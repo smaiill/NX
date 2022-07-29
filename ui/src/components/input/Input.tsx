@@ -1,8 +1,8 @@
-import { useSelector } from 'react-redux'
 import { InputRowT } from '../../types/input'
 import InputRow from './components/InputRow'
 import { useInputHandler } from './hooks/useInputHandler'
 import { useInputServices } from './hooks/useInputService'
+import { useSelector } from 'react-redux'
 
 const Input = () => {
   const inputStateSlice = useSelector((state: any) => state.input)

@@ -1,6 +1,6 @@
-import { useSelector } from 'react-redux'
 import { NotificationDataT } from '../../types/notification'
 import NotificationWrapper from './components/NotificationWrapper'
+import { useSelector } from 'react-redux'
 
 const Notification = () => {
   const notificationsState = useSelector(

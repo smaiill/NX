@@ -1,9 +1,9 @@
+import MainProvider from './MainProvider'
 import Inputs from './components/input/Input'
 import Notification from './components/notification/Notification'
 import { useControllers } from './components/useControllers'
-import MainProvider from './MainProvider'
-import './sass/index.scss'
 import './debug'
+import './sass/index.scss'
 
 const App = () => {
   useControllers()

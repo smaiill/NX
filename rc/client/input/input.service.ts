@@ -1,8 +1,8 @@
-import EventsService from 'c@events/events.service'
-import logger from 'c@utils/logger'
 import { InputEvents } from '../../types/events'
 import { InputsDataT } from '../../types/input'
 import { NuiAPP, RespCB, RespT } from '../../types/main'
+import EventsService from 'c@events/events.service'
+import logger from 'c@utils/logger'
 
 class _InputService {
   private readonly currentInputState: {
