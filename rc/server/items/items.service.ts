@@ -21,27 +21,23 @@ export class _ItemsService {
   public isValidItem(itemName: string): false | ItemT {
     const item = this.Items.find((item) => item.name === itemName)
 
-    if (!item) return false
+    if (item) return item
 
-    return item
+    return false
   }
 
   public getItemWeight(itemName: string): number {
     const item = this.Items.find((item) => item.name === itemName)
 
-    if (!item) {
-      return 0
-    }
+    if (item) return item.weight
 
-    return item.weight
+    return 0
   }
 
   public getItemType(name: string): string | null {
     const item = this.isValidItem(name)
 
-    if (item) {
-      return item.type
-    }
+    if (item) return item.type
 
     return null
   }
@@ -79,32 +75,13 @@ export class _ItemsService {
   private findItem(name: string): false | ItemT {
     const item = this.Items.find((item) => item.name === name)
 
-    if (item) {
-      return item
-    }
+    if (item) return item
 
     return false
   }
 
   private getPropsToCreate(name: string, amount: number, defaultProps: string) {
-    let props = defaultProps
-
-    if (name === 'money') {
-      switch (true) {
-        case amount >= 7_500 && amount < 30_000:
-          {
-            props = 'prop_cash_case_02'
-          }
-          break
-        case amount >= 30_000:
-          {
-            props = 'prop_cash_crate_01'
-          }
-          break
-      }
-    }
-
-    return props
+    return defaultProps
   }
 
   public async dropItem(
@@ -124,17 +101,17 @@ export class _ItemsService {
       itemInfo.props
     )
     nxPlayer.RemoveItem(name, amount, (resp: RespT) => {
-      if (resp.status === 'succes') {
-        const { x, y, z } = nxPlayer.GetCoords()
-        this.createPickup(
-          name,
-          amount,
-          [x, y, z],
-          label,
-          propsToCreate,
-          itemInfo.type
-        )
-      }
+      if(resp.status !== 'succes') return
+
+      const { x, y, z } = nxPlayer.GetCoords()
+      this.createPickup(
+        name,
+        amount,
+        [x, y, z],
+        label,
+        propsToCreate,
+        itemInfo.type
+      )
     })
   }
 
@@ -148,9 +125,7 @@ export class _ItemsService {
     return new Promise((resolve, reject) => {
       const pickup = this.Pickups.find((pickup) => pickup.uuid === uuid)
 
-      if (pickup) {
-        return resolve(pickup)
-      }
+      if (pickup) return resolve(pickup)
 
       reject('')
     })
@@ -169,7 +144,7 @@ export class _ItemsService {
           })
         }
       })
-      .catch((err) => {})
+      .catch((err) => logger.error(err))
   }
 
   public registerUsableItem(name: string, cb: Function): void {

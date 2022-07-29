@@ -20,7 +20,7 @@ class _DiscordService {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     }).catch((err) => {
-      logger.error(`error while sedning the webhook: ${err}`)
+      logger.error(`error while sending the webhook: ${err}`)
     })
   }
 }

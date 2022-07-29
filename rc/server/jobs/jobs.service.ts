@@ -10,9 +10,7 @@ class _JobsService {
   findJob(name: string): JobT | false {
     const job = this.Jobs.find((job) => job.name === name)
 
-    if (job) {
-      return job
-    }
+    if (job) return job
 
     return false
   }
@@ -20,19 +18,15 @@ class _JobsService {
   async isValid(name: string, grade: string, type: number): Promise<boolean> {
     const job = await this.findJob(name)
 
-    if (!job || job.type !== type) {
-      return false
-    }
+    if (!job || job.type !== type) return false
 
     const isGrade = job.grades.find(
       (gradeName: any) => gradeName.name === grade
     )
 
-    if (!isGrade) {
-      return false
-    }
+    if (isGrade) return true
 
-    return true
+    return false
   }
 }
 
