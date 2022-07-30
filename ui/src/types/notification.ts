@@ -16,6 +16,17 @@ export enum NotificationMainColors {
   ERROR = '#ec4e2b',
 }
 
+export enum NotificationColorsReplace {
+  CLOSE = 0,
+  RED = 1,
+  ORANGE = 2,
+  YELLOW = 3,
+  GREEN = 4,
+  CYAN = 5,
+  BLUE = 6,
+  PURPLE = 7,
+}
+
 export type NotificationTypes = 'SUCCES' | 'WARN' | 'NORMAL' | 'ERROR'
 
 export interface NotificationDataT {

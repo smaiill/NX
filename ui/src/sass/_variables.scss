@@ -2,6 +2,17 @@ $input-container-color: #323741;
 $input-bg-color: #282d37;
 $button-bg-color: #0071ff;
 
+$special-color-1: red;
+$special-color-2: orange;
+$special-color-3: yellow;
+$special-color-4: green;
+$special-color-5: cyan;
+$special-color-6: blue;
+$special-color-7: purple;
+
+$special-colors-list: $special-color-1 $special-color-2 $special-color-3
+  $special-color-4 $special-color-5 $special-color-6 $special-color-7;
+
 @mixin flex-center-center() {
   display: flex;
   justify-content: center;
@@ -19,4 +30,16 @@ $button-bg-color: #0071ff;
   z-index: -1;
   background-color: white;
   #{$key}: $value;
+}
+
+// ! need to refactor.
+
+@mixin set-special-color($key) {
+  .special-color-#{$key} {
+    color: nth($special-colors-list, $key);
+  }
+}
+
+@for $i from 1 through 7 {
+  @include set-special-color($i);
 }

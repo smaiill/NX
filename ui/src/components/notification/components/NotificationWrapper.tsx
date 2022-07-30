@@ -33,7 +33,9 @@ const NotificationWrapper = ({
       <div className="notification-right-side">
         <div className="notification-body">
           <div className="notification-content">
-            <p>{notification.body.content}</p>
+            <p
+              dangerouslySetInnerHTML={{ __html: notification.body.content }}
+            ></p>
           </div>
         </div>
       </div>

@@ -30,7 +30,8 @@ injectMockData([
       type: 'ERROR',
       duration: 500,
       body: {
-        content: 'ERROR',
+        content:
+          '^1ERROR qzdzqdqzd q^0qzdqzdqzd qzdqzdg ^7qzdqzdzdqzdqzdqzdqzd',
       },
     },
   },
@@ -41,28 +42,28 @@ injectMockData([
       type: 'NORMAL',
       duration: 500,
       body: {
-        content: 'NORMAL',
+        content: 'normal ^2qzdqzdqz^0 qzdz qzd qd ^1qzd qzd qd qd qd ',
       },
     },
   },
 ])
 
-injectMockData([
-  {
-    app: 'NX::input',
-    method: 'NX::createInput',
-    data: {
-      title: 'title',
-      rows: [
-        {
-          label: 'Input 1',
-          id: 'input1',
-        },
-        {
-          label: 'Input 2',
-          id: 'input2',
-        },
-      ],
-    },
-  },
-])
+// injectMockData([
+//   {
+//     app: 'NX::input',
+//     method: 'NX::createInput',
+//     data: {
+//       title: 'title',
+//       rows: [
+//         {
+//           label: 'Input 1',
+//           id: 'input1',
+//         },
+//         {
+//           label: 'Input 2',
+//           id: 'input2',
+//         },
+//       ],
+//     },
+//   },
+// ])
