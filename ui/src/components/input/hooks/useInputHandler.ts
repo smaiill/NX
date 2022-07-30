@@ -5,10 +5,9 @@ export const useInputHandler = () => {
     { [key: string]: string; value: string } | {}
   >({})
 
-  const handleInputs = (e: ChangeEvent, id: string) => {
+  const handleInputs = (e: ChangeEvent<HTMLInputElement>, id: string) => {
     setInputsState({
       ...inputsState,
-      // @ts-ignore
       [id]: e.target.value,
     })
   }

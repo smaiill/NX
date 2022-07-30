@@ -101,7 +101,7 @@ export class _ItemsService {
       itemInfo.props
     )
     nxPlayer.RemoveItem(name, amount, (resp: RespT) => {
-      if(resp.status !== 'succes') return
+      if (resp.status !== 'succes') return
 
       const { x, y, z } = nxPlayer.GetCoords()
       this.createPickup(

@@ -8,7 +8,7 @@
   left: 50%;
   width: 400px;
   height: auto;
-  border-radius: 20px;
+  border-radius: 25px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -45,7 +45,7 @@
       color: white;
 
       &:focus {
-        border: 1px solid rgb(21, 23, 23);
+        border: 1px solid rgb(215, 159, 255);
       }
     }
   }
@@ -65,6 +65,7 @@
   position: relative;
   overflow: hidden;
   z-index: 1;
+  height: 50px;
 
   &::before {
     @include button-pseudo-class-before-after(left, 0);
