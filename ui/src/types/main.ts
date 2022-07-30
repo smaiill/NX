@@ -1,5 +1,6 @@
 export enum NuiAPP {
   NOTIFICATION = 'NX::notification',
+  LOADING_BAR = 'NX::loadingbar',
   INPUT = 'NX::input',
 }
 

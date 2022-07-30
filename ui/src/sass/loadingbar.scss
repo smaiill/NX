@@ -1,0 +1,16 @@
+.loadingbar-container {
+  background-color: red;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px;
+  border-radius: 20px;
+  width: 450px;
+
+  .loadingbar {
+    background-color: yellow;
+    height: 50px;
+    border-radius: 20px;
+  }
+}

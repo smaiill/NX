@@ -1,5 +1,6 @@
 import MainProvider from './MainProvider'
-import Inputs from './components/input/Input'
+import Input from './components/input/Input'
+import LoadingBar from './components/loadingbar/LoadingBar'
 import Notification from './components/notification/Notification'
 import { useControllers } from './components/useControllers'
 import './debug'
@@ -15,8 +16,10 @@ const App = () => {
           <Notification />
         </div>
         <div className="input-container">
-          {/* @ts-ignore */}
-          <Inputs />
+          <Input />
+        </div>
+        <div className="loadingbar-container">
+          <LoadingBar />
         </div>
       </div>
     </MainProvider>

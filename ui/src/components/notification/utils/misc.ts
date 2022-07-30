@@ -4,9 +4,9 @@ export const getTextColor = (index: number) => {
   return NotificationColorsReplace[index] ?? NotificationColorsReplace[0]
 }
 
-export const parseNotificationContent = (content: string) => {
-  const regExp = /\^[0-9]/g
-  const matchedArray = content.match(regExp)
+export const parseNotificationContent = (content: string): string => {
+  const REG = /\^[0-9]/g
+  const matchedArray = content.match(REG)
 
   if (!matchedArray) return content
 
