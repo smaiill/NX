@@ -67,3 +67,25 @@ import { injectMockData } from '../utils/mock.data'
 //     },
 //   },
 // ])
+
+injectMockData([
+  {
+    app: 'NX::loadingbar',
+    method: 'NX::createLoadingBar',
+    data: {
+      duration: 120,
+      label: 'Coucousè',
+      //   style: {
+      //     label: {
+      //       color: 'cyan',
+      //     },
+      //     container: {
+      //       backgroundColor: 'green',
+      //     },
+      //     bar: {
+      //         backgroundColor: 'red'
+      //     }
+      //   },
+    },
+  },
+])

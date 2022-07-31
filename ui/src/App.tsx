@@ -1,6 +1,6 @@
 import MainProvider from './MainProvider'
 import Input from './components/input/Input'
-import LoadingBar from './components/loadingbar/LoadingBar'
+import LoadingBarWrapper from './components/loadingbar/LoadingBarWrapper'
 import Notification from './components/notification/Notification'
 import { useControllers } from './components/useControllers'
 import './debug'
@@ -18,8 +18,8 @@ const App = () => {
         <div className="input-container">
           <Input />
         </div>
-        <div className="loadingbar-container">
-          <LoadingBar />
+        <div className="loadingbar-wrapper">
+          <LoadingBarWrapper />
         </div>
       </div>
     </MainProvider>

@@ -1,15 +1,12 @@
 import { createLoadingBar } from '../../../features/loadingBar/loadingBar.slice'
 import { LoadingBarMethods } from '../../../types/loadingBar'
 import { NuiAPP } from '../../../types/main'
+import useLoadingBarService from './useLoadingBarService'
 import { useNuiEvent } from 'fivem-nui-react-lib'
 import { useDispatch } from 'react-redux'
 
 const useLoadingBarController = () => {
-  const dispatch = useDispatch()
-
-  const handleCreateLoadingBar = ({ duration }: { duration: number }) => {
-    dispatch(createLoadingBar(duration))
-  }
+  const { handleCreateLoadingBar } = useLoadingBarService()
 
   useNuiEvent(
     NuiAPP.LOADING_BAR,
