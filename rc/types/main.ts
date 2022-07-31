@@ -23,6 +23,7 @@ export interface BanT {
 
 export enum NuiAPP {
   NOTIFICATION = 'NX::notification',
+  LOADING_BAR = 'NX::loadingBar',
   INPUT = 'NX::input',
 }
 

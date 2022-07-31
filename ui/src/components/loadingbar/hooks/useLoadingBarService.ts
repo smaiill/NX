@@ -3,7 +3,6 @@ import {
   removeLoadingBar,
 } from '../../../features/loadingBar/loadingBar.slice'
 import { LoadingBarDataT } from '../../../types/loadingBar'
-import React from 'react'
 import { useDispatch } from 'react-redux'
 
 const useLoadingBarService = () => {

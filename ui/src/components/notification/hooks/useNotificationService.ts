@@ -2,12 +2,9 @@ import {
   createNotification,
   removeNotification,
 } from '../../../features/notification/notification.slice'
-import {
-  NotificationColorsReplace,
-  NotificationDataT,
-} from '../../../types/notification'
+import { NotificationDataT } from '../../../types/notification'
 import { uuid } from '../../../utils/misc'
-import { getTextColor, parseNotificationContent } from '../utils/misc'
+import { parseNotificationContent } from '../utils/misc'
 import { useDispatch } from 'react-redux'
 
 export const useNotificationService = () => {

@@ -74,7 +74,7 @@ injectMockData([
     method: 'NX::createLoadingBar',
     data: {
       duration: 120,
-      label: 'Coucousè',
+      label: 'label',
       //   style: {
       //     label: {
       //       color: 'cyan',

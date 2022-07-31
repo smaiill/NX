@@ -1,12 +1,10 @@
 import { LoadingBarDataT } from '../../../types/loadingBar'
 import useLoadingBarService from '../hooks/useLoadingBarService'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const LoadingBar = ({ data }: { data: LoadingBarDataT }) => {
   const { handleRemoveLoadingBar } = useLoadingBarService()
   let [percentage, setPercentage] = useState<number>(0)
-
-  console.log(data)
 
   useEffect(() => {
     const i = setInterval(() => {

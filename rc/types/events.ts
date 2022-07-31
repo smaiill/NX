@@ -46,6 +46,10 @@ export enum InputEvents {
 export enum NotificationEvents {
   CREATE_NOTIFICATION = 'NX::createNotification',
 }
+
+export enum LoadingBarEvents {
+  CREATE_LOADING_BAR = 'NX::createLoadingBar',
+}
 export interface EventE {
   [property: string]: Function
 }

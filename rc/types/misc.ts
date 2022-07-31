@@ -7,3 +7,8 @@ export enum ClientColors {
   WHITE = '^7',
   RED = '^9',
 }
+
+export enum DefaultDataT {
+  LOADING_BAR = 'LOADING_BAR',
+  NOTIFICATION = 'NOTIFICATION',
+}
