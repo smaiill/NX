@@ -7,7 +7,6 @@ run.bat
 dist
 logo.png
 mock.txt
-format.ts
 
 ### RC
 rc/node_modules
