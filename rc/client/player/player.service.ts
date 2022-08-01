@@ -71,6 +71,32 @@ class _PlayerService {
     Player.setValue('inventory', nxPlayerInventory)
   }
 
+  public setLocaleJob({
+    job,
+    job_grade,
+    type,
+  }: {
+    job: string
+    job_grade: string
+    type: number
+  }) {
+    const nxPlayerInfo = Player.getData().charinfo
+
+    if (type === 1) {
+      nxPlayerInfo.job = job
+      nxPlayerInfo.job_grade = job_grade
+
+      Player.setValue('charinfo', nxPlayerInfo)
+
+      return
+    }
+
+    nxPlayerInfo[`job${type}`] = job
+    nxPlayerInfo[`job${type}_grade`] = job_grade
+
+    Player.setValue('charinfo', nxPlayerInfo)
+  }
+
   public syncPlayer(): void {
     this.syncCoords()
     this.syncStatus()

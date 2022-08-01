@@ -1,4 +1,8 @@
-import { InventoryEeventsE, PlayerEventsE } from '../../types/events'
+import {
+  InventoryEeventsE,
+  JobsEventsE,
+  PlayerEventsE,
+} from '../../types/events'
 import { InventoryActions, InventoryActionsT } from '../../types/main'
 import Player from './player.class'
 import PlayerService from './player.service'
@@ -75,5 +79,20 @@ onNet(
 
         break
     }
+  }
+)
+
+onNet(
+  JobsEventsE.ON_JOB_UPDATED,
+  ({
+    job,
+    job_grade,
+    type,
+  }: {
+    job: string
+    job_grade: string
+    type: number
+  }) => {
+    PlayerService.setLocaleJob({ job, job_grade, type })
   }
 )

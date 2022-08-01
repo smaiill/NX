@@ -25,7 +25,6 @@ export enum ItemsEventsE {
 
 export enum JobsEventsE {
   ON_JOB_UPDATED = 'NX::onJobUpdated',
-  ON_JOB2_UPDATED = 'NX::onJob2Updated',
 }
 
 export enum InventoryEeventsE {

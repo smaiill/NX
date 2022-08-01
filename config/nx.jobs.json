@@ -32,6 +32,31 @@
     ]
   },
   {
+    "name": "ballas",
+    "label": "Ballas",
+    "type": 2,
+    "grades": [
+      {
+        "name": "og",
+        "label": "OG",
+        "salary": 0,
+        "skin": {
+          "male": {},
+          "female": {}
+        }
+      },
+      {
+        "name": "small",
+        "label": "Petit",
+        "salary": 0,
+        "skin": {
+          "male": {},
+          "female": {}
+        }
+      }
+    ]
+  },
+  {
     "name": "ambulance",
     "label": "Ambulance",
     "type": 1,

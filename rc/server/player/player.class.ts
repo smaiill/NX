@@ -95,25 +95,17 @@ class _Player {
     this.charinfo.hunger = value
   }
 
-  public getJob(type: number): { name: string; grade: number } {
-    let job: {
-      name: string
-      grade: number
-    } = {
-      name: 'unemployed',
-      grade: 0,
+  public getJob(type: number = 1): { name: string; grade: number } {
+    if (type === 1) {
+      return {
+        name: this.charinfo.job,
+        grade: this.charinfo.job_grade,
+      }
     }
-    switch (type) {
-      case 1:
-        job.name = this.charinfo.job
-        job.grade = this.charinfo.job_grade
-        return job
-      case 2:
-        job.name = this.charinfo.job2
-        job.grade = this.charinfo.job2_grade
-        return job
-      default:
-        return job
+
+    return {
+      name: this.charinfo[`job${type}`],
+      grade: this.charinfo[`job${type}_grade`],
     }
   }
 
@@ -128,39 +120,52 @@ class _Player {
   public async setJob(
     name: string,
     grade: string,
+    type: number = 1,
     cb?: Function
   ): Promise<void> {
-    const isValid = await JobsService.isValid(name, grade, 1)
+    const isValid = await JobsService.isValid(name, grade, type)
 
-    if (isValid) {
+    if (!isValid) return
+
+    console.log(this.charinfo.job, this.charinfo.job_grade)
+
+    if (type === 1) {
       this.charinfo.job = name
       this.charinfo.job_grade = grade
 
       this.emitEvent(JobsEventsE.ON_JOB_UPDATED, {
         job: name,
         job_grade: grade,
+        type,
       })
-      cb && cb()
+
+      cb &&
+        cb({
+          job: name,
+          job_grade: grade,
+          type,
+        })
+      console.log(this.charinfo.job, this.charinfo.job_grade)
+
+      return
     }
-  }
 
-  public async setJob2(
-    name: string,
-    grade: string,
-    cb?: Function
-  ): Promise<void> {
-    const isValid = await JobsService.isValid(name, grade, 2)
+    this.charinfo[`job${type}`] = name
+    this.charinfo[`job${type}_grade`] = grade
 
-    if (isValid) {
-      this.charinfo.job2 = name
-      this.charinfo.job2_grade = grade
+    this.emitEvent(JobsEventsE.ON_JOB_UPDATED, {
+      job: name,
+      job_grade: grade,
+      type,
+    })
+    console.log(this.charinfo.job, this.charinfo.job_grade)
 
-      this.emitEvent(JobsEventsE.ON_JOB2_UPDATED, {
+    cb &&
+      cb({
         job: name,
         job_grade: grade,
+        type,
       })
-      cb && cb()
-    }
   }
 
   public setCoords(x: number, y: number, z: number, heading: number): void {
