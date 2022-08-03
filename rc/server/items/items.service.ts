@@ -26,6 +26,14 @@ export class _ItemsService {
     return false
   }
 
+  public getItemData(itemName: string): Record<string, any> | false {
+    const item = this.Items.find((item) => item.name === itemName)
+
+    if (item) return item.data ?? false
+
+    return false
+  }
+
   public getItemWeight(itemName: string): number {
     const item = this.Items.find((item) => item.name === itemName)
 

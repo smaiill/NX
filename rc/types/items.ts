@@ -14,6 +14,7 @@ export interface ItemT {
   weight: number
   type: string
   props: string
+  data?: Record<string, any>
 }
 
 export interface UsabeItemsT {

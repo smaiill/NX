@@ -2,10 +2,7 @@ import PlayerUtils from './player.utils'
 import DB from 's@db/db'
 
 export class _PlayerDB {
-  private readonly DB: typeof DB
-  constructor() {
-    this.DB = DB
-  }
+  constructor() {}
 
   public static getPlayerFromDB(license: string): Promise<any> {
     return new Promise(async (resolve, reject) => {

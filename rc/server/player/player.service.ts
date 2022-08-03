@@ -37,6 +37,8 @@ class _PlayerService {
   private async unloadPlayer(source: number): Promise<void> {
     const nxPlayer = await this.findPlayer(source)
 
+    if (!nxPlayer) return
+
     _PlayerDB
       .savePlayer(nxPlayer)
       .then(() => {
@@ -55,8 +57,12 @@ class _PlayerService {
       })
   }
 
-  private async savePlayers() {
-    // TODO: interval to save all players.
+  public async savePlayers() {
+    for (const nxPlayer of this.PlayersCollection) {
+      _PlayerDB.savePlayer(nxPlayer)
+    }
+
+    logger.info(`Saved all players.`)
   }
 
   private async loadPlayer(player: any, source: number): Promise<void> {
@@ -204,6 +210,7 @@ class _PlayerService {
       AddItem: nxPlayer.addInventoryItem.bind(nxPlayer),
       EmitEvent: nxPlayer.emitEvent.bind(nxPlayer),
       Kick: nxPlayer.kick.bind(nxPlayer),
+      Save: nxPlayer.save.bind(nxPlayer),
     }
   }
 }

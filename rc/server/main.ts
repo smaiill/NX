@@ -32,6 +32,7 @@ globalThis.exports('useServer', () => {
     Players: {
       GetAll: server.Players.getPlayers.bind(server.Players),
       Get: server.Players.getPlayer.bind(server.Players),
+      SaveAll: server.Players.savePlayers.bind(server.Players),
     },
     Misc: {
       RegisterUsableItem: server.Items.registerUsableItem.bind(server.Items),

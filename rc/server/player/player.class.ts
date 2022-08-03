@@ -1,8 +1,10 @@
 import { InventoryEeventsE, JobsEventsE } from '../../types/events'
 import { ItemT } from '../../types/items'
 import { RespCB } from '../../types/main'
+import { _PlayerDB } from './player.db'
 import ItemsService from 's@items/items.service'
 import JobsService from 's@jobs/jobs.service'
+import { logger } from 's@utils/logger'
 
 class _Player {
   identifier: string
@@ -348,6 +350,31 @@ class _Player {
       cb({
         status: 'succes',
         data: this.inventory[name],
+      })
+  }
+
+  async save(cb?: RespCB): Promise<void> {
+    _PlayerDB
+      .savePlayer({
+        charinfo: this.charinfo,
+        inventory: this.inventory,
+        accounts: this.accounts,
+        position: this.position,
+        permissions: this.permissions,
+        identifier: this.identifier,
+      })
+      .then(() => {
+        logger.info(`Player: [${this.name}] saved with succes.`)
+        cb && cb({ status: 'succes' })
+      })
+      .catch((err) => {
+        logger.error(
+          `Error while saving player: [${GetPlayerName(
+            this.source as unknown as string
+          )}] | ERROR: ${err}`
+        )
+
+        cb && cb({ status: 'error', message: err })
       })
   }
 
