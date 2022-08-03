@@ -3,6 +3,7 @@ import {
   Discord,
   Events,
   Input,
+  LoadingBar,
   Misc,
   Notification,
   Object,
@@ -19,6 +20,7 @@ class Client {
   Input: typeof Input
   Discord: typeof Discord
   Notification: typeof Notification
+  LoadingBar: typeof LoadingBar
   constructor() {
     this.EventsService = Events
     this.Objects = Object
@@ -28,6 +30,7 @@ class Client {
     this.Input = Input
     this.Discord = Discord
     this.Notification = Notification
+    this.LoadingBar = LoadingBar
   }
 }
 
@@ -49,6 +52,10 @@ globalThis.exports('useClient', () => {
     Objects: {
       Create: client.Objects.create.bind(client.Objects),
       Delete: client.Objects.delete.bind(client.Objects),
+    },
+    LoadingBar: {
+      Create: client.LoadingBar.create.bind(client.LoadingBar),
+      IsActive: client.LoadingBar.isActive.bind(client.LoadingBar),
     },
     Input: {
       Create: client.Input.create.bind(client.Input),

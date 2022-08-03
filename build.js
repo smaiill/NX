@@ -57,9 +57,12 @@ process.exec('cd rc && yarn build', (error, stdout, stderr) => {
                         `ERROR while creating file: 'import.sql'`,
                         '\x1b[0m'
                       )
-                      console.log(err)
                       return
                     }
+
+                    process.exec('cd ui && yarn build', (error, stdout, stderr) => {
+                      if (error || stderr) return
+                    })
                   })
                 }
               )
