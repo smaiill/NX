@@ -6,6 +6,9 @@ import { useSelector } from 'react-redux'
 
 const Input = () => {
   const inputStateSlice = useSelector((state: any) => state.input)
+  const invalidInputsState = useSelector(
+    (state: any) => state.input.invalidInputs
+  )
 
   const { handleInputs, inputsState } = useInputHandler()
   const { handleSubmitData } = useInputServices()
@@ -21,6 +24,11 @@ const Input = () => {
           )
         )}
       </div>
+      {invalidInputsState.length > 0 && (
+        <div className="invalid-inputs">
+          <span>Invalid: {invalidInputsState[0]}</span>
+        </div>
+      )}
       <button onClick={() => handleSubmitData(inputsState)}>Submit</button>
     </div>
   ) : null

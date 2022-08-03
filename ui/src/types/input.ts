@@ -7,6 +7,9 @@ export enum InputMethods {
 export interface InputRowT {
   label: string
   id: string
+  type: 'text' | 'password'
+  required?: boolean
+  options?: Record<string, string | number | boolean>
 }
 
 export interface InputsDataT {
@@ -16,4 +19,5 @@ export interface InputsDataT {
 
 export interface InputSliceState {
   inputData: InputsDataT | null
+  invalidInputs: string[]
 }

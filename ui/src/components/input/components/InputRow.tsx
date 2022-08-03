@@ -1,4 +1,6 @@
 import { InputRowT } from '../../../types/input'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 const InputRow = ({
   input,
@@ -12,8 +14,8 @@ const InputRow = ({
       <label id={`label-${input.id}`}>{input.label}</label>
       <input
         id={`input-${input.id}`}
-        onChange={(e) => handleInputs(e, input.id)}
-        type="text"
+        onChange={(e) => handleInputs(e.target.value, input)}
+        type={input.type}
       />
     </div>
   )

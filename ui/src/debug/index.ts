@@ -48,43 +48,46 @@ import { injectMockData } from '../utils/mock.data'
 //   },
 // ])
 
-// injectMockData([
-//   {
-//     app: 'NX::input',
-//     method: 'NX::createInput',
-//     data: {
-//       title: 'title',
-//       rows: [
-//         {
-//           label: 'Input 1',
-//           id: 'input1',
-//         },
-//         {
-//           label: 'Input 2',
-//           id: 'input2',
-//         },
-//       ],
-//     },
-//   },
-// ])
-
 injectMockData([
   {
-    app: 'NX::loadingBar',
-    method: 'NX::createLoadingBar',
+    app: 'NX::input',
+    method: 'NX::createInput',
     data: {
-      duration: 2,
-      //   style: {
-      //     label: {
-      //       color: 'cyan',
-      //     },
-      //     container: {
-      //       backgroundColor: 'green',
-      //     },
-      //     bar: {
-      //         backgroundColor: 'red'
-      //     }
-      //   },
+      title: 'title',
+      rows: [
+        {
+          label: 'Name',
+          id: 'name',
+          type: 'text',
+          required: true,
+        },
+        {
+          label: 'Amount',
+          id: 'amount',
+          type: 'text',
+        },
+      ],
     },
   },
 ])
+
+// injectMockData([
+//   {
+//     app: 'NX::loadingBar',
+//     method: 'NX::createLoadingBar',
+//     data: {
+//       duration: 2,
+//         style: {
+//           label: {
+//             color: 'cyan',
+//           },
+//           container: {
+//             backgroundColor: 'green',
+//           },
+//           bar: {
+//               backgroundColor: 'red'
+//           }
+//         },
+//     },
+//   },
+// ])

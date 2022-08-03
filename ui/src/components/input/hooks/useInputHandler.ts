@@ -1,14 +1,18 @@
+import { InputRowT } from '../../../types/input'
 import { ChangeEvent, useState } from 'react'
 
 export const useInputHandler = () => {
   const [inputsState, setInputsState] = useState<
-    { [key: string]: string; value: string } | {}
+    { [key: string]: string; value: any } | {}
   >({})
 
-  const handleInputs = (e: ChangeEvent<HTMLInputElement>, id: string) => {
+  const handleInputs = (value: string, inputData: InputRowT) => {
     setInputsState({
       ...inputsState,
-      [id]: e.target.value,
+      [inputData.id]: {
+        ...inputData,
+        value,
+      },
     })
   }
 
