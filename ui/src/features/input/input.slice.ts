@@ -14,10 +14,14 @@ export const inputSlice = createSlice({
       state.inputData = action.payload
     },
 
-    addInvalidInput: (state, action: PayloadAction<string>) => {
+    addInvalidInputs: (state, action: PayloadAction<string>) => {
       if (state.invalidInputs.find((inputId) => inputId === action.payload))
         return
       state.invalidInputs = [...state.invalidInputs, action.payload]
+    },
+
+    deleteInvalidInputs: (state) => {
+      state.invalidInputs = []
     },
 
     deleteInputsRow: (state) => {
@@ -26,6 +30,10 @@ export const inputSlice = createSlice({
   },
 })
 
-export const { createInputsRow, deleteInputsRow, addInvalidInput } =
-  inputSlice.actions
+export const {
+  createInputsRow,
+  deleteInputsRow,
+  addInvalidInputs,
+  deleteInvalidInputs,
+} = inputSlice.actions
 export default inputSlice.reducer

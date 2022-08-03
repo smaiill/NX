@@ -1,6 +1,7 @@
 import {
-  addInvalidInput,
+  addInvalidInputs,
   deleteInputsRow,
+  deleteInvalidInputs,
 } from '../../../features/input/input.slice'
 import { InputMethods } from '../../../types/input'
 import { RespT } from '../../../types/main'
@@ -15,7 +16,14 @@ export const useInputServices = () => {
       status: 'succes',
       data,
     }).then((res: RespT) => {
-      if (res.status === 'succes') return dispatch(deleteInputsRow())
+      if (res.status === 'succes') {
+        dispatch(deleteInvalidInputs())
+        dispatch(deleteInputsRow())
+
+        return
+      }
+
+      dispatch(addInvalidInputs(res.message))
     })
   }
 

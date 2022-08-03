@@ -26,7 +26,7 @@ const Input = () => {
       </div>
       {invalidInputsState.length > 0 && (
         <div className="invalid-inputs">
-          <span>Invalid: {invalidInputsState[0]}</span>
+          <span>{invalidInputsState[0]}</span>
         </div>
       )}
       <button onClick={() => handleSubmitData(inputsState)}>Submit</button>

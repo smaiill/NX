@@ -1,6 +1,7 @@
 import { InputEvents } from '../../types/events'
 import { InputsDataT } from '../../types/input'
 import { NuiAPP, RespCB, RespT } from '../../types/main'
+import InputUtils from './input.utils'
 import EventsService from 'c@events/events.service'
 import logger from 'c@utils/logger'
 
@@ -8,12 +9,16 @@ class _InputService {
   private readonly currentInputState: {
     active: boolean
     handler: Function | null
+    data: InputsDataT | null
   }
+  private InputUtils: typeof InputUtils
   constructor() {
     this.currentInputState = {
       active: false,
       handler: null,
+      data: null,
     }
+    this.InputUtils = InputUtils
   }
 
   public isActive(): boolean {
@@ -63,17 +68,28 @@ class _InputService {
       true
     )
     this.setState('handler', handler)
+    this.setState('data', data)
     this.setState('active', true)
   }
 
-  public handleResponse(res: RespT, cb: RespCB): void {
+  public async handleResponse(res: RespT, cb: RespCB): Promise<void> {
     if (
       typeof this.currentInputState.handler === 'function' &&
       this.currentInputState.active
     ) {
+      const [isValid, error] = await this.InputUtils.isDataValid(
+        res.data,
+        this.currentInputState.data!
+      )
+      if (!isValid) {
+        cb({ status: 'error', message: error })
+        return
+      }
+
       this.currentInputState.handler(res)
       this.setState('handler', null)
       this.setState('active', false)
+      this.setState('data', null)
 
       SetNuiFocus(false, false)
       cb({ status: 'succes', message: 'succefully removed.' })
