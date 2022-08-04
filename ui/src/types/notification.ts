@@ -3,10 +3,10 @@ export enum NotificationMethods {
 }
 
 export enum NotificationBGColors {
-  SUCCES = 'rgba(255, 255, 255, 0.2)',
-  WARN = 'rgba(255, 255, 255, 0.2)',
-  NORMAL = 'rgba(255, 255, 255, 0.2)',
-  ERROR = 'rgba(255, 255, 255, 0.2)',
+  SUCCES = 'rgba(11, 135, 45, 0.3)',
+  WARN = 'rgba(239, 148, 0, 0.3)',
+  NORMAL = 'rgba(0, 108, 228, 0.3)',
+  ERROR = 'rgba(236, 78, 43, 0.3)',
 }
 
 export enum NotificationMainColors {

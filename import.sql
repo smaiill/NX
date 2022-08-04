@@ -1,6 +1,6 @@
 CREATE TABLE `nx_users` (
   `id` int(11) NOT NULL,
-  `identifier` varchar(100) NOT NULL,
+  `identifier` varchar(100) NOT NULL COLLATE 'utf8mb4_general_ci',
   `accounts` longtext DEFAULT '{"bank":0}',
   `permissions` varchar(50) DEFAULT 'user',
   `inventory` longtext DEFAULT NULL,

@@ -32,8 +32,6 @@ $special-colors-list: $special-color-1 $special-color-2 $special-color-3
   #{$key}: $value;
 }
 
-// ! need to refactor.
-
 @mixin set-special-color($key) {
   .special-color-#{$key} {
     color: nth($special-colors-list, $key);

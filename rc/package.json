@@ -7,7 +7,7 @@
   },
   "keywords": [],
   "author": "niiy",
-  "license": "ISC",
+  "license": "CC-BY-NC-SA-4.0",
   "devDependencies": {
     "@citizenfx/client": "^2.0.5151-1",
     "@citizenfx/server": "^2.0.5151-1",

@@ -15,4 +15,5 @@ rc/dist
 
 ### UI
 ui/node_modules
+ui/yarn-error.log
 ui/dist

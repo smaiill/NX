@@ -1,6 +1,7 @@
 {
   "name": "ui",
   "version": "1.0.0",
+  "license": "CC-BY-NC-SA-4.0",
   "scripts": {
     "dev": "vite",
     "dev:ig": "tsc && vite build --watch",

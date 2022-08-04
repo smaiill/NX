@@ -6,7 +6,7 @@
   "license": "CC-BY-NC-SA-4.0",
   "scripts": {
     "format": "prettier --write .",
-    "build": "node build"
+    "build": "node scripts/build"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^3.3.0",
