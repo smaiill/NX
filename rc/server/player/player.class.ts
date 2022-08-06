@@ -4,7 +4,6 @@ import {
   JobsEventsE,
   PermissionsEventsE,
 } from '../../types/events'
-import { ItemT } from '../../types/items'
 import { RespCB } from '../../types/main'
 import { NXPlayerCharInfoT, NXPlayerT } from '../../types/player'
 import { _PlayerDB } from './player.db'

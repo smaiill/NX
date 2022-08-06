@@ -1,11 +1,11 @@
 import { logger } from 's@utils/logger'
 
 export class _Events {
-  private Events: Map<string, Function>
-  private ActiveEvents: string[]
+  private events: Map<string, Function>
+  private activeEvents: string[]
   constructor() {
-    this.Events = new Map()
-    this.ActiveEvents = []
+    this.events = new Map()
+    this.activeEvents = []
   }
 
   async onServerEvent(eventName: string, callback: Function) {
@@ -20,7 +20,7 @@ export class _Events {
       ...args: any[]
     ): void => {
       const source: number = globalThis.source
-      const eventCallback = this.Events.get(eventName)
+      const eventCallback = this.events.get(eventName)
       if (eventCallback) {
         eventCallback(source, ...args, (...respArgs: any[]) => {
           emitNet(respEventName, globalThis.source, ...respArgs)
@@ -28,10 +28,10 @@ export class _Events {
       }
     }
 
-    this.Events.set(eventName, callback)
-    if (!this.ActiveEvents.includes(eventName)) {
+    this.events.set(eventName, callback)
+    if (!this.activeEvents.includes(eventName)) {
       onNet(eventName, eventHandler)
-      this.ActiveEvents.push(eventName)
+      this.activeEvents.push(eventName)
     }
   }
 }

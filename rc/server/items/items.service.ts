@@ -7,19 +7,19 @@ import PlayerService from 's@player/player.service'
 import { logger } from 's@utils/logger'
 
 export class _ItemsService {
-  private readonly Items: ItemT[]
-  private Pickups: PickupT[]
-  private UsableItems: Map<string, Function>
+  private readonly items: ItemT[]
+  private pickups: PickupT[]
+  private usableItems: Map<string, Function>
   private utils: typeof Utils
   constructor() {
-    this.Items = items
-    this.Pickups = []
-    this.UsableItems = new Map()
+    this.items = items
+    this.pickups = []
+    this.usableItems = new Map()
     this.utils = Utils
   }
 
   public isValidItem(itemName: string): false | ItemT {
-    const item = this.Items.find((item) => item.name === itemName)
+    const item = this.items.find((item) => item.name === itemName)
 
     if (item) return item
 
@@ -27,7 +27,7 @@ export class _ItemsService {
   }
 
   public getItemData(itemName: string): Record<string, any> | false {
-    const item = this.Items.find((item) => item.name === itemName)
+    const item = this.items.find((item) => item.name === itemName)
 
     if (item) return item.data ?? false
 
@@ -35,7 +35,7 @@ export class _ItemsService {
   }
 
   public getItemWeight(itemName: string): number {
-    const item = this.Items.find((item) => item.name === itemName)
+    const item = this.items.find((item) => item.name === itemName)
 
     if (item) return item.weight
 
@@ -59,7 +59,7 @@ export class _ItemsService {
     itemType: string
   ): void {
     const uuid = this.utils.uuid()
-    this.Pickups.push({
+    this.pickups.push({
       name,
       amount,
       coords,
@@ -81,7 +81,7 @@ export class _ItemsService {
   }
 
   private findItem(name: string): false | ItemT {
-    const item = this.Items.find((item) => item.name === name)
+    const item = this.items.find((item) => item.name === name)
 
     if (item) return item
 
@@ -124,14 +124,14 @@ export class _ItemsService {
   }
 
   public createMissingPickups(source: number): void {
-    if (this.Pickups.length > 0) {
-      emitNet(ItemsEventsE.CREATE_MISSING_PICKUPS, source, this.Pickups)
+    if (this.pickups.length > 0) {
+      emitNet(ItemsEventsE.CREATE_MISSING_PICKUPS, source, this.pickups)
     }
   }
 
   private findPickupById(uuid: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      const pickup = this.Pickups.find((pickup) => pickup.uuid === uuid)
+      const pickup = this.pickups.find((pickup) => pickup.uuid === uuid)
 
       if (pickup) return resolve(pickup)
 
@@ -142,7 +142,7 @@ export class _ItemsService {
   public async takePickup(uuid: string, source: number): Promise<void> {
     this.findPickupById(uuid)
       .then(async (pickup: PickupT) => {
-        this.Pickups = this.Pickups.filter((pic) => pic.uuid !== pickup.uuid)
+        this.pickups = this.pickups.filter((pic) => pic.uuid !== pickup.uuid)
         const nxPlayer = await PlayerService.getPlayer(source)
         if (nxPlayer) {
           nxPlayer.AddItem(pickup.name, pickup.amount, (resp: RespT) => {
@@ -163,13 +163,13 @@ export class _ItemsService {
       return
     }
 
-    if (this.UsableItems.has(name)) {
+    if (this.usableItems.has(name)) {
       logger.warn(
         `item: [${name}] has already being registerd. [MISC.RegisterUsableItem]`
       )
     }
 
-    this.UsableItems.set(name, cb)
+    this.usableItems.set(name, cb)
   }
 
   public async useItem(
@@ -177,12 +177,12 @@ export class _ItemsService {
     source: number,
     ...args: any[]
   ): Promise<void> {
-    if (!this.UsableItems.has(name)) {
+    if (!this.usableItems.has(name)) {
       logger.error(`can't use item: ${name} he is not registerd.`)
       return
     }
 
-    const itemCB = this.UsableItems.get(name)
+    const itemCB = this.usableItems.get(name)
     itemCB && itemCB(source, args)
   }
 
@@ -223,7 +223,7 @@ export class _ItemsService {
         JSON.stringify(loadFile),
         -1
       )
-      this.Items.push(data)
+      this.items.push(data)
       emit(ItemsEventsE.ITEM_CREATED, data)
       cb && cb({ status: 'succes', message: 'item created.', data })
     } catch (error) {
@@ -233,10 +233,10 @@ export class _ItemsService {
 
   public removeAllPickups() {
     let uuids: string[] = []
-    for (const pickup of this.Pickups) {
+    for (const pickup of this.pickups) {
       uuids.push(pickup.uuid as string)
     }
-    this.Pickups = []
+    this.pickups = []
     emitNet(ItemsEventsE.CLEAR_ALL_PICKUPS_C, -1, uuids)
   }
 }

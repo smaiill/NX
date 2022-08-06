@@ -7,11 +7,9 @@ class _Utils {
   public uuid(base16: boolean = true): string | number {
     const randomNumber = Math.floor(Math.random() * this.RANDOM_NUMBER_TIMES)
 
-    if (base16) {
-      return randomNumber.toString(16)
-    }
+    if (!base16) return randomNumber
 
-    return randomNumber
+    return randomNumber.toString(16)
   }
 
   public wait(ms: number): Promise<void> {

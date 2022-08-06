@@ -1,14 +1,11 @@
-//
 // ! I know i need to refactor this code but its not important for now :) !
-//
+
 const fs = require('node:fs')
 const path = require('node:path')
 const process = require('child_process')
 const dir = path.resolve(__dirname, '../dist')
-const NXbuildFolderName = path.resolve(__dirname, '../NX')
 const configDir = path.resolve(__dirname, '../dist/config')
 const manifestDir = path.resolve(dir, 'fxmanifest.lua')
-const configFilesDir = path.resolve(dir, 'config')
 const manifestData = require('../misc/fxmanifest')
 
 fs.existsSync(dir) && fs.rmdirSync(dir, { recursive: true })
@@ -64,10 +61,6 @@ process.exec('cd rc && yarn build', (error, stdout, stderr) => {
                       'cd ui && yarn build',
                       (error, stdout, stderr) => {
                         if (error || stderr) return
-                        console.log(
-                          '\x1b[32mBuild folder was created with succes !',
-                          '\x1b[0m'
-                        )
                       }
                     )
                   })
@@ -79,4 +72,6 @@ process.exec('cd rc && yarn build', (error, stdout, stderr) => {
       }
     )
   })
+
+  console.log('\x1b[32mBuild folder was created with succes !', '\x1b[0m')
 })

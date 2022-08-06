@@ -2,13 +2,13 @@ import { JobT } from '../../types/jobs'
 import { jobs } from '@shared/load.file'
 
 class _JobsService {
-  private readonly Jobs: any[]
+  private readonly jobs: any[]
   constructor() {
-    this.Jobs = jobs
+    this.jobs = jobs
   }
 
   findJob(name: string): JobT | false {
-    const job = this.Jobs.find((job) => job.name === name)
+    const job = this.jobs.find((job) => job.name === name)
 
     if (job) return job
 

@@ -7,6 +7,7 @@ run.bat
 dist
 logo.png
 mock.txt
+.yarn.installed
 
 ### RC
 rc/node_modules

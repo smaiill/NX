@@ -27,7 +27,7 @@ class _PlayerUtils {
   }
   public generateBloodType(): Promise<string> {
     return new Promise((resolve, reject) => {
-      const randomNumber = Math.floor(Math.random() * 100)
+      const randomNumber = Math.trunc(Math.random() * 100)
       for (const blood in this.bloodTypes) {
         const [bloodMin, bloodMax] = this.bloodTypes[blood].split('-')
 

@@ -7,14 +7,14 @@ import ItemsService from 's@items/items.service'
 import { logger } from 's@utils/logger'
 
 class _PlayerService {
-  private PlayersCollection: any[]
+  private playersCollection: NXPlayerT[]
 
   constructor() {
-    this.PlayersCollection = []
+    this.playersCollection = []
   }
 
   async findPlayer(source: number): Promise<any> {
-    const nxPlayer = await this.PlayersCollection.find(
+    const nxPlayer = await this.playersCollection.find(
       (player) => player.source === source
     )
 
@@ -44,7 +44,7 @@ class _PlayerService {
       .savePlayer(nxPlayer)
       .then(() => {
         logger.info(`Player: [${nxPlayer.name}] saved with succes.`)
-        this.PlayersCollection = this.PlayersCollection.filter(
+        this.playersCollection = this.playersCollection.filter(
           (player) => player.source !== source
         )
         emit(PlayerEventsE.PLAYER_DROPPED, source)
@@ -59,7 +59,7 @@ class _PlayerService {
   }
 
   public async savePlayers() {
-    for (const nxPlayer of this.PlayersCollection) {
+    for (const nxPlayer of this.playersCollection) {
       _PlayerDB.savePlayer(nxPlayer)
     }
 
@@ -70,7 +70,6 @@ class _PlayerService {
     player.charinfo = JSON.parse(player.charinfo)
     player.accounts = JSON.parse(player.accounts)
     player.position = JSON.parse(player.position)
-
     player.inventory && (player.inventory = JSON.parse(player.inventory))
 
     const nxPlayerData: {
@@ -128,7 +127,7 @@ class _PlayerService {
       source
     )
 
-    this.PlayersCollection.push(nxPlayer)
+    this.playersCollection.push(nxPlayer)
 
     emitNet(PlayerEventsE.PLAYER_LOADED, source, {
       accounts: nxPlayer.accounts,
@@ -145,7 +144,7 @@ class _PlayerService {
 
   public async doesPlayerExist(identifier: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
-      const nxPlayer = await this.PlayersCollection.find(
+      const nxPlayer = await this.playersCollection.find(
         (player) => player.identifier === identifier
       )
 
@@ -170,8 +169,8 @@ class _PlayerService {
   public async getPlayers(): Promise<number[] | []> {
     const nxPlayersSources: number[] = []
 
-    if (this.PlayersCollection.length > 0) {
-      this.PlayersCollection.forEach((nxPlayer) => {
+    if (this.playersCollection.length > 0) {
+      this.playersCollection.forEach((nxPlayer) => {
         nxPlayersSources.push(nxPlayer.source)
       })
 
@@ -189,7 +188,7 @@ class _PlayerService {
     }
 
     return {
-      data: nxPlayer,
+      Data: nxPlayer,
       GetName: nxPlayer.getName.bind(nxPlayer),
       GetIdentifier: nxPlayer.getIdentifier.bind(nxPlayer),
       GetAccountMoney: nxPlayer.getAccountMoney.bind(nxPlayer),

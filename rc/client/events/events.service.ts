@@ -3,10 +3,10 @@ import Utils from '@shared/utils/misc'
 import logger from 'c@utils/logger'
 
 export class _EventsService {
-  private Events: Map<string, Function>
+  private events: Map<string, Function>
   private utils: typeof Utils
   constructor() {
-    this.Events = new Map()
+    this.events = new Map()
     this.utils = Utils
   }
 
@@ -21,10 +21,10 @@ export class _EventsService {
       )
     }
 
-    if (this.Events.has(eventName)) {
+    if (this.events.has(eventName)) {
       logger.warn(`event : ^2[${eventName}] ^3already declared`)
     } else {
-      this.Events.set(eventName, callback)
+      this.events.set(eventName, callback)
     }
 
     const randomID = this.utils.uuid()

@@ -11,14 +11,14 @@ class _InputService {
     handler: Function | null
     data: InputsDataT | null
   }
-  private InputUtils: typeof InputUtils
+  private inputUtils: typeof InputUtils
   constructor() {
     this.currentInputState = {
       active: false,
       handler: null,
       data: null,
     }
-    this.InputUtils = InputUtils
+    this.inputUtils = InputUtils
   }
 
   public isActive(): boolean {
@@ -77,7 +77,7 @@ class _InputService {
       typeof this.currentInputState.handler === 'function' &&
       this.currentInputState.active
     ) {
-      const [isValid, error] = await this.InputUtils.isDataValid(
+      const [isValid, error] = await this.inputUtils.isDataValid(
         res.data,
         this.currentInputState.data!
       )
