@@ -5,6 +5,10 @@ export interface ConfigT {
     readonly password: string
     readonly database: string
   }
+
+  readonly player: {
+    readonly maxWeight: number
+  }
   readonly discord: {
     readonly logs: {
       readonly webhook: string

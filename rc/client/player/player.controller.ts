@@ -1,6 +1,8 @@
 import {
+  AccountsEventsE,
   InventoryEeventsE,
   JobsEventsE,
+  PermissionsEventsE,
   PlayerEventsE,
 } from '../../types/events'
 import { InventoryActions, InventoryActionsT } from '../../types/main'
@@ -94,5 +96,16 @@ onNet(
     type: number
   }) => {
     PlayerService.setLocaleJob({ job, job_grade, type })
+  }
+)
+
+onNet(PermissionsEventsE.ON_PERMISSIONS_UPDATED, (permission: string) => {
+  PlayerService.setLocalePermissions(permission)
+})
+
+onNet(
+  AccountsEventsE.ON_ACCOUNT_UPDATED,
+  ({ account, money }: { account: string; money: number }) => {
+    PlayerService.setLocaleAccountMoney({ account, money })
   }
 )

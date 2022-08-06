@@ -1,26 +1,32 @@
-import { InventoryEeventsE, JobsEventsE } from '../../types/events'
+import {
+  AccountsEventsE,
+  InventoryEeventsE,
+  JobsEventsE,
+  PermissionsEventsE,
+} from '../../types/events'
 import { ItemT } from '../../types/items'
 import { RespCB } from '../../types/main'
+import { NXPlayerCharInfoT, NXPlayerT } from '../../types/player'
 import { _PlayerDB } from './player.db'
 import ItemsService from 's@items/items.service'
 import JobsService from 's@jobs/jobs.service'
 import { logger } from 's@utils/logger'
 
-class _Player {
-  identifier: string
-  charinfo: any
-  inventory: any
-  accounts: any
-  position: any
-  permissions: string
-  weight: number
-  name: string
-  source: number
-  maxWeight: number
+class _Player implements NXPlayerT {
+  identifier
+  charinfo
+  inventory
+  accounts
+  position
+  permissions
+  weight
+  name
+  source
+  maxWeight
 
   constructor(
     identifier: string,
-    charinfo: any,
+    charinfo: NXPlayerCharInfoT,
     inventory: any,
     accounts: any,
     position: any,
@@ -49,7 +55,7 @@ class _Player {
     return this.name
   }
 
-  public getCharInfo(): any {
+  public getCharInfo(): NXPlayerCharInfoT {
     return this.charinfo
   }
 
@@ -61,11 +67,11 @@ class _Player {
     return this.position
   }
 
-  public getInventory(): any {
+  public getInventory(): Record<string, { amount: number; type: string }> {
     return this.inventory
   }
 
-  public getAccounts(): any {
+  public getAccounts(): Record<string, number> {
     return this.accounts
   }
 
@@ -78,23 +84,21 @@ class _Player {
   }
 
   public getThirst(): number {
-    return parseFloat(this.charinfo.thirst)
+    return this.charinfo.thirst
   }
 
   public getHunger(): number {
-    return parseFloat(this.charinfo.hunger)
+    return this.charinfo.hunger
   }
 
   public getMaxWeight(): number {
     return this.maxWeight
   }
 
-  public setThirst(value: number): void {
-    this.charinfo.thirst = value
-  }
+  public getAccountMoney(account: string): number | undefined {
+    if (!account) return
 
-  public setHunger(value: number): void {
-    this.charinfo.hunger = value
+    return this.accounts[account]
   }
 
   public getJob(type: number = 1): { name: string; grade: number } {
@@ -111,12 +115,29 @@ class _Player {
     }
   }
 
-  public getAccountMoney(account: string): number | undefined {
-    if (!account || account !== 'bank') {
-      return
-    }
+  public setThirst(value: number): void {
+    this.charinfo.thirst = value
+  }
 
-    return this.accounts[account]
+  public setHunger(value: number): void {
+    this.charinfo.hunger = value
+  }
+
+  public setPermissions(permission: string): void {
+    this.permissions = permission
+    this.emitEvent(PermissionsEventsE.ON_PERMISSIONS_UPDATED, permission)
+  }
+
+  public setAccountMoney(account: string, money: number): void {
+    if (!(account in this.accounts) || !money) return
+
+    money = Math.trunc(money)
+
+    this.accounts[account] = money
+    this.emitEvent(AccountsEventsE.ON_ACCOUNT_UPDATED, {
+      account,
+      money,
+    })
   }
 
   public async setJob(
@@ -128,8 +149,6 @@ class _Player {
     const isValid = await JobsService.isValid(name, grade, type)
 
     if (!isValid) return
-
-    console.log(this.charinfo.job, this.charinfo.job_grade)
 
     if (type === 1) {
       this.charinfo.job = name
@@ -147,7 +166,6 @@ class _Player {
           job_grade: grade,
           type,
         })
-      console.log(this.charinfo.job, this.charinfo.job_grade)
 
       return
     }
@@ -160,7 +178,6 @@ class _Player {
       job_grade: grade,
       type,
     })
-    console.log(this.charinfo.job, this.charinfo.job_grade)
 
     cb &&
       cb({
@@ -171,60 +188,26 @@ class _Player {
   }
 
   public setCoords(x: number, y: number, z: number, heading: number): void {
-    if (!x || !y || !z || !heading) {
-      return
-    }
-
-    const NUMBER_AFTER_DOT: number = 3
-
-    const minCoords = {
-      x: x.toString().split('.'),
-      y: y.toString().split('.'),
-      z: z.toString().split('.'),
-      heading: heading.toString().split('.'),
-    }
-
-    const newCoords = {
-      x: `${minCoords.x[0]}.${minCoords.x[1].slice(0, NUMBER_AFTER_DOT)}`,
-      y: `${minCoords.y[0]}.${minCoords.y[1].slice(0, NUMBER_AFTER_DOT)}`,
-      z: `${minCoords.z[0]}.${minCoords.z[1].slice(0, NUMBER_AFTER_DOT)}`,
-      heading: `${minCoords.heading[0]}.${minCoords.heading[1].slice(
-        0,
-        NUMBER_AFTER_DOT
-      )}`,
-    }
-
     this.position = {
-      x: parseFloat(newCoords.x),
-      y: parseFloat(newCoords.y),
-      z: parseFloat(newCoords.z),
-      heading: parseFloat(newCoords.x),
+      x: parseFloat(x.toFixed(3)),
+      y: parseFloat(y.toFixed(3)),
+      z: parseFloat(z.toFixed(3)),
+      heading: parseFloat(heading.toFixed(3)),
     }
 
     return
   }
 
-  public emitEvent(eventName: string, ...args: any[]) {
-    emitNet(eventName, this.source, ...args)
+  public emitEvent(name: string, ...args: any[]): void {
+    emitNet(name, this.source, ...args)
   }
 
-  public hasItem(itemName: string): boolean | any {
-    const item = this.inventory[itemName]
-    if (item) {
-      return item
-    }
+  public hasItem(name: string): boolean | any {
+    const item = this.inventory[name]
 
-    return false
-  }
+    if (!item) return item
 
-  public getInventoryItem(itemName: string): ItemT | false {
-    const item = this.inventory[itemName]
-
-    if (item) {
-      return item
-    }
-
-    return false
+    return true
   }
 
   public async removeInventoryItem(
@@ -335,8 +318,6 @@ class _Player {
       }
     }
 
-    console.log(this.inventory)
-
     this.weight = this.weight + amount * ItemsService.getItemWeight(name)
     this.emitEvent(InventoryEeventsE.UPDATE_INVENTORY, {
       type: 'ADD',
@@ -378,7 +359,7 @@ class _Player {
       })
   }
 
-  kick(reason: string = 'No reason'): void {
+  kick(reason: string = 'no reason'): void {
     DropPlayer(this.source as unknown as string, reason)
   }
 }

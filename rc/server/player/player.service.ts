@@ -1,4 +1,5 @@
 import { PlayerEventsE } from '../../types/events'
+import { NXPlayerT } from '../../types/player'
 import _Player from './player.class'
 import { _PlayerDB } from './player.db'
 import PlayerUtils from './player.utils'
@@ -70,11 +71,13 @@ class _PlayerService {
     player.accounts = JSON.parse(player.accounts)
     player.position = JSON.parse(player.position)
 
-    if (player.inventory) {
-      player.inventory = JSON.parse(player.inventory)
-    }
+    player.inventory && (player.inventory = JSON.parse(player.inventory))
 
-    const nxPlayerData: any = {
+    const nxPlayerData: {
+      inventory: Record<string, { amount: number; type: string }>
+      skin: any
+      weight: number
+    } = {
       inventory: {},
       skin: {},
       weight: 0,
@@ -124,6 +127,7 @@ class _PlayerService {
       GetPlayerName(source.toString()),
       source
     )
+
     this.PlayersCollection.push(nxPlayer)
 
     emitNet(PlayerEventsE.PLAYER_LOADED, source, {
@@ -200,11 +204,12 @@ class _PlayerService {
       GetThirst: nxPlayer.getThirst.bind(nxPlayer),
       GetHunger: nxPlayer.getHunger.bind(nxPlayer),
       GetJob: nxPlayer.getJob.bind(nxPlayer),
-      GetInventoryItem: nxPlayer.getInventoryItem.bind(nxPlayer),
       SetCoords: nxPlayer.setCoords.bind(nxPlayer),
       SetJob: nxPlayer.setJob.bind(nxPlayer),
+      SetPermissions: nxPlayer.setPermissions.bind(nxPlayer),
       SetThirst: nxPlayer.setThirst.bind(nxPlayer),
       SetHunger: nxPlayer.setHunger.bind(nxPlayer),
+      SetAccountMoney: nxPlayer.setAccountMoney.bind(nxPlayer),
       HasItem: nxPlayer.hasItem.bind(nxPlayer),
       RemoveItem: nxPlayer.removeInventoryItem.bind(nxPlayer),
       AddItem: nxPlayer.addInventoryItem.bind(nxPlayer),

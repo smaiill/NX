@@ -4,27 +4,27 @@ import Utils from '@shared/utils/misc'
 import PlayerService from 's@player/player.service'
 
 class _BansService {
-  private Bans: Map<string, BanT>
-  private Utils: typeof Utils
+  private bans: Map<string, BanT>
+  private utils: typeof Utils
   private readonly permaBanValue: number
   constructor() {
-    this.Bans = new Map()
-    this.Utils = Utils
+    this.bans = new Map()
+    this.utils = Utils
     this.permaBanValue = 3000000000 // ? 24/01/2065 06:20:00
   }
 
   public fetchAll(): Map<string, BanT> {
-    return this.Bans
+    return this.bans
   }
 
   private loadBans(bans: BanT[]): void {
     for (const ban of bans) {
-      this.Bans.set(ban.id, ban)
+      this.bans.set(ban.id, ban)
     }
   }
 
   private findBanByLicense(license: string): BanT | false {
-    const [isBanned] = [...this.Bans.entries()]
+    const [isBanned] = [...this.bans.entries()]
       .filter(({ 1: ban }) => ban.license === license)
       .map(([id, val]) => val)
 
@@ -75,7 +75,7 @@ class _BansService {
     }
     const expirationTimestamp = this.createExpirationDate(duration)
     // @ts-ignore
-    const id: string = this.Utils.uuid()
+    const id: string = this.utils.uuid()
     const banData: BanT = {
       license: nxTarget.data.identifier,
       bannedBy,
@@ -110,7 +110,7 @@ class _BansService {
         JSON.stringify(bansFile),
         -1
       )
-      this.Bans.set(id as string, banData)
+      this.bans.set(id as string, banData)
       cb && cb({ status: 'succes', data: banData })
     } catch (error) {
       cb && cb({ status: 'error', message: error })
@@ -130,7 +130,7 @@ class _BansService {
           JSON.stringify(newBansFile),
           -1
         )
-        this.Bans.delete(id)
+        this.bans.delete(id)
         resolve(true)
       } catch (error) {
         reject(false)

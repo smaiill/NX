@@ -23,6 +23,14 @@ export enum ItemsEventsE {
   CLEAR_ALL_PICKUPS_C = 'NX::clearAllPickupsC',
 }
 
+export enum PermissionsEventsE {
+  ON_PERMISSIONS_UPDATED = 'NX::onPermissionsUpdated',
+}
+
+export enum AccountsEventsE {
+  ON_ACCOUNT_UPDATED = 'NX::onAccountUpdated',
+}
+
 export enum JobsEventsE {
   ON_JOB_UPDATED = 'NX::onJobUpdated',
 }
@@ -32,7 +40,7 @@ export enum InventoryEeventsE {
   ON_INVENTORY_UPDATED = 'NX::onInventoryUpdated',
 }
 
-export enum MiscEventsE {
+export enum DBEventsE {
   DB_CONNECTED = 'NX::DBConnected',
 }
 

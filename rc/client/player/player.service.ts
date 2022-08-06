@@ -97,6 +97,28 @@ class _PlayerService {
     Player.setValue('charinfo', nxPlayerInfo)
   }
 
+  public setLocalePermissions(permission: string) {
+    const nxPlayerInfo = Player.getData()
+
+    nxPlayerInfo.permissions = permission
+
+    Player.setValue('permissions', permission)
+  }
+
+  public setLocaleAccountMoney({
+    account,
+    money,
+  }: {
+    account: string
+    money: number
+  }) {
+    const nxPlayerInfo = Player.getData()
+
+    nxPlayerInfo.accounts[account] = money
+
+    Player.setValue('accounts', nxPlayerInfo.accounts)
+  }
+
   public syncPlayer(): void {
     this.syncCoords()
     this.syncStatus()

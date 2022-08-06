@@ -6,6 +6,10 @@
     "database": "nx"
   },
 
+  "player": {
+    "maxWeight": 500000
+  },
+
   "discord": {
     "logs": {
       "webhook": "",

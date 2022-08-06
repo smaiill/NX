@@ -1,4 +1,4 @@
-import { MiscEventsE } from '../../types/events'
+import { DBEventsE } from '../../types/events'
 import DB from 's@db/db'
 import { logger } from 's@utils/logger'
 
@@ -16,7 +16,7 @@ class _BootService {
         logger.info(
           `DB connected with succes, execution time: [${duration} ms]`
         )
-        emit(MiscEventsE.DB_CONNECTED)
+        emit(DBEventsE.DB_CONNECTED)
       })
       .catch((e) => {
         logger.error(`error while connecting to your DB: ${e}`)
