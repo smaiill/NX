@@ -97,6 +97,10 @@ class _Player implements NXPlayerT {
     return this.maxWeight
   }
 
+  public getUID(): string {
+    return this.uid
+  }
+
   public getAccountMoney(account: string): number | undefined {
     if (!account) return
 
@@ -145,7 +149,7 @@ class _Player implements NXPlayerT {
   public async setJob(
     name: string,
     grade: string,
-    type: number = 1,
+    type: number,
     cb?: Function
   ): Promise<void> {
     const isValid = await JobsService.isValid(name, grade, type)

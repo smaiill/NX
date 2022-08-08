@@ -44,6 +44,7 @@ export interface NXPlayerT {
   getThirst(): number
   getHunger(): number
   getMaxWeight(): number
+  getUID(): string
   getAccountMoney(account: string): number | undefined
   getJob(type: number): { name: string; grade: number }
   setThirst(value: number): void

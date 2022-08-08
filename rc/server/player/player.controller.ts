@@ -24,7 +24,7 @@ on(
 
 on('playerDropped', (reason: string): void => {
   const source = globalThis.source
-  _PlayerService.playerDropped(reason, source)
+  _PlayerService.playerDropped(source)
 })
 
 onNet(

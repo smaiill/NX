@@ -160,7 +160,7 @@ class _PlayerService {
     })
   }
 
-  public async playerDropped(reason: string, source: number): Promise<void> {
+  public async playerDropped(source: number): Promise<void> {
     await this.unloadPlayer(source)
   }
 
@@ -194,7 +194,6 @@ class _PlayerService {
     }
 
     return {
-      Data: nxPlayer,
       GetName: nxPlayer.getName.bind(nxPlayer),
       GetIdentifier: nxPlayer.getIdentifier.bind(nxPlayer),
       GetAccountMoney: nxPlayer.getAccountMoney.bind(nxPlayer),
@@ -209,6 +208,7 @@ class _PlayerService {
       GetThirst: nxPlayer.getThirst.bind(nxPlayer),
       GetHunger: nxPlayer.getHunger.bind(nxPlayer),
       GetJob: nxPlayer.getJob.bind(nxPlayer),
+      GetUID: nxPlayer.getUID.bind(nxPlayer),
       SetCoords: nxPlayer.setCoords.bind(nxPlayer),
       SetJob: nxPlayer.setJob.bind(nxPlayer),
       SetPermissions: nxPlayer.setPermissions.bind(nxPlayer),
