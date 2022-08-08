@@ -8,16 +8,16 @@ import './exports'
 import './items'
 import Items from './items/items.service'
 import './player'
-import Player from './player/player.service'
+import Players from './player/player.service'
 
 class Server {
-  Players: typeof Player
+  Players: typeof Players
   Events: typeof Events
   Items: typeof Items
   Discord: typeof Discord
   Commands: typeof Commands
   constructor() {
-    this.Players = Player
+    this.Players = Players
     this.Events = Events
     this.Items = Items
     this.Discord = Discord

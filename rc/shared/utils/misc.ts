@@ -1,11 +1,11 @@
 class _Utils {
   private readonly RANDOM_NUMBER_TIMES: number
   constructor() {
-    this.RANDOM_NUMBER_TIMES = 100_000_000_000
+    this.RANDOM_NUMBER_TIMES = 100_000_000_000_000
   }
 
   public uuid(base16: boolean = true): string | number {
-    const randomNumber = Math.floor(Math.random() * this.RANDOM_NUMBER_TIMES)
+    const randomNumber = Math.trunc(Math.random() * this.RANDOM_NUMBER_TIMES)
 
     if (!base16) return randomNumber
 

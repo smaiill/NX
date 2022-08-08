@@ -1,8 +1,9 @@
 import { PlayerEventsE } from '../../types/events'
-import { NXPlayerT } from '../../types/player'
+import { NXPlayerT, PlayerDataBaseT } from '../../types/player'
 import _Player from './player.class'
 import { _PlayerDB } from './player.db'
 import PlayerUtils from './player.utils'
+import Utils from '@shared/utils/misc'
 import ItemsService from 's@items/items.service'
 import { logger } from 's@utils/logger'
 
@@ -13,20 +14,21 @@ class _PlayerService {
     this.playersCollection = []
   }
 
-  async findPlayer(source: number): Promise<any> {
+  async findPlayer(source: number): Promise<NXPlayerT | false> {
     const nxPlayer = await this.playersCollection.find(
       (player) => player.source === source
     )
 
-    if (nxPlayer) {
-      return nxPlayer
-    }
+    if (!nxPlayer) return false
 
-    return false
+    return nxPlayer
   }
 
   public async newPlayer(identifiers: string[], source: number): Promise<void> {
-    const license = await PlayerUtils.getPlayerLicense(identifiers)
+    const license = await PlayerUtils.getPlayerIdentifier(
+      identifiers,
+      'license'
+    )
     const [player] = await _PlayerDB.getPlayerFromDB(license)
     if (player) {
       this.loadPlayer(player, source)
@@ -66,7 +68,10 @@ class _PlayerService {
     logger.info(`Saved all players.`)
   }
 
-  private async loadPlayer(player: any, source: number): Promise<void> {
+  private async loadPlayer(
+    player: PlayerDataBaseT,
+    source: number
+  ): Promise<void> {
     player.charinfo = JSON.parse(player.charinfo)
     player.accounts = JSON.parse(player.accounts)
     player.position = JSON.parse(player.position)
@@ -124,7 +129,8 @@ class _PlayerService {
       player.permissions,
       nxPlayerData.weight,
       GetPlayerName(source.toString()),
-      source
+      source,
+      player.uid
     )
 
     this.playersCollection.push(nxPlayer)

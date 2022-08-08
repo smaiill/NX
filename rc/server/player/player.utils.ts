@@ -13,11 +13,14 @@ class _PlayerUtils {
     }
   }
 
-  public getPlayerLicense(identifiers: string[]): Promise<string> {
+  public getPlayerIdentifier(
+    identifiers: string[],
+    identifierToFind: string
+  ): Promise<string> {
     return new Promise((resolve, reject) => {
       identifiers.forEach((identifier) => {
         let [identifierKey, identifierValue] = identifier.split(':')
-        if (identifierKey === 'license') {
+        if (identifierKey === identifierToFind) {
           return resolve(identifierValue)
         }
       })
@@ -25,6 +28,7 @@ class _PlayerUtils {
       reject('')
     })
   }
+
   public generateBloodType(): Promise<string> {
     return new Promise((resolve, reject) => {
       const randomNumber = Math.trunc(Math.random() * 100)

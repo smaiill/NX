@@ -1,5 +1,6 @@
 import { DBQueries } from '../../types/db'
 import PlayerUtils from './player.utils'
+import Utils from '@shared/utils/misc'
 import DB from 's@db/db'
 
 export class _PlayerDB {
@@ -19,6 +20,7 @@ export class _PlayerDB {
   public static createPlayer(license: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       const bloodType = await PlayerUtils.generateBloodType()
+      const uid = await Utils.uuid()
       const res = await DB.exec(DBQueries.CRAETE_PLAYER, [
         license,
         JSON.stringify({
@@ -36,6 +38,7 @@ export class _PlayerDB {
           thirst: 100,
           blood_type: bloodType,
         }),
+        uid,
       ])
 
       if (!res) return reject()

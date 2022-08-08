@@ -22,6 +22,7 @@ class _Player implements NXPlayerT {
   name
   source
   maxWeight
+  uid
 
   constructor(
     identifier: string,
@@ -32,7 +33,8 @@ class _Player implements NXPlayerT {
     permissions: string,
     weight: number,
     name: string,
-    source: number
+    source: number,
+    uid: string
   ) {
     this.identifier = identifier
     this.charinfo = charinfo
@@ -44,6 +46,7 @@ class _Player implements NXPlayerT {
     this.name = name
     this.source = source
     this.maxWeight = 50000000000
+    this.uid = uid
   }
 
   public getWeight(): number {

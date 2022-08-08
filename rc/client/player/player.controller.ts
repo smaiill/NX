@@ -42,6 +42,7 @@ onNet(PlayerEventsE.PLAYER_LOADED, async (nxPlayer: any) => {
       skipFade: true,
     },
     () => {
+      console.log(nxPlayer)
       emit('skinchanger:loadSkin', nxPlayer.skin)
       ItemsService.handlePickupsPickup()
       PlayerService.syncPlayer()

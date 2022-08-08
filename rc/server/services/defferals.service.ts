@@ -20,7 +20,10 @@ class _DeferralsService {
     deferrals.defer()
     deferrals.update(`${name} wait while checking your license`)
 
-    const license = await PlayerUtils.getPlayerLicense(identifiers)
+    const license = await PlayerUtils.getPlayerIdentifier(
+      identifiers,
+      'license'
+    )
 
     if (!license) {
       return deferrals.done('Not valid license')

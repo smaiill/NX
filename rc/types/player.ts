@@ -1,3 +1,5 @@
+import { RespCB } from './main'
+
 export type BloodTypes = 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-'
 
 export interface NXPlayerCharInfoT {
@@ -28,4 +30,52 @@ export interface NXPlayerT {
   name: string
   source: number
   maxWeight: number
+  uid: string
+
+  getWeight(): number
+  getName(): string
+  getCharInfo(): NXPlayerCharInfoT
+  getIdentifier(): string
+  getCoords(): number[]
+  getInventory(): Record<string, { amount: number; type: string }>
+  getAccounts(): Record<string, number>
+  getPermissions(): string
+  getBloodType(): string
+  getThirst(): number
+  getHunger(): number
+  getMaxWeight(): number
+  getAccountMoney(account: string): number | undefined
+  getJob(type: number): { name: string; grade: number }
+  setThirst(value: number): void
+  setHunger(value: number): void
+  setPermissions(permission: string): void
+  setAccountMoney(account: string, money: number): void
+  setJob(
+    name: string,
+    grade: string,
+    type: number,
+    cb?: Function
+  ): Promise<void>
+  setCoords(x: number, y: number, z: number, heading: number): void
+  emitEvent(name: string, ...args: any[]): void
+  hasItem(name: string): boolean | any
+  removeInventoryItem(name: string, amount: number, cb?: RespCB): Promise<void>
+  canTakeItem(name: string, amount: number): Promise<boolean>
+  addInventoryItem(name: string, amount: number, cb?: RespCB): Promise<void>
+  save(cb?: RespCB): Promise<void>
+  kick(reason: string): void
+}
+
+export interface PlayerDataBaseT {
+  id: number
+  identifier: string
+  accounts: string
+  permissions: string
+  inventory: null | any
+  charinfo: any
+  position: string
+  skin: null | string
+  uid: string
+  created_at: string
+  updated_at: string
 }

@@ -5,7 +5,7 @@ export interface LoadingBarStyleT {
 }
 
 export interface LoadingBarDataT {
-  duration: number
+  duration?: number
   label?: string
   style?: LoadingBarStyleT
 }
