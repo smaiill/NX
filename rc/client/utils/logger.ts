@@ -1,4 +1,4 @@
-import { ClientColors } from '../../types/misc'
+import { CodeColors } from '../../types/misc'
 
 class _Logger {
   private readonly logsCodes: {
@@ -9,10 +9,10 @@ class _Logger {
   }
   constructor() {
     this.logsCodes = {
-      error: `${ClientColors.RED}[ERROR]`,
-      info: `${ClientColors.GREEN}[INFO]`,
-      warn: `${ClientColors.ORANGE}[WARN]`,
-      debug: `${ClientColors.WHITE}[DEBUG]`,
+      error: `${CodeColors.RED}[ERROR]`,
+      info: `${CodeColors.GREEN}[INFO]`,
+      warn: `${CodeColors.ORANGE}[WARN]`,
+      debug: `${CodeColors.WHITE}[DEBUG]`,
     }
   }
 

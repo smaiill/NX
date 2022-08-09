@@ -1,3 +1,4 @@
+import { InventoryItemT } from './items'
 import { RespCB } from './main'
 
 export type BloodTypes = 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-'
@@ -14,30 +15,13 @@ export interface NXPlayerCharInfoT {
   [key: string]: any
 }
 
-export interface NXPlayerT {
-  identifier: string
-  charinfo: NXPlayerCharInfoT
-  inventory: Record<string, { amount: number; type: string }>
-  accounts: Record<string, number>
-  position: {
-    x: number
-    y: number
-    z: number
-    heading: number
-  }
-  permissions: string
-  weight: number
-  name: string
-  source: number
-  maxWeight: number
-  uid: string
-
+export interface NXPlayerMethodsT {
   getWeight(): number
   getName(): string
   getCharInfo(): NXPlayerCharInfoT
   getIdentifier(): string
   getCoords(): number[]
-  getInventory(): Record<string, { amount: number; type: string }>
+  getInventory(): Record<string, InventoryItemT>
   getAccounts(): Record<string, number>
   getPermissions(): string
   getBloodType(): string
@@ -65,6 +49,25 @@ export interface NXPlayerT {
   addInventoryItem(name: string, amount: number, cb?: RespCB): Promise<void>
   save(cb?: RespCB): Promise<void>
   kick(reason: string): void
+}
+
+export interface NXPlayerT extends NXPlayerMethodsT {
+  identifier: string
+  charinfo: NXPlayerCharInfoT
+  inventory: Record<string, InventoryItemT>
+  accounts: Record<string, number>
+  position: {
+    x: number
+    y: number
+    z: number
+    heading: number
+  }
+  permissions: string
+  weight: number
+  name: string
+  source: number
+  maxWeight: number
+  uid: string
 }
 
 export interface PlayerDataBaseT {

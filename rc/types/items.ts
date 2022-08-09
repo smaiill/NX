@@ -20,3 +20,8 @@ export interface ItemT {
 export interface UsabeItemsT {
   [property: string]: Function
 }
+
+export interface InventoryItemT {
+  type: string
+  amount: number
+}

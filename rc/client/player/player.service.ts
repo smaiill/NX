@@ -18,7 +18,7 @@ class _PlayerService {
       const nxPlayerData = Player.getData()
       Player.setStatus('thirst', parseFloat(nxPlayerData.charinfo.thirst) - 0.4)
       Player.setStatus('hunger', parseFloat(nxPlayerData.charinfo.hunger) - 0.4)
-    }, 250)
+    }, 30_000)
   }
 
   public setPlayerLoadedData(nxPlayer: any) {

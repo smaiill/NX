@@ -4,6 +4,7 @@ import {
   JobsEventsE,
   PermissionsEventsE,
 } from '../../types/events'
+import { InventoryItemT } from '../../types/items'
 import { RespCB } from '../../types/main'
 import { NXPlayerCharInfoT, NXPlayerT } from '../../types/player'
 import { _PlayerDB } from './player.db'
@@ -69,7 +70,7 @@ class _Player implements NXPlayerT {
     return this.position
   }
 
-  public getInventory(): Record<string, { amount: number; type: string }> {
+  public getInventory(): Record<string, InventoryItemT> {
     return this.inventory
   }
 
@@ -296,7 +297,7 @@ class _Player implements NXPlayerT {
     }
     const item = this.hasItem(name)
 
-    amount = ~~amount
+    amount = Math.trunc(amount)
 
     const canTakeItem = await this.canTakeItem(name, amount)
     if (!canTakeItem) {

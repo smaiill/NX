@@ -5,7 +5,7 @@ import {
   PermissionsEventsE,
   PlayerEventsE,
 } from '../../types/events'
-import { InventoryActions, InventoryActionsT } from '../../types/main'
+import { InventoryActions } from '../../types/main'
 import Player from './player.class'
 import PlayerService from './player.service'
 import ItemsService from 'c@items/items.service'
@@ -42,7 +42,6 @@ onNet(PlayerEventsE.PLAYER_LOADED, async (nxPlayer: any) => {
       skipFade: true,
     },
     () => {
-      console.log(nxPlayer)
       emit('skinchanger:loadSkin', nxPlayer.skin)
       ItemsService.handlePickupsPickup()
       PlayerService.syncPlayer()
@@ -56,7 +55,7 @@ onNet(
     item,
     type,
   }: {
-    type: InventoryActionsT
+    type: keyof typeof InventoryActions
     item: { name: string; amount: number; type: string }
   }) => {
     emit(InventoryEeventsE.ON_INVENTORY_UPDATED, {

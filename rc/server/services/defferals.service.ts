@@ -25,9 +25,7 @@ class _DeferralsService {
       'license'
     )
 
-    if (!license) {
-      return deferrals.done('Not valid license')
-    }
+    if (!license) return deferrals.done('Not valid license')
 
     const isBanned = await BansService.isBanned(license)
     if (isBanned) {

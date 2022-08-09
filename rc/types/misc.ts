@@ -1,4 +1,5 @@
-export enum ClientColors {
+export enum CodeColors {
+  CLOSE = 0,
   DARK_RED = '^1',
   GREEN = '^2',
   ORANGE = '^3',

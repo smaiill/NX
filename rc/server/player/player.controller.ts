@@ -22,7 +22,7 @@ on(
   }
 )
 
-on('playerDropped', (reason: string): void => {
+on('playerDropped', (): void => {
   const source = globalThis.source
   _PlayerService.playerDropped(source)
 })
@@ -32,11 +32,13 @@ onNet(
   async (coords: number[], heading: number): Promise<void> => {
     const source = globalThis.source
     const nxPlayer = await _PlayerService.getPlayer(source)
-    if (nxPlayer) {
-      nxPlayer.SetCoords(coords[0], coords[1], coords[2], heading)
-    }
+
+    if (!nxPlayer) return
+
+    nxPlayer.SetCoords(coords[0], coords[1], coords[2], heading)
   }
 )
+
 onNet(
   PlayerEventsE.UPDATE_STATUS,
   async ({
@@ -48,9 +50,9 @@ onNet(
   }): Promise<void> => {
     const source = globalThis.source
     const nxPlayer = await PlayerService.getPlayer(source)
-    if (nxPlayer) {
-      nxPlayer.SetHunger(hunger)
-      nxPlayer.SetThirst(thirst)
-    }
+    if (!nxPlayer) return
+
+    nxPlayer.SetHunger(hunger)
+    nxPlayer.SetThirst(thirst)
   }
 )

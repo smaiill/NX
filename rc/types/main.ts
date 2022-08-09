@@ -4,11 +4,6 @@ export enum NuiAPP {
   INPUT = 'NX::input',
 }
 
-export enum InventoryActions {
-  ADD = 'ADD',
-  REMOVE = 'REMOVE',
-}
-
 export interface DiscordWebhookI {
   data: any
   options?: {
@@ -34,4 +29,7 @@ export interface RespCB {
   ({ status, message, data }: RespT): void
 }
 
-export type InventoryActionsT = 'ADD' | 'REMOVE'
+export enum InventoryActions {
+  ADD = 'ADD',
+  REMOVE = 'REMOVE',
+}

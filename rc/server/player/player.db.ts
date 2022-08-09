@@ -32,8 +32,6 @@ export class _PlayerDB {
           sex: '',
           job: 'unemployed',
           job_grade: 'unemployed',
-          job2: 'unemployed2',
-          job2_grade: 'unemployed',
           hunger: 100,
           thirst: 100,
           blood_type: bloodType,
