@@ -24,6 +24,7 @@ class _PlayerService {
   public setPlayerLoadedData(nxPlayer: any) {
     Player.setData(nxPlayer)
     Player.setValue('ped', PlayerPedId())
+    Player.setValue('uid', nxPlayer.uid)
     Player.loaded = true
   }
 

@@ -142,6 +142,7 @@ class _PlayerService {
       inventory: nxPlayer.inventory,
       charinfo: nxPlayer.charinfo,
       permissions: nxPlayer.permissions,
+      uid: nxPlayer.uid,
       skin: nxPlayerData.skin,
     })
 

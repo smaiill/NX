@@ -6,7 +6,7 @@ import { injectMockData } from '../utils/mock.data'
 //     method: 'NX::createNotification',
 //     data: {
 //       type: 'SUCCES',
-//       duration: 500,
+//       duration: 1,
 //       body: {
 //         content: 'SUCCES',
 //       },
@@ -17,7 +17,7 @@ import { injectMockData } from '../utils/mock.data'
 //     method: 'NX::createNotification',
 //     data: {
 //       type: 'WARN',
-//       duration: 500,
+//       duration: 3,
 //       body: {
 //         content: 'WARN',
 //       },
@@ -28,7 +28,7 @@ import { injectMockData } from '../utils/mock.data'
 //     method: 'NX::createNotification',
 //     data: {
 //       type: 'ERROR',
-//       duration: 500,
+//       duration: 5,
 //       body: {
 //         content:
 //           '^1ERROR qzdzqdqzd q^0qzdqzdqzd qzdqzdg ^7qzdqzdzdqzdqzdqzdqzd',
@@ -40,7 +40,7 @@ import { injectMockData } from '../utils/mock.data'
 //     method: 'NX::createNotification',
 //     data: {
 //       type: 'NORMAL',
-//       duration: 500,
+//       duration: 2,
 //       body: {
 //         content: 'normal ^2qzdqzdqz^0 qzdz qzd qd ^1qzd qzd qd qd qd ',
 //       },
@@ -66,29 +66,39 @@ import { injectMockData } from '../utils/mock.data'
 //           id: 'amount',
 //           type: 'text',
 //         },
+//         {
+//           label: 'Password',
+//           id: 'password',
+//           type: 'password',
+//         },
+//         {
+//           label: 'Color',
+//           id: 'color',
+//           type: 'color',
+//         },
 //       ],
 //     },
 //   },
 // ])
 
-injectMockData([
-  {
-    app: 'NX::loadingBar',
-    method: 'NX::createLoadingBar',
-    data: {
-      duration: 2,
-      type: 'circle',
-      style: {
-        label: {
-          color: 'cyan',
-        },
-        container: {
-          backgroundColor: 'green',
-        },
-        bar: {
-          backgroundColor: 'red',
-        },
-      },
-    },
-  },
-])
+// injectMockData([
+//   {
+//     app: 'NX::loadingBar',
+//     method: 'NX::createLoadingBar',
+//     data: {
+//       duration: 2,
+//       type: 'circle',
+//       style: {
+//         label: {
+//           color: 'cyan',
+//         },
+//         container: {
+//           backgroundColor: 'green',
+//         },
+//         bar: {
+//           backgroundColor: 'red',
+//         },
+//       },
+//     },
+//   },
+// ])

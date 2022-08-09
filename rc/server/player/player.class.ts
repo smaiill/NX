@@ -4,7 +4,7 @@ import {
   JobsEventsE,
   PermissionsEventsE,
 } from '../../types/events'
-import { InventoryItemT } from '../../types/items'
+import { InventoryItemT, ItemT } from '../../types/items'
 import { RespCB } from '../../types/main'
 import { NXPlayerCharInfoT, NXPlayerT } from '../../types/player'
 import { _PlayerDB } from './player.db'
@@ -209,12 +209,12 @@ class _Player implements NXPlayerT {
     emitNet(name, this.source, ...args)
   }
 
-  public hasItem(name: string): boolean | any {
+  public hasItem(name: string): false | any {
     const item = this.inventory[name]
 
-    if (!item) return item
+    if (!item) return false
 
-    return true
+    return item
   }
 
   public async removeInventoryItem(
