@@ -3,10 +3,12 @@ export enum PlayerEventsE {
   NEW_PLAYER = 'NX::newPlayer',
   UPDATE_COORDS = 'NX::updateCoords',
   UPDATE_STATUS = 'NX::updateStatus',
-  ON_STATUS_UPDATED = 'NX::onStatusUpdated',
   ADD_STATUS = 'NX::addStatus',
   PLAYER_DROPPED = 'NX::playerDropped',
   BAN_PLAYER = 'NX::banPlayer',
+
+  ON_STATUS_UPDATED = 'NX::onStatusUpdated',
+  ON_PLAYER_LOADED = 'NX::onPlayerLoaded',
 }
 
 export enum ItemsEventsE {

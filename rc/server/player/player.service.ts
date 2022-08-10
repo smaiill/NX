@@ -135,6 +135,8 @@ class _PlayerService {
 
     this.playersCollection.push(nxPlayer)
 
+    ItemsService.createMissingPickups(source)
+
     emitNet(PlayerEventsE.PLAYER_LOADED, source, {
       accounts: nxPlayer.accounts,
       position: nxPlayer.position,
@@ -145,8 +147,6 @@ class _PlayerService {
       uid: nxPlayer.uid,
       skin: nxPlayerData.skin,
     })
-
-    ItemsService.createMissingPickups(source)
   }
 
   public async doesPlayerExist(identifier: string): Promise<NXPlayerT | false> {

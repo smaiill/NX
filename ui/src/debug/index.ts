@@ -6,7 +6,7 @@ import { injectMockData } from '../utils/mock.data'
 //     method: 'NX::createNotification',
 //     data: {
 //       type: 'SUCCES',
-//       duration: 1,
+//       duration: 500,
 //       body: {
 //         content: 'SUCCES',
 //       },
@@ -17,7 +17,7 @@ import { injectMockData } from '../utils/mock.data'
 //     method: 'NX::createNotification',
 //     data: {
 //       type: 'WARN',
-//       duration: 3,
+//       duration: 500,
 //       body: {
 //         content: 'WARN',
 //       },
@@ -28,7 +28,7 @@ import { injectMockData } from '../utils/mock.data'
 //     method: 'NX::createNotification',
 //     data: {
 //       type: 'ERROR',
-//       duration: 5,
+//       duration: 500,
 //       body: {
 //         content:
 //           '^1ERROR qzdzqdqzd q^0qzdqzdqzd qzdqzdg ^7qzdqzdzdqzdqzdqzdqzd',
@@ -40,7 +40,7 @@ import { injectMockData } from '../utils/mock.data'
 //     method: 'NX::createNotification',
 //     data: {
 //       type: 'NORMAL',
-//       duration: 2,
+//       duration: 500,
 //       body: {
 //         content: 'normal ^2qzdqzdqz^0 qzdz qzd qd ^1qzd qzd qd qd qd ',
 //       },
@@ -48,38 +48,33 @@ import { injectMockData } from '../utils/mock.data'
 //   },
 // ])
 
-// injectMockData([
-//   {
-//     app: 'NX::input',
-//     method: 'NX::createInput',
-//     data: {
-//       title: 'title',
-//       rows: [
-//         {
-//           label: 'Name',
-//           id: 'name',
-//           type: 'text',
-//           required: true,
-//         },
-//         {
-//           label: 'Amount',
-//           id: 'amount',
-//           type: 'text',
-//         },
-//         {
-//           label: 'Password',
-//           id: 'password',
-//           type: 'password',
-//         },
-//         {
-//           label: 'Color',
-//           id: 'color',
-//           type: 'color',
-//         },
-//       ],
-//     },
-//   },
-// ])
+injectMockData([
+  {
+    app: 'NX::input',
+    method: 'NX::createInput',
+    data: {
+      title: 'title',
+      rows: [
+        {
+          label: 'Name',
+          id: 'name',
+          type: 'text',
+          required: true,
+        },
+        {
+          label: 'Amount',
+          id: 'amount',
+          type: 'text',
+        },
+        {
+          label: 'Color',
+          id: 'color',
+          type: 'color',
+        },
+      ],
+    },
+  },
+])
 
 // injectMockData([
 //   {

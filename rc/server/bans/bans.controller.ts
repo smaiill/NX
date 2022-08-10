@@ -1,24 +1,19 @@
 import { PlayerEventsE } from '../../types/events'
-import { RespCB } from '../../types/main'
+import { BanEventDataT, BanT, RespCB, RespT } from '../../types/main'
 import BansService from './bans.service'
+import { logger } from 's@utils/logger'
 
+// ? Server and Client.
 onNet(
   PlayerEventsE.BAN_PLAYER,
-  (
-    {
-      target,
-      reason,
-      duration,
-      bannedBy,
-    }: {
-      target: number
-      reason: string
-      duration: number
-      bannedBy: string
-    },
-    cb?: RespCB
-  ): void => {
+  ({ target, reason, duration, bannedBy }: BanEventDataT): void => {
     if (!target) return
-    BansService.banPlayer({ target, reason, duration, bannedBy }, cb)
+    BansService.banPlayer({ target, reason, duration, bannedBy })
+      .then(({ data }) => {
+        logger.info(`Succesfully banned player with license [${data.license}]`)
+      })
+      .catch((err) => {
+        logger.error(`${err.message}`)
+      })
   }
 )

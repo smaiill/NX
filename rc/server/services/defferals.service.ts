@@ -6,8 +6,12 @@ import { logger } from 's@utils/logger'
 
 class _DeferralsService {
   utils: typeof Utils
+  playerUtils: typeof PlayerUtils
+  bansService: typeof BansService
   constructor() {
     this.utils = Utils
+    this.playerUtils = PlayerUtils
+    this.bansService = BansService
   }
 
   public async validatePlayer(
@@ -20,16 +24,17 @@ class _DeferralsService {
     deferrals.defer()
     deferrals.update(`${name} wait while checking your license`)
 
-    const license = await PlayerUtils.getPlayerIdentifier(
+    const license = await this.playerUtils.getPlayerIdentifier(
       identifiers,
       'license'
     )
 
     if (!license) return deferrals.done('Not valid license')
 
-    const isBanned = await BansService.isBanned(license)
+    const isBanned = await this.bansService.isBanned(license)
     if (isBanned) {
-      const unban = await BansService.checkUnban(license)
+      const unban = await this.bansService.checkUnban(license)
+
       if (!unban) {
         deferrals.done(
           `you are banned from this server.\nReason: ${

@@ -45,6 +45,8 @@ onNet(PlayerEventsE.PLAYER_LOADED, async (nxPlayer: any) => {
       emit('skinchanger:loadSkin', nxPlayer.skin)
       ItemsService.handlePickupsPickup()
       PlayerService.syncPlayer()
+
+      emitNet(PlayerEventsE.ON_PLAYER_LOADED)
     }
   )
 })

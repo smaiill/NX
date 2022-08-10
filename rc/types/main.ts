@@ -25,6 +25,13 @@ export interface BanT {
   date: number
   expire: number
 }
+
+export interface BanEventDataT {
+  target: number
+  duration: number
+  reason: string
+  bannedBy: string
+}
 export interface RespCB {
   ({ status, message, data }: RespT): void
 }

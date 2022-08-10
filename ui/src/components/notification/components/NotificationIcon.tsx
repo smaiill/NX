@@ -18,7 +18,7 @@ const NotificationIcon = ({ type }: { type: string }) => {
       break
   }
 
-  return <img src={source} width={20} alt={`${type}-logo`} />
+  return <img src={source} width={18} alt={`${type}-logo`} />
 }
 
 export default NotificationIcon

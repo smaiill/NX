@@ -1,4 +1,4 @@
-import { BanT, RespCB } from '../../types/main'
+import { BanEventDataT, BanT, RespCB, RespT } from '../../types/main'
 import { bans } from '@shared/load.file'
 import Utils from '@shared/utils/misc'
 import PlayerService from 's@player/player.service'
@@ -53,68 +53,66 @@ class _BansService {
     return this.msToS(date)
   }
 
-  public async banPlayer(
-    {
-      target,
-      reason = 'no reason',
-      duration = 0,
-      bannedBy = 'unknown',
-    }: {
-      target: number
-      reason: string
-      duration: number
-      bannedBy: string
-    },
-    cb?: RespCB
-  ) {
-    if (typeof globalThis.source !== 'number') return
-    const nxTarget = await PlayerService.getPlayer(target)
-    if (!nxTarget) {
-      cb && cb({ status: 'error', message: `Target: [${target}] not found.` })
-      return
-    }
-    const expirationTimestamp = this.createExpirationDate(duration)
-    // @ts-ignore
-    const id: string = this.utils.uuid()
-    const banData: BanT = {
-      license: nxTarget.data.identifier,
-      bannedBy,
-      identifiers: getPlayerIdentifiers(target),
-      reason,
-      id,
-      date: this.msToS(),
-      expire: expirationTimestamp,
-    }
-    try {
-      const bansFile: BanT[] = JSON.parse(
-        LoadResourceFile(GetCurrentResourceName(), 'config/nx.bans.json')
-      )
+  public banPlayer({
+    target,
+    reason = 'no reason',
+    duration = 0,
+    bannedBy = 'unknown',
+  }: BanEventDataT): Promise<RespT> {
+    return new Promise(async (resolve, reject) => {
+      const nxTarget = await PlayerService.getPlayer(target)
 
-      const alreadyExists = bansFile.find(
-        (ban) => ban.license === nxTarget.data.identifier
-      )
-      if (alreadyExists) {
-        cb &&
-          cb({
-            status: 'error',
-            message: `Error while banning player: [${nxTarget.data.identifier}]. already banned.`,
-          })
+      if (!nxTarget) {
+        reject({ status: 'error', message: `Target: [${target}] not found.` })
         return
       }
 
-      bansFile.push(banData)
+      const expirationTimestamp = this.createExpirationDate(duration)
 
-      SaveResourceFile(
-        GetCurrentResourceName(),
-        'config/nx.bans.json',
-        JSON.stringify(bansFile),
-        -1
-      )
-      this.bans.set(id as string, banData)
-      cb && cb({ status: 'succes', data: banData })
-    } catch (error) {
-      cb && cb({ status: 'error', message: error })
-    }
+      // @ts-ignore
+      const id: string = this.utils.uuid()
+      const nxTargetIdentifier = nxTarget.GetIdentifier()
+
+      const banData: BanT = {
+        license: nxTargetIdentifier,
+        bannedBy,
+        identifiers: getPlayerIdentifiers(target),
+        reason,
+        id,
+        date: this.msToS(),
+        expire: expirationTimestamp,
+      }
+
+      try {
+        const bansFile: BanT[] = JSON.parse(
+          LoadResourceFile(GetCurrentResourceName(), 'config/nx.bans.json')
+        )
+
+        const alreadyExists = bansFile.find(
+          (ban) => ban.license === nxTargetIdentifier
+        )
+        if (alreadyExists) {
+          reject({
+            status: 'error',
+            message: `Error while banning player: [${nxTargetIdentifier}]. already banned.`,
+          })
+          return
+        }
+
+        bansFile.push(banData)
+
+        SaveResourceFile(
+          GetCurrentResourceName(),
+          'config/nx.bans.json',
+          JSON.stringify(bansFile, null, 2),
+          -1
+        )
+        this.bans.set(id as string, banData)
+        resolve({ status: 'succes', data: banData })
+      } catch (error) {
+        reject({ status: 'error', message: error })
+      }
+    })
   }
 
   public unbanPlayer(id: string): Promise<boolean> {
@@ -127,7 +125,7 @@ class _BansService {
         SaveResourceFile(
           GetCurrentResourceName(),
           'config/nx.bans.json',
-          JSON.stringify(newBansFile),
+          JSON.stringify(newBansFile, null, 2),
           -1
         )
         this.bans.delete(id)
@@ -138,17 +136,21 @@ class _BansService {
     })
   }
 
-  public checkUnban(license: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      const player = this.findBanByLicense(license)
-      const date = Date.now() / 1000
+  public checkUnban(license: string): boolean {
+    const player = this.findBanByLicense(license)
+    const date = Date.now() / 1000
 
-      if (player && player.expire < date) {
-        this.unbanPlayer(player.id)
-          .then(() => resolve(true))
-          .catch(() => reject(false))
-      }
-    })
+    if (player && player.expire < date) {
+      this.unbanPlayer(player.id)
+        .then(() => {
+          return true
+        })
+        .catch(() => {
+          return false
+        })
+    }
+
+    return false
   }
 
   public init(): void {
