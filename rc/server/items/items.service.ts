@@ -175,18 +175,18 @@ export class _ItemsService {
   public async useItem(
     name: string,
     source: number,
-    ...args: any[]
+    ...args: any
   ): Promise<void> {
     if (!this.usableItems.has(name)) {
-      logger.error(`can't use item: ${name} he is not registerd.`)
+      logger.error(`Can't use item: ${name} he is not registerd !`)
       return
     }
 
     const itemCB = this.usableItems.get(name)
-    itemCB && itemCB(source, args)
+    itemCB && itemCB(source, ...args)
   }
 
-  public createItem({ name, label, weight, type, props }: ItemT, cb?: RespCB) {
+  public createItem({ name, label, weight, type, props = 'prop_cs_cardbox_01' }: ItemT, cb?: RespCB) {
     const data = { name, label, weight, type, props }
     if (
       !name ||
@@ -196,7 +196,8 @@ export class _ItemsService {
       !props ||
       typeof weight !== 'number'
     ) {
-      return logger.error('cant create item invalid args.')
+      cb && cb({status: 'error', message: 'Can\'t create item invalid arguments provided !'})
+      return
     }
 
     const alreadyExist = this.findItem(data.name)
@@ -205,12 +206,12 @@ export class _ItemsService {
       cb &&
         cb({
           status: 'error',
-          message: `cant create item: [${name}] already exists.}`,
+          message: `Can\'t create item [${data.name}] already exists !`,
         })
       return
     }
 
-    data.name = data.name.toLowerCase()
+    data.name = data.name.toLowerCase().split(' ').join('_')
 
     try {
       const loadFile = JSON.parse(
@@ -220,7 +221,7 @@ export class _ItemsService {
       SaveResourceFile(
         GetCurrentResourceName(),
         'config/nx.items.json',
-        JSON.stringify(loadFile),
+        JSON.stringify(loadFile, null, 2),
         -1
       )
       this.items.push(data)
@@ -231,14 +232,6 @@ export class _ItemsService {
     }
   }
 
-  public removeAllPickups() {
-    let uuids: string[] = []
-    for (const pickup of this.pickups) {
-      uuids.push(pickup.uuid as string)
-    }
-    this.pickups = []
-    emitNet(ItemsEventsE.CLEAR_ALL_PICKUPS_C, -1, uuids)
-  }
 }
 
 const ItemsService = new _ItemsService()

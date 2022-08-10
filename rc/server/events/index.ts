@@ -1,4 +1,5 @@
 import { logger } from 's@utils/logger'
+import { CodeColors } from '../../types/misc'
 
 export class _Events {
   private events: Map<string, Function>
@@ -10,9 +11,10 @@ export class _Events {
 
   async onServerEvent(eventName: string, callback: Function) {
     if (!callback || typeof callback !== 'function') {
-      return logger.error(
-        `Can't register event: [${eventName}] callback most be provided !`
+      logger.warn(
+        `Can't register event: ${CodeColors.GREEN}[${eventName}] ${CodeColors.ORANGE}callback most be provided !${CodeColors.WHITE}`
       )
+      return
     }
 
     const eventHandler: Function = (

@@ -6,10 +6,13 @@ class _CommandsServices {
 
   public async addCommand(
     name: string,
-    cb: Function,
+    cb: (source: number, args: string[]) => void,
     authPermissions: string[] = ['user']
   ) {
-    if (!name || !cb) return
+    if (!name || !cb) {
+      logger.warn('Couldn\'t register a command name or function was not provided')
+      return
+    }
 
     RegisterCommand(
       name,
@@ -18,7 +21,7 @@ class _CommandsServices {
 
         if (nxPlayer) {
           if (!authPermissions.includes(nxPlayer.GetPermissions())) {
-            DropPlayer(source as unknown as string, 'dont do that again.')
+            DropPlayer(source as unknown as string, 'You don\'t have permissions to execute this command !')
             logger.warn(
               `[${nxPlayer.GetName()}] tried to execute command [${name}] without having permissions.`
             )

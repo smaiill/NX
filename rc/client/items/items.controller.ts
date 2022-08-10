@@ -34,8 +34,3 @@ onNet(ItemsEventsE.REMOVE_PICKUP, (uuid: string): void => {
   ItemsService.removePickup(uuid)
 })
 
-onNet(ItemsEventsE.CLEAR_ALL_PICKUPS_C, (uuids: string[]): void => {
-  for (const uuid of uuids) {
-    ItemsService.removePickup(uuid)
-  }
-})

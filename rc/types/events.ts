@@ -21,8 +21,6 @@ export enum ItemsEventsE {
   USE_ITEM = 'NX::useItem',
   CREATE_ITEM = 'NX::createItem',
   ITEM_CREATED = 'NX::itemCreated',
-  CLEAR_ALL_PICKUPS_S = 'NX::clearAllPickupsS',
-  CLEAR_ALL_PICKUPS_C = 'NX::clearAllPickupsC',
 }
 
 export enum PermissionsEventsE {

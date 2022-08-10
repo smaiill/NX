@@ -13,6 +13,9 @@ if (config.discord.logs.logsConfiguration['playerJoin']) {
           },
         ],
       },
+      options: {
+        url: config.discord.logs.webhook
+      }
     })
   })
 }
@@ -29,6 +32,9 @@ if (config.discord.logs.logsConfiguration['playerDropped']) {
           },
         ],
       },
+      options: {
+        url: config.discord.logs.webhook
+      }
     })
   })
 }

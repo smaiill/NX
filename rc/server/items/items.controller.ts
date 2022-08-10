@@ -13,18 +13,18 @@ onNet(ItemsEventsE.PICKUP_ITEM, (uuid: string): void => {
   ItemsService.takePickup(uuid, source)
 })
 
+
+// ? Only Client side.
 onNet(ItemsEventsE.USE_ITEM, (name: string, ...args: any[]): void => {
   const source = globalThis.source
   ItemsService.useItem(name, source, args)
 })
 
+
+// ? Only Server side.
 on(
   ItemsEventsE.CREATE_ITEM,
   ({ name, label, weight, type, props }: ItemT, cb?: RespCB): void => {
     ItemsService.createItem({ name, label, weight, type, props }, cb)
   }
 )
-
-on(ItemsEventsE.CLEAR_ALL_PICKUPS_S, (): void => {
-  ItemsService.removeAllPickups()
-})

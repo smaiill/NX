@@ -6,8 +6,8 @@ export enum NuiAPP {
 
 export interface DiscordWebhookI {
   data: any
-  options?: {
-    url?: string
+  options: {
+    url: string
   }
 }
 export interface RespT {
