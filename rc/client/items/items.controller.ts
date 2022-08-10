@@ -33,4 +33,3 @@ onNet(ItemsEventsE.CREATE_MISSING_PICKUPS, (pickups: PickupT[]): void => {
 onNet(ItemsEventsE.REMOVE_PICKUP, (uuid: string): void => {
   ItemsService.removePickup(uuid)
 })
-

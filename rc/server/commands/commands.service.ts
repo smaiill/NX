@@ -10,7 +10,9 @@ class _CommandsServices {
     authPermissions: string[] = ['user']
   ) {
     if (!name || !cb) {
-      logger.warn('Couldn\'t register a command name or function was not provided')
+      logger.warn(
+        "Couldn't register a command name or function was not provided"
+      )
       return
     }
 
@@ -21,7 +23,10 @@ class _CommandsServices {
 
         if (nxPlayer) {
           if (!authPermissions.includes(nxPlayer.GetPermissions())) {
-            DropPlayer(source as unknown as string, 'You don\'t have permissions to execute this command !')
+            DropPlayer(
+              source as unknown as string,
+              "You don't have permissions to execute this command !"
+            )
             logger.warn(
               `[${nxPlayer.GetName()}] tried to execute command [${name}] without having permissions.`
             )

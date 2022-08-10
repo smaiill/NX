@@ -186,7 +186,10 @@ export class _ItemsService {
     itemCB && itemCB(source, ...args)
   }
 
-  public createItem({ name, label, weight, type, props = 'prop_cs_cardbox_01' }: ItemT, cb?: RespCB) {
+  public createItem(
+    { name, label, weight, type, props = 'prop_cs_cardbox_01' }: ItemT,
+    cb?: RespCB
+  ) {
     const data = { name, label, weight, type, props }
     if (
       !name ||
@@ -196,7 +199,11 @@ export class _ItemsService {
       !props ||
       typeof weight !== 'number'
     ) {
-      cb && cb({status: 'error', message: 'Can\'t create item invalid arguments provided !'})
+      cb &&
+        cb({
+          status: 'error',
+          message: "Can't create item invalid arguments provided !",
+        })
       return
     }
 
@@ -231,7 +238,6 @@ export class _ItemsService {
       cb && cb({ status: 'error', message: error as any })
     }
   }
-
 }
 
 const ItemsService = new _ItemsService()
