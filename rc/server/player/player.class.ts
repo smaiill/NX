@@ -5,7 +5,7 @@ import {
   PermissionsEventsE,
 } from '../../types/events'
 import { InventoryItemT, ItemT } from '../../types/items'
-import { RespCB } from '../../types/main'
+import { InventoryActions, RespCB } from '../../types/main'
 import { NXPlayerCharInfoT, NXPlayerT } from '../../types/player'
 import { _PlayerDB } from './player.db'
 import ItemsService from 's@items/items.service'
@@ -232,6 +232,7 @@ class _Player implements NXPlayerT {
         })
       return
     }
+
     if (amount > item.amount || amount <= 0) {
       cb &&
         cb({
@@ -256,7 +257,7 @@ class _Player implements NXPlayerT {
     this.weight = this.weight - amount * ItemsService.getItemWeight(name)
 
     this.emitEvent(InventoryEeventsE.UPDATE_INVENTORY, {
-      type: 'REMOVE',
+      type: InventoryActions.REMOVE,
       item: {
         name,
         amount: count,
@@ -327,7 +328,7 @@ class _Player implements NXPlayerT {
 
     this.weight = this.weight + amount * ItemsService.getItemWeight(name)
     this.emitEvent(InventoryEeventsE.UPDATE_INVENTORY, {
-      type: 'ADD',
+      type: InventoryActions.ADD,
       item: {
         name,
         amount: count,

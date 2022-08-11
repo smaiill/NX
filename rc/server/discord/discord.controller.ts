@@ -20,7 +20,6 @@ if (config.discord.logs.logsConfiguration['playerJoin']) {
   })
 }
 
-
 if (config.discord.logs.logsConfiguration['playerDropped']) {
   on('playerDropped', (playerName: string): void => {
     DiscordService.sendWebhook({

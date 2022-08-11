@@ -21,9 +21,7 @@ export class _EventsService {
       )
     }
 
-    if (this.events.has(eventName)) {
-      logger.warn(`event : ^2[${eventName}] ^3already declared`)
-    } else {
+    if (!this.events.has(eventName)) {
       this.events.set(eventName, callback)
     }
 

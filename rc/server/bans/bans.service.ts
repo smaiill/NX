@@ -60,6 +60,8 @@ class _BansService {
     bannedBy = 'unknown',
   }: BanEventDataT): Promise<RespT> {
     return new Promise(async (resolve, reject) => {
+      // TODO: Check permissions !
+
       const nxTarget = await PlayerService.getPlayer(target)
 
       if (!nxTarget) {

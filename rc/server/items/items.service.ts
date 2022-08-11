@@ -100,7 +100,7 @@ export class _ItemsService {
     const nxPlayer = await PlayerService.getPlayer(source)
     const itemInfo = await this.findItem(name)
 
-    if (!nxPlayer || !itemInfo) return
+    if (!nxPlayer || !itemInfo || !amount || amount === 0) return
 
     const label = `~s~${itemInfo.label} ~g~${amount}`.toLowerCase()
     const propsToCreate = await this.getPropsToCreate(
@@ -135,24 +135,30 @@ export class _ItemsService {
 
       if (pickup) return resolve(pickup)
 
-      reject('')
+      reject(`Pickup with id [${uuid}] was not found !`)
     })
   }
 
   public async takePickup(uuid: string, source: number): Promise<void> {
-    this.findPickupById(uuid)
-      .then(async (pickup: PickupT) => {
-        this.pickups = this.pickups.filter((pic) => pic.uuid !== pickup.uuid)
-        const nxPlayer = await PlayerService.getPlayer(source)
-        if (nxPlayer) {
-          nxPlayer.AddItem(pickup.name, pickup.amount, (resp: RespT) => {
-            if (resp.status === 'succes') {
-              emitNet(ItemsEventsE.REMOVE_PICKUP, -1, pickup.uuid)
-            }
-          })
-        }
-      })
-      .catch((err) => logger.error(err))
+    try {
+      const pickup = await this.findPickupById(uuid)
+      const nxPlayer = await PlayerService.getPlayer(source)
+
+      // TODO: Get coords between player and the pickup to prevent from hackers !
+
+      if (nxPlayer) {
+        nxPlayer.AddItem(pickup.name, pickup.amount, (resp: RespT) => {
+          if (resp.status === 'succes') {
+            this.pickups = this.pickups.filter(
+              (pic) => pic.uuid !== pickup.uuid
+            )
+            emitNet(ItemsEventsE.REMOVE_PICKUP, -1, pickup.uuid)
+          }
+        })
+      }
+    } catch (error) {
+      logger.error(error)
+    }
   }
 
   public registerUsableItem(name: string, cb: Function): void {
@@ -191,14 +197,7 @@ export class _ItemsService {
     cb?: RespCB
   ) {
     const data = { name, label, weight, type, props }
-    if (
-      !name ||
-      !label ||
-      !weight ||
-      !type ||
-      !props ||
-      typeof weight !== 'number'
-    ) {
+    if (!name || !label || !weight || !type || typeof weight !== 'number') {
       cb &&
         cb({
           status: 'error',
