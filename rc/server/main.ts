@@ -30,9 +30,10 @@ const server = new Server()
 globalThis.exports('useServer', () => {
   return {
     Players: {
-      GetAll: server.Players.getPlayersData.bind(server.Players),
-      GetAllData: server.Players.getPlayers.bind(server.Players),
+      GetAllData: server.Players.getPlayersData.bind(server.Players),
+      GetAll: server.Players.getPlayers.bind(server.Players),
       GetData: server.Players.getPlayerData.bind(server.Players),
+      Get: server.Players.getPlayer.bind(server.Players),
       SaveAll: server.Players.savePlayers.bind(server.Players),
     },
     Misc: {
