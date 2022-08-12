@@ -3,11 +3,11 @@
     "host": "localhost",
     "user": "root",
     "password": "",
-    "database": "vdreamapocalypse"
+    "database": "nx"
   },
 
   "player": {
-    "maxWeight": 80000
+    "maxWeight": 500000
   },
 
   "discord": {
