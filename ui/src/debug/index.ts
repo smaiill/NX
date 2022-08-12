@@ -1,3 +1,4 @@
+import { TimelineUpdateActions } from '../types/timeline'
 import { injectMockData } from '../utils/mock.data'
 
 // injectMockData([
@@ -48,33 +49,33 @@ import { injectMockData } from '../utils/mock.data'
 //   },
 // ])
 
-injectMockData([
-  {
-    app: 'NX::input',
-    method: 'NX::createInput',
-    data: {
-      title: 'title',
-      rows: [
-        {
-          label: 'Name',
-          id: 'name',
-          type: 'text',
-          required: true,
-        },
-        {
-          label: 'Amount',
-          id: 'amount',
-          type: 'text',
-        },
-        {
-          label: 'Color',
-          id: 'color',
-          type: 'color',
-        },
-      ],
-    },
-  },
-])
+// injectMockData([
+//   {
+//     app: 'NX::input',
+//     method: 'NX::createInput',
+//     data: {
+//       title: 'title',
+//       rows: [
+//         {
+//           label: 'Name',
+//           id: 'name',
+//           type: 'text',
+//           required: true,
+//         },
+//         {
+//           label: 'Amount',
+//           id: 'amount',
+//           type: 'text',
+//         },
+//         {
+//           label: 'Color',
+//           id: 'color',
+//           type: 'color',
+//         },
+//       ],
+//     },
+//   },
+// ])
 
 // injectMockData([
 //   {
@@ -97,3 +98,82 @@ injectMockData([
 //     },
 //   },
 // ])
+
+injectMockData([
+  {
+    app: 'NX::timeline',
+    method: 'NX::createTimeline',
+    data: {
+      rows: [
+        {
+          label: 'Salut les amis',
+          id: '1',
+        },
+        {
+          label: 'TESTE',
+          id: '2',
+        },
+        {
+          label: 'TESTE',
+          id: '3',
+        },
+        {
+          label: 'TESTE',
+          id: '4',
+        },
+      ],
+    },
+  },
+])
+
+setTimeout(() => {
+  injectMockData([
+    {
+      app: 'NX::timeline',
+      method: 'NX::updateTimeline',
+      data: {
+        type: TimelineUpdateActions.SET_COMPLETED,
+        id: '1',
+      },
+    },
+  ])
+}, 1000)
+
+setTimeout(() => {
+  injectMockData([
+    {
+      app: 'NX::timeline',
+      method: 'NX::updateTimeline',
+      data: {
+        type: TimelineUpdateActions.SET_COMPLETED,
+        id: '2',
+      },
+    },
+  ])
+}, 2000)
+
+setTimeout(() => {
+  injectMockData([
+    {
+      app: 'NX::timeline',
+      method: 'NX::updateTimeline',
+      data: {
+        type: TimelineUpdateActions.SET_COMPLETED,
+        id: '3',
+      },
+    },
+  ])
+}, 3000)
+
+setTimeout(() => {
+  injectMockData([
+    {
+      app: 'NX::timeline',
+      method: 'NX::updateTimeline',
+      data: {
+        type: TimelineUpdateActions.SET_UNCOMPLETED,
+        id: '3',
+      },
+    },
+  ])
+}, 5000)

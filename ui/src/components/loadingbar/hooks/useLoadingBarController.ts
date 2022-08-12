@@ -3,7 +3,7 @@ import { NuiAPP } from '../../../types/main'
 import useLoadingBarService from './useLoadingBarService'
 import { useNuiEvent } from 'fivem-nui-react-lib'
 
-const useLoadingBarController = () => {
+export const useLoadingBarController = () => {
   const { handleCreateLoadingBar } = useLoadingBarService()
 
   useNuiEvent(
@@ -12,5 +12,3 @@ const useLoadingBarController = () => {
     handleCreateLoadingBar
   )
 }
-
-export default useLoadingBarController

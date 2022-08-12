@@ -2,6 +2,7 @@ import MainProvider from './MainProvider'
 import Input from './components/input/Input'
 import LoadingBarWrapper from './components/loadingbar/LoadingBarWrapper'
 import Notification from './components/notification/Notification'
+import Timeline from './components/timeline/Timeline'
 import { useControllers } from './components/useControllers'
 import './debug'
 import './sass/index.scss'
@@ -20,6 +21,9 @@ const App = () => {
         </div>
         <div className="loadingbar-wrapper">
           <LoadingBarWrapper />
+        </div>
+        <div className="timeline-wrapper">
+          <Timeline />
         </div>
       </div>
     </MainProvider>

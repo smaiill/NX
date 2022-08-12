@@ -1,6 +1,7 @@
 export enum NuiAPP {
   NOTIFICATION = 'NX::notification',
   LOADING_BAR = 'NX::loadingBar',
+  TIMELINE = 'NX::timeline',
   INPUT = 'NX::input',
 }
 
