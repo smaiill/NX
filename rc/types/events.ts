@@ -6,7 +6,6 @@ export enum PlayerEventsE {
   ADD_STATUS = 'NX::addStatus',
   PLAYER_DROPPED = 'NX::playerDropped',
   BAN_PLAYER = 'NX::banPlayer',
-
   ON_STATUS_UPDATED = 'NX::onStatusUpdated',
   ON_PLAYER_LOADED = 'NX::onPlayerLoaded',
 }
@@ -23,6 +22,23 @@ export enum ItemsEventsE {
   ITEM_CREATED = 'NX::itemCreated',
 }
 
+export enum InputEvents {
+  CREATE_INPUT = 'NX::createInput',
+  SUBMIT_DATA = 'NX::inputSubmitData',
+  DESTROY_INPUT = 'NX::destroyInput',
+}
+
+export enum InventoryEeventsE {
+  UPDATE_INVENTORY = 'NX::updateInventory',
+  ON_INVENTORY_UPDATED = 'NX::onInventoryUpdated',
+}
+
+export enum TimelineEventsE {
+  CREATE_TIMELINE = 'NX::createTimeline',
+  UPDATE_TIMELINE = 'NX::updateTimeline',
+  DESTROY_TIMELINE = 'NX::destroyTimeline',
+}
+
 export enum PermissionsEventsE {
   ON_PERMISSIONS_UPDATED = 'NX::onPermissionsUpdated',
 }
@@ -35,19 +51,8 @@ export enum JobsEventsE {
   ON_JOB_UPDATED = 'NX::onJobUpdated',
 }
 
-export enum InventoryEeventsE {
-  UPDATE_INVENTORY = 'NX::updateInventory',
-  ON_INVENTORY_UPDATED = 'NX::onInventoryUpdated',
-}
-
 export enum DBEventsE {
   DB_CONNECTED = 'NX::DBConnected',
-}
-
-export enum InputEvents {
-  CREATE_INPUT = 'NX::createInput',
-  SUBMIT_DATA = 'NX::inputSubmitData',
-  DESTROY_INPUT = 'NX::destroyInput',
 }
 
 export enum NotificationEvents {

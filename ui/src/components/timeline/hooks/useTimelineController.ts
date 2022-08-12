@@ -4,7 +4,8 @@ import { useTimelineService } from './useTimelineService'
 import { useNuiEvent } from 'fivem-nui-react-lib'
 
 export const useTimelineController = () => {
-  const { handleCreateTimeline, handleUpdateTimeline } = useTimelineService()
+  const { handleCreateTimeline, handleUpdateTimeline, handleRemoveTimeline } =
+    useTimelineService()
 
   useNuiEvent(
     NuiAPP.TIMELINE,
@@ -16,5 +17,11 @@ export const useTimelineController = () => {
     NuiAPP.TIMELINE,
     TimelineMethods.UPDATE_TIMELINE,
     handleUpdateTimeline
+  )
+
+  useNuiEvent(
+    NuiAPP.TIMELINE,
+    TimelineMethods.DESTROY_TIMELINE,
+    handleRemoveTimeline
   )
 }

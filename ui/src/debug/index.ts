@@ -171,9 +171,9 @@ setTimeout(() => {
       app: 'NX::timeline',
       method: 'NX::updateTimeline',
       data: {
-        type: TimelineUpdateActions.SET_UNCOMPLETED,
-        id: '3',
+        type: TimelineUpdateActions.SET_COMPLETED,
+        id: '4',
       },
     },
   ])
-}, 5000)
+}, 4000)

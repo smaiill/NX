@@ -8,6 +8,7 @@ import {
   Notification,
   Object,
   Player,
+  Timeline,
   Vehicle,
 } from './services'
 
@@ -21,6 +22,7 @@ class Client {
   Discord: typeof Discord
   Notification: typeof Notification
   LoadingBar: typeof LoadingBar
+  Timeline: typeof Timeline
   constructor() {
     this.EventsService = Events
     this.Objects = Object
@@ -31,6 +33,7 @@ class Client {
     this.Discord = Discord
     this.Notification = Notification
     this.LoadingBar = LoadingBar
+    this.Timeline = Timeline
   }
 }
 
@@ -61,6 +64,10 @@ globalThis.exports('useClient', () => {
       Create: client.Input.create.bind(client.Input),
       IsActive: client.Input.isActive.bind(client.Input),
       Destroy: client.Input.destroy.bind(client.Input),
+    },
+    Timeline: {
+      Create: client.Timeline.create.bind(client.Timeline),
+      Update: client.Timeline.update.bind(client.Timeline),
     },
     Misc: {
       DrawText3D: client.Misc.drawText3D.bind(client.Misc),

@@ -1,8 +1,6 @@
 import {
   TimelineDataT,
-  TimelineRowT,
   TimelineStateT,
-  TimelineUpdateActions,
   UpdateTimelineData,
 } from '../../types/timeline'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
@@ -26,7 +24,6 @@ export const timelineSlice = createSlice({
         (row) => row.id === action.payload.id
       )
       if (!row) return
-      // TODO: if previus poins are not completed return.
       row.completed = true
     },
 
@@ -35,12 +32,17 @@ export const timelineSlice = createSlice({
         (row) => row.id === action.payload.id
       )
       if (!row) return
-      // TODO: if next points are completed remove it.
       row.completed = false
+    },
+
+    removeTimeline: (state) => {
+      state.timeline = {
+        rows: [],
+      }
     },
   },
 })
 
-export const { createTimeline, setCompleted, setUncompleted } =
+export const { createTimeline, setCompleted, setUncompleted, removeTimeline } =
   timelineSlice.actions
 export default timelineSlice.reducer

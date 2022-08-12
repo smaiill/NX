@@ -1,3 +1,5 @@
+@import './_variables.scss';
+
 .timeline-wrapper {
   position: absolute;
   transform: translateX(-50%);
@@ -16,9 +18,7 @@
       border-radius: 50%;
       z-index: 100;
       position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      @include flex-center-center();
 
       &:not(:last-child) {
         margin-right: 75px;

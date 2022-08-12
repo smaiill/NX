@@ -1,5 +1,6 @@
 import {
   createTimeline,
+  removeTimeline,
   setCompleted,
   setUncompleted,
 } from '../../../features/timeline/timeline.slice'
@@ -37,5 +38,9 @@ export const useTimelineService = () => {
     }
   }
 
-  return { handleCreateTimeline, handleUpdateTimeline }
+  const handleRemoveTimeline = () => {
+    dispatch(removeTimeline())
+  }
+
+  return { handleCreateTimeline, handleUpdateTimeline, handleRemoveTimeline }
 }
