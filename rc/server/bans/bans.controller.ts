@@ -1,5 +1,5 @@
 import { PlayerEventsE } from '../../types/events'
-import { BanEventDataT, BanT, RespCB, RespT } from '../../types/main'
+import { BanEventDataT } from '../../types/main'
 import BansService from './bans.service'
 import { logger } from 's@utils/logger'
 

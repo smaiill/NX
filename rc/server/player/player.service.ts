@@ -71,7 +71,7 @@ class _PlayerService {
     }
 
     const duration = Date.now() - start
-    logger.info(`Saved all players in ${CodeColors.WHITE}[${duration}]`)
+    logger.info(`Saved all players in ${CodeColors.WHITE}[${duration}] ms`)
   }
 
   private async loadPlayer(
