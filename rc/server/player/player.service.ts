@@ -199,6 +199,28 @@ class _PlayerService {
 
     return getPlayerMethods(nxPlayer)
   }
+
+  public async getPlayersData(): Promise<_Player[] | []> {
+    const nxPlayersData: _Player[] = []
+
+    if (this.playersCollection.length > 0) {
+      for (const player of this.playersCollection) {
+        nxPlayersData.push(player)
+      }
+
+      return nxPlayersData
+    }
+
+    return nxPlayersData
+  }
+
+  public async getPlayerData(source: number): Promise<_Player | false> {
+    const nxPlayer = await this.findPlayer(source)
+
+    if (!nxPlayer) return false
+
+    return nxPlayer
+  }
 }
 
 const PlayerService = new _PlayerService()

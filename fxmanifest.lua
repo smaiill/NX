@@ -19,5 +19,3 @@ files {
   'dist/ui/**/*',
   'config/*.json'
 }
-
-
