@@ -1,4 +1,4 @@
-import { InputMethods } from '../../../../../types/input'
+import { InputEventsE } from '../../../../../types/events'
 import { RespT } from '../../../../../types/main'
 import {
   addInvalidInputs,
@@ -12,7 +12,7 @@ export const useInputServices = () => {
   const dispatch = useDispatch()
 
   const handleSubmitData = async (data: Record<string, any>) => {
-    fetchNui(InputMethods.SUBMIT_DATA, {
+    fetchNui(InputEventsE.SUBMIT_DATA, {
       status: 'succes',
       data,
     }).then((res: RespT) => {

@@ -1,5 +1,6 @@
-import { InputMethods, InputsDataT } from '../../../../../types/input'
-import { NuiAPP } from '../../../../../types/main'
+import { InputEventsE } from '../../../../../types/events'
+import { InputsDataT } from '../../../../../types/input'
+import { NuiAPPS } from '../../../../../types/main'
 import {
   createInputsRow,
   deleteInputsRow,
@@ -18,6 +19,6 @@ export const useInputController = () => {
     dispatch(deleteInputsRow())
   }
 
-  useNuiEvent(NuiAPP.INPUT, InputMethods.CREATE_INPUT, handleCreateInputsRow)
-  useNuiEvent(NuiAPP.INPUT, InputMethods.DESTROY_INPUT, handleDestroyInput)
+  useNuiEvent(NuiAPPS.INPUT, InputEventsE.CREATE_INPUT, handleCreateInputsRow)
+  useNuiEvent(NuiAPPS.INPUT, InputEventsE.DESTROY_INPUT, handleDestroyInput)
 }

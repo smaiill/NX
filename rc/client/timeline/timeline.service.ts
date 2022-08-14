@@ -1,5 +1,5 @@
 import { TimelineEventsE } from '../../../types/events'
-import { NuiAPP } from '../../../types/main'
+import { NuiAPPS } from '../../../types/main'
 import {
   TimelineDataT,
   TimelineState,
@@ -120,7 +120,7 @@ class _TimelineService {
     }
 
     EventsService.emitNuiEvent({
-      app: NuiAPP.TIMELINE,
+      app: NuiAPPS.TIMELINE,
       method: TimelineEventsE.CREATE_TIMELINE,
       data: timeline,
     })
@@ -132,7 +132,7 @@ class _TimelineService {
     if (!canUpdate) return
 
     EventsService.emitNuiEvent({
-      app: NuiAPP.TIMELINE,
+      app: NuiAPPS.TIMELINE,
       method: TimelineEventsE.UPDATE_TIMELINE,
       data: data,
     })
@@ -146,7 +146,7 @@ class _TimelineService {
 
     setTimeout(() => {
       EventsService.emitNuiEvent({
-        app: NuiAPP.TIMELINE,
+        app: NuiAPPS.TIMELINE,
         method: TimelineEventsE.DESTROY_TIMELINE,
       })
 

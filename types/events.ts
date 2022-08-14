@@ -22,7 +22,7 @@ export enum ItemsEventsE {
   ITEM_CREATED = 'NX::itemCreated',
 }
 
-export enum InputEvents {
+export enum InputEventsE {
   CREATE_INPUT = 'NX::createInput',
   SUBMIT_DATA = 'NX::inputSubmitData',
   DESTROY_INPUT = 'NX::destroyInput',
@@ -59,9 +59,6 @@ export enum NotificationEvents {
   CREATE_NOTIFICATION = 'NX::createNotification',
 }
 
-export enum LoadingBarEvents {
+export enum LoadingBarEventsE {
   CREATE_LOADING_BAR = 'NX::createLoadingBar',
-}
-export interface EventE {
-  [property: string]: Function
 }

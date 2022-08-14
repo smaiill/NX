@@ -1,5 +1,5 @@
-import { NuiAPP } from '../../../../../types/main'
-import { NotificationMethods } from '../../../../../types/notification'
+import { NotificationEvents } from '../../../../../types/events'
+import { NuiAPPS } from '../../../../../types/main'
 import { useNotificationService } from './useNotificationService'
 import { useNuiEvent } from 'fivem-nui-react-lib'
 
@@ -7,8 +7,8 @@ export const useNotificationController = () => {
   const { handleCreateNotification } = useNotificationService()
 
   useNuiEvent(
-    NuiAPP.NOTIFICATION,
-    NotificationMethods.CREATE_NOTIFICATION,
+    NuiAPPS.NOTIFICATION,
+    NotificationEvents.CREATE_NOTIFICATION,
     handleCreateNotification
   )
 }

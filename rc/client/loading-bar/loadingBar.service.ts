@@ -1,6 +1,6 @@
-import { LoadingBarEvents } from '../../../types/events'
+import { LoadingBarEventsE } from '../../../types/events'
 import { LoadingBarDataT } from '../../../types/loadingBar'
-import { NuiAPP } from '../../../types/main'
+import { NuiAPPS } from '../../../types/main'
 import { DefaultDataT } from '../../../types/misc'
 import { overWriteData } from '@shared/utils/def'
 import EventsService from 'c@events/events.service'
@@ -35,8 +35,8 @@ class _LoadingBarService {
     this.setState('isActive', true)
 
     EventsService.emitNuiEvent({
-      app: NuiAPP.LOADING_BAR,
-      method: LoadingBarEvents.CREATE_LOADING_BAR,
+      app: NuiAPPS.LOADING_BAR,
+      method: LoadingBarEventsE.CREATE_LOADING_BAR,
       data: overWritedData,
     })
 

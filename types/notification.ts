@@ -1,6 +1,4 @@
-export enum NotificationMethods {
-  CREATE_NOTIFICATION = 'NX::createNotification',
-}
+export type NotificationTypes = 'SUCCES' | 'WARN' | 'NORMAL' | 'ERROR'
 
 export enum NotificationBGColors {
   SUCCES = 'rgba(11, 135, 45, 0.3)',
@@ -26,8 +24,6 @@ export enum NotificationColorsReplace {
   BLUE = 6,
   PURPLE = 7,
 }
-
-export type NotificationTypes = 'SUCCES' | 'WARN' | 'NORMAL' | 'ERROR'
 
 export interface NotificationDataT {
   type: NotificationTypes

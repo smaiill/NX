@@ -1,7 +1,3 @@
-export enum LoadingBarMethods {
-  CREATE_LOADING_BAR = 'NX::createLoadingBar',
-}
-
 export interface LoadingBarStyleT {
   container?: Record<string, string>
   label?: Record<string, string>

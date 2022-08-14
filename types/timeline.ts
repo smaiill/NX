@@ -1,9 +1,3 @@
-export enum TimelineMethods {
-  CREATE_TIMELINE = 'NX::createTimeline',
-  UPDATE_TIMELINE = 'NX::updateTimeline',
-  DESTROY_TIMELINE = 'NX::destroyTimeline',
-}
-
 export enum TimelineUpdateActions {
   SET_COMPLETED = 'SET_COMPLETED',
   SET_UNCOMPLETED = 'SET_UNCOMPLETED',

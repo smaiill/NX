@@ -1,5 +1,5 @@
 import { NotificationEvents } from '../../../types/events'
-import { NuiAPP } from '../../../types/main'
+import { NuiAPPS } from '../../../types/main'
 import { DefaultDataT } from '../../../types/misc'
 import { NotificationDataT } from '../../../types/notification'
 import { overWriteData } from '@shared/utils/def'
@@ -16,7 +16,7 @@ class _NotificationService {
 
     EventsService.emitNuiEvent(
       {
-        app: NuiAPP.NOTIFICATION,
+        app: NuiAPPS.NOTIFICATION,
         method: NotificationEvents.CREATE_NOTIFICATION,
         data: overRidedData,
       },

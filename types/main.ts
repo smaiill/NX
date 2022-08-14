@@ -1,26 +1,15 @@
-export enum NuiAPP {
+export enum NuiAPPS {
   NOTIFICATION = 'NX::notification',
   LOADING_BAR = 'NX::loadingBar',
   TIMELINE = 'NX::timeline',
   INPUT = 'NX::input',
 }
 
-export interface RespT {
-  status: 'succes' | 'error'
-  message?: any
-  data?: any
+export enum InventoryActions {
+  ADD = 'ADD',
+  REMOVE = 'REMOVE',
 }
 
-export interface RespCB {
-  ({ status, message, data }: RespT): void
-}
-
-export interface DiscordWebhookI {
-  data: any
-  options: {
-    url: string
-  }
-}
 export interface BanT {
   license: string
   bannedBy: string
@@ -37,8 +26,19 @@ export interface BanEventDataT {
   reason: string
   bannedBy: string
 }
+export interface RespT {
+  status: 'succes' | 'error'
+  message?: any
+  data?: any
+}
 
-export enum InventoryActions {
-  ADD = 'ADD',
-  REMOVE = 'REMOVE',
+export interface DiscordWebhookI {
+  data: any
+  options: {
+    url: string
+  }
+}
+
+export interface RespCB {
+  ({ status, message, data }: RespT): void
 }

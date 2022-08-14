@@ -1,5 +1,5 @@
 import { InputRowT } from '../../../../../types/input'
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 
 export const useInputHandler = () => {
   const [inputsState, setInputsState] = useState<

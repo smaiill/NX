@@ -1,5 +1,5 @@
-import { NuiAPP } from '../../../../../types/main'
-import { TimelineMethods } from '../../../../../types/timeline'
+import { TimelineEventsE } from '../../../../../types/events'
+import { NuiAPPS } from '../../../../../types/main'
 import { useTimelineService } from './useTimelineService'
 import { useNuiEvent } from 'fivem-nui-react-lib'
 
@@ -8,20 +8,20 @@ export const useTimelineController = () => {
     useTimelineService()
 
   useNuiEvent(
-    NuiAPP.TIMELINE,
-    TimelineMethods.CREATE_TIMELINE,
+    NuiAPPS.TIMELINE,
+    TimelineEventsE.CREATE_TIMELINE,
     handleCreateTimeline
   )
 
   useNuiEvent(
-    NuiAPP.TIMELINE,
-    TimelineMethods.UPDATE_TIMELINE,
+    NuiAPPS.TIMELINE,
+    TimelineEventsE.UPDATE_TIMELINE,
     handleUpdateTimeline
   )
 
   useNuiEvent(
-    NuiAPP.TIMELINE,
-    TimelineMethods.DESTROY_TIMELINE,
+    NuiAPPS.TIMELINE,
+    TimelineEventsE.DESTROY_TIMELINE,
     handleRemoveTimeline
   )
 }

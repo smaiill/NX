@@ -1,6 +1,6 @@
-import { InputEvents } from '../../../types/events'
+import { InputEventsE } from '../../../types/events'
 import { InputsDataT } from '../../../types/input'
-import { NuiAPP, RespCB, RespT } from '../../../types/main'
+import { NuiAPPS, RespCB, RespT } from '../../../types/main'
 import InputUtils from './input.utils'
 import EventsService from 'c@events/events.service'
 import logger from 'c@utils/logger'
@@ -34,8 +34,8 @@ class _InputService {
       this.setState('handler', null)
       this.setState('active', false)
       EventsService.emitNuiEvent({
-        app: NuiAPP.INPUT,
-        method: InputEvents.DESTROY_INPUT,
+        app: NuiAPPS.INPUT,
+        method: InputEventsE.DESTROY_INPUT,
       })
       cb &&
         cb({
@@ -61,8 +61,8 @@ class _InputService {
     }
     EventsService.emitNuiEvent<InputsDataT>(
       {
-        app: NuiAPP.INPUT,
-        method: InputEvents.CREATE_INPUT,
+        app: NuiAPPS.INPUT,
+        method: InputEventsE.CREATE_INPUT,
         data,
       },
       true
