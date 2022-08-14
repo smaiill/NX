@@ -108,17 +108,19 @@ injectMockData([
         {
           label: 'Salut les amis',
           id: '1',
+          type: 'DOT',
         },
         {
-          label: 'TESTE',
+          label: 'Salut les amis',
           id: '2',
+          type: 'OUTLINE',
         },
         {
-          label: 'TESTE',
+          label: 'Salut les amis',
           id: '3',
         },
         {
-          label: 'TESTE',
+          label: 'Salut les amis',
           id: '4',
         },
       ],
@@ -177,3 +179,55 @@ setTimeout(() => {
     },
   ])
 }, 4000)
+
+setTimeout(() => {
+  injectMockData([
+    {
+      app: 'NX::timeline',
+      method: 'NX::updateTimeline',
+      data: {
+        type: TimelineUpdateActions.SET_COMPLETED,
+        id: '5',
+      },
+    },
+  ])
+}, 5000)
+
+setTimeout(() => {
+  injectMockData([
+    {
+      app: 'NX::timeline',
+      method: 'NX::updateTimeline',
+      data: {
+        type: TimelineUpdateActions.SET_COMPLETED,
+        id: '6',
+      },
+    },
+  ])
+}, 6000)
+
+setTimeout(() => {
+  injectMockData([
+    {
+      app: 'NX::timeline',
+      method: 'NX::updateTimeline',
+      data: {
+        type: TimelineUpdateActions.SET_COMPLETED,
+        id: '7',
+      },
+    },
+  ])
+}, 7000)
+
+setTimeout(() => {
+  injectMockData([
+    {
+      app: 'NX::timeline',
+      method: 'NX::updateTimeline',
+      data: {
+        type: TimelineUpdateActions.SET_COMPLETED,
+        id: '8',
+      },
+    },
+  ])
+}, 8000)

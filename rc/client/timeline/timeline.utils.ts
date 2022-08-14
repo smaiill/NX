@@ -18,6 +18,12 @@ class _TimelineUtils {
       return { isValid: false, errorMessage: 'Duplicated ID was detected  !' }
     }
 
+    for (const row of data.rows) {
+      if (!row.type) {
+        row.type = 'DOT'
+      }
+    }
+
     return { isValid: true, errorMessage: '' }
   }
 }

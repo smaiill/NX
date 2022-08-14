@@ -8,6 +8,7 @@ const LoadingBar = ({ data }: { data: LoadingBarDataT }) => {
 
   useEffect(() => {
     const i = setInterval(() => {
+      // ! Can't use functional setter dont know why !
       setPercentage(percentage++)
       if (percentage === 102) handleRemoveLoadingBar(i)
     }, (data.duration * 1000) / 100)

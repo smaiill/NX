@@ -6,6 +6,13 @@ export const useTimelineValidator = () => {
       return false
     }
 
+    // ? by ref.
+    for (const row of data.rows) {
+      if (!row.type) {
+        row.type = 'DOT'
+      }
+    }
+
     return true
   }
 

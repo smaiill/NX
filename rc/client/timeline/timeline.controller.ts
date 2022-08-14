@@ -9,3 +9,7 @@ on(TimelineEventsE.CREATE_TIMELINE, (timeline: TimelineDataT) => {
 on(TimelineEventsE.UPDATE_TIMELINE, (timeline: UpdateTimelineData) => {
   TimelineService.update(timeline)
 })
+
+on(TimelineEventsE.DESTROY_TIMELINE, () => {
+  TimelineService.destroy()
+})

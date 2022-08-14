@@ -5,9 +5,10 @@ nx.logs.log
 .sql
 run.bat
 dist
-logo.png
+logo.jpg
 mock.txt
 .yarn.installed
+logo2.png
 
 ### RC
 rc/node_modules

@@ -11,6 +11,7 @@ import {
   Timeline,
   Vehicle,
 } from './services'
+import { cli } from 'winston/lib/winston/config'
 
 class Client {
   Vehicles: typeof Vehicle
@@ -68,6 +69,8 @@ globalThis.exports('useClient', () => {
     Timeline: {
       Create: client.Timeline.create.bind(client.Timeline),
       Update: client.Timeline.update.bind(client.Timeline),
+      Destroy: client.Timeline.destroy.bind(client.Timeline),
+      IsActive: client.Timeline.isActive.bind(client.Timeline),
     },
     Misc: {
       DrawText3D: client.Misc.drawText3D.bind(client.Misc),

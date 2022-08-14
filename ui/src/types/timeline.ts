@@ -18,6 +18,7 @@ export interface TimelineRowT {
   id: string
   label: string
   completed: boolean
+  type: 'DOT' | 'OUTLINE'
 }
 
 export interface TimelineDataT {

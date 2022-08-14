@@ -44,20 +44,18 @@ class _TimelineService {
     return task
   }
 
-  private isTaskCompleted(index: number) {
+  private isPreviusTaskCompleted(index: number) {
     if (index === 1) return true
     const previusTask = this.findTaskByIndex(index - 1)
 
     return previusTask.completed
   }
 
-  private removeTimeline() {
-    setTimeout(() => {
-      EventsService.emitNuiEvent({
-        app: NuiAPP.TIMELINE,
-        method: TimelineEventsE.DESTROY_TIMELINE,
-      })
-    }, 1000)
+  private isNextTaskCompleted(index: number) {
+    if (index === this.findTaskById(this.lastTaskID).index) return false
+    const nextTask = this.findTaskByIndex(index + 1)
+
+    return nextTask.completed
   }
 
   private canUpdate(type: keyof typeof TimelineUpdateActions, id: string) {
@@ -66,15 +64,27 @@ class _TimelineService {
       if (!task) {
         return false
       }
-      const isPreviusTaskCompleted = this.isTaskCompleted(task.index)
+      const isPreviusTaskCompleted = this.isPreviusTaskCompleted(task.index)
 
       if (!isPreviusTaskCompleted) return false
 
       this.timelineState.completedTasks[task.index - 1].completed = true
 
       if (this.lastTaskID === task.id) {
-        this.removeTimeline()
+        this.destroy()
       }
+
+      return true
+    }
+
+    if (type === TimelineUpdateActions.SET_UNCOMPLETED) {
+      const task = this.findTaskById(id)
+
+      if (!task || !task.completed) return false
+
+      const isNextCompleted = this.isNextTaskCompleted(task.index)
+
+      if (isNextCompleted) return false
 
       return true
     }
@@ -82,7 +92,12 @@ class _TimelineService {
     return false
   }
 
-  create(timeline: TimelineDataT) {
+  public create(timeline: TimelineDataT) {
+    if (this.isActive()) {
+      logger.error(`Timeline already active !`)
+      return
+    }
+
     const { isValid, errorMessage } =
       this.timelineUtils.validateCreationData(timeline)
 
@@ -111,7 +126,7 @@ class _TimelineService {
     })
   }
 
-  update(data: UpdateTimelineData) {
+  public update(data: UpdateTimelineData) {
     const canUpdate = this.canUpdate(data.type, data.id)
 
     if (!canUpdate) return
@@ -121,6 +136,28 @@ class _TimelineService {
       method: TimelineEventsE.UPDATE_TIMELINE,
       data: data,
     })
+  }
+
+  public destroy() {
+    if (!this.isActive()) {
+      logger.error('Not active timeline !')
+      return
+    }
+
+    setTimeout(() => {
+      EventsService.emitNuiEvent({
+        app: NuiAPP.TIMELINE,
+        method: TimelineEventsE.DESTROY_TIMELINE,
+      })
+
+      this.setState('active', false)
+      this.setState('completedTasks', [])
+      this.setState('rows', [])
+    }, 1000)
+  }
+
+  public isActive() {
+    return this.timelineState.active
   }
 }
 
