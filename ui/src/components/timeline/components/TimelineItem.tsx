@@ -1,4 +1,4 @@
-import { TimelineRowT } from '../../../types/timeline'
+import { TimelineRowT } from '../../../../../types/timeline'
 
 const TimelineItem = ({ timeline }: { timeline: TimelineRowT }) => {
   return (

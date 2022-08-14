@@ -1,4 +1,4 @@
-import { TimelineUpdateActions } from '../types/timeline'
+import { TimelineUpdateActions } from '../../../types/timeline'
 import { injectMockData } from '../utils/mock.data'
 
 // injectMockData([

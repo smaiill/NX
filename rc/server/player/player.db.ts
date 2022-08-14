@@ -1,4 +1,4 @@
-import { DBQueries } from '../../types/db'
+import { DBQueries } from '../../../types/db'
 import PlayerUtils from './player.utils'
 import Utils from '@shared/utils/misc'
 import DB from 's@db/db'

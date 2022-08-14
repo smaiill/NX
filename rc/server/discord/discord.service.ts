@@ -1,4 +1,4 @@
-import { DiscordWebhookI } from '../../types/main'
+import { DiscordWebhookI } from '../../../types/main'
 import fetch from 'node-fetch'
 import { logger } from 's@utils/logger'
 

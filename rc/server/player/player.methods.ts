@@ -1,4 +1,4 @@
-import { NXPlayerT } from '../../types/player'
+import { NXPlayerT } from '../../../types/player'
 
 export const getPlayerMethods = (nxPlayer: NXPlayerT) => {
   return {

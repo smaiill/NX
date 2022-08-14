@@ -1,4 +1,4 @@
-import { PlayerEventsE } from '../../types/events'
+import { PlayerEventsE } from '../../../types/events'
 
 class _Player {
   public loaded: boolean

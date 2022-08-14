@@ -17,9 +17,10 @@
       "c@items/*": ["items/*"],
       "c@player/*": ["player/*"],
       "c@utils/*": ["utils/*"],
-      "@shared/*": ["../shared/*"]
+      "@shared/*": ["../shared/*"],
+      "@types/*": ["../../types/*"]
     }
   },
-  "include": ["./**/*", "../types/**/*", "../shared/**/*"],
-  "exclude": ["**/node_modules"]
+  "include": ["./**/*", "../../types/**/*", "../shared/**/*"],
+  "exclude": ["node_modules"]
 }

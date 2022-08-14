@@ -1,5 +1,5 @@
-import { TimelineEventsE } from '../../types/events'
-import { TimelineDataT, UpdateTimelineData } from '../../types/timeline'
+import { TimelineEventsE } from '../../../types/events'
+import { TimelineDataT, UpdateTimelineData } from '../../../types/timeline'
 import TimelineService from './timeline.service'
 
 on(TimelineEventsE.CREATE_TIMELINE, (timeline: TimelineDataT) => {

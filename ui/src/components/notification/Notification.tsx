@@ -1,4 +1,4 @@
-import { NotificationDataT } from '../../types/notification'
+import { NotificationDataT } from '../../../../types/notification'
 import NotificationWrapper from './components/NotificationWrapper'
 import { useSelector } from 'react-redux'
 

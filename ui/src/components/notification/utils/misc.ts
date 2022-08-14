@@ -1,4 +1,4 @@
-import { NotificationColorsReplace } from '../../../types/notification'
+import { NotificationColorsReplace } from '../../../../../types/notification'
 
 export const getTextColor = (index: number) => {
   return NotificationColorsReplace[index] ?? NotificationColorsReplace[0]

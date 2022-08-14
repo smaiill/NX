@@ -1,4 +1,4 @@
-import { BanEventDataT, BanT, RespT } from '../../types/main'
+import { BanEventDataT, BanT, RespT } from '../../../types/main'
 import { bans } from '@shared/load.file'
 import Utils from '@shared/utils/misc'
 import PlayerService from 's@player/player.service'

@@ -1,4 +1,4 @@
-import { InputsDataT } from '../../types/input'
+import { InputsDataT } from '../../../types/input'
 
 class _InputUtils {
   constructor() {}

@@ -1,4 +1,4 @@
-import { LoadingBarDataT, LoadingBarState } from '../../types/loadingBar'
+import { LoadingBarDataT, LoadingBarState } from '../../../../types/loadingBar'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 const initialState: LoadingBarState = {

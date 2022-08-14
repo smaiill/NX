@@ -1,6 +1,6 @@
-import { ItemsEventsE } from '../../types/events'
-import { ItemT } from '../../types/items'
-import { RespCB } from '../../types/main'
+import { ItemsEventsE } from '../../../types/events'
+import { ItemT } from '../../../types/items'
+import { RespCB } from '../../../types/main'
 import ItemsService from './items.service'
 
 // ? Only from client side

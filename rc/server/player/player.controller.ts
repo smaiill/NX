@@ -1,4 +1,4 @@
-import { PlayerEventsE } from '../../types/events'
+import { PlayerEventsE } from '../../../types/events'
 import DeferralsService from '../services/defferals.service'
 import PlayerService from './player.service'
 import _PlayerService from './player.service'

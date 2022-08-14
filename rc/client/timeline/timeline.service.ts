@@ -1,11 +1,11 @@
-import { TimelineEventsE } from '../../types/events'
-import { NuiAPP } from '../../types/main'
+import { TimelineEventsE } from '../../../types/events'
+import { NuiAPP } from '../../../types/main'
 import {
   TimelineDataT,
   TimelineState,
   TimelineUpdateActions,
   UpdateTimelineData,
-} from '../../types/timeline'
+} from '../../../types/timeline'
 import TimelineUtils from './timeline.utils'
 import EventsService from 'c@events/events.service'
 import logger from 'c@utils/logger'
@@ -127,7 +127,7 @@ class _TimelineService {
   }
 
   public update(data: UpdateTimelineData) {
-    const canUpdate = this.canUpdate(data.type, data.id)
+    const canUpdate = this.canUpdate(data.type, data.id as string)
 
     if (!canUpdate) return
 

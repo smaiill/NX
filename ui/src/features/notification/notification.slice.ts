@@ -1,7 +1,7 @@
 import {
   NotificationDataT,
   NotificationSliceState,
-} from '../../types/notification'
+} from '../../../../types/notification'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 const initialState: NotificationSliceState = {

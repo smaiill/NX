@@ -1,4 +1,4 @@
-import { RespCB } from '../../types/main'
+import { RespCB } from '../../../types/main'
 import logger from 'c@utils/logger'
 
 class _Misc {

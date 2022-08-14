@@ -5,18 +5,22 @@ export enum NuiAPP {
   INPUT = 'NX::input',
 }
 
-export interface DiscordWebhookI {
-  data: any
-  options: {
-    url: string
-  }
-}
 export interface RespT {
   status: 'succes' | 'error'
   message?: any
   data?: any
 }
 
+export interface RespCB {
+  ({ status, message, data }: RespT): void
+}
+
+export interface DiscordWebhookI {
+  data: any
+  options: {
+    url: string
+  }
+}
 export interface BanT {
   license: string
   bannedBy: string
@@ -32,9 +36,6 @@ export interface BanEventDataT {
   duration: number
   reason: string
   bannedBy: string
-}
-export interface RespCB {
-  ({ status, message, data }: RespT): void
 }
 
 export enum InventoryActions {

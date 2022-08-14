@@ -1,4 +1,4 @@
-import { RespCB } from '../../types/main'
+import { RespCB } from '../../../types/main'
 import { pool } from './pool'
 
 export class _DB {

@@ -1,14 +1,14 @@
 import {
+  TimelineDataT,
+  TimelineUpdateActions,
+  UpdateTimelineData,
+} from '../../../../../types/timeline'
+import {
   createTimeline,
   removeTimeline,
   setCompleted,
   setUncompleted,
 } from '../../../features/timeline/timeline.slice'
-import {
-  TimelineDataT,
-  TimelineUpdateActions,
-  UpdateTimelineData,
-} from '../../../types/timeline'
 import { useTimelineValidator } from './useTimelineValidator'
 import { useDispatch } from 'react-redux'
 

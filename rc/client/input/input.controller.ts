@@ -1,5 +1,5 @@
-import { InputEvents } from '../../types/events'
-import { RespCB, RespT } from '../../types/main'
+import { InputEvents } from '../../../types/events'
+import { RespCB, RespT } from '../../../types/main'
 import InputService from './input.service'
 import EventsService from 'c@events/events.service'
 

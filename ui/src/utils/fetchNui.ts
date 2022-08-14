@@ -1,4 +1,4 @@
-import { RespT } from '../types/main'
+import { RespT } from '../../../types/main'
 
 export const fetchNui = async <T = any>(eventName: string, req: RespT) => {
   const options = {

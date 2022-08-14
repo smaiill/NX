@@ -1,4 +1,4 @@
-import { InputSliceState, InputsDataT } from '../../types/input'
+import { InputSliceState, InputsDataT } from '../../../../types/input'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 const initialState: InputSliceState = {

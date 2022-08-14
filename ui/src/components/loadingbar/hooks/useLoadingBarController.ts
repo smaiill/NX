@@ -1,5 +1,5 @@
-import { LoadingBarMethods } from '../../../types/loadingBar'
-import { NuiAPP } from '../../../types/main'
+import { LoadingBarMethods } from '../../../../../types/loadingBar'
+import { NuiAPP } from '../../../../../types/main'
 import useLoadingBarService from './useLoadingBarService'
 import { useNuiEvent } from 'fivem-nui-react-lib'
 

@@ -11,7 +11,6 @@ import {
   Timeline,
   Vehicle,
 } from './services'
-import { cli } from 'winston/lib/winston/config'
 
 class Client {
   Vehicles: typeof Vehicle

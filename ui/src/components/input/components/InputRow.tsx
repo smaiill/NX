@@ -1,4 +1,4 @@
-import { InputRowT } from '../../../types/input'
+import { InputRowT } from '../../../../../types/input'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 

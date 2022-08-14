@@ -34,6 +34,7 @@ const server = () => {
 
         // shared paths.
         '@shared': path.resolve(__dirname, 'shared/'),
+        '@types': path.resolve(__dirname, '../types/'),
       },
     },
     output: {
@@ -70,6 +71,7 @@ const client = () => {
 
         // shared paths.
         '@shared': path.resolve(__dirname, 'shared/'),
+        '@types': path.resolve(__dirname, '../types/'),
       },
     },
     output: {

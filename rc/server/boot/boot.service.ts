@@ -1,4 +1,4 @@
-import { DBEventsE } from '../../types/events'
+import { DBEventsE } from '../../../types/events'
 import DB from 's@db/db'
 import { logger } from 's@utils/logger'
 

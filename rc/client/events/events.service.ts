@@ -1,4 +1,4 @@
-import { RespCB } from '../../types/main'
+import { RespCB } from '../../../types/main'
 import Utils from '@shared/utils/misc'
 import logger from 'c@utils/logger'
 

@@ -21,9 +21,10 @@
       "s@jobs/*": ["jobs/*"],
       "s@player/*": ["player/*"],
       "s@utils/*": ["utils/*"],
-      "@shared/*": ["../shared/*"]
+      "@shared/*": ["../shared/*"],
+      "@types/*": ["../../types/*"]
     }
   },
-  "include": ["./**/*", "../types/**/*", "../shared/**/*"],
+  "include": ["./**/*", "../../types/**/*", "../shared/**/*"],
   "exclude": ["node_modules"]
 }

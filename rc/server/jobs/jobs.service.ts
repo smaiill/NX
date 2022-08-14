@@ -1,4 +1,4 @@
-import { JobT } from '../../types/jobs'
+import { JobT } from '../../../types/jobs'
 import { jobs } from '@shared/load.file'
 
 class _JobsService {

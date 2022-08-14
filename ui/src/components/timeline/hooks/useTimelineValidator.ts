@@ -1,4 +1,4 @@
-import { TimelineDataT } from '../../../types/timeline'
+import { TimelineDataT } from '../../../../../types/timeline'
 
 export const useTimelineValidator = () => {
   const validateCreationData = (data: TimelineDataT) => {

@@ -1,7 +1,7 @@
-import { LoadingBarEvents } from '../../types/events'
-import { LoadingBarDataT } from '../../types/loadingBar'
-import { NuiAPP } from '../../types/main'
-import { DefaultDataT } from '../../types/misc'
+import { LoadingBarEvents } from '../../../types/events'
+import { LoadingBarDataT } from '../../../types/loadingBar'
+import { NuiAPP } from '../../../types/main'
+import { DefaultDataT } from '../../../types/misc'
 import { overWriteData } from '@shared/utils/def'
 import EventsService from 'c@events/events.service'
 

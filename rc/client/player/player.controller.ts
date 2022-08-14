@@ -4,8 +4,8 @@ import {
   JobsEventsE,
   PermissionsEventsE,
   PlayerEventsE,
-} from '../../types/events'
-import { InventoryActions } from '../../types/main'
+} from '../../../types/events'
+import { InventoryActions } from '../../../types/main'
 import Player from './player.class'
 import PlayerService from './player.service'
 import ItemsService from 'c@items/items.service'

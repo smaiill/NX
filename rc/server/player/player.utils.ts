@@ -1,5 +1,3 @@
-import ItemsService from 's@items/items.service'
-
 class _PlayerUtils {
   private readonly bloodTypes: Record<string, string>
   constructor() {

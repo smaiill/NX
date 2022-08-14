@@ -1,7 +1,7 @@
-import { NotificationEvents } from '../../types/events'
-import { NuiAPP } from '../../types/main'
-import { DefaultDataT } from '../../types/misc'
-import { NotificationDataT } from '../../types/notification'
+import { NotificationEvents } from '../../../types/events'
+import { NuiAPP } from '../../../types/main'
+import { DefaultDataT } from '../../../types/misc'
+import { NotificationDataT } from '../../../types/notification'
 import { overWriteData } from '@shared/utils/def'
 import EventsService from 'c@events/events.service'
 

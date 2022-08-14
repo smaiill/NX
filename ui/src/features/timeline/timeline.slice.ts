@@ -1,11 +1,11 @@
 import {
   TimelineDataT,
-  TimelineStateT,
+  TimelineStateSliceT,
   UpdateTimelineData,
-} from '../../types/timeline'
+} from '../../../../types/timeline'
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-const initialState: TimelineStateT = {
+const initialState: TimelineStateSliceT = {
   timeline: {
     rows: [],
   },

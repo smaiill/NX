@@ -1,4 +1,4 @@
-import { ConfigT } from '../../types/configs'
+import { ConfigT } from '../../../types/configs'
 import { config } from '@shared/load.file'
 
 class _DiscordService {

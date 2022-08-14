@@ -1,8 +1,8 @@
+import { LoadingBarDataT } from '../../../../../types/loadingBar'
 import {
   createLoadingBar,
   removeLoadingBar,
 } from '../../../features/loadingBar/loadingBar.slice'
-import { LoadingBarDataT } from '../../../types/loadingBar'
 import { useDispatch } from 'react-redux'
 
 const useLoadingBarService = () => {

@@ -1,4 +1,4 @@
-import { LoadingBarDataT } from '../../../types/loadingBar'
+import { LoadingBarDataT } from '../../../../../types/loadingBar'
 import useLoadingBarService from '../hooks/useLoadingBarService'
 import { useEffect, useState } from 'react'
 

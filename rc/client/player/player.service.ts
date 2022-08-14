@@ -1,4 +1,4 @@
-import { PlayerEventsE } from '../../types/events'
+import { PlayerEventsE } from '../../../types/events'
 import Player from './player.class'
 
 class _PlayerService {

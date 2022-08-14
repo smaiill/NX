@@ -1,5 +1,5 @@
-import { NuiAPP } from '../../../types/main'
-import { TimelineMethods } from '../../../types/timeline'
+import { NuiAPP } from '../../../../../types/main'
+import { TimelineMethods } from '../../../../../types/timeline'
 import { useTimelineService } from './useTimelineService'
 import { useNuiEvent } from 'fivem-nui-react-lib'
 

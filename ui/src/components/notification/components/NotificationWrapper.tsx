@@ -2,7 +2,7 @@ import {
   NotificationBGColors,
   NotificationDataT,
   NotificationMainColors,
-} from '../../../types/notification'
+} from '../../../../../types/notification'
 import NotificationIcon from './NotificationIcon'
 
 const NotificationWrapper = ({

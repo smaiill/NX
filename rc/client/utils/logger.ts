@@ -1,4 +1,4 @@
-import { CodeColors } from '../../types/misc'
+import { CodeColors } from '../../../types/misc'
 
 class _Logger {
   private readonly logsCodes: {

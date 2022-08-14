@@ -3,10 +3,10 @@ import {
   InventoryEeventsE,
   JobsEventsE,
   PermissionsEventsE,
-} from '../../types/events'
-import { InventoryItemT, ItemT } from '../../types/items'
-import { InventoryActions, RespCB } from '../../types/main'
-import { NXPlayerCharInfoT, NXPlayerT } from '../../types/player'
+} from '../../../types/events'
+import { InventoryItemT, ItemT } from '../../../types/items'
+import { InventoryActions, RespCB } from '../../../types/main'
+import { NXPlayerCharInfoT, NXPlayerT } from '../../../types/player'
 import { _PlayerDB } from './player.db'
 import ItemsService from 's@items/items.service'
 import JobsService from 's@jobs/jobs.service'

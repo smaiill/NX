@@ -25,8 +25,14 @@ export interface TimelineDataT {
   rows: TimelineRowT[]
 }
 
-export interface TimelineStateT {
+export interface TimelineStateSliceT {
   timeline: {
     rows: TimelineRowT[]
   }
+}
+
+export interface TimelineState {
+  active: boolean
+  rows: TimelineRowT[]
+  completedTasks: any[]
 }

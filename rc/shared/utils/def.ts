@@ -1,4 +1,4 @@
-import { DefaultDataT } from '../../types/misc'
+import { DefaultDataT } from '../../../types/misc'
 
 const DEFAULT_DATA: Record<string, any> = {
   LOADING_BAR: {

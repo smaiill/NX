@@ -1,4 +1,4 @@
-import { TimelineRowT } from '../../types/timeline'
+import { TimelineRowT } from '../../../../types/timeline'
 import TimelineItem from './components/TimelineItem'
 import { useSelector } from 'react-redux'
 

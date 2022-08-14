@@ -1,4 +1,4 @@
-import { RespCB, RespT } from '../../types/main'
+import { RespCB, RespT } from '../../../types/main'
 
 class _Vehicle {
   private readonly MAXIMUM_COLOR_VEHICLES: number
