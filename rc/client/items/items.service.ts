@@ -2,8 +2,8 @@ import { ItemsEventsE } from '../../../types/events'
 import { PickupT } from '../../../types/items'
 import { RespT } from '../../../types/main'
 import Player from '../player/player.class'
-import MiscManager from 'c@class/misc'
-import ObjectManager from 'c@class/object'
+import MiscManager from '@class/misc'
+import ObjectManager from '@class/object'
 
 class _ItemsService {
   private Pickups: PickupT[]

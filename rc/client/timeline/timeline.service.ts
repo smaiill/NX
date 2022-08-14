@@ -7,8 +7,8 @@ import {
   UpdateTimelineData,
 } from '../../../types/timeline'
 import TimelineUtils from './timeline.utils'
-import EventsService from 'c@events/events.service'
-import logger from 'c@utils/logger'
+import EventsService from '@events/events.service'
+import logger from '@utils/logger'
 
 class _TimelineService {
   timelineState: TimelineState
@@ -119,7 +119,7 @@ class _TimelineService {
       this.lastTaskID = timeline.rows[i - 1].id
     }
 
-    EventsService.emitNuiEvent({
+    EventsService.emitNuiEvent<TimelineDataT>({
       app: NuiAPPS.TIMELINE,
       method: TimelineEventsE.CREATE_TIMELINE,
       data: timeline,
@@ -131,7 +131,7 @@ class _TimelineService {
 
     if (!canUpdate) return
 
-    EventsService.emitNuiEvent({
+    EventsService.emitNuiEvent<UpdateTimelineData>({
       app: NuiAPPS.TIMELINE,
       method: TimelineEventsE.UPDATE_TIMELINE,
       data: data,
@@ -145,7 +145,7 @@ class _TimelineService {
     }
 
     setTimeout(() => {
-      EventsService.emitNuiEvent({
+      EventsService.emitNuiEvent<void>({
         app: NuiAPPS.TIMELINE,
         method: TimelineEventsE.DESTROY_TIMELINE,
       })

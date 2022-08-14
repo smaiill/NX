@@ -1,5 +1,5 @@
-import PlayerService from 's@player/player.service'
-import { logger } from 's@utils/logger'
+import PlayerService from '@player/player.service'
+import { logger } from '@utils/logger'
 
 class _CommandsServices {
   constructor() {}

@@ -5,9 +5,9 @@ import LoadingBar from './loading-bar/loadingBar.service'
 import Notification from './notification/notification.service'
 import Player from './player/player.class'
 import Timeline from './timeline/timeline.service'
-import Misc from 'c@class/misc'
-import Object from 'c@class/object'
-import Vehicle from 'c@class/vehicle'
+import Misc from '@class/misc'
+import Object from '@class/object'
+import Vehicle from '@class/vehicle'
 
 export {
   Object,

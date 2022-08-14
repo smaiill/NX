@@ -1,4 +1,5 @@
 import { PlayerEventsE } from '../../../types/events'
+import { InventoryActionDataT } from '../../../types/main'
 import Player from './player.class'
 
 class _PlayerService {
@@ -28,15 +29,7 @@ class _PlayerService {
     Player.loaded = true
   }
 
-  addLocaleItem({
-    name,
-    amount,
-    type,
-  }: {
-    name: string
-    amount: number
-    type: string
-  }): void {
+  addLocaleItem({ name, amount, type }: InventoryActionDataT): void {
     const nxPlayerInventory = Player.getData().inventory
 
     nxPlayerInventory[name] = {
@@ -47,15 +40,7 @@ class _PlayerService {
     Player.setValue('inventory', nxPlayerInventory)
   }
 
-  removeLocaleItem({
-    name,
-    amount,
-    type,
-  }: {
-    name: string
-    amount: number
-    type: string
-  }): void {
+  removeLocaleItem({ name, amount, type }: InventoryActionDataT): void {
     const nxPlayerInventory = Player.getData().inventory
 
     if (amount === 0) {

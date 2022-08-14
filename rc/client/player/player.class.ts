@@ -16,11 +16,11 @@ class _Player {
     return (this.playerData = data)
   }
 
-  public getData(): any {
+  public getData(): typeof this.playerData {
     return this.playerData
   }
 
-  public setValue(key: keyof typeof this.playerData, value: any) {
+  public setValue(key: keyof typeof this.playerData, value: any): void {
     return (this.playerData[key] = value)
   }
 
@@ -28,7 +28,7 @@ class _Player {
     return this.playerData[key]
   }
 
-  public setStatus(key: 'hunger' | 'thirst', value: number) {
+  public setStatus(key: 'hunger' | 'thirst', value: number): void {
     if (key !== 'hunger' && key !== 'thirst') return
 
     if (value > 100) value = 100

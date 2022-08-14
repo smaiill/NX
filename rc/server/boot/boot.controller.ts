@@ -1,5 +1,5 @@
 import BootService from './boot.service'
-import { logger } from 's@utils/logger'
+import { logger } from '@utils/logger'
 
 on('onResourceStart', (resource: string): void => {
   if (resource === GetCurrentResourceName()) {

@@ -2,23 +2,23 @@ import { NotificationEvents } from '../../../types/events'
 import { NuiAPPS } from '../../../types/main'
 import { DefaultDataT } from '../../../types/misc'
 import { NotificationDataT } from '../../../types/notification'
+import EventsService from '@events/events.service'
 import { overWriteData } from '@shared/utils/def'
-import EventsService from 'c@events/events.service'
 
 class _NotificationService {
   constructor() {}
 
   public async create(data: NotificationDataT): Promise<void> {
-    const overRidedData = await overWriteData<NotificationDataT>(
+    const overWritedData = await overWriteData<NotificationDataT>(
       DefaultDataT.NOTIFICATION,
       data
     )
 
-    EventsService.emitNuiEvent(
+    EventsService.emitNuiEvent<NotificationDataT>(
       {
         app: NuiAPPS.NOTIFICATION,
         method: NotificationEvents.CREATE_NOTIFICATION,
-        data: overRidedData,
+        data: overWritedData,
       },
       false
     )

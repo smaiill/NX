@@ -1,6 +1,6 @@
 import { DiscordWebhookI } from '../../../types/main'
+import { logger } from '@utils/logger'
 import fetch from 'node-fetch'
-import { logger } from 's@utils/logger'
 
 class _DiscordService {
   constructor() {}

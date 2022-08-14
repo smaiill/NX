@@ -12,11 +12,11 @@
     "outDir": "./",
     "baseUrl": "./",
     "paths": {
-      "c@class/*": ["class/*"],
-      "c@events/*": ["events/*"],
-      "c@items/*": ["items/*"],
-      "c@player/*": ["player/*"],
-      "c@utils/*": ["utils/*"],
+      "@class/*": ["class/*"],
+      "@events/*": ["events/*"],
+      "@items/*": ["items/*"],
+      "@player/*": ["player/*"],
+      "@utils/*": ["utils/*"],
       "@shared/*": ["../shared/*"],
       "@types/*": ["../../types/*"]
     }

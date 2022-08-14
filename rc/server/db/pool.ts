@@ -1,6 +1,6 @@
 import { config } from '@shared/load.file'
+import { logger } from '@utils/logger'
 import mysql from 'mysql2/promise'
-import { logger } from 's@utils/logger'
 
 export const generateConnectionPool = (): mysql.Pool | undefined => {
   try {

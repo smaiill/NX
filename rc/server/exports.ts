@@ -1,4 +1,4 @@
-import DB from 's@db/db'
+import DB from '@db/db'
 
 globalThis.exports('useDB', () => {
   return {

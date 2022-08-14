@@ -1,21 +1,23 @@
 import { ItemsEventsE } from '../../../types/events'
 import { ItemT, PickupT } from '../../../types/items'
 import { RespCB, RespT } from '../../../types/main'
+import PlayerService from '@player/player.service'
 import { items } from '@shared/load.file'
 import Utils from '@shared/utils/misc'
-import PlayerService from 's@player/player.service'
-import { logger } from 's@utils/logger'
+import { logger } from '@utils/logger'
 
 export class _ItemsService {
   private readonly items: ItemT[]
   private pickups: PickupT[]
   private usableItems: Map<string, Function>
   private utils: typeof Utils
+  private playerService: typeof PlayerService
   constructor() {
     this.items = items
     this.pickups = []
     this.usableItems = new Map()
     this.utils = Utils
+    this.playerService = PlayerService
   }
 
   public isValidItem(itemName: string): false | ItemT {
@@ -97,7 +99,7 @@ export class _ItemsService {
     amount: number,
     source: number
   ): Promise<void> {
-    const nxPlayer = await PlayerService.getPlayer(source)
+    const nxPlayer = await this.playerService.getPlayer(source)
     const itemInfo = await this.findItem(name)
 
     if (!nxPlayer || !itemInfo || !amount || amount === 0) return
@@ -142,7 +144,7 @@ export class _ItemsService {
   public async takePickup(uuid: string, source: number): Promise<void> {
     try {
       const pickup = await this.findPickupById(uuid)
-      const nxPlayer = await PlayerService.getPlayer(source)
+      const nxPlayer = await this.playerService.getPlayer(source)
 
       // TODO: Get coords between player and the pickup to prevent from hackers !
 

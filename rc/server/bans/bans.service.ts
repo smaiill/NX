@@ -1,7 +1,7 @@
 import { BanEventDataT, BanT, RespT } from '../../../types/main'
+import PlayerService from '@player/player.service'
 import { bans } from '@shared/load.file'
 import Utils from '@shared/utils/misc'
-import PlayerService from 's@player/player.service'
 
 class _BansService {
   private bans: Map<string, BanT>

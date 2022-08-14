@@ -1,6 +1,6 @@
 import { DBEventsE } from '../../../types/events'
-import DB from 's@db/db'
-import { logger } from 's@utils/logger'
+import DB from '@db/db'
+import { logger } from '@utils/logger'
 
 class _BootService {
   private readonly DB: typeof DB

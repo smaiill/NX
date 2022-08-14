@@ -6,8 +6,8 @@ import _Player from './player.class'
 import { _PlayerDB } from './player.db'
 import { getPlayerMethods } from './player.methods'
 import PlayerUtils from './player.utils'
-import ItemsService from 's@items/items.service'
-import { logger } from 's@utils/logger'
+import ItemsService from '@items/items.service'
+import { logger } from '@utils/logger'
 
 class _PlayerService {
   private playersCollection: NXPlayerT[]
@@ -200,8 +200,8 @@ class _PlayerService {
     return getPlayerMethods(nxPlayer)
   }
 
-  public async getPlayersData(): Promise<_Player[] | []> {
-    const nxPlayersData: _Player[] = []
+  public async getPlayersData(): Promise<NXPlayerT[] | []> {
+    const nxPlayersData: NXPlayerT[] = []
 
     if (this.playersCollection.length > 0) {
       for (const player of this.playersCollection) {
@@ -214,7 +214,7 @@ class _PlayerService {
     return nxPlayersData
   }
 
-  public async getPlayerData(source: number): Promise<_Player | false> {
+  public async getPlayerData(source: number): Promise<NXPlayerT | false> {
     const nxPlayer = await this.findPlayer(source)
 
     if (!nxPlayer) return false

@@ -2,16 +2,16 @@ import { InputEventsE } from '../../../types/events'
 import { InputsDataT } from '../../../types/input'
 import { NuiAPPS, RespCB, RespT } from '../../../types/main'
 import InputUtils from './input.utils'
-import EventsService from 'c@events/events.service'
-import logger from 'c@utils/logger'
+import EventsService from '@events/events.service'
+import logger from '@utils/logger'
 
 class _InputService {
+  private inputUtils: typeof InputUtils
   private readonly currentInputState: {
     active: boolean
     handler: Function | null
     data: InputsDataT | null
   }
-  private inputUtils: typeof InputUtils
   constructor() {
     this.currentInputState = {
       active: false,
@@ -33,7 +33,7 @@ class _InputService {
     if (this.isActive()) {
       this.setState('handler', null)
       this.setState('active', false)
-      EventsService.emitNuiEvent({
+      EventsService.emitNuiEvent<void>({
         app: NuiAPPS.INPUT,
         method: InputEventsE.DESTROY_INPUT,
       })
@@ -56,9 +56,11 @@ class _InputService {
     if (this.isActive()) {
       return logger.error(`another input already showed.`)
     }
+
     if (!data || (handler && typeof handler !== 'function')) {
       return logger.error('incorrect input creation arguments.')
     }
+
     EventsService.emitNuiEvent<InputsDataT>(
       {
         app: NuiAPPS.INPUT,
@@ -67,6 +69,7 @@ class _InputService {
       },
       true
     )
+
     this.setState('handler', handler)
     this.setState('data', data)
     this.setState('active', true)
@@ -77,12 +80,12 @@ class _InputService {
       typeof this.currentInputState.handler === 'function' &&
       this.currentInputState.active
     ) {
-      const [isValid, error] = await this.inputUtils.isDataValid(
+      const [isValid, errorMessage] = await this.inputUtils.isDataValid(
         res.data,
         this.currentInputState.data!
       )
       if (!isValid) {
-        cb({ status: 'error', message: error })
+        cb({ status: 'error', message: errorMessage })
         return
       }
 

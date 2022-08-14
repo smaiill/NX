@@ -1,8 +1,8 @@
 import BansService from '../bans/bans.service'
+import PlayerService from '@player/player.service'
+import PlayerUtils from '@player/player.utils'
 import Utils from '@shared/utils/misc'
-import PlayerService from 's@player/player.service'
-import PlayerUtils from 's@player/player.utils'
-import { logger } from 's@utils/logger'
+import { logger } from '@utils/logger'
 
 class _DeferralsService {
   utils: typeof Utils

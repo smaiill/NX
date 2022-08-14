@@ -5,10 +5,10 @@ import {
   PermissionsEventsE,
   PlayerEventsE,
 } from '../../../types/events'
-import { InventoryActions } from '../../../types/main'
+import { InventoryActionDataT, InventoryActions } from '../../../types/main'
 import Player from './player.class'
 import PlayerService from './player.service'
-import ItemsService from 'c@items/items.service'
+import ItemsService from '@items/items.service'
 
 const interval = setInterval(() => {
   const ped = PlayerId()
@@ -58,7 +58,7 @@ onNet(
     type,
   }: {
     type: keyof typeof InventoryActions
-    item: { name: string; amount: number; type: string }
+    item: InventoryActionDataT
   }) => {
     emit(InventoryEeventsE.ON_INVENTORY_UPDATED, {
       type,

@@ -1,3 +1,4 @@
+import { ConfigT } from '../../../types/configs'
 import {
   AccountsEventsE,
   InventoryEeventsE,
@@ -8,9 +9,10 @@ import { InventoryItemT, ItemT } from '../../../types/items'
 import { InventoryActions, RespCB } from '../../../types/main'
 import { NXPlayerCharInfoT, NXPlayerT } from '../../../types/player'
 import { _PlayerDB } from './player.db'
-import ItemsService from 's@items/items.service'
-import JobsService from 's@jobs/jobs.service'
-import { logger } from 's@utils/logger'
+import ItemsService from '@items/items.service'
+import JobsService from '@jobs/jobs.service'
+import { config } from '@shared/load.file'
+import { logger } from '@utils/logger'
 
 class _Player implements NXPlayerT {
   identifier
@@ -24,6 +26,7 @@ class _Player implements NXPlayerT {
   source
   maxWeight
   uid
+  config: ConfigT
 
   constructor(
     identifier: string,
@@ -46,8 +49,9 @@ class _Player implements NXPlayerT {
     this.weight = weight
     this.name = name
     this.source = source
-    this.maxWeight = 50000000000
     this.uid = uid
+    this.config = config
+    this.maxWeight = this.config.player.maxWeight
   }
 
   public getWeight(): number {

@@ -1,5 +1,5 @@
 import { CodeColors } from '../../../types/misc'
-import { logger } from 's@utils/logger'
+import { logger } from '@utils/logger'
 
 export class _Events {
   private events: Map<string, Function>

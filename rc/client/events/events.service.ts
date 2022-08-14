@@ -1,6 +1,6 @@
 import { RespCB } from '../../../types/main'
 import Utils from '@shared/utils/misc'
-import logger from 'c@utils/logger'
+import logger from '@utils/logger'
 
 export class _EventsService {
   private events: Map<string, Function>
@@ -29,7 +29,7 @@ export class _EventsService {
 
     const respEventName: string = `${eventName}::NX::${randomID}`
 
-    const handleRespEvent: Function = (...args: any[]) => {
+    const handleRespEvent = (...args: any[]) => {
       callback(...args)
       removeEventListener(respEventName, handleRespEvent)
     }

@@ -1,7 +1,7 @@
 import { DBQueries } from '../../../types/db'
 import PlayerUtils from './player.utils'
+import DB from '@db/db'
 import Utils from '@shared/utils/misc'
-import DB from 's@db/db'
 
 export class _PlayerDB {
   constructor() {}

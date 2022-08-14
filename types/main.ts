@@ -10,6 +10,12 @@ export enum InventoryActions {
   REMOVE = 'REMOVE',
 }
 
+export interface InventoryActionDataT {
+  type: keyof typeof InventoryActions
+  name: string
+  amount: number
+}
+
 export interface BanT {
   license: string
   bannedBy: string
