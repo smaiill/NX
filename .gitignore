@@ -1,5 +1,4 @@
 ### ./
-*.txt
 node_modules
 nx.logs.log
 .sql
@@ -9,6 +8,7 @@ logo.jpg
 mock.txt
 .yarn.installed
 logo2.png
+.txt
 
 ### RC
 rc/node_modules

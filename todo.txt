@@ -1,0 +1,10 @@
+- createCommands: setJob, giveItem, etc...
+- blips manager.
+- create usable components such as useMisc, useCars etc....
+- improve commands system
+- refactor player services.
+- get all player jobs.
+- set Intervals in lua file.
+- finish the config.
+- better ui design.
+- refactor and optimize code.
