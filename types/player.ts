@@ -30,7 +30,8 @@ export interface NXPlayerMethodsT {
   getMaxWeight(): number
   getUID(): string
   getAccountMoney(account: string): number | undefined
-  getJob(type: number): { name: string; grade: number }
+  getJob(type: number): { name: string; grade: string; label: string }
+  getJobs(): Array<{ name: string; grade: string; label: string }>
   setThirst(value: number): void
   setHunger(value: number): void
   setPermissions(permission: string): void

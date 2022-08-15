@@ -16,6 +16,7 @@ export const getPlayerMethods = (nxPlayer: NXPlayerT) => {
     GetThirst: nxPlayer.getThirst.bind(nxPlayer),
     GetHunger: nxPlayer.getHunger.bind(nxPlayer),
     GetJob: nxPlayer.getJob.bind(nxPlayer),
+    GetJobs: nxPlayer.getJobs.bind(nxPlayer),
     GetUID: nxPlayer.getUID.bind(nxPlayer),
     SetCoords: nxPlayer.setCoords.bind(nxPlayer),
     SetJob: nxPlayer.setJob.bind(nxPlayer),

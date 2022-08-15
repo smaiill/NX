@@ -8,12 +8,12 @@ export class _DB {
     return new Promise(async (resolve, reject) => {
       try {
         const res = await pool?.execute(query, values)
-        resolve(res)
         cb && cb({ status: 'succes', data: res })
+        resolve(res)
         return
       } catch (e) {
+        cb && cb({ status: 'error', message: e })
         reject(e)
-        cb && cb({ status: 'succes', message: e })
       }
     })
   }

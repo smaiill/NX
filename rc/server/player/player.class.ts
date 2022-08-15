@@ -5,7 +5,7 @@ import {
   JobsEventsE,
   PermissionsEventsE,
 } from '../../../types/events'
-import { InventoryItemT, ItemT } from '../../../types/items'
+import { InventoryItemT } from '../../../types/items'
 import { InventoryActions, RespCB } from '../../../types/main'
 import { NXPlayerCharInfoT, NXPlayerT } from '../../../types/player'
 import { _PlayerDB } from './player.db'
@@ -27,6 +27,7 @@ class _Player implements NXPlayerT {
   maxWeight
   uid
   config: ConfigT
+  jobsService: typeof JobsService
 
   constructor(
     identifier: string,
@@ -52,6 +53,7 @@ class _Player implements NXPlayerT {
     this.uid = uid
     this.config = config
     this.maxWeight = this.config.player.maxWeight
+    this.jobsService = JobsService
   }
 
   public getWeight(): number {
@@ -112,18 +114,32 @@ class _Player implements NXPlayerT {
     return this.accounts[account]
   }
 
-  public getJob(type: number = 1): { name: string; grade: number } {
-    if (type === 1) {
+  public getJob(type: number | '' = 1): {
+    name: string
+    grade: string
+    label: string
+  } {
+    if (type === 1) type = ''
+
+    const job = this.jobsService.findJob(this.charinfo[`job${type}`])
+
+    if (!job)
       return {
-        name: this.charinfo.job,
-        grade: this.charinfo.job_grade,
+        name: '',
+        label: '',
+        grade: '',
       }
-    }
 
     return {
-      name: this.charinfo[`job${type}`],
+      label: job.label,
+      name: job.name,
       grade: this.charinfo[`job${type}_grade`],
     }
+  }
+
+  public getJobs(): Array<{ name: string; grade: string; label: string }> {
+    // TODO: a function that returns all the jobs of the player.
+    return []
   }
 
   public setThirst(value: number): void {
