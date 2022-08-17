@@ -187,12 +187,11 @@ class _Player implements NXPlayerT {
         type,
       })
 
-      cb &&
-        cb({
-          job: name,
-          job_grade: grade,
-          type,
-        })
+      cb?.({
+        job: name,
+        job_grade: grade,
+        type,
+      })
 
       return
     }
@@ -206,12 +205,11 @@ class _Player implements NXPlayerT {
       type,
     })
 
-    cb &&
-      cb({
-        job: name,
-        job_grade: grade,
-        type,
-      })
+    cb?.({
+      job: name,
+      job_grade: grade,
+      type,
+    })
   }
 
   public setCoords(x: number, y: number, z: number, heading: number): void {
@@ -245,20 +243,18 @@ class _Player implements NXPlayerT {
     const item = await this.hasItem(name)
 
     if (!item) {
-      cb &&
-        cb({
-          status: 'error',
-          message: `Item [${name}] not found.`,
-        })
+      cb?.({
+        status: 'error',
+        message: `Item [${name}] not found.`,
+      })
       return
     }
 
     if (amount > item.amount || amount <= 0) {
-      cb &&
-        cb({
-          status: 'error',
-          message: `Incorrect amount: [${amount}]`,
-        })
+      cb?.({
+        status: 'error',
+        message: `Incorrect amount: [${amount}]`,
+      })
       return
     }
 
@@ -284,11 +280,10 @@ class _Player implements NXPlayerT {
         type: ItemsService.getItemType(name),
       },
     })
-    cb &&
-      cb({
-        status: 'succes',
-        message: `Succefully removed [${amount}-${name}]`,
-      })
+    cb?.({
+      status: 'succes',
+      message: `Succefully removed [${amount}-${name}]`,
+    })
   }
 
   public async canTakeItem(name: string, amount: number): Promise<boolean> {
@@ -309,11 +304,10 @@ class _Player implements NXPlayerT {
   ): Promise<void> {
     const isItemValid = ItemsService.isValidItem(name)
     if (!isItemValid) {
-      cb &&
-        cb({
-          status: 'error',
-          message: `Invalid item: [${name}]`,
-        })
+      cb?.({
+        status: 'error',
+        message: `Invalid item: [${name}]`,
+      })
       return
     }
     const item = this.hasItem(name)
@@ -322,11 +316,10 @@ class _Player implements NXPlayerT {
 
     const canTakeItem = await this.canTakeItem(name, amount)
     if (!canTakeItem) {
-      cb &&
-        cb({
-          status: 'error',
-          message: `Player cant take item: ${name}`,
-        })
+      cb?.({
+        status: 'error',
+        message: `Player cant take item: ${name}`,
+      })
       return
     }
 
@@ -355,11 +348,10 @@ class _Player implements NXPlayerT {
         type: ItemsService.getItemType(name),
       },
     })
-    cb &&
-      cb({
-        status: 'succes',
-        data: this.inventory[name],
-      })
+    cb?.({
+      status: 'succes',
+      data: this.inventory[name],
+    })
   }
 
   async save(cb?: RespCB): Promise<void> {
@@ -374,7 +366,7 @@ class _Player implements NXPlayerT {
       })
       .then(() => {
         logger.info(`Player: [${this.name}] saved with succes.`)
-        cb && cb({ status: 'succes' })
+        cb?.({ status: 'succes' })
       })
       .catch((err) => {
         logger.error(
@@ -383,7 +375,7 @@ class _Player implements NXPlayerT {
           )}] | ERROR: ${err}`
         )
 
-        cb && cb({ status: 'error', message: err })
+        cb?.({ status: 'error', message: err })
       })
   }
 

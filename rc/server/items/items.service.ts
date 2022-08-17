@@ -200,22 +200,20 @@ export class _ItemsService {
   ) {
     const data = { name, label, weight, type, props }
     if (!name || !label || !weight || !type || typeof weight !== 'number') {
-      cb &&
-        cb({
-          status: 'error',
-          message: "Can't create item invalid arguments provided !",
-        })
+      cb?.({
+        status: 'error',
+        message: "Can't create item invalid arguments provided !",
+      })
       return
     }
 
     const alreadyExist = this.findItem(data.name)
 
     if (alreadyExist) {
-      cb &&
-        cb({
-          status: 'error',
-          message: `Can\'t create item [${data.name}] already exists !`,
-        })
+      cb?.({
+        status: 'error',
+        message: `Can\'t create item [${data.name}] already exists !`,
+      })
       return
     }
 
@@ -234,9 +232,9 @@ export class _ItemsService {
       )
       this.items.push(data)
       emit(ItemsEventsE.ITEM_CREATED, data)
-      cb && cb({ status: 'succes', message: 'item created.', data })
+      cb?.({ status: 'succes', message: 'item created.', data })
     } catch (error) {
-      cb && cb({ status: 'error', message: error as any })
+      cb?.({ status: 'error', message: error as any })
     }
   }
 }

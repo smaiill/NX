@@ -6,17 +6,17 @@ class _InputUtils {
   public isDataValid(
     submitedData: any,
     validData: InputsDataT
-  ): [boolean, string] {
+  ): { isValid: boolean; message: string } {
     for (const validInput of validData.rows) {
       if (
         (validInput.required && !submitedData[validInput.id]) ||
         submitedData[validInput.id].value.trim() === ''
       ) {
-        return [false, `Invalid: ${validInput.label}`]
+        return { isValid: false, message: `Invalid: [${validInput.label}].` }
       }
     }
 
-    return [true, '']
+    return { isValid: true, message: '' }
   }
 }
 

@@ -8,11 +8,11 @@ export class _DB {
     return new Promise(async (resolve, reject) => {
       try {
         const res = await pool?.execute(query, values)
-        cb && cb({ status: 'succes', data: res })
+        cb?.({ status: 'succes', data: res })
         resolve(res)
         return
       } catch (e) {
-        cb && cb({ status: 'error', message: e })
+        cb?.({ status: 'error', message: e })
         reject(e)
       }
     })
@@ -25,12 +25,12 @@ export class _DB {
         const res = await pool?.execute(query)
         if (res) {
           resolve(res[0])
-          cb && cb({ status: 'succes', data: res[0] })
+          cb?.({ status: 'succes', data: res[0] })
           return
         }
       } catch (e) {
         reject(e)
-        cb && cb({ status: 'error', message: e })
+        cb?.({ status: 'error', message: e })
       }
     })
   }

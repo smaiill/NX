@@ -15,7 +15,7 @@ ui_page 'ui/index.html'
 
 files {
   'ui/index.html',
-  'ui/**/*',
-  'config/*.json'
+  'config/*.json',
+  'ui/**/*'
 }
 `

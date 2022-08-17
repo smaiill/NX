@@ -12,21 +12,20 @@ class _Misc {
       ![1, 2].includes(pedType) ||
       !IsModelAPed(model)
     ) {
-      cb &&
-        cb({
-          status: 'error',
-          message: 'not valid params to create ped.',
-        })
+      cb?.({
+        status: 'error',
+        message: 'not valid params to create ped.',
+      })
 
       return
     }
 
     RequestModel(model)
-    const i: NodeJS.Timer = setInterval(() => {
+    const i = setInterval(() => {
       if (HasModelLoaded(model)) {
-        const playerPed: number = PlayerPedId()
-        const pos: number[] = GetEntityCoords(playerPed, true)
-        const ped: number = CreatePed(
+        const playerPed = PlayerPedId()
+        const pos = GetEntityCoords(playerPed, true)
+        const ped = CreatePed(
           pedType,
           model,
           pos[0],
@@ -39,11 +38,10 @@ class _Misc {
         clearInterval(i)
         SetModelAsNoLongerNeeded(model)
         SetEntityAsNoLongerNeeded(model as unknown as number)
-        cb &&
-          cb({
-            status: 'succes',
-            data: ped,
-          })
+        cb?.({
+          status: 'succes',
+          data: ped,
+        })
       }
     }, 0)
   }
@@ -56,7 +54,7 @@ class _Misc {
     color: [number, number, number] = [255, 255, 255]
   ): void {
     if (!coords || !text || !size || !font) {
-      return logger.error('not valid params to draw 3D text. [Misc.DrawText3D]')
+      return logger.error('not valid params to draw 3D text.')
     }
     const camCoords = GetFinalRenderedCamCoord()
     const distance = GetDistanceBetweenCoords(
@@ -85,22 +83,20 @@ class _Misc {
   }
 
   public requestAnim(anim: string, cb?: RespCB): void {
-    if (!anim || typeof anim !== 'string') {
-      cb &&
-        cb({
-          status: 'error',
-          message: 'not valid params to load animation',
-        })
+    if (!anim) {
+      cb?.({
+        status: 'error',
+        message: 'not valid params to load animation.',
+      })
       return
     }
 
     const interval = setInterval(() => {
       RequestAnimDict(anim)
       if (HasAnimDictLoaded(anim)) {
-        cb &&
-          cb({
-            status: 'succes',
-          })
+        cb?.({
+          status: 'succes',
+        })
         clearInterval(interval)
       }
     }, 0)

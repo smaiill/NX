@@ -27,7 +27,7 @@ export class _EventsService {
 
     const randomID = this.utils.uuid()
 
-    const respEventName: string = `${eventName}::NX::${randomID}`
+    const respEventName = `${eventName}::NX::${randomID}`
 
     const handleRespEvent = (...args: any[]) => {
       callback(...args)

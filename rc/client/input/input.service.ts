@@ -29,30 +29,28 @@ class _InputService {
     this.currentInputState[key] = value
   }
 
-  public destroy(cb?: RespCB): Function | void {
-    if (this.isActive()) {
-      this.setState('handler', null)
-      this.setState('active', false)
-      EventsService.emitNuiEvent<void>({
-        app: NuiAPPS.INPUT,
-        method: InputEventsE.DESTROY_INPUT,
-      })
-      cb &&
-        cb({
-          status: 'succes',
-          message: 'input deleted.',
-        })
-      return
-    }
-
-    cb &&
-      cb({
+  public destroy(cb?: RespCB): void {
+    if (!this.isActive()) {
+      cb?.({
         status: 'error',
         message: 'no input detected.',
       })
+      return
+    }
+
+    this.setState('handler', null)
+    this.setState('active', false)
+    EventsService.emitNuiEvent<void>({
+      app: NuiAPPS.INPUT,
+      method: InputEventsE.DESTROY_INPUT,
+    })
+    cb?.({
+      status: 'succes',
+      message: 'input deleted.',
+    })
   }
 
-  public create(data: InputsDataT, handler: Function): void {
+  public create(data: InputsDataT, handler: () => void): void {
     if (this.isActive()) {
       return logger.error(`another input already showed.`)
     }
@@ -80,12 +78,12 @@ class _InputService {
       typeof this.currentInputState.handler === 'function' &&
       this.currentInputState.active
     ) {
-      const [isValid, errorMessage] = await this.inputUtils.isDataValid(
+      const { isValid, message } = await this.inputUtils.isDataValid(
         res.data,
         this.currentInputState.data!
       )
       if (!isValid) {
-        cb({ status: 'error', message: errorMessage })
+        cb({ status: 'error', message: message })
         return
       }
 
@@ -95,6 +93,7 @@ class _InputService {
       this.setState('data', null)
 
       SetNuiFocus(false, false)
+
       cb({ status: 'succes', message: 'succefully removed.' })
       return
     }

@@ -1,11 +1,11 @@
 import { RespCB, RespT } from '../../../types/main'
 
 class _Vehicle {
-  private readonly MAXIMUM_COLOR_VEHICLES: number
-  private readonly randomVehicles: ReadonlyArray<string>
+  private readonly MAXIMUM_COLORS_VEHICLE: number
+  private readonly VEHICLES_ARRAY: ReadonlyArray<string>
   constructor() {
-    this.MAXIMUM_COLOR_VEHICLES = 150
-    this.randomVehicles = [
+    this.MAXIMUM_COLORS_VEHICLE = 150
+    this.VEHICLES_ARRAY = [
       'asbo',
       'blista',
       'panto',
@@ -22,20 +22,19 @@ class _Vehicle {
 
   public create(model: string | number, cb: RespCB): number | void {
     if (!model || !IsModelAVehicle(model)) {
-      cb &&
-        cb({
-          status: 'error',
-          message: 'not valid params to create vehicle.',
-        })
+      cb?.({
+        status: 'error',
+        message: 'not valid params to create vehicle.',
+      })
       return
     }
 
     RequestModel(model)
-    const i: NodeJS.Timer = setInterval(() => {
+    const i = setInterval(() => {
       if (HasModelLoaded(model)) {
-        const playerPed: number = PlayerPedId()
-        const pos: number[] = GetEntityCoords(playerPed, true)
-        const vehicle: number = CreateVehicle(
+        const playerPed = PlayerPedId()
+        const pos = GetEntityCoords(playerPed, true)
+        const vehicle = CreateVehicle(
           model,
           pos[0],
           pos[1],
@@ -51,27 +50,25 @@ class _Vehicle {
 
         clearInterval(i)
 
-        cb &&
-          cb({
-            status: 'succes',
-            data: vehicle,
-          })
+        cb?.({
+          status: 'succes',
+          data: vehicle,
+        })
       }
     }, 500)
   }
 
   public delete(cb?: RespCB): void {
-    const playerPed: number = PlayerPedId()
+    const playerPed = PlayerPedId()
     if (IsPedInAnyVehicle(playerPed, true)) {
-      const vehicle: number = GetVehiclePedIsIn(playerPed, true)
+      const vehicle = GetVehiclePedIsIn(playerPed, true)
       SetEntityAsMissionEntity(vehicle, false, true)
       DeleteVehicle(vehicle)
 
-      cb &&
-        cb({
-          status: 'succes',
-          message: 'vehicle deleted.',
-        })
+      cb?.({
+        status: 'succes',
+        message: 'vehicle deleted.',
+      })
     }
   }
 
@@ -94,17 +91,17 @@ class _Vehicle {
   }
 
   public random(): void {
-    const randomCar: string =
-      this.randomVehicles[
-        Math.floor(Math.random() * this.randomVehicles.length)
+    const randomCar =
+      this.VEHICLES_ARRAY[
+        Math.floor(Math.random() * this.VEHICLES_ARRAY.length)
       ]
     this.create(randomCar, (resp: RespT) => {
       if (resp.status !== 'succes') return
-      const randomColor: number = Math.floor(
-        Math.random() * this.MAXIMUM_COLOR_VEHICLES
+      const randomColor = Math.floor(
+        Math.random() * this.MAXIMUM_COLORS_VEHICLE
       )
-      const randomColor2: number = Math.floor(
-        Math.random() * this.MAXIMUM_COLOR_VEHICLES
+      const randomColor2 = Math.floor(
+        Math.random() * this.MAXIMUM_COLORS_VEHICLE
       )
       SetVehicleColours(resp.data, randomColor, randomColor2)
     })

@@ -5,19 +5,18 @@ class _Object {
 
   public create(entity: string, cb?: RespCB): number | void {
     if (!entity || !IsModelValid(entity)) {
-      cb &&
-        cb({
-          status: 'error',
-          message: 'not valid params to create object.',
-        })
+      cb?.({
+        status: 'error',
+        message: 'not valid params to create object.',
+      })
       return
     }
 
     RequestModel(entity)
-    const i: NodeJS.Timer = setInterval(() => {
+    const i = setInterval(() => {
       if (HasModelLoaded(entity)) {
-        const playerPed: number = PlayerPedId()
-        const pos: number[] = GetEntityCoords(playerPed, true)
+        const playerPed = PlayerPedId()
+        const pos = GetEntityCoords(playerPed, true)
         const object = CreateObject(
           entity,
           pos[0],
@@ -30,26 +29,24 @@ class _Object {
         clearInterval(i)
         SetEntityAsNoLongerNeeded(entity as unknown as number)
         SetModelAsNoLongerNeeded(entity)
-        cb &&
-          cb({
-            status: 'succes',
-            data: object,
-          })
+        cb?.({
+          status: 'succes',
+          data: object,
+        })
       }
     }, 0)
   }
 
   public delete(entity: number, cb?: RespCB): void {
-    if (!entity || typeof entity !== 'number') return
+    if (!entity) return
 
     SetEntityAsMissionEntity(entity, false, true)
     DeleteObject(entity)
 
-    cb &&
-      cb({
-        status: 'succes',
-        message: 'object deleted.',
-      })
+    cb?.({
+      status: 'succes',
+      message: 'object deleted.',
+    })
   }
 }
 
