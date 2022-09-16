@@ -1,5 +1,5 @@
 <div align="center">
-    <img width="500" src="https://media.discordapp.net/attachments/869266956077912095/1017809527829172244/IMG_2604.png" />
+    <img width="500" src="https://media.discordapp.net/attachments/869266956077912095/1020442176246788146/Sans_titre_19_20220912144914.png" />
 </div>
 
 <h1 align="center">NX</h1>
