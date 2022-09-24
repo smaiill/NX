@@ -11,7 +11,7 @@ export interface DebugEvent {
 
 export const injectMockData = (events: DebugEvent[]) => {
   if (isEnvBrowser()) {
-    events.forEach((event) => {
+    for (const event of events) {
       setTimeout(() => {
         window.dispatchEvent(
           new MessageEvent('message', {
@@ -23,6 +23,6 @@ export const injectMockData = (events: DebugEvent[]) => {
           })
         )
       }, DEBUG_TIMER)
-    })
+    }
   }
 }
