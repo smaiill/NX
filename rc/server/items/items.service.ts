@@ -10,14 +10,10 @@ export class _ItemsService {
   private readonly items: ItemT[]
   private pickups: PickupT[]
   private usableItems: Map<string, Function>
-  private utils: typeof Utils
-  private playerService: typeof PlayerService
   constructor() {
     this.items = items
     this.pickups = []
     this.usableItems = new Map()
-    this.utils = Utils
-    this.playerService = PlayerService
   }
 
   public isValidItem(itemName: string): false | ItemT {
@@ -60,7 +56,7 @@ export class _ItemsService {
     propsType: string,
     itemType: string
   ): void {
-    const uuid = this.utils.uuid()
+    const uuid = Utils.uuid()
     this.pickups.push({
       name,
       amount,
@@ -99,7 +95,7 @@ export class _ItemsService {
     amount: number,
     source: number
   ): Promise<void> {
-    const nxPlayer = await this.playerService.getPlayer(source)
+    const nxPlayer = await PlayerService.getPlayer(source)
     const itemInfo = await this.findItem(name)
 
     if (!nxPlayer || !itemInfo || !amount || amount === 0) return
@@ -144,7 +140,7 @@ export class _ItemsService {
   public async takePickup(uuid: string, source: number): Promise<void> {
     try {
       const pickup = await this.findPickupById(uuid)
-      const nxPlayer = await this.playerService.getPlayer(source)
+      const nxPlayer = await PlayerService.getPlayer(source)
 
       // TODO: Get coords between player and the pickup to prevent from hackers !
 
@@ -239,5 +235,4 @@ export class _ItemsService {
   }
 }
 
-const ItemsService = new _ItemsService()
-export default ItemsService
+export default new _ItemsService()

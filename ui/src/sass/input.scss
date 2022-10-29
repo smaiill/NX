@@ -18,8 +18,16 @@
   padding: 0;
 }
 
+.input-wrapper {
+  width: 100%;
+  height: 100vh;
+
+  &.bg {
+    background: $main-bg;
+  }
+}
+
 .inputs-container {
-  background-color: $input-container-color;
   position: absolute;
   transform: translate(-50%, -50%);
   top: 50%;
@@ -31,15 +39,16 @@
   display: flex;
   flex-direction: column;
   color: white;
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(0, 0, 0, 0.1);
 
   h2 {
     @include flex-center-center();
     height: 60px;
     text-transform: uppercase;
     font-size: 20px;
-    letter-spacing: 2px;
-    font-weight: 900;
-    font-family: 'Montserrat';
+    letter-spacing: 3px;
+    font-weight: 700;
   }
 
   .input-container {
@@ -50,6 +59,8 @@
 
     label {
       text-transform: lowercase;
+      letter-spacing: 2px;
+      font-size: 13px;
     }
 
     input[type='color'] {
@@ -65,13 +76,14 @@
       background: none;
       margin-top: 5px;
       height: 40px;
-      background-color: $input-bg-color;
+      border: 2px solid rgba(0, 0, 0, 0.1);
       padding-left: 7.5px;
       border-radius: 10px;
       color: white;
+      transition: 0.3s;
 
       &:focus {
-        border: 1px solid rgb(215, 159, 255);
+        border: 2px solid rgba(0, 0, 0, 0.3);
       }
     }
   }
@@ -83,7 +95,7 @@
   border: none;
   border-radius: 15px;
   color: rgb(255, 255, 255);
-  background: $button-bg-color;
+  border: 2px solid rgba(0, 0, 0, 0.1);
   text-transform: uppercase;
   cursor: pointer;
   transition: 0.3s;
@@ -92,6 +104,7 @@
   overflow: hidden;
   z-index: 1;
   height: 50px;
+  background: none;
 
   &::before {
     @include button-pseudo-class-before-after(left, 0);
@@ -112,13 +125,14 @@
 }
 
 .invalid-inputs {
-  border: 2px solid #ff0000;
   border-radius: 10px;
-  margin: 10px;
+  margin: 5px;
   height: 50px;
-  font-size: 18px;
-  font-weight: 700;
   @include flex-center-center();
   color: rgb(255, 0, 0);
-  letter-spacing: 2px;
+
+  span {
+    font-weight: 400;
+    letter-spacing: 1px;
+  }
 }

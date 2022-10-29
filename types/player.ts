@@ -84,3 +84,7 @@ export interface PlayerDataBaseT {
   created_at: string
   updated_at: string
 }
+
+export interface PlayerMessage {
+  message: string
+}

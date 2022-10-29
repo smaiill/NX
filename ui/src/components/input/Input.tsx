@@ -29,6 +29,7 @@ const Input = () => {
           <span>{invalidInputsState[0]}</span>
         </div>
       )}
+
       <button onClick={() => handleSubmitData(inputsState)}>Submit</button>
     </div>
   ) : null

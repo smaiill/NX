@@ -62,5 +62,4 @@ class _DeferralsService {
   }
 }
 
-const DeferralsService = new _DeferralsService()
-export default DeferralsService
+export default new _DeferralsService()

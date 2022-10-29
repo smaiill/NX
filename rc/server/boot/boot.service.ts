@@ -3,14 +3,9 @@ import DB from '@db/db'
 import { logger } from '@utils/logger'
 
 class _BootService {
-  private readonly DB: typeof DB
-  constructor() {
-    this.DB = DB
-  }
-
   private checkDatabaseConnection(): void {
     const start = Date.now()
-    this.DB.exec('SELECT now()')
+    DB.exec('SELECT now()')
       .then(() => {
         const duration = Date.now() - start
         logger.info(
@@ -33,5 +28,4 @@ class _BootService {
   }
 }
 
-const BootService = new _BootService()
-export default BootService
+export default new _BootService()

@@ -36,5 +36,4 @@ export class _DB {
   }
 }
 
-const DB = new _DB()
-export default DB
+export default new _DB()

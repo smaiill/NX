@@ -223,5 +223,4 @@ class _PlayerService {
   }
 }
 
-const PlayerService = new _PlayerService()
-export default PlayerService
+export default new _PlayerService()

@@ -41,5 +41,4 @@ class _CommandsServices {
   }
 }
 
-const CommandsServices = new _CommandsServices()
-export default CommandsServices
+export default new _CommandsServices()

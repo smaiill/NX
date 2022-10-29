@@ -6,6 +6,7 @@ import {
   deleteInvalidInputs,
 } from '../../../features/input/input.slice'
 import { fetchNui } from '../../../utils/fetchNui'
+import { useInputHandler } from './useInputHandler'
 import { useDispatch } from 'react-redux'
 
 export const useInputServices = () => {
@@ -19,7 +20,6 @@ export const useInputServices = () => {
       if (res.status === 'succes') {
         dispatch(deleteInvalidInputs())
         dispatch(deleteInputsRow())
-
         return
       }
 

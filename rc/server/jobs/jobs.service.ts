@@ -30,5 +30,4 @@ class _JobsService {
   }
 }
 
-const JobsService = new _JobsService()
-export default JobsService
+export default new _JobsService()

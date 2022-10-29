@@ -38,5 +38,4 @@ export class _Events {
   }
 }
 
-const Events = new _Events()
-export default Events
+export default new _Events()

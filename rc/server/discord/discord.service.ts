@@ -20,5 +20,4 @@ class _DiscordService {
   }
 }
 
-const DiscordService = new _DiscordService()
-export default DiscordService
+export default new _DiscordService()

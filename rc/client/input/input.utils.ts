@@ -8,9 +8,10 @@ class _InputUtils {
     validData: InputsDataT
   ): { isValid: boolean; message: string } {
     for (const validInput of validData.rows) {
+      console.log(validInput.required)
       if (
         (validInput.required && !submitedData[validInput.id]) ||
-        submitedData[validInput.id].value.trim() === ''
+        (validInput.required && submitedData[validInput.id].value.trim() === '')
       ) {
         return { isValid: false, message: `Invalid: [${validInput.label}].` }
       }

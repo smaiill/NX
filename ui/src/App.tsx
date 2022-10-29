@@ -6,9 +6,14 @@ import Timeline from './components/timeline/Timeline'
 import { useControllers } from './components/useControllers'
 import './debug'
 import './sass/index.scss'
+import { useSelector } from 'react-redux'
 
 const App = () => {
   useControllers()
+
+  const inputStateSlice = useSelector((state: any) => state.input)
+
+  console.log(inputStateSlice)
 
   return (
     <MainProvider>
@@ -16,7 +21,11 @@ const App = () => {
         <div className="notifications-container">
           <Notification />
         </div>
-        <div className="input-container">
+        <div
+          className={`input-wrapper ${
+            inputStateSlice.inputData !== null ? 'bg' : ''
+          }`}
+        >
           <Input />
         </div>
         <div className="loadingbar-wrapper">

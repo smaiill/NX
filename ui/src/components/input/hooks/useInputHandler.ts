@@ -1,5 +1,5 @@
 import { InputRowT } from '../../../../../types/input'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export const useInputHandler = () => {
   const [inputsState, setInputsState] = useState<
@@ -16,5 +16,7 @@ export const useInputHandler = () => {
     })
   }
 
-  return { handleInputs, inputsState }
+  const clearInputs = () => setInputsState({})
+
+  return { handleInputs, inputsState, clearInputs }
 }

@@ -5,11 +5,9 @@ import Utils from '@shared/utils/misc'
 
 class _BansService {
   private bans: Map<string, BanT>
-  private utils: typeof Utils
   private readonly permaBanValue: number
   constructor() {
     this.bans = new Map()
-    this.utils = Utils
     this.permaBanValue = 3000000000 // ? 24/01/2065 06:20:00
   }
 
@@ -72,7 +70,7 @@ class _BansService {
       const expirationTimestamp = this.createExpirationDate(duration)
 
       // @ts-ignore
-      const id: string = this.utils.uuid()
+      const id: string = Utils.uuid()
       const nxTargetIdentifier = nxTarget.GetIdentifier()
 
       const banData: BanT = {

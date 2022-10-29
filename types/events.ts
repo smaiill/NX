@@ -8,6 +8,7 @@ export enum PlayerEventsE {
   BAN_PLAYER = 'NX::banPlayer',
   ON_STATUS_UPDATED = 'NX::onStatusUpdated',
   ON_PLAYER_LOADED = 'NX::onPlayerLoaded',
+  SEND_MESSAGE_TO_PLAYER = 'NX::sendMessageToPlayer',
 }
 
 export enum ItemsEventsE {

@@ -52,5 +52,4 @@ class _PlayerUtils {
   }
 }
 
-const PlayerUtils = new _PlayerUtils()
-export default PlayerUtils
+export default new _PlayerUtils()
