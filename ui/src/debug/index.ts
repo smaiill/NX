@@ -200,18 +200,27 @@ setTimeout(() => {
         options: {
           title: 'Custom',
           banner:
-            'https://www.sony.fr/image/26fa28cb1303d7d0336acdfb6be4f1b5?fmt=pjpeg&wid=1200&hei=470&bgcolor=F1F5F9&bgc=F1F5F9',
+            'https://thorntons-investments.co.uk/wp-content/uploads/2017/08/400x200.png',
+          width: 400,
           // color: ''
         },
         items: [
           {
             type: 'BUTTON',
+            label: 'CLick here',
           },
           {
             type: 'SLIDER',
+            label: 'CLick here',
+            max: 100,
+            min: 5,
+          },
+          {
+            type: 'CHECKBOX',
+            label: 'CLick here',
           },
         ],
       },
     },
   ])
-}, 1000)
+}, 100)

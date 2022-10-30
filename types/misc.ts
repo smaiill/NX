@@ -9,6 +9,12 @@ export enum CodeColors {
   RED = '^9',
 }
 
+export interface Icon {
+  name: string
+  size?: number
+  otherClass?: string
+}
+
 export enum DefaultDataT {
   LOADING_BAR = 'LOADING_BAR',
   NOTIFICATION = 'NOTIFICATION',

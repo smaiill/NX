@@ -3,7 +3,7 @@ import {
   NotificationDataT,
   NotificationMainColors,
 } from '../../../../../types/notification'
-import NotificationIcon from './NotificationIcon'
+import Icon from '../../misc/Icon'
 
 const NotificationWrapper = ({
   notification,
@@ -26,7 +26,7 @@ const NotificationWrapper = ({
           className="notification-icon-wrapper"
         >
           <div className="notification-row">
-            <NotificationIcon type={notification.type.toLowerCase()} />
+            <Icon name={notification.type.toLowerCase()} />
           </div>
         </div>
       </div>
