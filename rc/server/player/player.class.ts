@@ -109,7 +109,7 @@ class _Player implements NXPlayerT {
   }
 
   public getAccountMoney(account: string): number | undefined {
-    if (!account) return
+    if (!config.accounts[account]) return undefined
 
     return this.accounts[account]
   }

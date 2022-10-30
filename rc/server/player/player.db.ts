@@ -1,6 +1,7 @@
 import { DBQueries } from '../../../types/db'
 import PlayerUtils from './player.utils'
 import DB from '@db/db'
+import { config } from '@shared/load.file'
 import Utils from '@shared/utils/misc'
 
 export class _PlayerDB {
@@ -37,6 +38,7 @@ export class _PlayerDB {
           blood_type: bloodType,
         }),
         uid,
+        JSON.stringify(config.accounts),
       ])
 
       if (!res) return reject()
