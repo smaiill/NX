@@ -8,3 +8,5 @@
 - finish the config.
 - better ui design.
 - refactor and optimize code.
+
+- ux menu system

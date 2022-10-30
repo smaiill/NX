@@ -3,6 +3,7 @@ export enum NuiAPPS {
   LOADING_BAR = 'NX::loadingBar',
   TIMELINE = 'NX::timeline',
   INPUT = 'NX::input',
+  MENU = 'NX::menu',
 }
 
 export enum InventoryActions {

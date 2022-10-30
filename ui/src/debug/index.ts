@@ -48,35 +48,35 @@ import { injectMockData } from '../utils/mock.data'
 //   },
 // ])
 
-setTimeout(() => {
-  injectMockData([
-    {
-      app: 'NX::input',
-      method: 'NX::createInput',
-      data: {
-        title: 'title',
-        rows: [
-          {
-            label: 'Name',
-            id: 'name',
-            type: 'text',
-            required: true,
-          },
-          {
-            label: 'Amount',
-            id: 'amount',
-            type: 'text',
-          },
-          {
-            label: 'Color',
-            id: 'color',
-            type: 'color',
-          },
-        ],
-      },
-    },
-  ])
-}, 5000)
+// setTimeout(() => {
+//   injectMockData([
+//     {
+//       app: 'NX::input',
+//       method: 'NX::createInput',
+//       data: {
+//         title: 'CACA',
+//         rows: [
+//           {
+//             label: 'Name',
+//             id: 'name',
+//             type: 'text',
+//             required: true,
+//           },
+//           {
+//             label: 'Amount',
+//             id: 'amount',
+//             type: 'text',
+//           },
+//           {
+//             label: 'Color',
+//             id: 'color',
+//             type: 'color',
+//           },
+//         ],
+//       },
+//     },
+//   ])
+// }, 5000)
 
 // injectMockData([
 //   {
@@ -180,3 +180,38 @@ setTimeout(() => {
 //     },
 //   ])
 // }, 4000)
+
+/*
+  - BUTTON
+  - SLIDER
+  - SPACE
+  - CATEGORY BUTTON
+  - LIST
+  - CHECKBOX
+  
+*/
+
+setTimeout(() => {
+  injectMockData([
+    {
+      app: 'NX::menu',
+      method: 'NX::createMenu',
+      data: {
+        options: {
+          title: 'Custom',
+          banner:
+            'https://www.sony.fr/image/26fa28cb1303d7d0336acdfb6be4f1b5?fmt=pjpeg&wid=1200&hei=470&bgcolor=F1F5F9&bgc=F1F5F9',
+          // color: ''
+        },
+        items: [
+          {
+            type: 'BUTTON',
+          },
+          {
+            type: 'SLIDER',
+          },
+        ],
+      },
+    },
+  ])
+}, 1000)

@@ -23,6 +23,10 @@ export enum ItemsEventsE {
   ITEM_CREATED = 'NX::itemCreated',
 }
 
+export enum MenuEventsE {
+  CREATE_MENU = 'NX::createMenu',
+}
+
 export enum InputEventsE {
   CREATE_INPUT = 'NX::createInput',
   SUBMIT_DATA = 'NX::inputSubmitData',
