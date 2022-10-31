@@ -10,10 +10,21 @@ export const menuSlice = createSlice({
   initialState,
   reducers: {
     createMenu: (state, action: PayloadAction<Menu>) => {
+      action.payload.items[0].selected = true
       state.menu = action.payload
+    },
+
+    setSelected: (state, action: PayloadAction<number>) => {
+      state.menu?.items.forEach((item, index) => {
+        item.selected = false
+
+        if (index === action.payload) {
+          item.selected = true
+        }
+      })
     },
   },
 })
 
-export const { createMenu } = menuSlice.actions
+export const { createMenu, setSelected } = menuSlice.actions
 export default menuSlice.reducer

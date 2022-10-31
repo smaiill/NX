@@ -5,6 +5,8 @@ export type MenuItemTypes =
   | 'CHECKBOX'
   | 'SEPARATOR'
 
+export type KeysTypes = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT'
+
 export enum MenuItemTypesE {
   BUTTON = 'BUTTON',
   SLIDER = 'SLIDER',
@@ -13,14 +15,24 @@ export enum MenuItemTypesE {
   SEPARATOR = 'SEPARATOR',
 }
 
+export enum KeysTypesE {
+  UP = 'UP',
+  DOWN = 'DOWN',
+  LEFT = 'LEFT',
+  RIGHT = 'RIGHT',
+}
+
 export interface Menu {
   options: MenuOptions
   items: MenuItem[]
+  uuid?: string
+  active?: boolean
+  itemsLength?: number
 }
 
 export interface MenuOptions {
   title: string
-  banner: URL
+  banner: string
   width?: number
 }
 
@@ -30,10 +42,18 @@ export interface ItemSliderOptions {
 }
 
 export interface ItemListOptions {
-  choices: string[]
+  choices?: string[]
 }
 
 export interface MenuItem extends ItemSliderOptions, ItemListOptions {
   type: MenuItemTypes
   label: string
+  selected?: boolean
+}
+
+export interface KeyMapping {
+  key: string
+  description: string
+  command: string
+  handler: (key: string) => void
 }

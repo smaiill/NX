@@ -5,14 +5,13 @@
 }
 
 .menu-wrapper {
-  // background-color: red;
   position: absolute;
   top: 10px;
   left: 10px;
   width: 400px;
+  background-color: rgba(0, 0, 0, 0.1);
 
   .menu-header {
-    background-color: yellow;
     display: flex;
     position: relative;
 
@@ -32,19 +31,26 @@
   }
 
   .menu-items-wrapper {
-    background-color: green;
     display: flex;
     flex-direction: column;
     gap: 1px;
 
     .menu-item {
-      background-color: yellow;
       display: flex;
       align-items: center;
       justify-content: space-between;
       height: 30px;
       padding: 0 5px;
       position: relative;
+      background-color: rgba(0, 0, 0, 0.1);
+
+      &:first-child {
+        margin-top: 5px;
+      }
+
+      &.selected {
+        background-color: red;
+      }
 
       &.hover {
         background-color: white;
@@ -52,6 +58,7 @@
 
       span.label {
         font-size: 13px;
+        color: white;
       }
 
       &.separator {
@@ -97,7 +104,7 @@
           width: 20px;
           height: 20px;
           -webkit-appearance: none;
-          background: #d4cbcb;
+          background: #000000;
           border-radius: 2px;
           transition: 0.4s;
         }

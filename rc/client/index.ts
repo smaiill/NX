@@ -4,6 +4,7 @@ import {
   Events,
   Input,
   LoadingBar,
+  Menu,
   Misc,
   Notification,
   Object,
@@ -23,6 +24,7 @@ class Client {
   Notification: typeof Notification
   LoadingBar: typeof LoadingBar
   Timeline: typeof Timeline
+  Menu: typeof Menu
   constructor() {
     this.EventsService = Events
     this.Objects = Object
@@ -34,6 +36,7 @@ class Client {
     this.Notification = Notification
     this.LoadingBar = LoadingBar
     this.Timeline = Timeline
+    this.Menu = Menu
   }
 }
 
@@ -71,6 +74,9 @@ globalThis.exports('useClient', () => {
       Destroy: client.Timeline.destroy.bind(client.Timeline),
       IsActive: client.Timeline.isActive.bind(client.Timeline),
     },
+    Menu: {
+      Create: client.Menu.createMenu.bind(client.Menu),
+    },
     Misc: {
       DrawText3D: client.Misc.drawText3D.bind(client.Misc),
       RequestAnim: client.Misc.requestAnim.bind(client.Misc),
@@ -82,3 +88,68 @@ globalThis.exports('useClient', () => {
     },
   }
 })
+
+setTimeout(() => {
+  // Events.emitNuiEvent(    {
+  //   app: 'NX::menu',
+  //   method: 'NX::createMenu',
+  //   data: {
+  //     options: {
+  //       title: 'Custom',
+  //       banner:
+  //         'https://thorntons-investments.co.uk/wp-content/uploads/2017/08/400x200.png',
+  //       width: 400,
+  //       // color: ''
+  //     },
+  //     items: [
+  //       {
+  //         type: 'BUTTON',
+  //         label: 'CLick here',
+  //       },
+  //       {
+  //         type: 'SLIDER',
+  //         label: 'CLick here',
+  //         max: 100,
+  //         min: 5,
+  //       },
+  //       {
+  //         type: 'CHECKBOX',
+  //         label: 'CLick here',
+  //       },
+  //       {
+  //         type: 'SEPARATOR',
+  //         label: 'SEPARATOR',
+  //       },
+  //     ],
+  //   },
+  // })
+
+  Menu.createMenu({
+    options: {
+      title: 'Custom',
+      banner:
+        'https://thorntons-investments.co.uk/wp-content/uploads/2017/08/400x200.png',
+      width: 400,
+    },
+    items: [
+      {
+        type: 'BUTTON',
+        label: 'CLick here',
+      },
+      {
+        type: 'SLIDER',
+        label: 'CLick here',
+        max: 100,
+        min: 5,
+      },
+      {
+        type: 'SEPARATOR',
+        label: 'SEPARATOR',
+      },
+      {
+        type: 'CHECKBOX',
+        label: 'CLick here',
+      },
+    ],
+  })
+}, 500)

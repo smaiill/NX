@@ -1,10 +1,9 @@
 import { MenuItem, MenuItemTypesE } from '../../../../types/menu'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 const Menu = () => {
   const menuState = useSelector((state: any) => state.menu.menu)
-
-  console.log(menuState)
 
   return (
     <>
@@ -22,7 +21,9 @@ const Menu = () => {
             {menuState.items.map((item: MenuItem, index: number) => (
               <div
                 key={index}
-                className={`menu-item ${item.type.toLowerCase()}`}
+                className={`menu-item ${item.type.toLowerCase()} ${
+                  item.selected ? 'selected' : ''
+                }`}
               >
                 <span className="label">{item.label}</span>
 
