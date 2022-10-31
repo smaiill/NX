@@ -5,7 +5,14 @@ export type MenuItemTypes =
   | 'CHECKBOX'
   | 'SEPARATOR'
 
-export type KeysTypes = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT'
+export type KeysTypes = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT' | 'RETURN'
+
+export interface KeyPressedHandler {
+  key: KeysTypes
+  index: number
+  type: MenuItemTypes
+  choiceIndex?: number
+}
 
 export enum MenuItemTypesE {
   BUTTON = 'BUTTON',
@@ -20,6 +27,7 @@ export enum KeysTypesE {
   DOWN = 'DOWN',
   LEFT = 'LEFT',
   RIGHT = 'RIGHT',
+  RETURN = 'RETURN',
 }
 
 export interface Menu {
@@ -28,6 +36,7 @@ export interface Menu {
   uuid?: string
   active?: boolean
   itemsLength?: number
+  listChoices?: any
 }
 
 export interface MenuOptions {
@@ -41,8 +50,13 @@ export interface ItemSliderOptions {
   max?: number
 }
 
+export interface ItemListChoices {
+  label: string
+  id: string
+}
+
 export interface ItemListOptions {
-  choices?: string[]
+  choices?: ItemListChoices[]
 }
 
 export interface MenuItem extends ItemSliderOptions, ItemListOptions {

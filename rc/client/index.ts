@@ -128,18 +128,18 @@ setTimeout(() => {
     options: {
       title: 'Custom',
       banner:
-        'https://thorntons-investments.co.uk/wp-content/uploads/2017/08/400x200.png',
+        'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000',
       width: 400,
     },
     items: [
       {
         type: 'BUTTON',
-        label: 'CLick here',
+        label: 'Button',
       },
       {
         type: 'SLIDER',
-        label: 'CLick here',
-        max: 100,
+        label: 'Slider',
+        max: 15,
         min: 5,
       },
       {
@@ -148,7 +148,25 @@ setTimeout(() => {
       },
       {
         type: 'CHECKBOX',
-        label: 'CLick here',
+        label: 'Chckbox',
+      },
+      {
+        type: 'LIST',
+        label: 'Chckbox',
+        choices: [
+          {
+            id: '1',
+            label: 'Un',
+          },
+          {
+            id: '2',
+            label: 'Deux',
+          },
+          {
+            id: '3',
+            label: 'Trois',
+          },
+        ],
       },
     ],
   })

@@ -1,6 +1,12 @@
 import { MenuEventsE } from '../../../types/events'
 import { NuiAPPS } from '../../../types/main'
-import { KeyMapping, KeysTypes, Menu } from '../../../types/menu'
+import {
+  KeyMapping,
+  KeysTypes,
+  KeysTypesE,
+  Menu,
+  MenuItemTypesE,
+} from '../../../types/menu'
 import MenuUtils from './menu.utils'
 import EventsService from '@events/events.service'
 import Utils from '@shared/utils/misc'
@@ -38,6 +44,12 @@ class MenuService {
         command: 'NX::keyRight',
         handler: () => this.keyHandler('RIGHT'),
       },
+      {
+        key: 'RETURN',
+        description: 'Key RETURN',
+        command: 'NX::keyReturn',
+        handler: () => this.keyHandler('RETURN'),
+      },
     ]
 
     this.keyInterval = new Date().getTime()
@@ -61,30 +73,103 @@ class MenuService {
 
     this.keyInterval = new Date().getTime()
 
-    if (key === 'UP') {
-      this.actualIndex--
+    console.log(key)
+
+    if (key === KeysTypesE.UP || key === KeysTypesE.DOWN) {
+      if (key === KeysTypesE.UP) {
+        this.actualIndex--
+      }
+
+      if (key === KeysTypesE.DOWN) {
+        this.actualIndex++
+      }
+
+      if (key === KeysTypesE.UP && this.actualIndex < 0) {
+        return (this.actualIndex = 0)
+      }
+
+      if (
+        key === KeysTypesE.DOWN &&
+        this.actualIndex > this.actualMenu.itemsLength!
+      ) {
+        return (this.actualIndex = this.actualMenu.itemsLength!)
+      }
+
+      EventsService.emitNuiEvent({
+        app: NuiAPPS.MENU,
+        method: MenuEventsE.KEY_PRESSED,
+        data: {
+          key,
+          index: this.actualIndex,
+        },
+      })
+      return
     }
 
-    if (key === 'DOWN') {
-      this.actualIndex++
+    if (key === KeysTypesE.LEFT || key === KeysTypesE.RIGHT) {
+      if (
+        this.actualMenu.items[this.actualIndex].type === MenuItemTypesE.SLIDER
+      ) {
+        EventsService.emitNuiEvent({
+          app: NuiAPPS.MENU,
+          method: MenuEventsE.KEY_PRESSED,
+          data: {
+            key,
+            index: this.actualIndex,
+            type: MenuItemTypesE.SLIDER,
+          },
+        })
+      }
+
+      if (
+        this.actualMenu.items[this.actualIndex].type === MenuItemTypesE.LIST
+      ) {
+        const item = this.findItemChoices(this.actualIndex)
+
+        if (key === KeysTypesE.LEFT) {
+          item.actualChoice--
+        }
+
+        if (key === KeysTypesE.RIGHT) {
+          item.actualChoice++
+        }
+
+        EventsService.emitNuiEvent({
+          app: NuiAPPS.MENU,
+          method: MenuEventsE.KEY_PRESSED,
+          data: {
+            key,
+            index: this.actualIndex,
+            choiceIndex: item.actualChoice,
+            type: MenuItemTypesE.LIST,
+          },
+        })
+      }
     }
 
-    if (this.actualIndex < 0) {
-      return (this.actualIndex = 0)
+    if (key === KeysTypesE.RETURN) {
+      if (
+        this.actualMenu.items[this.actualIndex].type === MenuItemTypesE.CHECKBOX
+      ) {
+        EventsService.emitNuiEvent({
+          app: NuiAPPS.MENU,
+          method: MenuEventsE.KEY_PRESSED,
+          data: {
+            key,
+            index: this.actualIndex,
+            type: MenuItemTypesE.CHECKBOX,
+          },
+        })
+      }
     }
+  }
 
-    if (this.actualIndex > this.actualMenu.itemsLength!) {
-      return (this.actualIndex = this.actualMenu.itemsLength!)
-    }
+  private findItemChoices(index: number) {
+    const item = this.actualMenu?.listChoices.find(
+      (list: any) => list.itemID === index
+    )
 
-    EventsService.emitNuiEvent({
-      app: NuiAPPS.MENU,
-      method: MenuEventsE.KEY_PRESSED,
-      data: {
-        key,
-        index: this.actualIndex,
-      },
-    })
+    return item
   }
 
   public createMenu(menu: Menu) {
@@ -116,8 +201,27 @@ class MenuService {
     // @ts-ignore
     menu.active = true
     this.actualMenu = menu
+    this.actualMenu.listChoices = []
+
+    let ii: number = 0
+
+    for (const item of this.actualMenu.items) {
+      if (item.type === MenuItemTypesE.LIST) {
+        this.actualMenu.listChoices.push({
+          itemID: ii,
+          actualChoice: 0,
+          maxChoices: item.choices?.length! - 1,
+        })
+      }
+      ii++
+    }
+
+    ii = 0
+
     // @ts-ignore
     this.actualMenu.itemsLength = this.actualMenu.items.length - 1
+
+    console.log(JSON.stringify(this.actualMenu.listChoices))
 
     EventsService.emitNuiEvent({
       app: NuiAPPS.MENU,

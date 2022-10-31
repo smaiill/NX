@@ -42,7 +42,7 @@
       height: 30px;
       padding: 0 5px;
       position: relative;
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: rgba(0, 0, 0, 0.2);
 
       &:first-child {
         margin-top: 5px;
@@ -107,6 +107,21 @@
           background: #000000;
           border-radius: 2px;
           transition: 0.4s;
+        }
+      }
+
+      .list-choices-container {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        span {
+          font-size: 13px;
+          display: none;
+
+          &.active {
+            display: block;
+          }
         }
       }
     }

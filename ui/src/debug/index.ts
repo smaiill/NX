@@ -207,21 +207,39 @@ setTimeout(() => {
         items: [
           {
             type: 'BUTTON',
-            label: 'CLick here',
+            label: 'Button',
           },
           {
             type: 'SLIDER',
-            label: 'CLick here',
-            max: 100,
+            label: 'Slider',
+            max: 15,
             min: 5,
-          },
-          {
-            type: 'CHECKBOX',
-            label: 'CLick here',
           },
           {
             type: 'SEPARATOR',
             label: 'SEPARATOR',
+          },
+          {
+            type: 'CHECKBOX',
+            label: 'Chckbox',
+          },
+          {
+            type: 'LIST',
+            label: 'List',
+            choices: [
+              {
+                id: '1',
+                label: 'Un',
+              },
+              {
+                id: '2',
+                label: 'Deux',
+              },
+              {
+                id: '3',
+                label: 'Trois',
+              },
+            ],
           },
         ],
       },

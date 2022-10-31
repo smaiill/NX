@@ -1,5 +1,10 @@
-import { MenuItem, MenuItemTypesE } from '../../../../types/menu'
-import { useEffect } from 'react'
+import {
+  ItemListChoices,
+  MenuItem,
+  MenuItemTypesE,
+} from '../../../../types/menu'
+import Icon from '../misc/Icon'
+import { createRef, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 
 const Menu = () => {
@@ -29,6 +34,7 @@ const Menu = () => {
 
                 {item.type === MenuItemTypesE.SLIDER && (
                   <input
+                    id={`slider-${index}`}
                     min={item.min ?? 0}
                     max={item.max ?? 10}
                     type="range"
@@ -38,9 +44,31 @@ const Menu = () => {
                 {item.type === MenuItemTypesE.CHECKBOX && (
                   <>
                     <span className="checkbox-style">
-                      <input type="checkbox" />
+                      <input id={`checkbox-${index}`} type="checkbox" />
                     </span>
                   </>
+                )}
+
+                {item.type === MenuItemTypesE.LIST && (
+                  <div className="list-choices-container">
+                    <Icon name="chevron-right" size={12} />
+                    <>
+                      {item.choices?.map(
+                        (choice: ItemListChoices, choiceIndex: number) => (
+                          <span
+                            className={`choices-${index} choice ${
+                              choiceIndex === 0 ? 'active' : ''
+                            }`}
+                            id={`choice-${index}-${choiceIndex}`}
+                            key={`choice-key-${index}-${choiceIndex}`}
+                          >
+                            {choice.label}
+                          </span>
+                        )
+                      )}
+                    </>
+                    <Icon name="chevron-left" size={12} />
+                  </div>
                 )}
               </div>
             ))}
