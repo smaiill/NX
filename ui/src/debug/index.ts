@@ -219,6 +219,10 @@ setTimeout(() => {
             type: 'CHECKBOX',
             label: 'CLick here',
           },
+          {
+            type: 'SEPARATOR',
+            label: 'SEPARATOR',
+          },
         ],
       },
     },

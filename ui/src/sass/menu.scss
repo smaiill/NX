@@ -5,7 +5,7 @@
 }
 
 .menu-wrapper {
-  background-color: red;
+  // background-color: red;
   position: absolute;
   top: 10px;
   left: 10px;
@@ -52,6 +52,11 @@
 
       span.label {
         font-size: 13px;
+      }
+
+      &.separator {
+        align-items: center;
+        justify-content: center;
       }
 
       input[type='range'] {

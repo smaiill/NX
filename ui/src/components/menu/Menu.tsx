@@ -46,25 +46,6 @@ const Menu = () => {
           </div>
         </div>
       )}
-
-      {/* <div className="menu-wrapper">
-        <div className="menu-header">
-            <h2>NIIY</h2>
-            <img src="https://thorntons-investments.co.uk/wp-content/uploads/2017/08/400x200.png" alt="" />
-        </div>
-        <div className="menu-items-wrapper">
-            <div className="menu-item button">
-                <span className="label">Click me !</span>
-            </div>
-            <div className="menu-item slider">
-                <span className="label">Fait ton choix</span>
-                <input max={5} type="range" />
-            </div>
-            <div className="menu-item button">
-                <span className="label">Click me !</span>
-            </div>
-        </div>
-    </div> */}
     </>
   )
 }

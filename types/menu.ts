@@ -1,10 +1,16 @@
-export type MenuItemTypes = 'BUTTON' | 'SLIDER' | 'LIST' | 'CHECKBOX'
+export type MenuItemTypes =
+  | 'BUTTON'
+  | 'SLIDER'
+  | 'LIST'
+  | 'CHECKBOX'
+  | 'SEPARATOR'
 
 export enum MenuItemTypesE {
   BUTTON = 'BUTTON',
   SLIDER = 'SLIDER',
   LIST = 'LIST',
   CHECKBOX = 'CHECKBOX',
+  SEPARATOR = 'SEPARATOR',
 }
 
 export interface Menu {
@@ -23,7 +29,11 @@ export interface ItemSliderOptions {
   max?: number
 }
 
-export interface MenuItem extends ItemSliderOptions {
+export interface ItemListOptions {
+  choices: string[]
+}
+
+export interface MenuItem extends ItemSliderOptions, ItemListOptions {
   type: MenuItemTypes
   label: string
 }
