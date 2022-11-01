@@ -1,3 +1,5 @@
+import { MenuEventsE } from '../../../types/events'
+import { NuiAPPS } from '../../../types/main'
 import { TimelineUpdateActions } from '../../../types/timeline'
 import { injectMockData } from '../utils/mock.data'
 
@@ -200,7 +202,7 @@ setTimeout(() => {
         options: {
           title: 'Custom',
           banner:
-            'https://thorntons-investments.co.uk/wp-content/uploads/2017/08/400x200.png',
+            'https://img.freepik.com/free-vector/yellow-background-with-halftone-lines-design_1017-30148.jpg?w=2000',
           width: 400,
           // color: ''
         },

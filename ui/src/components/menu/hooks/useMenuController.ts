@@ -4,10 +4,12 @@ import { useMenuServices } from './useMenuServices'
 import { useNuiEvent } from 'fivem-nui-react-lib'
 
 const useMenuController = () => {
-  const { handleCreateMenu, handleKeyPressed } = useMenuServices()
+  const { handleCreateMenu, handleKeyPressed, handleHideMenu } =
+    useMenuServices()
 
   useNuiEvent(NuiAPPS.MENU, MenuEventsE.CREATE_MENU, handleCreateMenu)
   useNuiEvent(NuiAPPS.MENU, MenuEventsE.KEY_PRESSED, handleKeyPressed)
+  useNuiEvent(NuiAPPS.MENU, MenuEventsE.HIDE_MENU, handleHideMenu)
 }
 
 export { useMenuController }

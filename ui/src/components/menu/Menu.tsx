@@ -17,9 +17,11 @@ const Menu = () => {
           style={{ width: menuState.options.width }}
           className="menu-wrapper"
         >
-          <div className="menu-header">
+          <div
+            style={{ backgroundImage: `url("${menuState.options.banner}")` }}
+            className="menu-header"
+          >
             <h2>{menuState.options.title}</h2>
-            <img src={menuState.options.banner} alt="" />
           </div>
 
           <div className="menu-items-wrapper">
@@ -30,7 +32,7 @@ const Menu = () => {
                   item.selected ? 'selected' : ''
                 }`}
               >
-                <span className="label">{item.label}</span>
+                <span className="label">{item.label ?? ''}</span>
 
                 {item.type === MenuItemTypesE.SLIDER && (
                   <input

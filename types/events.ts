@@ -26,6 +26,7 @@ export enum ItemsEventsE {
 export enum MenuEventsE {
   CREATE_MENU = 'NX::createMenu',
   KEY_PRESSED = 'KEY_PRESSED',
+  HIDE_MENU = 'HIDE_MENU',
 }
 
 export enum InputEventsE {

@@ -8,8 +8,6 @@ const Icon = ({ name, size = 20 }: IconInterface) => {
     const loadIcon = async () => {
       let importedIcon = await import(`../../assets/icons/${name}.svg`)
 
-      console.log(importedIcon.default)
-
       setIcon(importedIcon.default)
     }
 

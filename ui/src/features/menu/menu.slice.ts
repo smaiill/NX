@@ -23,8 +23,12 @@ export const menuSlice = createSlice({
         }
       })
     },
+
+    hideMenu: (state, action: PayloadAction<void>) => {
+      state.menu = null
+    },
   },
 })
 
-export const { createMenu, setSelected } = menuSlice.actions
+export const { createMenu, setSelected, hideMenu } = menuSlice.actions
 export default menuSlice.reducer

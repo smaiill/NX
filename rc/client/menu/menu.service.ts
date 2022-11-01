@@ -73,8 +73,6 @@ class MenuService {
 
     this.keyInterval = new Date().getTime()
 
-    console.log(key)
-
     if (key === KeysTypesE.UP || key === KeysTypesE.DOWN) {
       if (key === KeysTypesE.UP) {
         this.actualIndex--
@@ -93,6 +91,20 @@ class MenuService {
         this.actualIndex > this.actualMenu.itemsLength!
       ) {
         return (this.actualIndex = this.actualMenu.itemsLength!)
+      }
+
+      if (this.actualMenu.items[this.actualIndex].type === 'SEPARATOR') {
+        let i = this.actualIndex
+
+        key === KeysTypesE.DOWN ? i++ : i--
+
+        const nextItem = this.actualMenu.items[i]
+
+        // ! Check all the next items cause nextItem can be separator too !
+
+        if (!nextItem) return
+
+        key === KeysTypesE.DOWN ? this.actualIndex++ : this.actualIndex--
       }
 
       EventsService.emitNuiEvent({
@@ -132,6 +144,14 @@ class MenuService {
 
         if (key === KeysTypesE.RIGHT) {
           item.actualChoice++
+        }
+
+        if (item.actualChoice > item.maxChoices) {
+          return (item.actualChoice = item.maxChoices)
+        }
+
+        if (item.actualChoice < 0) {
+          return (item.actualChoice = 0)
         }
 
         EventsService.emitNuiEvent({
@@ -186,7 +206,28 @@ class MenuService {
 
     this.Menus.set(uuid as string, menu)
 
-    this.showMenu(uuid as string)
+    return {
+      ShowMenu: () => this.showMenu(menu.uuid as string),
+      HideMenu: () => this.hideMenu(menu.uuid as string),
+    }
+  }
+
+  public hideMenu(uuid: string) {
+    if (!this.Menus.has(uuid)) return
+
+    const menu = this.Menus.get(uuid)
+
+    if (!menu) return
+
+    if (menu.active) {
+      menu.active = false
+      this.actualMenu = null
+    }
+
+    EventsService.emitNuiEvent({
+      app: NuiAPPS.MENU,
+      method: MenuEventsE.HIDE_MENU,
+    })
   }
 
   public showMenu(uuid: string) {
@@ -220,9 +261,6 @@ class MenuService {
 
     // @ts-ignore
     this.actualMenu.itemsLength = this.actualMenu.items.length - 1
-
-    console.log(JSON.stringify(this.actualMenu.listChoices))
-
     EventsService.emitNuiEvent({
       app: NuiAPPS.MENU,
       method: MenuEventsE.CREATE_MENU,

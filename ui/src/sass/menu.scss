@@ -14,14 +14,18 @@
   .menu-header {
     display: flex;
     position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100px;
 
     h2 {
       position: absolute;
       transform: translate(-50%, -50%);
       top: 50%;
       left: 50%;
-      letter-spacing: 3px;
-      font-size: 40px;
+      letter-spacing: 2px;
+      font-size: 25px;
+      text-transform: uppercase;
     }
 
     img {
@@ -48,8 +52,30 @@
         margin-top: 5px;
       }
 
+      &.separator {
+        font-weight: 600;
+        letter-spacing: 2px;
+        align-items: center;
+        justify-content: center;
+      }
+
       &.selected {
-        background-color: red;
+        transition: 0.3s;
+        background-color: rgb(79, 73, 73);
+
+        input[type='range'] {
+          background-color: white;
+
+          &::-webkit-slider-thumb {
+            background-color: white;
+          }
+        }
+
+        span.checkbox-style {
+          input[type='checkbox'] {
+            background: #ffffff;
+          }
+        }
       }
 
       &.hover {
@@ -59,16 +85,12 @@
       span.label {
         font-size: 13px;
         color: white;
-      }
-
-      &.separator {
-        align-items: center;
-        justify-content: center;
+        letter-spacing: 1px;
       }
 
       input[type='range'] {
         -webkit-appearance: none;
-        height: 2px;
+        height: 1px;
         background: rgb(0, 0, 0);
 
         &::-webkit-slider-thumb {
@@ -97,7 +119,7 @@
         display: flex;
         justify-self: center;
         align-items: center;
-        border-radius: 2px;
+        border-radius: 50px;
 
         input[type='checkbox'] {
           position: relative;
@@ -105,7 +127,7 @@
           height: 20px;
           -webkit-appearance: none;
           background: #000000;
-          border-radius: 2px;
+          border-radius: 50px;
           transition: 0.4s;
         }
       }

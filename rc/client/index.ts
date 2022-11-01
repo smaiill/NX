@@ -124,7 +124,7 @@ setTimeout(() => {
   //   },
   // })
 
-  Menu.createMenu({
+  const menu = Menu.createMenu({
     options: {
       title: 'Custom',
       banner:
@@ -170,4 +170,42 @@ setTimeout(() => {
       },
     ],
   })
+
+  setTimeout(() => {
+    // @ts-ignore
+    menu.ShowMenu()
+
+    setTimeout(() => {
+      // @ts-ignore
+      menu.HideMenu()
+    }, 500)
+  }, 1000)
 }, 500)
+
+setTimeout(() => {
+  const menu = Menu.createMenu({
+    options: {
+      title: 'Custom',
+      banner:
+        'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000',
+      width: 400,
+    },
+    items: [
+      {
+        type: 'BUTTON',
+        label: 'Button',
+      },
+      {
+        type: 'SLIDER',
+        label: 'Slider',
+        max: 15,
+        min: 5,
+      },
+    ],
+  })
+
+  setTimeout(() => {
+    // @ts-ignore
+    menu.ShowMenu()
+  }, 1000)
+}, 3000)

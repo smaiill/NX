@@ -5,7 +5,11 @@ import {
   Menu,
   MenuItemTypesE,
 } from '../../../../../types/menu'
-import { createMenu, setSelected } from '../../../features/menu/menu.slice'
+import {
+  createMenu,
+  hideMenu,
+  setSelected,
+} from '../../../features/menu/menu.slice'
 import { useDispatch } from 'react-redux'
 
 const useMenuServices = () => {
@@ -54,7 +58,11 @@ const useMenuServices = () => {
     }
   }
 
-  return { handleCreateMenu, handleKeyPressed }
+  const handleHideMenu = () => {
+    dispatch(hideMenu())
+  }
+
+  return { handleCreateMenu, handleKeyPressed, handleHideMenu }
 }
 
 export { useMenuServices }
