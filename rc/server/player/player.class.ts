@@ -223,6 +223,12 @@ class _Player implements NXPlayerT {
     return
   }
 
+  public setCharInfoKey(key: string, value: string): void {
+    // ! Secure this !
+
+    this.charinfo[key] = value
+  }
+
   public emitEvent(name: string, ...args: any[]): void {
     emitNet(name, this.source, ...args)
   }

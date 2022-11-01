@@ -23,6 +23,7 @@ export const getPlayerMethods = (nxPlayer: NXPlayerT) => {
     SetPermissions: nxPlayer.setPermissions.bind(nxPlayer),
     SetThirst: nxPlayer.setThirst.bind(nxPlayer),
     SetHunger: nxPlayer.setHunger.bind(nxPlayer),
+    SetCharInfoKey: nxPlayer.setCharInfoKey.bind(nxPlayer),
     SetAccountMoney: nxPlayer.setAccountMoney.bind(nxPlayer),
     HasItem: nxPlayer.hasItem.bind(nxPlayer),
     RemoveItem: nxPlayer.removeInventoryItem.bind(nxPlayer),

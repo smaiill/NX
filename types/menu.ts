@@ -62,7 +62,10 @@ export interface ItemListOptions {
 export interface MenuItem extends ItemSliderOptions, ItemListOptions {
   type: MenuItemTypes
   label: string
+  id: string
   selected?: boolean
+  onClick?: Function
+  onHover?: Function
 }
 
 export interface KeyMapping {

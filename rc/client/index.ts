@@ -89,123 +89,97 @@ globalThis.exports('useClient', () => {
   }
 })
 
-setTimeout(() => {
-  // Events.emitNuiEvent(    {
-  //   app: 'NX::menu',
-  //   method: 'NX::createMenu',
-  //   data: {
-  //     options: {
-  //       title: 'Custom',
-  //       banner:
-  //         'https://thorntons-investments.co.uk/wp-content/uploads/2017/08/400x200.png',
-  //       width: 400,
-  //       // color: ''
-  //     },
-  //     items: [
-  //       {
-  //         type: 'BUTTON',
-  //         label: 'CLick here',
-  //       },
-  //       {
-  //         type: 'SLIDER',
-  //         label: 'CLick here',
-  //         max: 100,
-  //         min: 5,
-  //       },
-  //       {
-  //         type: 'CHECKBOX',
-  //         label: 'CLick here',
-  //       },
-  //       {
-  //         type: 'SEPARATOR',
-  //         label: 'SEPARATOR',
-  //       },
-  //     ],
-  //   },
-  // })
+// setTimeout(() => {
+// Events.emitNuiEvent(    {
+//   app: 'NX::menu',
+//   method: 'NX::createMenu',
+//   data: {
+//     options: {
+//       title: 'Custom',
+//       banner:
+//         'https://thorntons-investments.co.uk/wp-content/uploads/2017/08/400x200.png',
+//       width: 400,
+//       // color: ''
+//     },
+//     items: [
+//       {
+//         type: 'BUTTON',
+//         label: 'CLick here',
+//       },
+//       {
+//         type: 'SLIDER',
+//         label: 'CLick here',
+//         max: 100,
+//         min: 5,
+//       },
+//       {
+//         type: 'CHECKBOX',
+//         label: 'CLick here',
+//       },
+//       {
+//         type: 'SEPARATOR',
+//         label: 'SEPARATOR',
+//       },
+//     ],
+//   },
+// })
 
-  const menu = Menu.createMenu({
-    options: {
-      title: 'Custom',
-      banner:
-        'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000',
-      width: 400,
-    },
-    items: [
-      {
-        type: 'BUTTON',
-        label: 'Button',
-      },
-      {
-        type: 'SLIDER',
-        label: 'Slider',
-        max: 15,
-        min: 5,
-      },
-      {
-        type: 'SEPARATOR',
-        label: 'SEPARATOR',
-      },
-      {
-        type: 'CHECKBOX',
-        label: 'Chckbox',
-      },
-      {
-        type: 'LIST',
-        label: 'Chckbox',
-        choices: [
-          {
-            id: '1',
-            label: 'Un',
-          },
-          {
-            id: '2',
-            label: 'Deux',
-          },
-          {
-            id: '3',
-            label: 'Trois',
-          },
-        ],
-      },
-    ],
-  })
+//   const menu = Menu.createMenu({
+//     options: {
+//       title: 'Custom',
+//       banner:
+//         'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000',
+//       width: 400,
+//     },
+//     items: [
+//       {
+//         type: 'BUTTON',
+//         label: 'Button',
+//         id: 'button-1',
+//         onClick: () => console.log('Hello world !')
+//       },
+//       {
+//         type: 'SLIDER',
+//         label: 'Slider',
+//         max: 15,
+//         min: 5,
+//         id: 'slider-1',
+//       },
+//       {
+//         type: 'SEPARATOR',
+//         label: 'SEPARATOR',
+//         id: 'separator-1',
+//       },
+//       {
+//         type: 'CHECKBOX',
+//         label: 'Chckbox',
+//         id: 'checkbox-1',
+//       },
+//       {
+//         type: 'LIST',
+//         label: 'Chckbox',
+//         id: 'list-1',
+//         choices: [
+//           {
+//             id: '1',
+//             label: 'Un',
+//           },
+//           {
+//             id: '2',
+//             label: 'Deux',
+//           },
+//           {
+//             id: '3',
+//             label: 'Trois',
+//           },
+//         ],
+//       },
+//     ],
+//   })
 
-  setTimeout(() => {
-    // @ts-ignore
-    menu.ShowMenu()
+//   setTimeout(() => {
+//     // @ts-ignore
+//     menu.ShowMenu()
 
-    setTimeout(() => {
-      // @ts-ignore
-      menu.HideMenu()
-    }, 500)
-  }, 1000)
-}, 500)
-
-setTimeout(() => {
-  const menu = Menu.createMenu({
-    options: {
-      title: 'Custom',
-      banner:
-        'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000',
-      width: 400,
-    },
-    items: [
-      {
-        type: 'BUTTON',
-        label: 'Button',
-      },
-      {
-        type: 'SLIDER',
-        label: 'Slider',
-        max: 15,
-        min: 5,
-      },
-    ],
-  })
-
-  setTimeout(() => {
-    // @ts-ignore
-    menu.ShowMenu()
-  }, 1000)
-}, 3000)
+//   }, 500)
+// }, 250)

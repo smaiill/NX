@@ -47,6 +47,7 @@ export interface NXPlayerMethodsT {
   hasItem(name: string): boolean | any
   removeInventoryItem(name: string, amount: number, cb?: RespCB): Promise<void>
   canTakeItem(name: string, amount: number): Promise<boolean>
+  setCharInfoKey(key: string, value: string): void
   addInventoryItem(name: string, amount: number, cb?: RespCB): Promise<void>
   save(cb?: RespCB): Promise<void>
   kick(reason: string): void

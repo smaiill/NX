@@ -181,6 +181,14 @@ class MenuService {
           },
         })
       }
+
+      if (
+        this.actualMenu.items[this.actualIndex].type === MenuItemTypesE.BUTTON
+      ) {
+        if (this.actualMenu.items[this.actualIndex].onClick) {
+          this.actualMenu.items[this.actualIndex].onClick!()
+        }
+      }
     }
   }
 
