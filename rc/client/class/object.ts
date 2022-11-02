@@ -50,5 +50,4 @@ class _Object {
   }
 }
 
-const ObjectManager = new _Object()
-export default ObjectManager
+export default new _Object()

@@ -10,7 +10,7 @@ import TimelineUtils from './timeline.utils'
 import EventsService from '@events/events.service'
 import logger from '@utils/logger'
 
-class _TimelineService {
+class TimelineService {
   timelineState: TimelineState
   timelineUtils: typeof TimelineUtils
   lastTaskID: string
@@ -161,5 +161,4 @@ class _TimelineService {
   }
 }
 
-const TimelineService = new _TimelineService()
-export default TimelineService
+export default new TimelineService()

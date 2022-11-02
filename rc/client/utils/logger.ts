@@ -1,6 +1,6 @@
 import { CodeColors } from '../../../types/misc'
 
-class _Logger {
+class Logger {
   private readonly logsCodes: {
     error: string
     info: string
@@ -35,5 +35,4 @@ class _Logger {
   }
 }
 
-const logger = new _Logger()
-export default logger
+export default new Logger()

@@ -5,7 +5,7 @@ import { DefaultDataT } from '../../../types/misc'
 import EventsService from '@events/events.service'
 import { overWriteData } from '@shared/utils/def'
 
-class _LoadingBarService {
+class LoadingBarService {
   private readonly currentLoadingBarState: {
     isActive: boolean
   }
@@ -46,5 +46,4 @@ class _LoadingBarService {
   }
 }
 
-const LoadingBarService = new _LoadingBarService()
-export default LoadingBarService
+export default new LoadingBarService()

@@ -5,7 +5,7 @@ import { NotificationDataT } from '../../../types/notification'
 import EventsService from '@events/events.service'
 import { overWriteData } from '@shared/utils/def'
 
-class _NotificationService {
+class NotificationService {
   constructor() {}
 
   public async create(data: NotificationDataT): Promise<void> {
@@ -25,5 +25,4 @@ class _NotificationService {
   }
 }
 
-const NotificationService = new _NotificationService()
-export default NotificationService
+export default new NotificationService()

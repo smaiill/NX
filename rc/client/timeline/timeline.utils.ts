@@ -1,6 +1,6 @@
 import { TimelineDataT } from '../../../types/timeline'
 
-class _TimelineUtils {
+class TimelineUtils {
   constructor() {}
 
   validateCreationData(data: TimelineDataT): {
@@ -28,5 +28,4 @@ class _TimelineUtils {
   }
 }
 
-const TimelineUtils = new _TimelineUtils()
-export default TimelineUtils
+export default new TimelineUtils()

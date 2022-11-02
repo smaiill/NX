@@ -2,7 +2,7 @@ import { PlayerEventsE } from '../../../types/events'
 import { InventoryActionDataT } from '../../../types/main'
 import Player from './player.class'
 
-class _PlayerService {
+class PlayerService {
   constructor() {}
 
   private syncCoords(): void {
@@ -111,5 +111,4 @@ class _PlayerService {
   }
 }
 
-const PlayerService = new _PlayerService()
-export default PlayerService
+export default new PlayerService()

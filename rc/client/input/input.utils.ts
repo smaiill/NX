@@ -1,6 +1,6 @@
 import { InputsDataT } from '../../../types/input'
 
-class _InputUtils {
+class InputUtils {
   constructor() {}
 
   public isDataValid(
@@ -21,5 +21,4 @@ class _InputUtils {
   }
 }
 
-const InputUtils = new _InputUtils()
-export default InputUtils
+export default new InputUtils()

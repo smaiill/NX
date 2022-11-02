@@ -5,7 +5,7 @@ import Player from '../player/player.class'
 import MiscManager from '@class/misc'
 import ObjectManager from '@class/object'
 
-class _ItemsService {
+class ItemsService {
   private Pickups: PickupT[]
   private readonly pickupAnimation: { name: string; dict: string }
   private readonly REFRESH_TIME: number
@@ -151,5 +151,4 @@ class _ItemsService {
   }
 }
 
-const ItemsService = new _ItemsService()
-export default ItemsService
+export default new ItemsService()

@@ -2,7 +2,7 @@ import { RespCB } from '../../../types/main'
 import Utils from '@shared/utils/misc'
 import logger from '@utils/logger'
 
-export class _EventsService {
+export class EventsService {
   private events: Map<string, Function>
   private utils: typeof Utils
   constructor() {
@@ -60,5 +60,4 @@ export class _EventsService {
   }
 }
 
-const EventsService = new _EventsService()
-export default EventsService
+export default new EventsService()

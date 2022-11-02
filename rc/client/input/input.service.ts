@@ -5,7 +5,7 @@ import InputUtils from './input.utils'
 import EventsService from '@events/events.service'
 import logger from '@utils/logger'
 
-class _InputService {
+class InputService {
   private inputUtils: typeof InputUtils
   private readonly currentInputState: {
     active: boolean
@@ -102,5 +102,4 @@ class _InputService {
   }
 }
 
-const InputService = new _InputService()
-export default InputService
+export default new InputService()

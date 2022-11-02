@@ -1,6 +1,6 @@
 import { RespCB, RespT } from '../../../types/main'
 
-class _Vehicle {
+class Vehicle {
   private readonly MAXIMUM_COLORS_VEHICLE: number
   private readonly VEHICLES_ARRAY: ReadonlyArray<string>
   constructor() {
@@ -108,5 +108,4 @@ class _Vehicle {
   }
 }
 
-const VehicleManager = new _Vehicle()
-export default VehicleManager
+export default new Vehicle()

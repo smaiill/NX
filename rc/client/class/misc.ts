@@ -1,7 +1,7 @@
 import { RespCB } from '../../../types/main'
 import logger from '@utils/logger'
 
-class _Misc {
+class Misc {
   constructor() {}
 
   public createPed(pedType: 1 | 2, model: string, cb?: RespCB): number | void {
@@ -103,5 +103,4 @@ class _Misc {
   }
 }
 
-const MiscManager = new _Misc()
-export default MiscManager
+export default new Misc()
