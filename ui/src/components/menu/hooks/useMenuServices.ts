@@ -1,3 +1,4 @@
+import { MenuEventsE } from '../../../../../types/events'
 import {
   KeyPressedHandler,
   KeysTypes,
@@ -10,6 +11,7 @@ import {
   hideMenu,
   setSelected,
 } from '../../../features/menu/menu.slice'
+import { fetchNui } from '../../../utils/fetchNui'
 import { useDispatch } from 'react-redux'
 
 const useMenuServices = () => {

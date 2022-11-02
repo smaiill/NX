@@ -11,12 +11,17 @@ import MenuUtils from './menu.utils'
 import EventsService from '@events/events.service'
 import Utils from '@shared/utils/misc'
 
+//
+// ! This file needs a big refactor
+//
+
 class MenuService {
   private KEYS: KeyMapping[]
   private keyInterval: number
   private Menus: Map<string, Menu>
   private actualMenu: Menu | null
   private actualIndex: number
+  private activeCheckboxs: number[]
 
   constructor() {
     this.KEYS = [
@@ -56,6 +61,7 @@ class MenuService {
     this.Menus = new Map()
     this.actualMenu = null
     this.actualIndex = 0
+    this.activeCheckboxs = []
 
     this.registerKeyMappings()
   }
@@ -180,6 +186,23 @@ class MenuService {
       if (
         this.actualMenu.items[this.actualIndex].type === MenuItemTypesE.CHECKBOX
       ) {
+        this.activeCheckboxs.includes(this.actualIndex)
+          ? (this.activeCheckboxs = this.activeCheckboxs.filter(
+              (element) => element !== this.actualIndex
+            ))
+          : this.activeCheckboxs.push(this.actualIndex)
+
+        if (this.actualMenu.items[this.actualIndex].onChange) {
+          this.actualMenu.items[this.actualIndex].onChange!(
+            // @ts-ignore
+            {
+              id: this.actualMenu.items[this.actualIndex].id,
+              label: this.actualMenu.items[this.actualIndex].label,
+              checked: this.activeCheckboxs.includes(this.actualIndex),
+            }
+          )
+        }
+
         EventsService.emitNuiEvent({
           app: NuiAPPS.MENU,
           method: MenuEventsE.KEY_PRESSED,

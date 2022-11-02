@@ -154,6 +154,7 @@ setTimeout(() => {
         type: 'CHECKBOX',
         label: 'Chckbox',
         id: 'checkbox-1',
+        onChange: (checkbox: any) => console.log(checkbox),
       },
       {
         type: 'LIST',
