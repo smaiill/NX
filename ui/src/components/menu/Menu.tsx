@@ -1,10 +1,6 @@
-import {
-  ItemListChoices,
-  MenuItem,
-  MenuItemTypesE,
-} from '../../../../types/menu'
-import Icon from '../misc/Icon'
-import { createRef, useEffect, useRef } from 'react'
+import { MenuItem as MenuItemType } from '../../../../types/menu'
+import MenuHeader from './components/MenuHeader'
+import MenuItem from './components/MenuItem'
 import { useSelector } from 'react-redux'
 
 const Menu = () => {
@@ -17,62 +13,13 @@ const Menu = () => {
           style={{ width: menuState.options.width }}
           className="menu-wrapper"
         >
-          <div
-            style={{ backgroundImage: `url("${menuState.options.banner}")` }}
-            className="menu-header"
-          >
-            <h2>{menuState.options.title}</h2>
-          </div>
-
+          <MenuHeader
+            banner={menuState.options.banner}
+            title={menuState.options.title}
+          />
           <div className="menu-items-wrapper">
-            {menuState.items.map((item: MenuItem, index: number) => (
-              <div
-                key={index}
-                className={`menu-item ${item.type.toLowerCase()} ${
-                  item.selected ? 'selected' : ''
-                }`}
-              >
-                <span className="label">{item.label ?? ''}</span>
-
-                {item.type === MenuItemTypesE.SLIDER && (
-                  <input
-                    id={`slider-${index}`}
-                    min={item.min ?? 0}
-                    max={item.max ?? 10}
-                    type="range"
-                  />
-                )}
-
-                {item.type === MenuItemTypesE.CHECKBOX && (
-                  <>
-                    <span className="checkbox-style">
-                      <input id={`checkbox-${index}`} type="checkbox" />
-                    </span>
-                  </>
-                )}
-
-                {item.type === MenuItemTypesE.LIST && (
-                  <div className="list-choices-container">
-                    <Icon name="chevron-right" size={12} />
-                    <>
-                      {item.choices?.map(
-                        (choice: ItemListChoices, choiceIndex: number) => (
-                          <span
-                            className={`choices-${index} choice ${
-                              choiceIndex === 0 ? 'active' : ''
-                            }`}
-                            id={`choice-${index}-${choiceIndex}`}
-                            key={`choice-key-${index}-${choiceIndex}`}
-                          >
-                            {choice.label}
-                          </span>
-                        )
-                      )}
-                    </>
-                    <Icon name="chevron-left" size={12} />
-                  </div>
-                )}
-              </div>
+            {menuState.items.map((item: MenuItemType, index: number) => (
+              <MenuItem key={index} item={item} index={index} />
             ))}
           </div>
         </div>

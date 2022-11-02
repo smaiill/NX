@@ -139,19 +139,28 @@ class MenuService {
         const item = this.findItemChoices(this.actualIndex)
 
         if (key === KeysTypesE.LEFT) {
-          item.actualChoice--
+          item.actualChoice.index--
         }
 
         if (key === KeysTypesE.RIGHT) {
-          item.actualChoice++
+          item.actualChoice.index++
         }
 
-        if (item.actualChoice > item.maxChoices) {
-          return (item.actualChoice = item.maxChoices)
+        if (item.actualChoice.index > item.maxChoices) {
+          return (item.actualChoice.index = item.maxChoices)
         }
 
-        if (item.actualChoice < 0) {
-          return (item.actualChoice = 0)
+        if (item.actualChoice.index < 0) {
+          return (item.actualChoice.index = 0)
+        }
+
+        if (this.actualMenu.items[this.actualIndex].onChange) {
+          this.actualMenu.items[this.actualIndex].onChange!(
+            // @ts-ignore
+            this.actualMenu.items[this.actualIndex].choices[
+              item.actualChoice.index
+            ]
+          )
         }
 
         EventsService.emitNuiEvent({
@@ -160,7 +169,7 @@ class MenuService {
           data: {
             key,
             index: this.actualIndex,
-            choiceIndex: item.actualChoice,
+            choiceIndex: item.actualChoice.index,
             type: MenuItemTypesE.LIST,
           },
         })
@@ -204,7 +213,7 @@ class MenuService {
     const { isValid, message } = MenuUtils.validateMenuCreation(menu)
 
     if (!isValid) {
-      return console.log(message)
+      return message
     }
 
     const uuid = Utils.uuid()
@@ -258,7 +267,10 @@ class MenuService {
       if (item.type === MenuItemTypesE.LIST) {
         this.actualMenu.listChoices.push({
           itemID: ii,
-          actualChoice: 0,
+          actualChoice: {
+            id: item.choices![0].id,
+            index: 0,
+          },
           maxChoices: item.choices?.length! - 1,
         })
       }
