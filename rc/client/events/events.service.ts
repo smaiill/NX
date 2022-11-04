@@ -25,7 +25,7 @@ export class EventsService {
       this.events.set(eventName, callback)
     }
 
-    const randomID = this.utils.uuid()
+    const randomID = this.utils.uuid('LARGE')
 
     const respEventName = `${eventName}::NX::${randomID}`
 

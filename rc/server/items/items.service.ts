@@ -56,7 +56,7 @@ export class _ItemsService {
     propsType: string,
     itemType: string
   ): void {
-    const uuid = Utils.uuid()
+    const uuid = Utils.uuid('MEDIUM')
     this.pickups.push({
       name,
       amount,
@@ -191,10 +191,11 @@ export class _ItemsService {
   }
 
   public createItem(
-    { name, label, weight, type, props = 'prop_cs_cardbox_01' }: ItemT,
+    { name, label, weight, type, props = 'prop_cs_cardbox_01', data }: ItemT,
     cb?: RespCB
   ) {
-    const data = { name, label, weight, type, props }
+    const itemData = { name, label, weight, type, props, data }
+
     if (!name || !label || !weight || !type || typeof weight !== 'number') {
       cb?.({
         status: 'error',
@@ -203,31 +204,31 @@ export class _ItemsService {
       return
     }
 
-    const alreadyExist = this.findItem(data.name)
+    const alreadyExist = this.findItem(itemData.name)
 
     if (alreadyExist) {
       cb?.({
         status: 'error',
-        message: `Can\'t create item [${data.name}] already exists !`,
+        message: `Can\'t create item [${itemData.name}] already exists !`,
       })
       return
     }
 
-    data.name = data.name.toLowerCase().split(' ').join('_')
+    itemData.name = itemData.name.toLowerCase().split(' ').join('_')
 
     try {
       const loadFile = JSON.parse(
         LoadResourceFile(GetCurrentResourceName(), 'config/nx.items.json')
       )
-      loadFile.push(data)
+      loadFile.push(itemData)
       SaveResourceFile(
         GetCurrentResourceName(),
         'config/nx.items.json',
         JSON.stringify(loadFile, null, 2),
         -1
       )
-      this.items.push(data)
-      emit(ItemsEventsE.ITEM_CREATED, data)
+      this.items.push(itemData)
+      emit(ItemsEventsE.ITEM_CREATED, itemData)
       cb?.({ status: 'succes', message: 'item created.', data })
     } catch (error) {
       cb?.({ status: 'error', message: error as any })

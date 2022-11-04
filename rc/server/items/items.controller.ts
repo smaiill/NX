@@ -26,7 +26,7 @@ onNet(ItemsEventsE.USE_ITEM, (name: string, ...args: any[]): void => {
 // ? Only Server side.
 on(
   ItemsEventsE.CREATE_ITEM,
-  ({ name, label, weight, type, props }: ItemT, cb?: RespCB): void => {
-    ItemsService.createItem({ name, label, weight, type, props }, cb)
+  ({ name, label, weight, type, props, data }: ItemT, cb?: RespCB): void => {
+    ItemsService.createItem({ name, label, weight, type, props, data }, cb)
   }
 )

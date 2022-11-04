@@ -70,7 +70,7 @@ class _BansService {
       const expirationTimestamp = this.createExpirationDate(duration)
 
       // @ts-ignore
-      const id: string = Utils.uuid()
+      const id: string = Utils.uuid('MEDIUM')
       const nxTargetIdentifier = nxTarget.GetIdentifier()
 
       const banData: BanT = {

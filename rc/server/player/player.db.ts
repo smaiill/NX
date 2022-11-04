@@ -21,7 +21,7 @@ export class _PlayerDB {
   public static createPlayer(license: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       const bloodType = await PlayerUtils.generateBloodType()
-      const uid = await Utils.uuid()
+      const uid = await Utils.uuid('SMALL')
       const res = await DB.exec(DBQueries.CRAETE_PLAYER, [
         license,
         JSON.stringify({

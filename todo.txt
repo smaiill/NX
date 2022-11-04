@@ -3,11 +3,16 @@
 - create usable components such as useMisc, useCars etc....
 - improve commands system
 - refactor player services.
-- get all player jobs.
+- get all player jobs. 
 - set Intervals in lua file.
-- finish the config.
-- better ui design.
+- finish the config. 
+- better ui design. 
 - refactor and optimize code.
 
-- ux menu system
-- make security checks for list items
+- ux menu system ✔️
+- make security checks for list items ✔️
+
+
+- use esbuild insted of webpack 
+- change uuid generator
+- key to close the menu

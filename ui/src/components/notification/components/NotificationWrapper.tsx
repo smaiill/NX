@@ -26,7 +26,7 @@ const NotificationWrapper = ({
           className="notification-icon-wrapper"
         >
           <div className="notification-row">
-            <Icon name={notification.type.toLowerCase()} />
+            <Icon size={20} name={notification.type.toLowerCase()} />
           </div>
         </div>
       </div>

@@ -9,6 +9,7 @@ import './items'
 import Items from './items/items.service'
 import './player'
 import Players from './player/player.service'
+import Utils from '@shared/utils/misc'
 
 class Server {
   Players: typeof Players

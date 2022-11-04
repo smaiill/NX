@@ -1,15 +1,23 @@
 class _Utils {
-  private readonly RANDOM_NUMBER_TIMES: number
+  private readonly uuidTypes: any
+  private readonly uuidReplace: string
   constructor() {
-    this.RANDOM_NUMBER_TIMES = 100_000_000_000_000
+    this.uuidTypes = {
+      SMALL: 8,
+      MEDIUM: 18,
+      LARGE: 32,
+    }
+    this.uuidReplace = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
   }
 
-  public uuid(base16: boolean = true): string | number {
-    const randomNumber = Math.trunc(Math.random() * this.RANDOM_NUMBER_TIMES)
-
-    if (!base16) return randomNumber
-
-    return randomNumber.toString(16)
+  public uuid(type: 'SMALL' | 'MEDIUM' | 'LARGE' = 'LARGE'): string {
+    return this.uuidReplace
+      .slice(0, this.uuidTypes[type])
+      .replace(/[xy]/g, function (c) {
+        const r = (Math.random() * 16) | 0,
+          v = c == 'x' ? r : (r & 0x3) | 0x8
+        return v.toString(16)
+      })
   }
 
   public wait(ms: number): Promise<void> {

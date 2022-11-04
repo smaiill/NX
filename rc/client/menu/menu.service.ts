@@ -239,7 +239,7 @@ class MenuService {
       return message
     }
 
-    const uuid = Utils.uuid()
+    const uuid = Utils.uuid('MEDIUM')
 
     menu.uuid = uuid as string
     menu.active = false
