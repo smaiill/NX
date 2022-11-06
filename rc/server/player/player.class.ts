@@ -223,9 +223,21 @@ class _Player implements NXPlayerT {
     return
   }
 
-  public setCharInfoKey(key: string, value: string): void {
+  public setCharInfoKey(
+    key: string | string[],
+    value: string | string[]
+  ): void {
     // ! Secure this !
 
+    if (Array.isArray(key) && Array.isArray(value)) {
+      for(let i = 0; i < key.length; i++) {
+        this.charinfo[key[i]] = value[i]
+      }
+
+      return
+    }
+
+    // @ts-ignore
     this.charinfo[key] = value
   }
 
