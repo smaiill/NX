@@ -89,7 +89,7 @@ globalThis.exports('useClient', () => {
   }
 })
 
-setTimeout(() => {
+// setTimeout(() => {
   // Events.emitNuiEvent(    {
   //   app: 'NX::menu',
   //   method: 'NX::createMenu',
@@ -124,69 +124,69 @@ setTimeout(() => {
   //   },
   // })
 
-  const menu = Menu.createMenu({
-    options: {
-      title: 'Custom',
-      banner:
-        'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000',
-      width: 400,
-    },
-    items: [
-      {
-        type: 'BUTTON',
-        label: 'Button',
-        id: 'button-1',
-        onClick: () => console.log('Hello world !'),
-      },
-      {
-        type: 'SLIDER',
-        label: 'Slider',
-        max: 15,
-        min: 5,
-        id: 'slider-1',
-      },
-      {
-        type: 'SEPARATOR',
-        label: 'SEPARATOR',
-        id: 'separator-1',
-      },
-      {
-        type: 'CHECKBOX',
-        label: 'Chckbox',
-        id: 'checkbox-1',
-        onChange: (checkbox: any) => console.log(checkbox),
-      },
-      {
-        type: 'LIST',
-        label: 'Chckbox',
-        id: 'list-1',
-        onChange: (choice: any) => console.log(choice),
+//   const menu = Menu.createMenu({
+//     options: {
+//       title: 'Custom',
+//       banner:
+//         'https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000',
+//       width: 400,
+//     },
+//     items: [
+//       {
+//         type: 'BUTTON',
+//         label: 'Button',
+//         id: 'button-1',
+//         onClick: () => console.log('Hello world !'),
+//       },
+//       {
+//         type: 'SLIDER',
+//         label: 'Slider',
+//         max: 15,
+//         min: 5,
+//         id: 'slider-1',
+//       },
+//       {
+//         type: 'SEPARATOR',
+//         label: 'SEPARATOR',
+//         id: 'separator-1',
+//       },
+//       {
+//         type: 'CHECKBOX',
+//         label: 'Chckbox',
+//         id: 'checkbox-1',
+//         onChange: (checkbox: any) => console.log(checkbox),
+//       },
+//       {
+//         type: 'LIST',
+//         label: 'Chckbox',
+//         id: 'list-1',
+//         onChange: (choice: any) => console.log(choice),
 
-        choices: [
-          {
-            id: '1',
-            label: 'Un',
-          },
-          {
-            id: '2',
-            label: 'Deux',
-          },
-          {
-            id: '3',
-            label: 'Trois',
-          },
-        ],
-      },
-      {
-        type: 'BUTTON',
-        label: 'Valider',
-        id: 'btn11-1',
-      },
-    ],
-  })
+//         choices: [
+//           {
+//             id: '1',
+//             label: 'Un',
+//           },
+//           {
+//             id: '2',
+//             label: 'Deux',
+//           },
+//           {
+//             id: '3',
+//             label: 'Trois',
+//           },
+//         ],
+//       },
+//       {
+//         type: 'BUTTON',
+//         label: 'Valider',
+//         id: 'btn11-1',
+//       },
+//     ],
+//   })
 
-  setTimeout(() => {
-    // @ts-ignore
-    menu.ShowMenu()
-  }, 250)
-}, 250)
+//   setTimeout(() => {
+//     // @ts-ignore
+//     menu.ShowMenu()
+//   }, 250)
+// }, 250)
