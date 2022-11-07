@@ -46,7 +46,7 @@ onNet(PlayerEventsE.PLAYER_LOADED, async (nxPlayer: any) => {
       ItemsService.handlePickupsPickup()
       PlayerService.syncPlayer()
 
-      emitNet(PlayerEventsE.ON_PLAYER_LOADED)
+      emit(PlayerEventsE.ON_PLAYER_LOADED, nxPlayer)
     }
   )
 })

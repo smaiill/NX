@@ -105,6 +105,12 @@ class _PlayerService {
           nxPlayerData.inventory[property] = {
             amount: Math.trunc(player.inventory[property].amount),
             type: item.type,
+            name: item.name,
+            label: item.label,
+            weight: item.weight,
+            props: item.props,
+            unique: item.unique,
+            maxInSlot: item.maxInSlot
           }
           const itemWeight =
             player.inventory[property].amount *
@@ -119,6 +125,7 @@ class _PlayerService {
 
     const skin = PlayerUtils.loadPlayerSkin(player.skin, player.charinfo.sex)
     nxPlayerData.skin = skin
+
 
     const nxPlayer = new _Player(
       player.identifier,
@@ -203,9 +210,39 @@ class _PlayerService {
   public async getPlayer(source: number): Promise<any | false> {
     const nxPlayer = await this.findPlayer(source)
 
-    if (!nxPlayer) return false
+    if (!nxPlayer) return false 
 
-    return getPlayerMethods(nxPlayer)
+    return {
+      GetName: nxPlayer.getName.bind(nxPlayer),
+      GetIdentifier: nxPlayer.getIdentifier.bind(nxPlayer),
+      GetAccountMoney: nxPlayer.getAccountMoney.bind(nxPlayer),
+      GetCharInfo: nxPlayer.getCharInfo.bind(nxPlayer),
+      GetCoords: nxPlayer.getCoords.bind(nxPlayer),
+      GetWeight: nxPlayer.getWeight.bind(nxPlayer),
+      GetMaxWeight: nxPlayer.getMaxWeight.bind(nxPlayer),
+      GetInventory: nxPlayer.getInventory.bind(nxPlayer),
+      GetAccounts: nxPlayer.getAccounts.bind(nxPlayer),
+      GetPermissions: nxPlayer.getPermissions.bind(nxPlayer),
+      GetBloodType: nxPlayer.getBloodType.bind(nxPlayer),
+      GetThirst: nxPlayer.getThirst.bind(nxPlayer),
+      GetHunger: nxPlayer.getHunger.bind(nxPlayer),
+      GetJob: nxPlayer.getJob.bind(nxPlayer),
+      GetJobs: nxPlayer.getJobs.bind(nxPlayer),
+      GetUID: nxPlayer.getUID.bind(nxPlayer),
+      SetCoords: nxPlayer.setCoords.bind(nxPlayer),
+      SetJob: nxPlayer.setJob.bind(nxPlayer),
+      SetPermissions: nxPlayer.setPermissions.bind(nxPlayer),
+      SetThirst: nxPlayer.setThirst.bind(nxPlayer),
+      SetHunger: nxPlayer.setHunger.bind(nxPlayer),
+      SetCharInfoKey: nxPlayer.setCharInfoKey.bind(nxPlayer),
+      SetAccountMoney: nxPlayer.setAccountMoney.bind(nxPlayer),
+      HasItem: nxPlayer.hasItem.bind(nxPlayer),
+      RemoveItem: nxPlayer.removeInventoryItem.bind(nxPlayer),
+      AddItem: nxPlayer.addInventoryItem.bind(nxPlayer),
+      EmitEvent: nxPlayer.emitEvent.bind(nxPlayer),
+      Kick: nxPlayer.kick.bind(nxPlayer),
+      Save: nxPlayer.save.bind(nxPlayer),
+    }
   }
 
   public async getPlayersData(): Promise<NXPlayerT[] | []> {

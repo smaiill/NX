@@ -24,6 +24,17 @@ export class _ItemsService {
     return false
   }
 
+  public getItem(name: string): ItemT | undefined | false {
+    if(!name) return;
+
+    const item = this.items.find((item) => item.name === name)
+
+    if(item) return item
+
+
+    return false
+  }
+
   public getItemData(itemName: string): Record<string, any> | false {
     const item = this.items.find((item) => item.name === itemName)
 

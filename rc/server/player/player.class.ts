@@ -227,7 +227,6 @@ class _Player implements NXPlayerT {
     key: string | string[],
     value: string | string[]
   ): void {
-    // ! Secure this !
 
     if (Array.isArray(key) && Array.isArray(value)) {
       for (let i = 0; i < key.length; i++) {
@@ -278,6 +277,8 @@ class _Player implements NXPlayerT {
 
     let count: number = 0
 
+    const itemData = ItemsService.getItem(name)
+
     if (amount === item.amount) {
       delete this.inventory[name]
     } else {
@@ -293,9 +294,8 @@ class _Player implements NXPlayerT {
     this.emitEvent(InventoryEeventsE.UPDATE_INVENTORY, {
       type: InventoryActions.REMOVE,
       item: {
-        name,
         amount: count,
-        type: ItemsService.getItemType(name),
+        ...itemData
       },
     })
     cb?.({
@@ -343,6 +343,8 @@ class _Player implements NXPlayerT {
 
     let count: number = 0
 
+    const itemData = ItemsService.getItem(name)
+
     if (item) {
       count = item.amount + amount
       this.inventory[name] = {
@@ -352,7 +354,7 @@ class _Player implements NXPlayerT {
     } else {
       count = amount
       this.inventory[name] = {
-        type: ItemsService.getItemType(name),
+        ...itemData,
         amount: amount,
       }
     }
@@ -361,9 +363,8 @@ class _Player implements NXPlayerT {
     this.emitEvent(InventoryEeventsE.UPDATE_INVENTORY, {
       type: InventoryActions.ADD,
       item: {
-        name,
+        ...itemData,
         amount: count,
-        type: ItemsService.getItemType(name),
       },
     })
     cb?.({
@@ -371,6 +372,7 @@ class _Player implements NXPlayerT {
       data: this.inventory[name],
     })
   }
+
 
   async save(cb?: RespCB): Promise<void> {
     _PlayerDB

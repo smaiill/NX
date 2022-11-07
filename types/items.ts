@@ -23,7 +23,6 @@ export interface UsabeItemsT {
   [property: string]: Function
 }
 
-export interface InventoryItemT {
-  type: string
+export interface InventoryItemT extends ItemT {
   amount: number
 }
