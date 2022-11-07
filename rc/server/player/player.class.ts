@@ -230,7 +230,7 @@ class _Player implements NXPlayerT {
     // ! Secure this !
 
     if (Array.isArray(key) && Array.isArray(value)) {
-      for(let i = 0; i < key.length; i++) {
+      for (let i = 0; i < key.length; i++) {
         this.charinfo[key[i]] = value[i]
       }
 

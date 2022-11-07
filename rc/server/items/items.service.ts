@@ -191,10 +191,28 @@ export class _ItemsService {
   }
 
   public createItem(
-    { name, label, weight, type, props = 'prop_cs_cardbox_01', data }: ItemT,
+    {
+      name,
+      label,
+      weight,
+      type,
+      props = 'prop_cs_cardbox_01',
+      data,
+      unique,
+      maxInSlot,
+    }: ItemT,
     cb?: RespCB
   ) {
-    const itemData = { name, label, weight, type, props, data }
+    const itemData = {
+      name,
+      label,
+      weight,
+      type,
+      props,
+      data,
+      maxInSlot,
+      unique,
+    }
 
     if (!name || !label || !weight || !type || typeof weight !== 'number') {
       cb?.({
@@ -203,6 +221,12 @@ export class _ItemsService {
       })
       return
     }
+
+    itemData.unique = itemData.unique ?? false
+
+    !itemData.maxInSlot && (itemData.maxInSlot = 100)
+
+    unique && (itemData.maxInSlot = 1)
 
     const alreadyExist = this.findItem(itemData.name)
 

@@ -26,6 +26,12 @@ class MenuService {
   constructor() {
     this.KEYS = [
       {
+        key: 'BACK',
+        description: 'Key BACK',
+        command: 'NX::keyBack',
+        handler: () => this.keyHandler('BACK'),
+      },
+      {
         key: 'UP',
         description: 'Key up arrow',
         command: 'NX::keyUp',
@@ -78,6 +84,10 @@ class MenuService {
       return
 
     this.keyInterval = new Date().getTime()
+
+    if (key == KeysTypesE.BACK && this.actualMenu !== null) {
+      this.hideMenu(this.actualMenu.uuid!)
+    }
 
     if (key === KeysTypesE.UP || key === KeysTypesE.DOWN) {
       if (key === KeysTypesE.UP) {

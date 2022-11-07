@@ -176,7 +176,15 @@ class _PlayerService {
 
     const [player] = await this.playerDB.getPlayerFromDB(license)
     await this.loadPlayer(player, source)
+
+
+    const nxPlayer = await this.getPlayer(source)
+
+    if(nxPlayer) {
+      nxPlayer.EmitEvent(PlayerEventsE.PLAYER_FIRST_CONNECTION, player)
+    }
   }
+
 
   public async getPlayers(): Promise<number[] | []> {
     const nxPlayersSources: number[] = []

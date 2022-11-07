@@ -90,39 +90,39 @@ globalThis.exports('useClient', () => {
 })
 
 // setTimeout(() => {
-  // Events.emitNuiEvent(    {
-  //   app: 'NX::menu',
-  //   method: 'NX::createMenu',
-  //   data: {
-  //     options: {
-  //       title: 'Custom',
-  //       banner:
-  //         'https://thorntons-investments.co.uk/wp-content/uploads/2017/08/400x200.png',
-  //       width: 400,
-  //       // color: ''
-  //     },
-  //     items: [
-  //       {
-  //         type: 'BUTTON',
-  //         label: 'CLick here',
-  //       },
-  //       {
-  //         type: 'SLIDER',
-  //         label: 'CLick here',
-  //         max: 100,
-  //         min: 5,
-  //       },
-  //       {
-  //         type: 'CHECKBOX',
-  //         label: 'CLick here',
-  //       },
-  //       {
-  //         type: 'SEPARATOR',
-  //         label: 'SEPARATOR',
-  //       },
-  //     ],
-  //   },
-  // })
+//   // Events.emitNuiEvent(    {
+//   //   app: 'NX::menu',
+//   //   method: 'NX::createMenu',
+//   //   data: {
+//   //     options: {
+//   //       title: 'Custom',
+//   //       banner:
+//   //         'https://thorntons-investments.co.uk/wp-content/uploads/2017/08/400x200.png',
+//   //       width: 400,
+//   //       // color: ''
+//   //     },
+//   //     items: [
+//   //       {
+//   //         type: 'BUTTON',
+//   //         label: 'CLick here',
+//   //       },
+//   //       {
+//   //         type: 'SLIDER',
+//   //         label: 'CLick here',
+//   //         max: 100,
+//   //         min: 5,
+//   //       },
+//   //       {
+//   //         type: 'CHECKBOX',
+//   //         label: 'CLick here',
+//   //       },
+//   //       {
+//   //         type: 'SEPARATOR',
+//   //         label: 'SEPARATOR',
+//   //       },
+//   //     ],
+//   //   },
+//   // })
 
 //   const menu = Menu.createMenu({
 //     options: {

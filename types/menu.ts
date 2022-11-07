@@ -5,7 +5,7 @@ export type MenuItemTypes =
   | 'CHECKBOX'
   | 'SEPARATOR'
 
-export type KeysTypes = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT' | 'RETURN'
+export type KeysTypes = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT' | 'RETURN' | 'BACK'
 
 export interface KeyPressedHandler {
   key: KeysTypes
@@ -28,6 +28,7 @@ export enum KeysTypesE {
   LEFT = 'LEFT',
   RIGHT = 'RIGHT',
   RETURN = 'RETURN',
+  BACK = 'BACK',
 }
 
 export interface Menu {

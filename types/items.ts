@@ -14,6 +14,8 @@ export interface ItemT {
   weight: number
   type: string
   props: string
+  unique: boolean
+  maxInSlot: number
   data?: Record<string, any>
 }
 
