@@ -80,7 +80,10 @@ class MenuService {
   }
 
   public keyHandler(key: KeysTypes) {
-    if (this.actualMenu === null || new Date().getTime() - this.keyInterval < 5)
+    if (
+      this.actualMenu === null ||
+      new Date().getTime() - this.keyInterval < 10
+    )
       return
 
     this.keyInterval = new Date().getTime()
@@ -319,6 +322,7 @@ class MenuService {
       method: MenuEventsE.CREATE_MENU,
       data: menu,
     })
+
   }
 }
 

@@ -25,12 +25,11 @@ export class _ItemsService {
   }
 
   public getItem(name: string): ItemT | undefined | false {
-    if(!name) return;
+    if (!name) return
 
     const item = this.items.find((item) => item.name === name)
 
-    if(item) return item
-
+    if (item) return item
 
     return false
   }
@@ -65,7 +64,9 @@ export class _ItemsService {
     coords: number[],
     label: string,
     propsType: string,
-    itemType: string
+    itemType: string,
+    unique: boolean,
+    maxInSlot: number
   ): void {
     const uuid = Utils.uuid('MEDIUM')
     this.pickups.push({
@@ -76,6 +77,8 @@ export class _ItemsService {
       label,
       propsType,
       itemType,
+      unique,
+      maxInSlot,
     })
 
     emitNet(ItemsEventsE.CREATE_PICKUP, -1, {
@@ -86,6 +89,8 @@ export class _ItemsService {
       label,
       propsType,
       itemType,
+      unique,
+      maxInSlot,
     })
   }
 
@@ -109,7 +114,9 @@ export class _ItemsService {
     const nxPlayer = await PlayerService.getPlayer(source)
     const itemInfo = await this.findItem(name)
 
-    if (!nxPlayer || !itemInfo || !amount || amount === 0) return
+    if (!nxPlayer || !itemInfo || !amount || amount === 0) {
+      return
+    }
 
     const label = `~s~${itemInfo.label} ~g~${amount}`.toLowerCase()
     const propsToCreate = await this.getPropsToCreate(
@@ -118,7 +125,9 @@ export class _ItemsService {
       itemInfo.props
     )
     nxPlayer.RemoveItem(name, amount, (resp: RespT) => {
-      if (resp.status !== 'succes') return
+      if (resp.status !== 'succes') {
+        return
+      }
 
       const { x, y, z } = nxPlayer.GetCoords()
       this.createPickup(
@@ -127,7 +136,9 @@ export class _ItemsService {
         [x, y, z],
         label,
         propsToCreate,
-        itemInfo.type
+        itemInfo.type,
+        itemInfo.unique,
+        itemInfo.maxInSlot
       )
     })
   }

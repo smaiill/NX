@@ -28,8 +28,7 @@ class Server {
 
 const server = new Server()
 
-
-globalThis.exports('useServer', function() {
+globalThis.exports('useServer', function () {
   return {
     Players: {
       GetAllData: server.Players.getPlayersData.bind(server.Players),

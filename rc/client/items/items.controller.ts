@@ -2,6 +2,17 @@ import { ItemsEventsE } from '../../../types/events'
 import { PickupT } from '../../../types/items'
 import ItemsService from './items.service'
 
+on(
+  ItemsEventsE.GET_ALL_CLIENT_PICKUPS,
+  async (returnEventName: string): Promise<void> => {
+    if (!returnEventName) {
+      return
+    }
+    const pickups = await ItemsService.getAllPickups()
+    emit(returnEventName, pickups)
+  }
+)
+
 // server -> client.
 onNet(
   ItemsEventsE.CREATE_PICKUP,
@@ -13,6 +24,8 @@ onNet(
     label,
     propsType,
     itemType,
+    unique,
+    maxInSlot,
   }: PickupT): void => {
     ItemsService.createDrop({
       name,
@@ -22,6 +35,8 @@ onNet(
       label,
       propsType,
       itemType,
+      unique,
+      maxInSlot,
     })
   }
 )

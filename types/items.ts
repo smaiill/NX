@@ -7,6 +7,8 @@ export interface PickupT {
   propsType: string
   object?: any
   itemType: string
+  unique: boolean
+  maxInSlot: number
 }
 export interface ItemT {
   name: string

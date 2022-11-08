@@ -227,7 +227,6 @@ class _Player implements NXPlayerT {
     key: string | string[],
     value: string | string[]
   ): void {
-
     if (Array.isArray(key) && Array.isArray(value)) {
       for (let i = 0; i < key.length; i++) {
         this.charinfo[key[i]] = value[i]
@@ -295,7 +294,7 @@ class _Player implements NXPlayerT {
       type: InventoryActions.REMOVE,
       item: {
         amount: count,
-        ...itemData
+        ...itemData,
       },
     })
     cb?.({
@@ -372,7 +371,6 @@ class _Player implements NXPlayerT {
       data: this.inventory[name],
     })
   }
-
 
   async save(cb?: RespCB): Promise<void> {
     _PlayerDB

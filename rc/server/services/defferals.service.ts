@@ -50,6 +50,7 @@ class _DeferralsService {
     PlayerService.doesPlayerExist(license)
       .then(() => {
         deferrals.done()
+        console.log(`Connecting player with [license]: ${license}`)
       })
       .catch((player) => {
         deferrals.done(

@@ -7,10 +7,12 @@ import ObjectManager from '@class/object'
 
 class ItemsService {
   private Pickups: PickupT[]
+  private NearbyPickups: PickupT[]
   private readonly pickupAnimation: { name: string; dict: string }
   private readonly REFRESH_TIME: number
   constructor() {
     this.Pickups = []
+    this.NearbyPickups = []
     this.pickupAnimation = { name: 'putdown_low', dict: 'pickup_object' }
     this.REFRESH_TIME = 0
   }
@@ -23,6 +25,8 @@ class ItemsService {
     label,
     propsType,
     itemType,
+    unique,
+    maxInSlot,
   }: PickupT): void {
     RequestModel(propsType)
     const interval: NodeJS.Timer = setInterval(() => {
@@ -53,6 +57,8 @@ class ItemsService {
           label,
           propsType,
           itemType,
+          unique,
+          maxInSlot,
         })
 
         clearInterval(interval)
@@ -72,6 +78,8 @@ class ItemsService {
         label: pickup.label,
         propsType: pickup.propsType,
         itemType: pickup.itemType,
+        unique: pickup.unique,
+        maxInSlot: pickup.maxInSlot,
       })
     }
   }
@@ -92,11 +100,12 @@ class ItemsService {
           pickup.coords[2],
           true
         )
-        if (distance < 4) {
+
+        if (distance < 3) {
           MiscManager.drawText3D(pickup.coords, pickup.label, 1, 2)
         }
 
-        if (distance < 1) {
+        if (distance < 3) {
           if (IsControlJustReleased(1, 51)) {
             MiscManager.requestAnim(
               this.pickupAnimation.dict,
@@ -138,6 +147,10 @@ class ItemsService {
 
       reject()
     })
+  }
+
+  public async getAllPickups() {
+    return this.Pickups
   }
 
   public async removePickup(uuid: string): Promise<void> {

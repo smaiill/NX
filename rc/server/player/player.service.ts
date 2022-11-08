@@ -110,7 +110,7 @@ class _PlayerService {
             weight: item.weight,
             props: item.props,
             unique: item.unique,
-            maxInSlot: item.maxInSlot
+            maxInSlot: item.maxInSlot,
           }
           const itemWeight =
             player.inventory[property].amount *
@@ -125,7 +125,6 @@ class _PlayerService {
 
     const skin = PlayerUtils.loadPlayerSkin(player.skin, player.charinfo.sex)
     nxPlayerData.skin = skin
-
 
     const nxPlayer = new _Player(
       player.identifier,
@@ -184,14 +183,12 @@ class _PlayerService {
     const [player] = await this.playerDB.getPlayerFromDB(license)
     await this.loadPlayer(player, source)
 
-
     const nxPlayer = await this.getPlayer(source)
 
-    if(nxPlayer) {
+    if (nxPlayer) {
       nxPlayer.EmitEvent(PlayerEventsE.PLAYER_FIRST_CONNECTION, player)
     }
   }
-
 
   public async getPlayers(): Promise<number[] | []> {
     const nxPlayersSources: number[] = []
@@ -210,7 +207,7 @@ class _PlayerService {
   public async getPlayer(source: number): Promise<any | false> {
     const nxPlayer = await this.findPlayer(source)
 
-    if (!nxPlayer) return false 
+    if (!nxPlayer) return false
 
     return {
       GetName: nxPlayer.getName.bind(nxPlayer),

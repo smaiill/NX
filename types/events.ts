@@ -9,7 +9,7 @@ export enum PlayerEventsE {
   ON_STATUS_UPDATED = 'NX::onStatusUpdated',
   ON_PLAYER_LOADED = 'NX::onPlayerLoaded',
   SEND_MESSAGE_TO_PLAYER = 'NX::sendMessageToPlayer',
-  PLAYER_FIRST_CONNECTION = 'NX::playerFirstConnection'
+  PLAYER_FIRST_CONNECTION = 'NX::playerFirstConnection',
 }
 
 export enum ItemsEventsE {
@@ -22,6 +22,7 @@ export enum ItemsEventsE {
   USE_ITEM = 'NX::useItem',
   CREATE_ITEM = 'NX::createItem',
   ITEM_CREATED = 'NX::itemCreated',
+  GET_ALL_CLIENT_PICKUPS = 'NX::getAllClientPickups',
 }
 
 export enum MenuEventsE {

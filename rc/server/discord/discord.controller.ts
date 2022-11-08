@@ -22,13 +22,16 @@ if (config.discord.logs.logsConfiguration['playerJoin']) {
 
 if (config.discord.logs.logsConfiguration['playerDropped']) {
   on('playerDropped', (playerName: string): void => {
+    const src = globalThis.source
     DiscordService.sendWebhook({
       data: {
         embeds: [
           {
             title: 'Player dropped.',
             color: 15158332,
-            description: `Player \`${playerName}\` has just left the server.`,
+            description: `Player \`${GetPlayerName(
+              src as unknown as string
+            )}\` has just left the server.`,
           },
         ],
       },
