@@ -21,7 +21,7 @@ class MenuService {
   private Menus: Map<string, Menu>
   private actualMenu: Menu | null
   private actualIndex: number
-  private activeCheckboxs: number[]
+  private activeCheckboxs: { cid: number; mid: string }[]
 
   constructor() {
     this.KEYS = [
@@ -80,10 +80,7 @@ class MenuService {
   }
 
   public keyHandler(key: KeysTypes) {
-    if (
-      this.actualMenu === null ||
-      new Date().getTime() - this.keyInterval < 10
-    )
+    if (this.actualMenu === null || new Date().getTime() - this.keyInterval < 7)
       return
 
     this.keyInterval = new Date().getTime()
@@ -199,11 +196,19 @@ class MenuService {
       if (
         this.actualMenu.items[this.actualIndex].type === MenuItemTypesE.CHECKBOX
       ) {
-        this.activeCheckboxs.includes(this.actualIndex)
-          ? (this.activeCheckboxs = this.activeCheckboxs.filter(
-              (element) => element !== this.actualIndex
-            ))
-          : this.activeCheckboxs.push(this.actualIndex)
+        const isChecked = this.isCheckBoxChecked()
+
+        if (isChecked) {
+          this.activeCheckboxs = this.activeCheckboxs.filter(
+            (element) => element.cid !== this.actualIndex
+          )
+        } else {
+          this.activeCheckboxs.push({
+            cid: this.actualIndex,
+            // @ts-ignore
+            mid: this.actualMenu.uuid,
+          })
+        }
 
         if (this.actualMenu.items[this.actualIndex].onChange) {
           this.actualMenu.items[this.actualIndex].onChange!(
@@ -211,7 +216,7 @@ class MenuService {
             {
               id: this.actualMenu.items[this.actualIndex].id,
               label: this.actualMenu.items[this.actualIndex].label,
-              checked: this.activeCheckboxs.includes(this.actualIndex),
+              checked: isChecked,
             }
           )
         }
@@ -235,6 +240,16 @@ class MenuService {
         }
       }
     }
+  }
+
+  private isCheckBoxChecked() {
+    const element = this.activeCheckboxs.find((element) => {
+      element.cid === this.actualIndex && element.mid === this.actualMenu?.uuid
+    })
+
+    if (element) return true
+
+    return false
   }
 
   private findItemChoices(index: number) {
@@ -285,6 +300,7 @@ class MenuService {
 
   public showMenu(uuid: string) {
     if (!this.Menus.has(uuid)) return
+    this.actualIndex = 0
 
     const menu = this.Menus.get(uuid)
 
@@ -323,6 +339,19 @@ class MenuService {
       data: menu,
     })
 
+    for (const checkbox of this.activeCheckboxs) {
+      if (checkbox.mid === this.actualMenu.uuid) {
+        EventsService.emitNuiEvent({
+          app: NuiAPPS.MENU,
+          method: MenuEventsE.KEY_PRESSED,
+          data: {
+            key: KeysTypesE.RETURN,
+            index: checkbox.cid,
+            type: MenuItemTypesE.CHECKBOX,
+          },
+        })
+      }
+    }
   }
 }
 
