@@ -1,0 +1,30 @@
+{
+  "name": "nx",
+  "version": "1.0.0",
+  "repository": "https://github.com/niiyy/NX.git",
+  "author": "niiyy",
+  "license": "CC-BY-NC-SA-4.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "format": "prettier --write .",
+    "dev": "turbo run dev",
+    "dev:ig": "turbo run dev:ig",
+    "build": "turbo run build",
+    "release": "node scripts/release",
+    "dev:rc": "turbo run dev:rc",
+    "p": "husky install",
+    "check:tsc": "turbo run check:tsc"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "prettier": "^2.8.4",
+    "prettier-plugin-organize-imports": "^3.2.2"
+  },
+  "dependencies": {
+    "turbo": "^1.8.0"
+  }
+}

@@ -1,0 +1,9 @@
+**/node_modules
+**/dist
+**/.turbo
+
+
+nx.logs.log
+todo.txt
+run.bat
+.debug

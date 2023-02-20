@@ -1,0 +1,27 @@
+@import './variables';
+@import './_form.scss';
+@import './menu.scss';
+@import './notification.scss';
+@import './loadingbar.scss';
+@import './timeline.scss';
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;600;700&family=Epilogue:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Sora:wght@400;800&family=Ubuntu:wght@500;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  // background-image: url('https://wallpaperaccess.com/full/3377870.jpg');
+  background-size: cover;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+*:focus {
+  outline: none;
+}

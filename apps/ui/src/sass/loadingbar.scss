@@ -1,0 +1,31 @@
+.loadingbar__container {
+  background-color: rgb(0, 0, 0);
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px;
+  border-radius: 20px;
+  width: 450px;
+
+  p {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    text-align: center;
+    text-transform: lowercase;
+    letter-spacing: 2px;
+    width: calc(95%);
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .loadingbar {
+    background-color: rgb(255, 255, 255);
+    height: 50px;
+    border-radius: 20px;
+  }
+}

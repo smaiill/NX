@@ -1,0 +1,146 @@
+.menu {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 400px;
+  // background-color: rgba(0, 0, 0, 0.1);
+
+  * {
+    user-select: none;
+  }
+
+  .menu__header {
+    display: flex;
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100px;
+    border-radius: $--brr-normal;
+
+    h2 {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+      letter-spacing: 2px;
+      font-size: 23px;
+      text-transform: uppercase;
+      width: 100%;
+      text-align: center;
+    }
+
+    img {
+      height: 100px;
+      width: 100%;
+    }
+  }
+
+  .menu__items__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background-color: #232323;
+    margin-top: 5px;
+    border-radius: $--brr-small;
+    overflow: hidden;
+    padding: 5px;
+
+    .menu__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 30px;
+      padding: 0 5px;
+      position: relative;
+      border-radius: $--brr-small;
+
+      span.label {
+        color: white;
+        font-size: 12px;
+        font-weight: 200;
+        letter-spacing: 1px;
+      }
+
+      &.separator {
+        align-items: center;
+        justify-content: center;
+
+        span {
+          letter-spacing: 2px;
+          font-weight: 100;
+        }
+      }
+
+      &.selected {
+        transition: 0.3s;
+        background-color: #2b2929;
+      }
+
+      &.hover {
+        background-color: white;
+      }
+
+      input[type='range'] {
+        -webkit-appearance: none;
+        height: 1px;
+        background: rgb(255, 255, 255);
+
+        &::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          height: 10px;
+          width: 10px;
+          border-radius: 50px;
+          background: #ffffff;
+          cursor: ew-resize;
+          transition: background 0.3s ease-in-out;
+        }
+
+        &::-webkit-slider-runnable-track {
+          -webkit-appearance: none;
+          box-shadow: none;
+          border: none;
+          background: transparent;
+        }
+      }
+
+      span.checkbox-style input[type='checkbox']:checked {
+        background: #ffffff;
+      }
+
+      span.checkbox-style {
+        display: flex;
+        justify-self: center;
+        align-items: center;
+        border-radius: 50px;
+        border-radius: $--brr-small;
+
+        input[type='checkbox'] {
+          position: relative;
+          width: 20px;
+          height: 20px;
+          -webkit-appearance: none;
+          transition: 0.4s;
+          border: 2px solid #fff;
+          border-radius: $--brr-small;
+        }
+      }
+
+      .list-choices-container {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        span {
+          font-size: 12px;
+          display: none;
+          color: white;
+          font-weight: 500;
+
+          &.active {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}

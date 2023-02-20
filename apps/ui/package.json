@@ -1,0 +1,27 @@
+{
+  "name": "@nx/ui",
+  "version": "1.0.0",
+  "license": "CC-BY-NC-SA-4.0",
+  "scripts": {
+    "dev": "vite",
+    "dev:ig": "tsc && vite build --watch",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "check:tsc": "tsc --noEmit"
+  },
+  "dependencies": {
+    "fivem-nui-react-lib": "^2.3.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.58.1",
+    "zustand": "^4.3.3"
+  },
+  "devDependencies": {
+    "@nx/types": "workspace:*",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^1.3.2",
+    "typescript": "^4.9.5",
+    "vite": "^2.9.15"
+  }
+}

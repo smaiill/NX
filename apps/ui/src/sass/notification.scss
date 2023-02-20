@@ -1,0 +1,78 @@
+.notifications-container {
+  position: absolute;
+  top: 0.5%;
+  left: 0.3%;
+  height: 75%;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column-reverse;
+  width: 275px;
+
+  .notification-wrapper {
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    border-radius: 13px;
+    padding-left: 2px;
+    margin-top: 4px;
+    animation: pop-notification 1.5s;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 10px 5px;
+    position: relative;
+    overflow: hidden;
+
+    // .noise__bg {
+    //   background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+    //   width: 100%;
+    //   height: 100%;
+    //   position: absolute;
+    //   background-size: cover;
+    //   z-index: -1;
+    // }
+
+    .notification-left-side {
+      height: 45px;
+      width: 45px;
+      border-radius: 15px;
+      @include flex-center-center();
+
+      .notification-icon-wrapper {
+        width: 85%;
+        height: 85%;
+        @include flex-center-center();
+        border-radius: 15px;
+
+        .notification-row {
+          // background-color: white;
+          @include flex-center-center();
+          width: 70%;
+          height: 70%;
+          border-radius: 12px;
+        }
+      }
+    }
+
+    .notification-right-side {
+      padding-left: 5px;
+      width: 81%;
+
+      p {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        font-family: 'Comfortaa';
+        color: white;
+      }
+    }
+  }
+}
+
+@keyframes pop-notification {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

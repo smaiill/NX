@@ -1,0 +1,21 @@
+.form__container {
+  position: absolute;
+  translate: -50% -50%;
+  top: 50%;
+  left: 50%;
+  background-color: #232323;
+  color: white;
+  padding: 20px;
+  border-radius: $--brr-big;
+  width: 500px;
+
+  h2 {
+    text-align: center;
+  }
+
+  .form__body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmitOnError": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "lib": ["ESNext", "DOM"],
+    "types": ["@citizenfx/server", "@types/node"],
+    "outDir": "./",
+    "baseUrl": "./",
+    "paths": {
+      "@boot/*": ["boot/*"],
+      "@commands/*": ["commands/*"],
+      "@db/*": ["db/*"],
+      "@discord/*": ["discord/*"],
+      "@events/*": ["events/*"],
+      "@items/*": ["items/*"],
+      "@jobs/*": ["jobs/*"],
+      "@player/*": ["player/*"],
+      "@utils/*": ["utils/*"],
+      "@shared/*": ["../shared/*"]
+    }
+  },
+  "include": ["./**/*", "../shared/**/*"],
+  "exclude": ["node_modules"]
+}

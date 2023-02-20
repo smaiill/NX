@@ -1,0 +1,18 @@
+{
+  "Lua.diagnostics.globals": [
+    "server_script",
+    "client_script",
+    "version",
+    "author",
+    "description",
+    "fx_version",
+    "shared_scripts",
+    "files",
+    "ui_page",
+    "client_scripts",
+    "game",
+    "name",
+    "repository",
+    "dependency"
+  ]
+}
