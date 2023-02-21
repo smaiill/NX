@@ -15,8 +15,8 @@ class _JobsService {
     return false
   }
 
-  async isValid(name: string, grade: string, type: number): Promise<boolean> {
-    const job = await this.findJob(name)
+  isValid(name: string, grade: string, type: number): boolean {
+    const job = this.findJob(name)
 
     if (!job || job.type !== type) return false
 

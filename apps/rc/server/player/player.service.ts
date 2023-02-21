@@ -12,18 +12,18 @@ import { PlayerDB } from './player.db'
 import { PlayerUtils } from './player.utils'
 
 class _PlayerService {
-  private playersCollection: NXPlayer[]
+  private playersCollection: Map<number, NXPlayer>
   private playerDB: typeof PlayerDB
 
   constructor() {
-    this.playersCollection = []
+    this.playersCollection = new Map()
     this.playerDB = PlayerDB
+
+    // this.playersCollection.set(1, {identifier: 'a8ba95eb67cf3857bda530724b653569e42f8160'})
   }
 
   async findPlayer(source: number): Promise<NXPlayer | false> {
-    const nxPlayer = await this.playersCollection.find(
-      (player) => player.source === source
-    )
+    const nxPlayer = await this.playersCollection.get(source)
 
     if (!nxPlayer) return false
 
@@ -52,22 +52,18 @@ class _PlayerService {
 
     if (!nxPlayer) return
 
-    this.playerDB
-      .savePlayer(nxPlayer)
-      .then(() => {
-        LG.info(`Player: [${nxPlayer.name}] saved with success.`)
-        this.playersCollection = this.playersCollection.filter(
-          (player) => player.source !== source
-        )
-        emit(PlayerEvents.PLAYER_DROPPED, source)
-      })
-      .catch((error: any) => {
-        LG.error(
-          `Error while saving player: [${GetPlayerName(
-            source as unknown as string
-          )}] | ERROR: ${error}`
-        )
-      })
+    try {
+      await this.playerDB.savePlayer(nxPlayer)
+      LG.info(`Player: [${nxPlayer.name}] saved with success.`)
+      this.playersCollection.delete(source)
+      emit(PlayerEvents.PLAYER_DROPPED, source)
+    } catch (error) {
+      LG.error(
+        `Error while saving player: [${GetPlayerName(
+          source as unknown as string
+        )}] | ERROR: ${error}`
+      )
+    }
   }
 
   public async savePlayers() {
@@ -87,7 +83,7 @@ class _PlayerService {
   ): Promise<void> {
     player.charinfo = JSON.parse(player.charinfo)
     player.accounts = JSON.parse(player.accounts)
-    player.position = JSON.parse(player.position)
+    player.position = JSON.parse(player.position as unknown as string)
     player.inventory && (player.inventory = JSON.parse(player.inventory))
 
     const nxPlayerData: {
@@ -137,7 +133,7 @@ class _PlayerService {
       player.identifier,
       player.charinfo,
       nxPlayerData.inventory,
-      player.accounts,
+      player.accounts as unknown as Record<string, number>,
       player.position,
       player.permissions,
       nxPlayerData.weight,
@@ -146,7 +142,7 @@ class _PlayerService {
       player.uid
     )
 
-    this.playersCollection.push(nxPlayer)
+    this.playersCollection.set(source, nxPlayer)
 
     ItemsService.createMissingPickups(source)
 
@@ -162,20 +158,14 @@ class _PlayerService {
     })
   }
 
-  public async doesPlayerExist(identifier: string): Promise<NXPlayer> {
-    try {
-      const nxPlayer = await this.playersCollection.find(
-        (player) => player.identifier === identifier
-      )
-
-      if (!nxPlayer) {
-        throw 'Player not found !'
+  public doesPlayerExist(identifier: string): NXPlayer | false {
+    for (const [id, player] of this.playersCollection) {
+      if (player.identifier === identifier) {
+        return player
       }
-
-      return nxPlayer
-    } catch (error) {
-      throw error
     }
+
+    return false
   }
 
   public async playerDropped(source: number): Promise<void> {
@@ -204,9 +194,9 @@ class _PlayerService {
   public async getPlayers(): Promise<number[] | []> {
     const nxPlayersSources: number[] = []
 
-    if (this.playersCollection.length > 0) {
-      for (const player of this.playersCollection) {
-        nxPlayersSources.push(player.source)
+    if (this.playersCollection.size > 0) {
+      for (const [source] of this.playersCollection) {
+        nxPlayersSources.push(source)
       }
 
       return nxPlayersSources
@@ -215,7 +205,7 @@ class _PlayerService {
     return nxPlayersSources
   }
 
-  public async getPlayer(source: number): Promise<any | false> {
+  public async getPlayer(source: number): Promise<any> {
     const nxPlayer = await this.findPlayer(source)
 
     if (!nxPlayer) return false
@@ -256,8 +246,8 @@ class _PlayerService {
   public async getPlayersData(): Promise<NXPlayer[] | []> {
     const nxPlayersData: NXPlayer[] = []
 
-    if (this.playersCollection.length > 0) {
-      for (const player of this.playersCollection) {
+    if (this.playersCollection.size > 0) {
+      for (const [, player] of this.playersCollection) {
         nxPlayersData.push(player)
       }
 

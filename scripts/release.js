@@ -42,16 +42,16 @@ process.exec('cd apps/rc && pnpm build', (error, stdout, stderr) => {
               if (err) return console.log(err)
 
               fs.readFile(
-                path.resolve(__dirname, '../import.sql'),
+                path.resolve(__dirname, '../nx.sql'),
                 'utf8',
                 (err, data) => {
                   if (err) return
 
-                  fs.writeFile(path.resolve(dir, 'import.sql'), data, (err) => {
+                  fs.writeFile(path.resolve(dir, 'nx.sql'), data, (err) => {
                     if (err) {
                       console.error(
                         '\x1b[31m',
-                        `ERROR while creating file: 'import.sql'`,
+                        `ERROR while creating file: 'nx.sql'`,
                         '\x1b[0m'
                       )
                       return

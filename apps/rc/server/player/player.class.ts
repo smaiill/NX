@@ -12,6 +12,7 @@ import {
   PermissionsEvents,
   ResponseCB,
 } from '@nx/types'
+import { Position } from '@nx/types/src/player'
 import { config } from '@shared/load.file'
 import { LG } from '@utils/logger'
 import { PlayerDB } from './player.db'
@@ -34,8 +35,8 @@ class _Player implements NXPlayer {
     identifier: string,
     charinfo: NXPlayerCharInfo,
     inventory: Record<string, InventoryItem>,
-    accounts: any,
-    position: any,
+    accounts: Record<string, number>,
+    position: Position,
     permissions: string,
     weight: number,
     name: string,
@@ -56,69 +57,65 @@ class _Player implements NXPlayer {
     this.maxWeight = this.config.player.maxWeight
   }
 
-  public getWeight(): number {
+  public getWeight() {
     return this.weight
   }
 
-  public getName(): string {
+  public getName() {
     return this.name
   }
 
-  public getCharInfo(): NXPlayerCharInfo {
+  public getCharInfo() {
     return this.charinfo
   }
 
-  public getIdentifier(): string {
+  public getIdentifier() {
     return this.identifier
   }
 
-  public getCoords(): number[] {
+  public getCoords() {
     return this.position
   }
 
-  public getInventory(): Record<string, InventoryItem> {
+  public getInventory() {
     return this.inventory
   }
 
-  public getAccounts(): Record<string, number> {
+  public getAccounts() {
     return this.accounts
   }
 
-  public getPermissions(): string {
+  public getPermissions() {
     return this.permissions
   }
 
-  public getBloodType(): string {
+  public getBloodType() {
     return this.charinfo.blood_type
   }
 
-  public getThirst(): number {
+  public getThirst() {
     return this.charinfo.thirst
   }
 
-  public getHunger(): number {
+  public getHunger() {
     return this.charinfo.hunger
   }
 
-  public getMaxWeight(): number {
+  public getMaxWeight() {
     return this.maxWeight
   }
 
-  public getUID(): string {
+  public getUID() {
     return this.uid
   }
 
-  public getAccountMoney(account: string): number | undefined {
+  public getAccountMoney(account: string) {
     if (!config.accounts[account]) return undefined
 
     return this.accounts[account]
   }
 
-  public getJob(type: number | '' = 1): {
-    name: string
-    grade: string
-    label: string
-  } {
+  public getJob(type: number | '' = 1) {
     if (type === 1) type = ''
 
     const job = JobsService.findJob(this.charinfo[`job${type}`])
@@ -137,25 +134,25 @@ class _Player implements NXPlayer {
     }
   }
 
-  public getJobs(): Array<{ name: string; grade: string; label: string }> {
+  public getJobs() {
     // TODO: a function that returns all the jobs of the player.
     return []
   }
 
-  public setThirst(value: number): void {
+  public setThirst(value: number) {
     this.charinfo.thirst = value
   }
 
-  public setHunger(value: number): void {
+  public setHunger(value: number) {
     this.charinfo.hunger = value
   }
 
-  public setPermissions(permission: string): void {
+  public setPermissions(permission: string) {
     this.permissions = permission
     this.emitEvent(PermissionsEvents.ON_PERMISSIONS_UPDATED, permission)
   }
 
-  public setAccountMoney(account: string, money: number): void {
+  public setAccountMoney(account: string, money: number) {
     if (!(account in this.accounts) || !money) return
 
     money = Math.trunc(money)
@@ -167,13 +164,8 @@ class _Player implements NXPlayer {
     })
   }
 
-  public async setJob(
-    name: string,
-    grade: string,
-    type: number,
-    cb?: Function
-  ): Promise<void> {
-    const isValid = await JobsService.isValid(name, grade, type)
+  public setJob(name: string, grade: string, type: number, cb?: Function) {
+    const isValid = JobsService.isValid(name, grade, type)
 
     if (!isValid) return
 
@@ -212,7 +204,7 @@ class _Player implements NXPlayer {
     })
   }
 
-  public setCoords(x: number, y: number, z: number, heading: number): void {
+  public setCoords(x: number, y: number, z: number, heading: number) {
     this.position = {
       x: parseFloat(x.toFixed(3)),
       y: parseFloat(y.toFixed(3)),
@@ -223,10 +215,7 @@ class _Player implements NXPlayer {
     return
   }
 
-  public setCharInfoKey(
-    key: string | string[],
-    value: string | string[]
-  ): void {
+  public setCharInfoKey(key: string | string[], value: string | string[]) {
     if (Array.isArray(key) && Array.isArray(value)) {
       for (let i = 0; i < key.length; i++) {
         this.charinfo[key[i]] = value[i]
@@ -239,11 +228,11 @@ class _Player implements NXPlayer {
     this.charinfo[key] = value
   }
 
-  public emitEvent(name: string, ...args: any[]): void {
+  public emitEvent(name: string, ...args: any[]) {
     emitNet(name, this.source, ...args)
   }
 
-  public hasItem(name: string): false | any {
+  public hasItem(name: string) {
     const item = this.inventory[name]
 
     if (!item) return false
@@ -251,12 +240,8 @@ class _Player implements NXPlayer {
     return item
   }
 
-  public async removeInventoryItem(
-    name: string,
-    amount: number,
-    cb?: ResponseCB
-  ): Promise<void> {
-    const item = await this.hasItem(name)
+  public removeInventoryItem(name: string, amount: number, cb?: ResponseCB) {
+    const item = this.hasItem(name)
 
     if (!item) {
       cb?.({
@@ -303,7 +288,7 @@ class _Player implements NXPlayer {
     })
   }
 
-  public async canTakeItem(name: string, amount: number): Promise<boolean> {
+  public canTakeItem(name: string, amount: number) {
     if (
       this.weight + amount * ItemsService.getItemWeight(name) >
       this.maxWeight
@@ -314,11 +299,7 @@ class _Player implements NXPlayer {
     return true
   }
 
-  public async addInventoryItem(
-    name: string,
-    amount: number,
-    cb?: ResponseCB
-  ): Promise<void> {
+  public addInventoryItem(name: string, amount: number, cb?: ResponseCB) {
     const isItemValid = ItemsService.isValidItem(name)
     if (!isItemValid) {
       cb?.({
@@ -331,7 +312,7 @@ class _Player implements NXPlayer {
 
     amount = Math.trunc(amount)
 
-    const canTakeItem = await this.canTakeItem(name, amount)
+    const canTakeItem = this.canTakeItem(name, amount)
     if (!canTakeItem) {
       cb?.({
         ok: false,
@@ -373,7 +354,7 @@ class _Player implements NXPlayer {
     })
   }
 
-  async save(cb?: ResponseCB): Promise<void> {
+  public async save(cb?: ResponseCB) {
     PlayerDB.savePlayer({
       charinfo: this.charinfo,
       inventory: this.inventory,
@@ -397,7 +378,7 @@ class _Player implements NXPlayer {
       })
   }
 
-  kick(reason: string = 'no reason'): void {
+  kick(reason: string = 'no reason') {
     DropPlayer(this.source as unknown as string, reason)
   }
 }

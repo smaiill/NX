@@ -13,16 +13,17 @@ class _PlayerUtils {
     }
   }
 
-  public async getPlayerIdentifier(
+  public getPlayerIdentifier(
     identifiers: string[],
     identifierToFind: string
-  ): Promise<string | false> {
-    identifiers.forEach((identifier) => {
-      let [identifierKey, identifierValue] = identifier.split(':')
-      if (identifierKey === identifierToFind) {
-        return identifierValue
+  ): string | false {
+    for (const ID of identifiers) {
+      const [IDName, IDValue] = ID.split(':')
+
+      if (IDName === identifierToFind) {
+        return IDValue
       }
-    })
+    }
 
     return false
   }

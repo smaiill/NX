@@ -20,7 +20,7 @@ export interface NXPlayerMethods {
   getName(): string
   getCharInfo(): NXPlayerCharInfo
   getIdentifier(): string
-  getCoords(): number[]
+  getCoords(): Position
   getInventory(): Record<string, InventoryItem>
   getAccounts(): Record<string, number>
   getPermissions(): string
@@ -36,25 +36,23 @@ export interface NXPlayerMethods {
   setHunger(value: number): void
   setPermissions(permission: string): void
   setAccountMoney(account: string, money: number): void
-  setJob(
-    name: string,
-    grade: string,
-    type: number,
-    cb?: Function
-  ): Promise<void>
+  setJob(name: string, grade: string, type: number, cb?: Function): void
   setCoords(x: number, y: number, z: number, heading: number): void
   emitEvent(name: string, ...args: any[]): void
   hasItem(name: string): boolean | any
-  removeInventoryItem(
-    name: string,
-    amount: number,
-    cb?: ResponseCB
-  ): Promise<void>
-  canTakeItem(name: string, amount: number): Promise<boolean>
+  removeInventoryItem(name: string, amount: number, cb?: ResponseCB): void
+  canTakeItem(name: string, amount: number): boolean
   setCharInfoKey(key: string, value: string): void
-  addInventoryItem(name: string, amount: number, cb?: ResponseCB): Promise<void>
+  addInventoryItem(name: string, amount: number, cb?: ResponseCB): void
   save(cb?: ResponseCB): Promise<void>
   kick(reason: string): void
+}
+
+export interface Position {
+  x: number
+  y: number
+  z: number
+  heading: number
 }
 
 export interface NXPlayer extends NXPlayerMethods {
@@ -62,12 +60,7 @@ export interface NXPlayer extends NXPlayerMethods {
   charinfo: NXPlayerCharInfo
   inventory: Record<string, InventoryItem>
   accounts: Record<string, number>
-  position: {
-    x: number
-    y: number
-    z: number
-    heading: number
-  }
+  position: Position
   permissions: string
   weight: number
   name: string
@@ -84,7 +77,7 @@ export interface PlayerDataBase {
   permissions: string
   inventory: null | any
   charinfo: any
-  position: string
+  position: Position
   skin: null | string
   uid: string
   created_at: string

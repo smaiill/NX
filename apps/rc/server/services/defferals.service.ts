@@ -16,7 +16,6 @@ class _DeferralsService {
   }
 
   public async validatePlayer({
-    source,
     playerName,
     identifiers,
     deferrals,
@@ -29,14 +28,11 @@ class _DeferralsService {
     deferrals.defer()
     deferrals.update(`${playerName} wait while checking your license`)
 
-    const license = await this.playerUtils.getPlayerIdentifier(
-      identifiers,
-      'license'
-    )
+    const license = this.playerUtils.getPlayerIdentifier(identifiers, 'license')
 
     if (!license) return deferrals.done('Not valid license')
 
-    const isBanned = await this.bansService.isBanned(license)
+    const isBanned = this.bansService.isBanned(license)
 
     if (isBanned) {
       const unban = await this.bansService.checkUnban(license)
@@ -53,19 +49,20 @@ class _DeferralsService {
       }
     }
 
-    try {
-      await PlayerService.doesPlayerExist(license)
+    const alreadyPlayerWithSameLicense = PlayerService.doesPlayerExist(license)
 
+    if (!alreadyPlayerWithSameLicense) {
       deferrals.done()
       LG.info(`connecting player with license ${CodeColors.ORANGE}[${license}]`)
-    } catch ({ name }) {
-      deferrals.done(
-        `Player already connected with the same license [${license}]`
-      )
-      LG.warn(
-        `Player: [${playerName}] tried to connect with the same license as: ${CodeColors.ORANGE}[${name}] | license: ${CodeColors.ORANGE}${license}`
-      )
+      return
     }
+
+    deferrals.done(
+      `Player already connected with the same license [${license}]`
+    )
+    LG.warn(
+      `Player: [${playerName}] tried to connect with the same license as: ${CodeColors.ORANGE}[${alreadyPlayerWithSameLicense.name}] | license: ${CodeColors.ORANGE}${license}`
+    )
   }
 }
 

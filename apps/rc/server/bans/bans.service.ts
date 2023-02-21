@@ -12,11 +12,11 @@ class _BansService {
     this.init()
   }
 
-  public fetchAll(): Map<string, Ban> {
+  public fetchAll() {
     return this.bans
   }
 
-  private loadBans(bans: Ban[]): void {
+  private loadBans(bans: Ban[]) {
     for (const ban of bans) {
       this.bans.set(ban.id, ban)
     }
@@ -34,8 +34,8 @@ class _BansService {
     return isBanned
   }
 
-  public async isBanned(license: string): Promise<false | Ban> {
-    const isBanned = await this.findBanByLicense(license)
+  public isBanned(license: string): false | Ban {
+    const isBanned = this.findBanByLicense(license)
     return isBanned
   }
 
@@ -101,6 +101,7 @@ class _BansService {
         JSON.stringify(bansFile, null, 2),
         -1
       )
+
       this.bans.set(id as string, banData)
 
       return banData

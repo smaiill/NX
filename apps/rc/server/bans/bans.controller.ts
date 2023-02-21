@@ -1,11 +1,11 @@
 import { BanEventData, PlayerEvents } from '@nx/types'
 import { LG } from '@utils/logger'
-import { rpcFromClientSide } from '@utils/src'
+import { isRPCFromClientSide } from '@utils/src'
 import { BansService } from './bans.service'
 
 // ? Only from client side !
 onNet(PlayerEvents.BAN_PLAYER, async (data: BanEventData): Promise<void> => {
-  const src = rpcFromClientSide()
+  const src = isRPCFromClientSide()
 
   if (!src) {
     LG.warn(`someone tried to ban from server side, info provided: ${data}`)
