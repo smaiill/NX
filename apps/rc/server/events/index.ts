@@ -1,5 +1,6 @@
 import { CodeColors } from '@nx/types'
 import { LG } from '@utils/logger'
+import { getSrc } from '@utils/src'
 
 class _EventsService {
   private events: Map<string, Function>
@@ -21,11 +22,11 @@ class _EventsService {
       respEventName: string,
       ...args: any[]
     ): void => {
-      const source: number = globalThis.source
+      const src = getSrc()
       const eventCallback = this.events.get(eventName)
       if (eventCallback) {
-        eventCallback(source, ...args, (...respArgs: any[]) => {
-          emitNet(respEventName, globalThis.source, ...respArgs)
+        eventCallback(src, ...args, (...respArgs: any[]) => {
+          emitNet(respEventName, src, ...respArgs)
         })
       }
     }

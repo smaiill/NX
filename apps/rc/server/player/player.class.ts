@@ -10,6 +10,7 @@ import {
   NXPlayer,
   NXPlayerCharInfo,
   PermissionsEvents,
+  PlayerEvents,
   ResponseCB,
 } from '@nx/types'
 import { Position } from '@nx/types/src/player'
@@ -149,7 +150,7 @@ class _Player implements NXPlayer {
 
   public setPermissions(permission: string) {
     this.permissions = permission
-    this.emitEvent(PermissionsEvents.ON_PERMISSIONS_UPDATED, permission)
+    this.emitEvent(PermissionsEvents.PERMISSIONS_UPDATED, permission)
   }
 
   public setAccountMoney(account: string, money: number) {
@@ -158,7 +159,7 @@ class _Player implements NXPlayer {
     money = Math.trunc(money)
 
     this.accounts[account] = money
-    this.emitEvent(AccountsEvents.ON_ACCOUNT_UPDATED, {
+    this.emitEvent(AccountsEvents.ACCOUNT_UPDATED, {
       account,
       money,
     })
@@ -173,7 +174,7 @@ class _Player implements NXPlayer {
       this.charinfo.job = name
       this.charinfo.job_grade = grade
 
-      this.emitEvent(JobsEvents.ON_JOB_UPDATED, {
+      this.emitEvent(JobsEvents.JOB_UPDATED, {
         job: name,
         job_grade: grade,
         type,
@@ -191,7 +192,7 @@ class _Player implements NXPlayer {
     this.charinfo[`job${type}`] = name
     this.charinfo[`job${type}_grade`] = grade
 
-    this.emitEvent(JobsEvents.ON_JOB_UPDATED, {
+    this.emitEvent(JobsEvents.JOB_UPDATED, {
       job: name,
       job_grade: grade,
       type,
@@ -224,8 +225,9 @@ class _Player implements NXPlayer {
       return
     }
 
-    // @ts-ignore
-    this.charinfo[key] = value
+    this.charinfo[key as string] = value
+
+    this.emitEvent(PlayerEvents.CHARINFO_UPDATED, key, value)
   }
 
   public emitEvent(name: string, ...args: any[]) {
@@ -301,6 +303,7 @@ class _Player implements NXPlayer {
 
   public addInventoryItem(name: string, amount: number, cb?: ResponseCB) {
     const isItemValid = ItemsService.isValidItem(name)
+
     if (!isItemValid) {
       cb?.({
         ok: false,

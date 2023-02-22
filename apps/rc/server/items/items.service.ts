@@ -105,9 +105,8 @@ class _ItemsService {
   }
 
   public async dropItem(
-    name: string,
-    amount: number,
-    source: number
+    source: number,
+    { amount, name }: { amount: number; name: string }
   ): Promise<void> {
     const nxPlayer = await PlayerService.getPlayer(source)
     const itemInfo = await this.findItem(name)

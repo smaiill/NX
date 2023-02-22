@@ -110,6 +110,14 @@ class _PlayerService {
     PlayerCache.setValue('accounts', nxPlayerInfo.accounts)
   }
 
+  public setLocaleCharInfo(k: string, v: any) {
+    const nxPlayerInfo = PlayerCache.getData()
+
+    nxPlayerInfo.charinfo[k] = v
+
+    PlayerCache.setValue('charinfo', nxPlayerInfo.charinfo)
+  }
+
   public syncPlayer(): void {
     this.syncCoords()
     this.syncStatus()

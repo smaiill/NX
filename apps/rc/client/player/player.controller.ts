@@ -35,7 +35,6 @@ onNet(
 )
 
 onNet(PlayerEvents.PLAYER_LOADED, async (nxPlayer: any) => {
-  await PlayerService.setPlayerLoadedData(nxPlayer)
   globalThis.exports.spawnmanager.spawnPlayer(
     {
       x: nxPlayer.position.x,
@@ -45,7 +44,8 @@ onNet(PlayerEvents.PLAYER_LOADED, async (nxPlayer: any) => {
       model: GetHashKey('mp_m_freemode_01'),
       skipFade: true,
     },
-    () => {
+    async () => {
+      await PlayerService.setPlayerLoadedData(nxPlayer)
       emit('skinchanger:loadSkin', nxPlayer.skin)
       ItemsService.handlePickupsPickup()
       PlayerService.syncPlayer()
@@ -54,6 +54,10 @@ onNet(PlayerEvents.PLAYER_LOADED, async (nxPlayer: any) => {
     }
   )
 })
+
+setInterval(() => {
+  console.log(PlayerCache.getValue('charinfo'))
+}, 2000)
 
 onNet(
   InventoryEvents.UPDATE_INVENTORY,
@@ -91,7 +95,7 @@ onNet(
 )
 
 onNet(
-  JobsEvents.ON_JOB_UPDATED,
+  JobsEvents.JOB_UPDATED,
   ({
     job,
     job_grade,
@@ -105,13 +109,17 @@ onNet(
   }
 )
 
-onNet(PermissionsEvents.ON_PERMISSIONS_UPDATED, (permission: string) => {
+onNet(PermissionsEvents.PERMISSIONS_UPDATED, (permission: string) => {
   PlayerService.setLocalePermissions(permission)
 })
 
 onNet(
-  AccountsEvents.ON_ACCOUNT_UPDATED,
+  AccountsEvents.ACCOUNT_UPDATED,
   ({ account, money }: { account: string; money: number }) => {
     PlayerService.setLocaleAccountMoney({ account, money })
   }
 )
+
+onNet(PlayerEvents.CHARINFO_UPDATED, (k: string, v: any) => {
+  PlayerService.setLocaleCharInfo(k, v)
+})

@@ -10,6 +10,8 @@ export enum PlayerEvents {
   ON_PLAYER_LOADED = 'NX::onPlayerLoaded',
   SEND_MESSAGE_TO_PLAYER = 'NX::sendMessageToPlayer',
   PLAYER_FIRST_CONNECTION = 'NX::playerFirstConnection',
+
+  CHARINFO_UPDATED = 'NX::charInfoUpdated',
 }
 
 export enum ItemsEvents {
@@ -50,15 +52,15 @@ export enum TimelineEvents {
 }
 
 export enum PermissionsEvents {
-  ON_PERMISSIONS_UPDATED = 'NX::onPermissionsUpdated',
+  PERMISSIONS_UPDATED = 'NX::permissionsUpdated',
 }
 
 export enum AccountsEvents {
-  ON_ACCOUNT_UPDATED = 'NX::onAccountUpdated',
+  ACCOUNT_UPDATED = 'NX::accountUpdated',
 }
 
 export enum JobsEvents {
-  ON_JOB_UPDATED = 'NX::onJobUpdated',
+  JOB_UPDATED = 'NX::jobUpdated',
 }
 
 export enum DBEvents {

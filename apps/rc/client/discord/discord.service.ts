@@ -6,10 +6,10 @@ class _DiscordService {
   constructor() {
     this.config = config
 
-    this.init()
+    this.initDiscordRPC()
   }
 
-  public init(): void {
+  public initDiscordRPC(): void {
     if (!this.config.discord.richPresence.active) return
     SetDiscordAppId(this.config.discord.richPresence.appID)
     SetDiscordRichPresenceAsset(this.config.discord.richPresence.image)

@@ -22,7 +22,22 @@ class _BootService {
     // TODO: Check resource version.
   }
 
+  private ascii() {
+    console.log(`
+    __    __  __    __ 
+    /  \  /   |/  |  /  |
+    $$  \ $$  |$$ |  $$ |
+    $$$  \$$  |$$  \/$$/ 
+    $$$$  $$ | $$  $$<  
+    $$ $$ $$ |  $$$$  \ 
+    $$ |$$$$ | $$ /$$  |
+    $$ | $$$ |$$ |  $$ |
+    $$/   $$/ $$/   $$/     
+    `)
+  }
+
   public checkResource(): void {
+    this.ascii()
     this.checkDatabaseConnection()
     this.checkResourceVersion()
   }

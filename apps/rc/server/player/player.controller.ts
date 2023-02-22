@@ -1,35 +1,36 @@
 import { PlayerEvents } from '@nx/types'
+import { getSrc } from '@utils/src'
 import { DeferralsService } from '../services/defferals.service'
 import { PlayerService } from './player.service'
 
 onNet(PlayerEvents.NEW_PLAYER, (): void => {
-  const source = globalThis.source
-  PlayerService.newPlayer(getPlayerIdentifiers(source.toString()), source)
+  const src = getSrc()
+  PlayerService.newPlayer(getPlayerIdentifiers(src.toString()), src)
 })
 
 on(
   'playerConnecting',
   (playerName: string, reject: Function, deferrals: any): void => {
-    const source = globalThis.source
+    const src = getSrc()
     DeferralsService.validatePlayer({
       source,
       playerName,
-      identifiers: getPlayerIdentifiers(source.toString()),
+      identifiers: getPlayerIdentifiers(src.toString()),
       deferrals,
     })
   }
 )
 
 on('playerDropped', (): void => {
-  const source = globalThis.source
-  PlayerService.playerDropped(source)
+  const src = getSrc()
+  PlayerService.playerDropped(src)
 })
 
 onNet(
   PlayerEvents.UPDATE_COORDS,
   async (coords: number[], heading: number): Promise<void> => {
-    const source = globalThis.source
-    const nxPlayer = await PlayerService.getPlayer(source)
+    const src = getSrc()
+    const nxPlayer = await PlayerService.getPlayer(src)
 
     if (!nxPlayer) return
 
@@ -46,8 +47,9 @@ onNet(
     thirst: number
     hunger: number
   }): Promise<void> => {
-    const source = globalThis.source
-    const nxPlayer = await PlayerService.getPlayer(source)
+    const src = getSrc()
+    const nxPlayer = await PlayerService.getPlayer(src)
+
     if (!nxPlayer) return
 
     nxPlayer.SetHunger(hunger)
