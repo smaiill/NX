@@ -15,7 +15,7 @@ const App = () => {
   return (
     <NuiProvider>
       <div className="App">
-        <div className="notifications-container">
+        <div className="notifications__container">
           <Notification />
         </div>
         <div className={`input-wrapper`}>

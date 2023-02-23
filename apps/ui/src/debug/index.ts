@@ -1,89 +1,89 @@
 import { injectMockData } from '../utils/mock.data'
 
-// injectMockData([
-//   {
-//     app: 'NX::notification',
-//     method: 'NX::createNotification',
-//     data: {
-//       type: 'SUCCES',
-//       duration: 500,
-//       body: {
-//         content: '^6SUCCES',
-//       },
-//     },
-//   },
-//   {
-//     app: 'NX::notification',
-//     method: 'NX::createNotification',
-//     data: {
-//       type: 'WARN',
-//       duration: 500,
-//       body: {
-//         content: 'WARN',
-//       },
-//     },
-//   },
-//   {
-//     app: 'NX::notification',
-//     method: 'NX::createNotification',
-//     data: {
-//       type: 'ERROR',
-//       duration: 500,
-//       body: {
-//         content: 'ERROR qzdzqdqzd ^3qzdqzdqzd qzdqzdg qzdqzdzdqzdqzdqzdqzd',
-//       },
-//     },
-//   },
-//   {
-//     app: 'NX::notification',
-//     method: 'NX::createNotification',
-//     data: {
-//       type: 'NORMAL',
-//       duration: 500,
-//       body: {
-//         content: 'normal qzdqzdqzqzdz qzd qd qzd ^4qzd qd qd qd ',
-//       },
-//     },
-//   },
-// ])
-
-setTimeout(() => {
-  injectMockData([
-    {
-      app: 'NX::input',
-      method: 'NX::createInput',
-      data: {
-        title: 'Register',
-        rows: [
-          {
-            label: 'Nom',
-            id: 'name',
-            type: 'text',
-            required: true,
-          },
-          {
-            label: 'Prénom',
-            id: 'amount',
-            type: 'text',
-            required: true,
-          },
-          {
-            label: 'Age',
-            id: 'age',
-            type: 'text',
-            required: true,
-          },
-          {
-            label: 'Color',
-            id: 'color',
-            type: 'color',
-            required: true,
-          },
-        ],
+injectMockData([
+  {
+    app: 'NX::notification',
+    method: 'NX::createNotification',
+    data: {
+      type: 'SUCCES',
+      duration: 500,
+      body: {
+        content: '^6SUCCES',
       },
     },
-  ])
-}, 1000)
+  },
+  {
+    app: 'NX::notification',
+    method: 'NX::createNotification',
+    data: {
+      type: 'WARN',
+      duration: 500,
+      body: {
+        content: 'WARN',
+      },
+    },
+  },
+  {
+    app: 'NX::notification',
+    method: 'NX::createNotification',
+    data: {
+      type: 'ERROR',
+      duration: 500,
+      body: {
+        content: 'ERROR qzdzqdqzd ^3qzdqzdqzd qzdqzdg ^0qzdqzdzdqzdqzdqzdqzd',
+      },
+    },
+  },
+  {
+    app: 'NX::notification',
+    method: 'NX::createNotification',
+    data: {
+      type: 'NORMAL',
+      duration: 500,
+      body: {
+        content: 'normal qzdqzdqzqzdz qzd qd qzd ^4qzd qd qd qd ',
+      },
+    },
+  },
+])
+
+// setTimeout(() => {
+//   injectMockData([
+//     {
+//       app: 'NX::input',
+//       method: 'NX::createInput',
+//       data: {
+//         title: 'Register',
+//         rows: [
+//           {
+//             label: 'Nom',
+//             id: 'name',
+//             type: 'text',
+//             required: true,
+//           },
+//           {
+//             label: 'Prénom',
+//             id: 'amount',
+//             type: 'text',
+//             required: true,
+//           },
+//           {
+//             label: 'Age',
+//             id: 'age',
+//             type: 'text',
+//             required: true,
+//           },
+//           {
+//             label: 'Color',
+//             id: 'color',
+//             type: 'color',
+//             required: true,
+//           },
+//         ],
+//       },
+//     },
+//   ])
+// }, 1000)
 
 // injectMockData([
 //   {

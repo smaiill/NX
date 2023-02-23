@@ -17,7 +17,7 @@ class _PlayerCache {
   }
 
   public getData(): any {
-    return this.playerData
+    return JSON.parse(JSON.stringify(this.playerData))
   }
 
   public setValue(key: string, value: any): void {

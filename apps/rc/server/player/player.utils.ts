@@ -40,15 +40,6 @@ class _PlayerUtils {
 
     return 'A+'
   }
-
-  public loadPlayerSkin(playerSkin: any, sex: string) {
-    let skin = null
-    if (playerSkin) return (skin = JSON.parse(playerSkin))
-
-    if (sex === 'female') return (skin = { sex: 1 })
-
-    return (skin = { sex: 0 })
-  }
 }
 
 const PlayerUtils = new _PlayerUtils()

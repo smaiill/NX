@@ -7,7 +7,7 @@ class _JobsService {
     this.jobs = jobs
   }
 
-  findJob(name: string): Job | false {
+  public findJob(name: string): Job | false {
     const job = this.jobs.find((job) => job.name === name)
 
     if (job) return job
@@ -15,7 +15,7 @@ class _JobsService {
     return false
   }
 
-  isValid(name: string, grade: string, type: number): boolean {
+  public isValid(name: string, grade: string, type: number): boolean {
     const job = this.findJob(name)
 
     if (!job || job.type !== type) return false

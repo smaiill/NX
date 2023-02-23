@@ -11,6 +11,7 @@ export enum PlayerEvents {
   SEND_MESSAGE_TO_PLAYER = 'NX::sendMessageToPlayer',
   PLAYER_FIRST_CONNECTION = 'NX::playerFirstConnection',
 
+  UPDATE_LOCALE_CACHE_BY_KEY = 'NX::updateLocaleCacheByKey',
   CHARINFO_UPDATED = 'NX::charInfoUpdated',
 }
 

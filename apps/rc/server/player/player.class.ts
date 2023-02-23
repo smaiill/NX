@@ -1,7 +1,6 @@
 import { ItemsService } from '@items/items.service'
 import { JobsService } from '@jobs/jobs.service'
 import {
-  AccountsEvents,
   Configuration,
   InventoryActions,
   InventoryEvents,
@@ -9,7 +8,6 @@ import {
   JobsEvents,
   NXPlayer,
   NXPlayerCharInfo,
-  PermissionsEvents,
   PlayerEvents,
   ResponseCB,
 } from '@nx/types'
@@ -31,6 +29,7 @@ class _Player implements NXPlayer {
   maxWeight
   uid
   config: Configuration
+  skin
 
   constructor(
     identifier: string,
@@ -42,7 +41,8 @@ class _Player implements NXPlayer {
     weight: number,
     name: string,
     source: number,
-    uid: string
+    uid: string,
+    skin: Record<string, any>
   ) {
     this.identifier = identifier
     this.charinfo = charinfo
@@ -56,10 +56,23 @@ class _Player implements NXPlayer {
     this.uid = uid
     this.config = config
     this.maxWeight = this.config.player.maxWeight
+    this.skin = skin
+
+    this.init()
+  }
+
+  private init() {
+    ExecuteCommand(
+      `add_principal identifier.${this.identifier} group.${this.permissions}`
+    )
   }
 
   public getWeight() {
     return this.weight
+  }
+
+  public getSkin() {
+    return this.skin
   }
 
   public getName() {
@@ -144,13 +157,28 @@ class _Player implements NXPlayer {
     this.charinfo.thirst = value
   }
 
+  public setSkin(skin: Record<string, string>) {
+    this.skin = skin
+
+    // TODO: Update locale cache !
+  }
+
   public setHunger(value: number) {
     this.charinfo.hunger = value
   }
 
   public setPermissions(permission: string) {
+    ExecuteCommand(
+      `remove_principal identifier.${this.identifier} group.${this.permissions}`
+    )
     this.permissions = permission
-    this.emitEvent(PermissionsEvents.PERMISSIONS_UPDATED, permission)
+    ExecuteCommand(
+      `add_principal identifier.${this.identifier} group.${this.permissions}`
+    )
+    this.emitEvent(PlayerEvents.UPDATE_LOCALE_CACHE_BY_KEY, {
+      key: 'permissions',
+      value: this.permissions,
+    })
   }
 
   public setAccountMoney(account: string, money: number) {
@@ -159,9 +187,10 @@ class _Player implements NXPlayer {
     money = Math.trunc(money)
 
     this.accounts[account] = money
-    this.emitEvent(AccountsEvents.ACCOUNT_UPDATED, {
-      account,
-      money,
+
+    this.emitEvent(PlayerEvents.UPDATE_LOCALE_CACHE_BY_KEY, {
+      key: 'accounts',
+      value: this.accounts,
     })
   }
 
@@ -192,10 +221,9 @@ class _Player implements NXPlayer {
     this.charinfo[`job${type}`] = name
     this.charinfo[`job${type}_grade`] = grade
 
-    this.emitEvent(JobsEvents.JOB_UPDATED, {
-      job: name,
-      job_grade: grade,
-      type,
+    this.emitEvent(PlayerEvents.UPDATE_LOCALE_CACHE_BY_KEY, {
+      key: 'charinfo',
+      value: this.charinfo,
     })
 
     cb?.({
@@ -225,9 +253,10 @@ class _Player implements NXPlayer {
       return
     }
 
-    this.charinfo[key as string] = value
-
-    this.emitEvent(PlayerEvents.CHARINFO_UPDATED, key, value)
+    this.emitEvent(PlayerEvents.UPDATE_LOCALE_CACHE_BY_KEY, {
+      key: 'charinfo',
+      value: this.charinfo,
+    })
   }
 
   public emitEvent(name: string, ...args: any[]) {

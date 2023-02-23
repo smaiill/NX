@@ -1,4 +1,3 @@
-import './debug'
 import './main'
 
 // const NX = exports.NX.useClient()

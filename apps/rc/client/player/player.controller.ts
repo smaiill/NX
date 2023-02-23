@@ -1,11 +1,8 @@
 import { ItemsService } from '@items/items.service'
 import {
-  AccountsEvents,
   InventoryActionData,
   InventoryActions,
   InventoryEvents,
-  JobsEvents,
-  PermissionsEvents,
   PlayerEvents,
 } from '@nx/types'
 import { PlayerCache } from './player.class'
@@ -55,10 +52,6 @@ onNet(PlayerEvents.PLAYER_LOADED, async (nxPlayer: any) => {
   )
 })
 
-setInterval(() => {
-  console.log(PlayerCache.getValue('charinfo'))
-}, 2000)
-
 onNet(
   InventoryEvents.UPDATE_INVENTORY,
   ({
@@ -95,31 +88,8 @@ onNet(
 )
 
 onNet(
-  JobsEvents.JOB_UPDATED,
-  ({
-    job,
-    job_grade,
-    type,
-  }: {
-    job: string
-    job_grade: string
-    type: number
-  }) => {
-    PlayerService.setLocaleJob({ job, job_grade, type })
+  PlayerEvents.UPDATE_LOCALE_CACHE_BY_KEY,
+  ({ key, value }: { key: string; value: any }) => {
+    PlayerService.setLocalCacheByKey({ key, value })
   }
 )
-
-onNet(PermissionsEvents.PERMISSIONS_UPDATED, (permission: string) => {
-  PlayerService.setLocalePermissions(permission)
-})
-
-onNet(
-  AccountsEvents.ACCOUNT_UPDATED,
-  ({ account, money }: { account: string; money: number }) => {
-    PlayerService.setLocaleAccountMoney({ account, money })
-  }
-)
-
-onNet(PlayerEvents.CHARINFO_UPDATED, (k: string, v: any) => {
-  PlayerService.setLocaleCharInfo(k, v)
-})

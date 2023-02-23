@@ -62,60 +62,12 @@ class _PlayerService {
     PlayerCache.setValue('inventory', nxPlayerInventory)
   }
 
-  public setLocaleJob({
-    job,
-    job_grade,
-    type,
-  }: {
-    job: string
-    job_grade: string
-    type: number
-  }) {
-    const nxPlayerInfo = PlayerCache.getData().charinfo
-
-    if (type === 1) {
-      nxPlayerInfo.job = job
-      nxPlayerInfo.job_grade = job_grade
-
-      PlayerCache.setValue('charinfo', nxPlayerInfo)
-
-      return
-    }
-
-    nxPlayerInfo[`job${type}`] = job
-    nxPlayerInfo[`job${type}_grade`] = job_grade
-
-    PlayerCache.setValue('charinfo', nxPlayerInfo)
-  }
-
-  public setLocalePermissions(permission: string) {
+  public setLocalCacheByKey({ key, value }: { key: string; value: any }) {
     const nxPlayerInfo = PlayerCache.getData()
 
-    nxPlayerInfo.permissions = permission
+    nxPlayerInfo[key] = value
 
-    PlayerCache.setValue('permissions', permission)
-  }
-
-  public setLocaleAccountMoney({
-    account,
-    money,
-  }: {
-    account: string
-    money: number
-  }) {
-    const nxPlayerInfo = PlayerCache.getData()
-
-    nxPlayerInfo.accounts[account] = money
-
-    PlayerCache.setValue('accounts', nxPlayerInfo.accounts)
-  }
-
-  public setLocaleCharInfo(k: string, v: any) {
-    const nxPlayerInfo = PlayerCache.getData()
-
-    nxPlayerInfo.charinfo[k] = v
-
-    PlayerCache.setValue('charinfo', nxPlayerInfo.charinfo)
+    PlayerCache.setValue(key, value)
   }
 
   public syncPlayer(): void {

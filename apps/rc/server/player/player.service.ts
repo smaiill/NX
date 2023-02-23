@@ -81,26 +81,15 @@ class _PlayerService {
     player: PlayerDataBase,
     source: number
   ): Promise<void> {
-    player.charinfo = JSON.parse(player.charinfo)
-    player.accounts = JSON.parse(player.accounts)
-    player.position = JSON.parse(player.position as unknown as string)
-    player.inventory && (player.inventory = JSON.parse(player.inventory))
-
     const nxPlayerData: {
       inventory: Record<string, InventoryItem>
-      skin: any
       weight: number
     } = {
       inventory: {},
-      skin: {},
       weight: 0,
     }
 
-    // TODO: Put this on player.utils.ts
-    if (
-      player.inventory &&
-      Object.getOwnPropertyNames(player.inventory).length > 0
-    ) {
+    if (Object.getOwnPropertyNames(player.inventory).length > 0) {
       let itemsWeight = 0
       for (const property in player.inventory) {
         const item = ItemsService.isValidItem(property)
@@ -126,9 +115,6 @@ class _PlayerService {
       nxPlayerData.weight = itemsWeight
     }
 
-    const skin = PlayerUtils.loadPlayerSkin(player.skin, player.charinfo.sex)
-    nxPlayerData.skin = skin
-
     const nxPlayer = new _Player(
       player.identifier,
       player.charinfo,
@@ -139,7 +125,8 @@ class _PlayerService {
       nxPlayerData.weight,
       GetPlayerName(source.toString()),
       source,
-      player.uid
+      player.uid,
+      player.skin
     )
 
     this.playersCollection.set(source, nxPlayer)
@@ -154,12 +141,12 @@ class _PlayerService {
       charinfo: nxPlayer.charinfo,
       permissions: nxPlayer.permissions,
       uid: nxPlayer.uid,
-      skin: nxPlayerData.skin,
+      skin: nxPlayer.skin,
     })
   }
 
   public doesPlayerExist(identifier: string): NXPlayer | false {
-    for (const [id, player] of this.playersCollection) {
+    for (const [_, player] of this.playersCollection) {
       if (player.identifier === identifier) {
         return player
       }
@@ -182,6 +169,7 @@ class _PlayerService {
       )
 
     const [player] = await this.playerDB.getPlayerFromDB(license)
+
     await this.loadPlayer(player, source)
 
     const nxPlayer = await this.getPlayer(source)

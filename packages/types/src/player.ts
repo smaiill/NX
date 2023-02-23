@@ -78,7 +78,7 @@ export interface PlayerDataBase {
   inventory: null | any
   charinfo: any
   position: Position
-  skin: null | string
+  skin: any
   uid: string
   created_at: string
   updated_at: string
