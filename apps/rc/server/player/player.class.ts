@@ -394,6 +394,7 @@ class _Player implements NXPlayer {
       position: this.position,
       permissions: this.permissions,
       identifier: this.identifier,
+      skin: this.skin,
     })
       .then(() => {
         LG.info(`Player: [${this.name}] saved with success.`)

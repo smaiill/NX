@@ -15,17 +15,3 @@ export const items = (() => {
 
   return items
 })()
-
-export const jobs = (() => {
-  const resourceName = GetCurrentResourceName()
-  const jobs = JSON.parse(LoadResourceFile(resourceName, 'config/nx.jobs.json'))
-
-  return jobs
-})()
-
-export const bans = (() => {
-  const resourceName = GetCurrentResourceName()
-  const bans = JSON.parse(LoadResourceFile(resourceName, 'config/nx.bans.json'))
-
-  return bans
-})()

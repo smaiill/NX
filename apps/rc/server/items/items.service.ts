@@ -3,15 +3,18 @@ import { PlayerService } from '@player/player.service'
 import { items } from '@shared/load.file'
 import { Utils } from '@shared/utils/misc'
 import { LG } from '@utils/logger'
+import { ItemsDB } from './items.db'
 
 class _ItemsService {
   private readonly items: Item[]
   private pickups: Pickup[]
   private usableItems: Map<string, Function>
+  private db: typeof ItemsDB
   constructor() {
     this.items = items
     this.pickups = []
     this.usableItems = new Map()
+    this.db = ItemsDB
   }
 
   public isValidItem(itemName: string): false | Item {

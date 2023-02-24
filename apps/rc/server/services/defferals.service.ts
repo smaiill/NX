@@ -39,11 +39,7 @@ class _DeferralsService {
 
       if (!unban) {
         deferrals.done(
-          `you are banned from this server.\nReason: ${
-            isBanned.reason
-          }.\nBan Date: ${this.utils.parseDate(
-            isBanned.date
-          )}.\nExpiration: ${this.utils.parseDate(isBanned.expire)}`
+          `you are banned from this server.\nReason: ${isBanned.reason}.\nBan Date: ${isBanned.date}.\nExpiration: ${isBanned.expire}`
         )
         return
       }

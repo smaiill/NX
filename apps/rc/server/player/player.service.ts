@@ -81,6 +81,12 @@ class _PlayerService {
     player: PlayerDataBase,
     source: number
   ): Promise<void> {
+    player.inventory = JSON.parse(player.inventory)
+    player.accounts = JSON.parse(player.accounts)
+    player.position = JSON.parse(player.position as unknown as string)
+    player.skin = JSON.parse(player.skin)
+    player.charinfo = JSON.parse(player.charinfo)
+
     const nxPlayerData: {
       inventory: Record<string, InventoryItem>
       weight: number
@@ -128,6 +134,8 @@ class _PlayerService {
       player.uid,
       player.skin
     )
+
+    // console.log(nxPlayer)
 
     this.playersCollection.set(source, nxPlayer)
 

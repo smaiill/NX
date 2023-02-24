@@ -32,6 +32,7 @@ onNet(
 )
 
 onNet(PlayerEvents.PLAYER_LOADED, async (nxPlayer: any) => {
+  console.log(nxPlayer)
   globalThis.exports.spawnmanager.spawnPlayer(
     {
       x: nxPlayer.position.x,

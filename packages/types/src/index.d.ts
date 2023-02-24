@@ -1,5 +1,4 @@
 export type { Configuration } from './configs'
-export { DBQueries } from './db'
 export {
   AccountsEvents,
   DBEvents,

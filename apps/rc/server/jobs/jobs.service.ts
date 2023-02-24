@@ -1,10 +1,14 @@
 import { Job } from '@nx/types'
-import { jobs } from '@shared/load.file'
+import { SavedJob } from '@nx/types/src/jobs'
+import { JobsDB } from './jobs.db'
 
 class _JobsService {
-  private readonly jobs: any[]
+  private jobs: SavedJob[]
+  private db: typeof JobsDB
   constructor() {
-    this.jobs = jobs
+    this.jobs = []
+    this.db = JobsDB
+    this.init()
   }
 
   public findJob(name: string): Job | false {
@@ -20,13 +24,21 @@ class _JobsService {
 
     if (!job || job.type !== type) return false
 
-    const isGrade = job.grades.find(
-      (gradeName: any) => gradeName.name === grade
-    )
+    const isGrade = job.grades.find((gradeName) => gradeName.name === grade)
 
     if (isGrade) return true
 
     return false
+  }
+
+  private async init() {
+    const res = await this.db.fetchAll()
+
+    for (const job of res) {
+      job.grades = JSON.parse(job.grades as unknown as string)
+    }
+
+    this.jobs = res
   }
 }
 

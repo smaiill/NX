@@ -1,5 +1,5 @@
+import { Querys } from '@db/consts'
 import { DB } from '@db/db'
-import { DBQueries } from '@nx/types'
 import { config } from '@shared/load.file'
 import { Utils } from '@shared/utils/misc'
 import { PlayerUtils } from './player.utils'
@@ -9,7 +9,7 @@ export class PlayerDB {
 
   public static async getPlayerFromDB(license: string): Promise<any> {
     try {
-      const res = await DB.exec(DBQueries.SELECT_PLAYER_W_IDENTIFIER, [license])
+      const res = await DB.exec(Querys.Player.SELECT_WITH_IDENTIFIER, [license])
 
       return res
     } catch (error) {
@@ -22,7 +22,7 @@ export class PlayerDB {
     const uid = await Utils.uuid('SMALL')
 
     try {
-      const res = await DB.exec(DBQueries.CRAETE_PLAYER, [
+      const res = await DB.exec(Querys.Player.CREATE, [
         license,
         JSON.stringify({
           firstname: '',
@@ -53,13 +53,14 @@ export class PlayerDB {
     }
 
     try {
-      const res = await DB.exec(DBQueries.UPDATE_PLAYER, [
+      const res = await DB.exec(Querys.Player.UPDATE, [
         JSON.stringify(nxPlayer.charinfo),
         JSON.stringify(nxPlayer.inventory),
         JSON.stringify(nxPlayer.accounts),
         JSON.stringify(nxPlayer.position),
         nxPlayer.permissions,
         nxPlayer.identifier,
+        JSON.stringify(nxPlayer.skin),
       ])
 
       return res

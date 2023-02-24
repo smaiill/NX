@@ -7,10 +7,11 @@ interface JobGrade {
     female: any
   }
 }
-
 export interface Job {
   name: string
   label: string
   type: number
   grades: JobGrade[]
 }
+
+export type SavedJob = Job & { id: number }

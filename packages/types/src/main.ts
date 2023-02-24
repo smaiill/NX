@@ -23,10 +23,10 @@ export interface Ban {
   identifiers: string[]
   reason: string
   id: string
-  date: number
   expire: number
 }
 
+export type SavedBan = Ban & { date: Date }
 export interface BanEventData {
   target: number
   duration: number
