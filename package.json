@@ -20,7 +20,8 @@
     "release": "node scripts/release",
     "dev:rc": "turbo run dev:rc",
     "p": "husky install",
-    "check:tsc": "turbo run check:tsc"
+    "check:tsc": "turbo run check:tsc",
+    "dev:i": "turbo run dev:i"
   },
   "devDependencies": {
     "husky": "^8.0.3",

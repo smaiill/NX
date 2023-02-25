@@ -1,8 +1,9 @@
-import { Ban, BanEventData } from '@nx/types'
+import { Ban } from '@nx/types'
 import { SavedBan } from '@nx/types/src/main'
 import { PlayerService } from '@player/player.service'
 import { Utils } from '@shared/utils/misc'
 import { BansDB } from './bans.db'
+import { createBanSchema, CreateBanType } from './bans.schema'
 
 class _BansService {
   private bans: Map<string, SavedBan>
@@ -58,11 +59,12 @@ class _BansService {
     return this.msToS(date)
   }
 
-  public async banPlayer(data: BanEventData): Promise<Ban> {
-    if (!data || !data.target) {
-      throw `Invalid data while trying to ban player, data provided: [${data}]`
-    }
+  public async banPlayer(data: CreateBanType): Promise<Ban> {
+    const res = createBanSchema.safeParse(data)
 
+    if (!res.success) {
+      throw 'Invalid data for to ban player.'
+    }
     // TODO: Check player permissions
 
     const nxTarget = await PlayerService.getPlayer(data.target)

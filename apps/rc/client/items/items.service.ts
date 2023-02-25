@@ -23,7 +23,7 @@ class _ItemsService {
     label,
     propsType,
     itemType,
-    unique,
+    _unique,
     maxInSlot,
   }: Pickup): void {
     RequestModel(propsType)
@@ -55,7 +55,7 @@ class _ItemsService {
           label,
           propsType,
           itemType,
-          unique,
+          _unique,
           maxInSlot,
         })
 
@@ -76,7 +76,7 @@ class _ItemsService {
         label: pickup.label,
         propsType: pickup.propsType,
         itemType: pickup.itemType,
-        unique: pickup.unique,
+        _unique: pickup._unique,
         maxInSlot: pickup.maxInSlot,
       })
     }

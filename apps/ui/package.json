@@ -7,14 +7,16 @@
     "dev:ig": "tsc && vite build --watch",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "check:tsc": "tsc --noEmit"
+    "check:tsc": "tsc --noEmit",
+    "dev:i": "vite"
   },
   "dependencies": {
     "fivem-nui-react-lib": "^2.3.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.58.1",
-    "zustand": "^4.3.3"
+    "zustand": "^4.3.3",
+    "@nx/lib": "workspace:*"
   },
   "devDependencies": {
     "@nx/types": "workspace:*",

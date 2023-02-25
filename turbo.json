@@ -9,6 +9,9 @@
     "dev": {
       "cache": false
     },
+    "dev:i": {
+      "cache": false
+    },
     "dev:rc": {
       "cache": false
     },

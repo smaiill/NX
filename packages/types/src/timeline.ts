@@ -3,16 +3,18 @@ export enum TimelineUpdateActions {
   SET_UNCOMPLETED = 'SET_UNCOMPLETED',
 }
 
+export type TimelineRowTypes = 'DOT' | 'OUTLINE'
+
 export interface UpdateTimelineData {
   type: keyof typeof TimelineUpdateActions
-  id?: string
+  id: string
 }
 
 export interface TimelineRow {
   id: string
   label: string
   completed: boolean
-  type: 'DOT' | 'OUTLINE'
+  type: TimelineRowTypes
 }
 
 export interface TimelineData {

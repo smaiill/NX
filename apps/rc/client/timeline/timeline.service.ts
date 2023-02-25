@@ -8,6 +8,11 @@ import {
   UpdateTimelineData,
 } from '@nx/types'
 import { LG } from '@utils/logger'
+import {
+  createTimelineSchema,
+  CreateTimelineType,
+  UpdateTimelineType,
+} from './timeline.schema'
 import { TimelineUtils } from './timeline.utils'
 
 class _TimelineService {
@@ -92,41 +97,44 @@ class _TimelineService {
     return false
   }
 
-  public create(timeline: TimelineData) {
-    if (this.isActive()) {
-      LG.error(`Timeline already active !`)
+  public create(timeline: CreateTimelineType) {
+    const res = createTimelineSchema.safeParse(timeline)
+
+    if (!res.success) {
+      LG.error(`Couldn't create Timeline invalid data: ${JSON.stringify(res)}`)
       return
     }
 
-    const { isValid, errorMessage } =
-      this.timelineUtils.validateCreation(timeline)
-
-    if (!isValid) {
-      LG.error(`Couldn't create Timeline: ${errorMessage}`)
-      return
-    }
+    const { data } = res
 
     this.setState('active', true)
-    this.setState('rows', timeline.rows)
+    this.setState('rows', data.rows)
 
-    for (let i = 1; i <= timeline.rows.length; i++) {
+    for (let i = 1; i <= data.rows.length; i++) {
       this.timelineState.completedTasks.push({
-        id: timeline.rows[i - 1].id,
-        completed: false,
+        id: data.rows[i - 1].id,
+        completed: data.rows[i].completed,
         index: i,
       })
 
-      this.lastTaskID = timeline.rows[i - 1].id
+      this.lastTaskID = data.rows[i - 1].id
     }
 
     EventsService.emitNuiEvent<TimelineData>({
       app: NuiAPPS.TIMELINE,
       method: TimelineEvents.CREATE_TIMELINE,
-      data: timeline,
+      data,
     })
   }
 
-  public update(data: UpdateTimelineData) {
+  public update(data: UpdateTimelineType) {
+    const res = createTimelineSchema.safeParse(data)
+
+    if (!res.success) {
+      LG.error(`Couldn't create Timeline invalid data: ${JSON.stringify(res)}`)
+      return
+    }
+
     const canUpdate = this.canUpdate(data.type, data.id as string)
 
     if (!canUpdate) return

@@ -24,7 +24,6 @@ export type {
 export { InventoryActions, NuiAPPS } from './main'
 export type {
   Ban,
-  BanEventData,
   DiscordWebhook,
   InventoryActionData,
   Response,
@@ -66,6 +65,7 @@ export { TimelineUpdateActions } from './timeline'
 export type {
   TimelineData,
   TimelineRow,
+  TimelineRowTypes,
   TimelineState,
   TimelineStateSlice,
   UpdateTimelineData,

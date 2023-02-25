@@ -23,7 +23,7 @@ onNet(
     label,
     propsType,
     itemType,
-    unique,
+    _unique,
     maxInSlot,
   }: Pickup): void => {
     ItemsService.createDrop({
@@ -34,7 +34,7 @@ onNet(
       label,
       propsType,
       itemType,
-      unique,
+      _unique,
       maxInSlot,
     })
   }

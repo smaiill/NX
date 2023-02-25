@@ -39,7 +39,7 @@ globalThis.exports('useServer', function () {
     Misc: {
       RegisterUsableItem: server.Items.registerUsableItem.bind(server.Items),
       OnServerEvent: server.Events.onServerEvent.bind(server.Events),
-      AddCommand: server.Commands.addCommand.bind(server.Commands),
+      // AddCommand: server.Commands.addCommand.bind(server.Commands),
     },
     Discord: {
       SendWebhook: server.Discord.sendWebhook.bind(server.Discord),

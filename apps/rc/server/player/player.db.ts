@@ -1,15 +1,19 @@
-import { Querys } from '@db/consts'
 import { DB } from '@db/db'
 import { config } from '@shared/load.file'
 import { Utils } from '@shared/utils/misc'
 import { PlayerUtils } from './player.utils'
 
-export class PlayerDB {
-  constructor() {}
+class _PlayerDB {
+  private db: typeof DB
+  constructor() {
+    this.db = DB
+  }
 
-  public static async getPlayerFromDB(license: string): Promise<any> {
+  public async getPlayerFromDB(license: string): Promise<any> {
     try {
-      const res = await DB.exec(Querys.Player.SELECT_WITH_IDENTIFIER, [license])
+      const res = await DB.exec(this.db.querys.Player.SELECT_WITH_IDENTIFIER, [
+        license,
+      ])
 
       return res
     } catch (error) {
@@ -17,12 +21,12 @@ export class PlayerDB {
     }
   }
 
-  public static async createPlayer(license: string): Promise<any> {
+  public async createPlayer(license: string): Promise<any> {
     const bloodType = await PlayerUtils.generateBloodType()
     const uid = await Utils.uuid('SMALL')
 
     try {
-      const res = await DB.exec(Querys.Player.CREATE, [
+      const res = await DB.exec(this.db.querys.Player.CREATE, [
         license,
         JSON.stringify({
           firstname: '',
@@ -47,13 +51,13 @@ export class PlayerDB {
     }
   }
 
-  public static async savePlayer(nxPlayer: any): Promise<any> {
+  public async savePlayer(nxPlayer: any): Promise<any> {
     if (!nxPlayer) {
       throw 'no player specified'
     }
 
     try {
-      const res = await DB.exec(Querys.Player.UPDATE, [
+      const res = await DB.exec(this.db.querys.Player.UPDATE, [
         JSON.stringify(nxPlayer.charinfo),
         JSON.stringify(nxPlayer.inventory),
         JSON.stringify(nxPlayer.accounts),
@@ -69,3 +73,5 @@ export class PlayerDB {
     }
   }
 }
+
+export const PlayerDB = new _PlayerDB()

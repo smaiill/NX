@@ -1,4 +1,3 @@
-import { Querys } from '@db/consts'
 import { DB } from '@db/db'
 import { SavedJob } from '@nx/types/src/jobs'
 
@@ -9,7 +8,7 @@ class _JobsDB {
   }
 
   public async fetchAll(): Promise<SavedJob[]> {
-    return await this.db.exec(Querys.Job.FETCH_ALL)
+    return await this.db.exec(this.db.querys.Job.FETCH_ALL)
   }
 }
 

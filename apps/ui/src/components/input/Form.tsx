@@ -1,7 +1,7 @@
+import { Button } from '@nx/lib'
 import { InputRow as InputRowType } from '@nx/types'
 import { FormEvent } from 'react'
 import { useInputStore } from '../../store/input'
-import { Button } from '../button/Button'
 import { Input } from './components/Input'
 import { useInputHandler } from './hooks/useInputHandler'
 import { useInputServices } from './hooks/useInputService'

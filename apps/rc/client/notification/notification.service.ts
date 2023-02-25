@@ -1,26 +1,29 @@
 import { EventsService } from '@events/events.service'
+import { NotificationData, NotificationEvents, NuiAPPS } from '@nx/types'
+import { LG } from '@utils/logger'
 import {
-  DefaultData,
-  NotificationData,
-  NotificationEvents,
-  NuiAPPS,
-} from '@nx/types'
-import { overWriteData } from '@shared/utils/def'
+  createNotificationSchema,
+  CreateNotificationType,
+} from './notification.schema'
 
 class _NotificationService {
   constructor() {}
 
-  public async create(data: NotificationData): Promise<void> {
-    const overWritedData = await overWriteData<NotificationData>(
-      DefaultData.NOTIFICATION,
-      data
-    )
+  public async create(notification: CreateNotificationType): Promise<void> {
+    const res = createNotificationSchema.safeParse(notification)
+
+    if (!res.success) {
+      LG.error(`Couldn't create Timeline invalid data: ${JSON.stringify(res)}`)
+      return
+    }
+
+    const { data } = res
 
     EventsService.emitNuiEvent<NotificationData>(
       {
         app: NuiAPPS.NOTIFICATION,
         method: NotificationEvents.CREATE_NOTIFICATION,
-        data: overWritedData,
+        data,
       },
       false
     )

@@ -1,8 +1,12 @@
 import { ResponseCB } from '@nx/types'
 import { pool } from './pool'
+import { Querys } from './querys'
 
 class _DB {
-  constructor() {}
+  querys: typeof Querys
+  constructor() {
+    this.querys = Querys
+  }
 
   public async exec(
     query: string,

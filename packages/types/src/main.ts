@@ -27,11 +27,7 @@ export interface Ban {
 }
 
 export type SavedBan = Ban & { date: Date }
-export interface BanEventData {
-  target: number
-  duration: number
-  reason: string
-}
+
 export interface Response {
   ok: boolean
   message?: any

@@ -1,11 +1,10 @@
 import { EventsService } from '@events/events.service'
+import { LoadingBarData, LoadingBarEvents, NuiAPPS } from '@nx/types'
+import { LG } from '@utils/logger'
 import {
-  DefaultData,
-  LoadingBarData,
-  LoadingBarEvents,
-  NuiAPPS,
-} from '@nx/types'
-import { overWriteData } from '@shared/utils/def'
+  createLoadingbarSchema,
+  CreationLoadingbarType,
+} from './loaderbar.schema'
 
 class _LoadingBarService {
   private readonly currentLoadingBarState: {
@@ -28,23 +27,27 @@ class _LoadingBarService {
     this.currentLoadingBarState[key] = value
   }
 
-  public async create(data: LoadingBarData): Promise<void> {
-    const overWritedData = await overWriteData<LoadingBarData>(
-      DefaultData.LOADING_BAR,
-      data
-    )
+  public async create(loadingbar: CreationLoadingbarType): Promise<void> {
+    const res = createLoadingbarSchema.safeParse(loadingbar)
+
+    if (!res.success) {
+      LG.error(`Couldn't create Timeline invalid data: ${JSON.stringify(res)}`)
+      return
+    }
+
+    const { data } = res
 
     this.setState('isActive', true)
 
     EventsService.emitNuiEvent<LoadingBarData>({
       app: NuiAPPS.LOADING_BAR,
       method: LoadingBarEvents.CREATE_LOADING_BAR,
-      data: overWritedData,
+      data,
     })
 
     setTimeout(() => {
       this.setState('isActive', false)
-    }, overWritedData.duration * 1000)
+    }, data.duration * 1000)
   }
 }
 

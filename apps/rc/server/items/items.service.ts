@@ -1,20 +1,22 @@
 import { Item, ItemsEvents, Pickup, Response, ResponseCB } from '@nx/types'
 import { PlayerService } from '@player/player.service'
-import { items } from '@shared/load.file'
 import { Utils } from '@shared/utils/misc'
 import { LG } from '@utils/logger'
 import { ItemsDB } from './items.db'
+import { createItemSchema, CreateItemType } from './items.schema'
 
 class _ItemsService {
-  private readonly items: Item[]
+  private items: Item[]
   private pickups: Pickup[]
   private usableItems: Map<string, Function>
   private db: typeof ItemsDB
   constructor() {
-    this.items = items
+    this.items = []
     this.pickups = []
     this.usableItems = new Map()
     this.db = ItemsDB
+
+    this.init()
   }
 
   public isValidItem(itemName: string): false | Item {
@@ -66,7 +68,7 @@ class _ItemsService {
     label: string,
     propsType: string,
     itemType: string,
-    unique: boolean,
+    _unique: boolean,
     maxInSlot: number
   ): void {
     const uuid = Utils.uuid('MEDIUM')
@@ -78,7 +80,7 @@ class _ItemsService {
       label,
       propsType,
       itemType,
-      unique,
+      _unique,
       maxInSlot,
     })
 
@@ -90,7 +92,7 @@ class _ItemsService {
       label,
       propsType,
       itemType,
-      unique,
+      _unique,
       maxInSlot,
     })
   }
@@ -137,7 +139,7 @@ class _ItemsService {
         label,
         propsToCreate,
         itemInfo.type,
-        itemInfo.unique,
+        itemInfo._unique,
         itemInfo.maxInSlot
       )
     })
@@ -208,73 +210,46 @@ class _ItemsService {
     itemCB && itemCB(source, ...args)
   }
 
-  public createItem(
-    {
-      name,
-      label,
-      weight,
-      type,
-      props = 'prop_cs_cardbox_01',
-      data,
-      unique,
-      maxInSlot,
-    }: Item,
-    cb?: ResponseCB
-  ) {
-    const itemData = {
-      name,
-      label,
-      weight,
-      type,
-      props,
-      data,
-      maxInSlot,
-      unique,
-    }
+  public async createItem(itemData: CreateItemType, cb?: ResponseCB) {
+    const res = createItemSchema.safeParse(itemData)
 
-    if (!name || !label || !weight || !type || typeof weight !== 'number') {
+    if (!res.success) {
       cb?.({
         ok: false,
-        message: "Can't create item invalid arguments provided !",
+        message: `Invalid data for creating item`,
       })
       return
     }
 
-    itemData.unique = itemData.unique ?? false
-
-    !itemData.maxInSlot && (itemData.maxInSlot = 100)
-
-    unique && (itemData.maxInSlot = 1)
-
-    const alreadyExist = this.findItem(itemData.name)
+    const alreadyExist = this.findItem(res.data.name)
 
     if (alreadyExist) {
       cb?.({
         ok: false,
-        message: `Can\'t create item [${itemData.name}] already exists !`,
+        message: `Can\'t create item [${res.data.name}] already exists !`,
       })
       return
     }
 
-    itemData.name = itemData.name.toLowerCase().split(' ').join('_')
-
     try {
-      const loadFile = JSON.parse(
-        LoadResourceFile(GetCurrentResourceName(), 'config/nx.items.json')
-      )
-      loadFile.push(itemData)
-      SaveResourceFile(
-        GetCurrentResourceName(),
-        'config/nx.items.json',
-        JSON.stringify(loadFile, null, 2),
-        -1
-      )
-      this.items.push(itemData)
-      emit(ItemsEvents.ITEM_CREATED, itemData)
-      cb?.({ ok: true, message: 'item created.', data })
+      await this.db.create(res.data)
+      this.items.push(res.data)
+
+      emit(ItemsEvents.ITEM_CREATED, res.data)
+      cb?.({ ok: true, message: 'item created.', data: res.data })
     } catch (error) {
       cb?.({ ok: false, message: error as any })
     }
+  }
+
+  private async init() {
+    const res = await this.db.fetchAll()
+
+    for (const i of res) {
+      i.data = JSON.parse(i.data as unknown as string)
+    }
+
+    this.items = res
   }
 }
 

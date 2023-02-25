@@ -1,9 +1,10 @@
-import { NotificationData, NotificationEvents } from '@nx/types'
+import { NotificationEvents } from '@nx/types'
+import { CreateNotificationType } from './notification.schema'
 import { NotificationService } from './notification.service'
 
 onNet(
   NotificationEvents.CREATE_NOTIFICATION,
-  (data: NotificationData): void => {
+  (data: CreateNotificationType): void => {
     NotificationService.create(data)
   }
 )

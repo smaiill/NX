@@ -1,6 +1,6 @@
 import { PlayerService } from '@player/player.service'
 
-const DEBUG = true
+const DEBUG = false
 
 if (DEBUG) {
   async function run() {

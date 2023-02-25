@@ -101,14 +101,8 @@ class _PlayerService {
         const item = ItemsService.isValidItem(property)
         if (item) {
           nxPlayerData.inventory[property] = {
+            ...item,
             amount: Math.trunc(player.inventory[property].amount),
-            type: item.type,
-            name: item.name,
-            label: item.label,
-            weight: item.weight,
-            props: item.props,
-            unique: item.unique,
-            maxInSlot: item.maxInSlot,
           }
           const itemWeight =
             player.inventory[property].amount *

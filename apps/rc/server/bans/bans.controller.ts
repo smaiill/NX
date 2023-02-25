@@ -1,10 +1,11 @@
-import { BanEventData, PlayerEvents } from '@nx/types'
+import { PlayerEvents } from '@nx/types'
 import { LG } from '@utils/logger'
 import { isRPCFromClientSide } from '@utils/src'
+import { CreateBanType } from './bans.schema'
 import { BansService } from './bans.service'
 
 // ? Only from client side !
-onNet(PlayerEvents.BAN_PLAYER, async (data: BanEventData): Promise<void> => {
+onNet(PlayerEvents.BAN_PLAYER, async (data: CreateBanType): Promise<void> => {
   const src = isRPCFromClientSide()
 
   if (!src) {

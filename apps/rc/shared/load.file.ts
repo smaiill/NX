@@ -6,12 +6,3 @@ export const config = (() => {
 
   return config
 })()
-
-export const items = (() => {
-  const resourceName = GetCurrentResourceName()
-  const items = JSON.parse(
-    LoadResourceFile(resourceName, 'config/nx.items.json')
-  )
-
-  return items
-})()
