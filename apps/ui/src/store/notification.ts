@@ -1,5 +1,5 @@
 import { NotificationData, NotificationSliceState } from '@nx/types'
-import create from 'zustand'
+import { create } from 'zustand'
 
 type NotificationStore = NotificationSliceState & {
   createNotification: (notification: NotificationData) => void

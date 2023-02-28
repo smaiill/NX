@@ -1,0 +1,46 @@
+@import '../../v';
+
+.btn {
+  border: none;
+  outline: none;
+  padding: 15px 30px;
+  background: none;
+  color: white;
+  font-weight: 600;
+  border-radius: $--brr-normal;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: $--fs-small-x;
+  min-width: fit-content;
+
+  &:active {
+    scale: 0.95;
+  }
+
+  &:focus {
+    transition: 0.1s;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    background: $--bg-clr-inactive;
+    pointer-events: none;
+    user-select: none;
+  }
+}
+
+.primary {
+  background: $--bg-clr-primary;
+}
+
+.danger {
+  background: $--bg-clr-danger;
+}
+
+.success {
+  background: $--bg-clr-success;
+}
+
+.warn {
+  background: $--bg-clr-warn;
+}

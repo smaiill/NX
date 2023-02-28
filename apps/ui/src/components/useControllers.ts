@@ -1,4 +1,4 @@
-import { useInputController } from './input/hooks/useInputController'
+import { useInputController } from './form/hooks/useInputController'
 import { useLoadingBarController } from './loadingbar/hooks/useLoadingBarController'
 import { useMenuController } from './menu/hooks/useMenuController'
 import { useNotificationController } from './notification/hooks/useNotificationController'

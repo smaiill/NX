@@ -1,8 +1,7 @@
-import { Button } from '@nx/lib'
+import { ButtonPrimary, Input } from '@nx/lib'
 import { InputRow as InputRowType } from '@nx/types'
 import { FormEvent } from 'react'
 import { useInputStore } from '../../store/input'
-import { Input } from './components/Input'
 import { useInputHandler } from './hooks/useInputHandler'
 import { useInputServices } from './hooks/useInputService'
 
@@ -23,10 +22,14 @@ const Form = () => {
 
       <div className="form__body">
         {inputData.rows.map((input: InputRowType) => (
-          <Input input={input} key={input.id} handleInputs={handleInputs} />
+          <Input
+            {...input}
+            key={input.id}
+            onChange={({ target }) => handleInputs(target.value, input)}
+          />
         ))}
 
-        <Button bType="primary">Envoyer</Button>
+        <ButtonPrimary>Send</ButtonPrimary>
       </div>
     </form>
   ) : null

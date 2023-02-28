@@ -1,0 +1,14 @@
+@import '../../v';
+
+.container {
+  padding: 5px;
+  border-radius: $--brr-normal;
+}
+
+.primary {
+  background-color: $--bg-clr;
+}
+
+.secondary {
+  background-color: $--bg-clr-secondary;
+}

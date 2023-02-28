@@ -11,6 +11,7 @@ const App = () => {
   return (
     <NuiProvider>
       <div className="App">
+        {/* <Debug /> */}
         <Main />
       </div>
     </NuiProvider>

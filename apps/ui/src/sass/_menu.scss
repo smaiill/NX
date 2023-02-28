@@ -39,11 +39,8 @@
     display: flex;
     flex-direction: column;
     gap: 1px;
-    background-color: #232323;
     margin-top: 5px;
-    border-radius: $--brr-small;
     overflow: hidden;
-    padding: 5px;
 
     .menu__item {
       display: flex;

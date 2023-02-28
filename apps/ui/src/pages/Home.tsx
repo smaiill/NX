@@ -1,4 +1,4 @@
-import { Form } from '../components/input/Form'
+import { Form } from '../components/form/Form'
 import { LoadingBarWrapper } from '../components/loadingbar/LoadingBarWrapper'
 import { Menu } from '../components/menu/Menu'
 import { Notification } from '../components/notification/Notification'

@@ -1,5 +1,5 @@
 import { Menu } from '@nx/types'
-import create from 'zustand'
+import { create } from 'zustand'
 
 type MenuState = {
   menu: Menu | null

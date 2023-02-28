@@ -1,3 +1,4 @@
+import { Checkbox } from '@nx/lib'
 import {
   ItemListChoices,
   MenuItem as MenuItemType,
@@ -25,9 +26,7 @@ const MenuItem = ({ item, index }: { item: MenuItemType; index: number }) => {
 
       {item.type === MenuItemEnum.CHECKBOX && (
         <>
-          <span className="checkbox-style">
-            <input id={`checkbox-${index}`} type="checkbox" />
-          </span>
+          <Checkbox id={`checkbox-${index}`} />
         </>
       )}
 

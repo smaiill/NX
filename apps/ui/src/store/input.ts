@@ -1,5 +1,5 @@
 import { InputsData, InputSliceState } from '@nx/types'
-import create from 'zustand'
+import { create } from 'zustand'
 
 interface InputStore extends InputSliceState {
   createInputsRow: (data: InputsData) => void

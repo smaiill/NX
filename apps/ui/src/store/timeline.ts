@@ -1,5 +1,5 @@
 import { TimelineData, UpdateTimelineData } from '@nx/types'
-import create from 'zustand'
+import { create } from 'zustand'
 
 type TimelineSliceState = {
   timeline: TimelineData

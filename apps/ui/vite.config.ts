@@ -7,4 +7,7 @@ export default defineConfig({
   build: {
     outDir: '../../dist/ui',
   },
+  esbuild: {
+    logOverride: { 'this-is-undefined-in-esm': 'silent' },
+  },
 })

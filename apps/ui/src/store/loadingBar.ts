@@ -1,5 +1,5 @@
 import { LoadingBarData, LoadingBarState } from '@nx/types'
-import create from 'zustand'
+import { create } from 'zustand'
 
 interface LoadingBarStore extends LoadingBarState {
   createLoadingBar: (data: LoadingBarData) => void

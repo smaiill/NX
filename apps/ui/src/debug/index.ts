@@ -1,6 +1,7 @@
 import { TimelineUpdateActions } from '@nx/types'
 import { injectMockData } from '../utils/mock.data'
 
+export const __teste = 'teste'
 injectMockData([
   {
     app: 'NX::notification',
@@ -196,7 +197,7 @@ setTimeout(() => {
   - CATEGORY BUTTON
   - LIST
   - CHECKBOX
-  
+
 */
 
 setTimeout(() => {
@@ -254,3 +255,4 @@ setTimeout(() => {
     },
   ])
 }, 100)
+export const teste = 'zdqzd'
