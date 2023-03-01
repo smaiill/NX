@@ -1,4 +1,5 @@
 import { DB } from '@db/db'
+import { t } from '@nx/locale'
 import { DBEvents } from '@nx/types'
 import { LG } from '@utils/logger'
 
@@ -10,11 +11,19 @@ class _BootService {
       await DB.exec('SELECT now()')
       const duration = Date.now() - start
 
-      LG.info(`DB connected with success, execution time: [${duration} ms]`)
+      LG.info(
+        t('DB_CONNECTED', {
+          duration,
+        })
+      )
 
       emit(DBEvents.DB_CONNECTED)
     } catch (e) {
-      LG.error(`error while connecting to your DB: ${e}`)
+      LG.error(
+        t('DB_CONNECTION_ERROR', {
+          error: e,
+        })
+      )
     }
   }
 

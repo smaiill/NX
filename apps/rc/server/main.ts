@@ -1,3 +1,5 @@
+// organize-imports-ignore
+import './translation'
 import './bans'
 import './boot'
 import { CommandsServices } from './commands/commands.service'

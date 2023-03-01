@@ -23,6 +23,7 @@
   "dependencies": {
     "mysql2": "^2.3.3",
     "winston": "^3.8.0",
-    "zod": "^3.20.6"
+    "zod": "^3.20.6",
+    "@nx/locale": "workspace:*"
   }
 }

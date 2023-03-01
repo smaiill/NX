@@ -17,6 +17,7 @@
     "react": ">=18.0.0"
   },
   "devDependencies": {
+    "@types/react": "^18.0.28",
     "esbuild": "^0.17.8",
     "rollup": "^3.17.2",
     "rollup-plugin-dts": "^5.2.0",
