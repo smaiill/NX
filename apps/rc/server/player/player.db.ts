@@ -1,6 +1,6 @@
 import { DB } from '@db/db'
 import { config } from '@shared/load.file'
-import { Utils } from '@shared/utils/misc'
+import { uuid } from '@shared/utils/random'
 import { PlayerUtils } from './player.utils'
 
 class _PlayerDB {
@@ -22,8 +22,8 @@ class _PlayerDB {
   }
 
   public async createPlayer(license: string): Promise<any> {
-    const bloodType = await PlayerUtils.generateBloodType()
-    const uid = await Utils.uuid('SMALL')
+    const bloodType = PlayerUtils.generateBloodType()
+    const uid = uuid()
 
     try {
       const res = await DB.exec(this.db.querys.Player.CREATE, [

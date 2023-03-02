@@ -1,19 +1,17 @@
 import { ResponseCB } from '@nx/types'
-import { Utils } from '@shared/utils/misc'
+import { uuid } from '@shared/utils/random'
 import { LG } from '@utils/logger'
 
 class _EventsService {
   private events: Map<string, Function>
-  private utils: typeof Utils
   constructor() {
     this.events = new Map()
-    this.utils = Utils
   }
 
   public emitServerEvent(
     eventName: string,
-    callback: (...args: any[]) => void,
-    ...args: any[]
+    callback: (...args: unknown[]) => void,
+    ...args: unknown[]
   ): void {
     if (!callback || typeof callback !== 'function') {
       return LG.error(
@@ -25,11 +23,11 @@ class _EventsService {
       this.events.set(eventName, callback)
     }
 
-    const randomID = this.utils.uuid('LARGE')
+    const randomID = uuid()
 
     const respEventName = `${eventName}::NX::${randomID}`
 
-    const handleRespEvent = (...args: any[]) => {
+    const handleRespEvent = (...args: unknown[]) => {
       callback(...args)
       removeEventListener(respEventName, handleRespEvent)
     }

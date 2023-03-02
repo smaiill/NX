@@ -90,7 +90,7 @@ onNet(
 
 onNet(
   PlayerEvents.UPDATE_LOCALE_CACHE_BY_KEY,
-  ({ key, value }: { key: string; value: any }) => {
+  ({ key, value }: { key: string; value: unknown }) => {
     PlayerService.setLocalCacheByKey({ key, value })
   }
 )

@@ -8,7 +8,7 @@ interface InputStore extends InputSliceState {
   deleteInputsRow: () => void
 }
 
-const useInputStore = create<InputStore>((set: any) => ({
+const useInputStore = create<InputStore>((set) => ({
   inputData: null,
   invalidInputs: ['Hello world', 'Yes bebe'],
 

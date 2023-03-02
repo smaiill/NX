@@ -11,6 +11,7 @@ import './items'
 import { ItemsService } from './items/items.service'
 import './player'
 import { PlayerService } from './player/player.service'
+import { Command } from '@commands/commands.builder'
 
 class Server {
   Players: typeof PlayerService
@@ -41,7 +42,7 @@ globalThis.exports('useServer', function () {
     Misc: {
       RegisterUsableItem: server.Items.registerUsableItem.bind(server.Items),
       OnServerEvent: server.Events.onServerEvent.bind(server.Events),
-      // AddCommand: server.Commands.addCommand.bind(server.Commands),
+      AddCommand: server.Commands.addCommand.bind(server.Commands),
     },
     Discord: {
       SendWebhook: server.Discord.sendWebhook.bind(server.Discord),

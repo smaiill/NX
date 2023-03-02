@@ -1,6 +1,6 @@
 import { Item, ItemsEvents, Pickup, Response, ResponseCB } from '@nx/types'
 import { PlayerService } from '@player/player.service'
-import { Utils } from '@shared/utils/misc'
+import { uuid as _uuid } from '@shared/utils/random'
 import { LG } from '@utils/logger'
 import { ItemsDB } from './items.db'
 import { createItemSchema, CreateItemType } from './items.schema'
@@ -71,7 +71,7 @@ class _ItemsService {
     _unique: boolean,
     maxInSlot: number
   ): void {
-    const uuid = Utils.uuid('MEDIUM')
+    const uuid = _uuid()
     this.pickups.push({
       name,
       amount,

@@ -1,7 +1,8 @@
 import { DB } from '@db/db'
 import { t } from '@nx/locale'
-import { DBEvents } from '@nx/types'
+import { CodeColors, DBEvents } from '@nx/types'
 import { LG } from '@utils/logger'
+import { breakingResources } from 'consts/breakingResources'
 
 class _BootService {
   private async checkDatabaseConnection(): Promise<void> {
@@ -45,10 +46,25 @@ class _BootService {
     `)
   }
 
+  private hasBreakingResources() {
+    for (const resource of breakingResources) {
+      const isUsed =
+        GetResourceState(resource) == 'started' ||
+        GetResourceState(resource) == 'starting'
+
+      if (!isUsed) return
+
+      LG.error(
+        `You are using a resource that will get in conflict with the framework, you most remove it for a perfect setup. ${CodeColors.ORANGE}[${resource}]^0`
+      )
+    }
+  }
+
   public checkResource(): void {
     this.ascii()
     this.checkDatabaseConnection()
     this.checkResourceVersion()
+    this.hasBreakingResources()
   }
 }
 

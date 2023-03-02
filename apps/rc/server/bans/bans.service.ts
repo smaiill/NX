@@ -1,7 +1,7 @@
 import { Ban } from '@nx/types'
 import { SavedBan } from '@nx/types/src/main'
 import { PlayerService } from '@player/player.service'
-import { Utils } from '@shared/utils/misc'
+import { uuid } from '@shared/utils/random'
 import { BansDB } from './bans.db'
 import { createBanSchema, CreateBanType } from './bans.schema'
 
@@ -77,7 +77,7 @@ class _BansService {
       Number(data.duration ?? 0)
     )
 
-    const id = Utils.uuid('MEDIUM')
+    const id = uuid()
     const nxTargetIdentifier = nxTarget.GetIdentifier()
 
     const alreadyBan = this.findBanByLicense(nxTargetIdentifier)

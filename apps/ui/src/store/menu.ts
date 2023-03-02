@@ -5,7 +5,13 @@ type MenuState = {
   menu: Menu | null
 }
 
-const useMenuStore = create<any>((set: any) => ({
+interface MenuStoreState extends MenuState {
+  createMenu: (menu: Menu) => void
+  setSelected: (idx: number) => void
+  hideMenu: () => void
+}
+
+const useMenuStore = create<MenuStoreState>((set) => ({
   menu: null,
 
   createMenu: (menu: Menu) => {

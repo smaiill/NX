@@ -13,11 +13,9 @@ import {
   CreateTimelineType,
   UpdateTimelineType,
 } from './timeline.schema'
-import { TimelineUtils } from './timeline.utils'
 
 class _TimelineService {
   timelineState: TimelineState
-  timelineUtils: typeof TimelineUtils
   lastTaskID: string
   constructor() {
     ;(this.timelineState = {
@@ -25,8 +23,7 @@ class _TimelineService {
       completedTasks: [],
       rows: [],
     }),
-      (this.timelineUtils = TimelineUtils)
-    this.lastTaskID = ''
+      (this.lastTaskID = '')
   }
 
   private setState(state: keyof TimelineState, value: any) {

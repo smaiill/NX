@@ -1,16 +1,13 @@
 import { CodeColors } from '@nx/types'
 import { PlayerService } from '@player/player.service'
 import { PlayerUtils } from '@player/player.utils'
-import { Utils } from '@shared/utils/misc'
 import { LG } from '@utils/logger'
 import { BansService } from '../bans/bans.service'
 
 class _DeferralsService {
-  private readonly utils: typeof Utils
   private readonly playerUtils: typeof PlayerUtils
   private readonly bansService: typeof BansService
   constructor() {
-    this.utils = Utils
     this.playerUtils = PlayerUtils
     this.bansService = BansService
   }

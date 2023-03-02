@@ -9,5 +9,5 @@ on('onResourceStart', (resource: string): void => {
 
 on('onResourceStop', (resourceName: string): void => {
   if (GetCurrentResourceName() !== resourceName) return
-  LG.warn('Resource has stopped.')
+  LG.warn(`[NX] Has been stopped.`)
 })

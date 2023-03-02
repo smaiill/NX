@@ -50,7 +50,7 @@ class _Translations {
     return valueWithArgs
   }
 
-  public findValue(key: IKeys) {
+  private findValue(key: IKeys) {
     const defaultIfNotExists = this.options.defaultIfNotExists
 
     let res = ''
@@ -72,7 +72,7 @@ class _Translations {
     return res
   }
 
-  public assignParams(value: string, _arguments?: TArgument) {
+  private assignParams(value: string, _arguments?: TArgument) {
     if (
       value.length === 0 ||
       !_arguments ||

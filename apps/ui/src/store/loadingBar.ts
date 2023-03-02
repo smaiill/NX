@@ -6,7 +6,7 @@ interface LoadingBarStore extends LoadingBarState {
   removeLoadingBar: () => void
 }
 
-const useLoadingBarStore = create<LoadingBarStore>((set: any) => ({
+const useLoadingBarStore = create<LoadingBarStore>((set) => ({
   loadingBar: null,
 
   createLoadingBar: (loadingBar: LoadingBarData) =>

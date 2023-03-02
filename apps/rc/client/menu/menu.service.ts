@@ -8,7 +8,7 @@ import {
   MenuItemEnum,
   NuiAPPS,
 } from '@nx/types'
-import { Utils } from '@shared/utils/misc'
+import { uuid as _uuid } from '@shared/utils/random'
 import { MenuUtils } from './menu.utils'
 
 //
@@ -265,7 +265,7 @@ class _MenuService {
       return message
     }
 
-    const uuid = Utils.uuid('MEDIUM')
+    const uuid = _uuid()
 
     menu.uuid = uuid as string
     menu.active = false
