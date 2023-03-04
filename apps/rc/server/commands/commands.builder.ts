@@ -17,7 +17,6 @@ export class Command {
   }
 
   public setName(name: string) {
-    name = name.split(' ').join('_')
     this.name = name
 
     return this

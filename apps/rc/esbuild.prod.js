@@ -4,7 +4,7 @@ build({
   entryPoints: ['./client/index.ts'],
   outfile: '../../dist/client/client.min.js',
   bundle: true,
-  minify: true,
+  // minify: true,
   sourcemap: true,
   platform: 'node',
   loader: {

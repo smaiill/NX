@@ -27,6 +27,7 @@
       text-transform: uppercase;
       width: 100%;
       text-align: center;
+      color: white;
     }
 
     img {
@@ -46,7 +47,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 30px;
+      height: 45px;
       padding: 0 5px;
       position: relative;
       border-radius: $--brr-small;
@@ -70,7 +71,7 @@
 
       &.selected {
         transition: 0.3s;
-        background-color: #2b2929;
+        background-color: #363434;
       }
 
       &.hover {

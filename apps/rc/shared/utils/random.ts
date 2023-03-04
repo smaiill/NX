@@ -1,12 +1,14 @@
-import { randomUUID } from 'node:crypto'
+const uuid = () => {
+  const dt = new Date().getTime()
+  const _uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+    /[xy]/g,
+    (value) => {
+      const rtx = (dt + Math.random() * 16) % 16 | 0
+      return (value == 'x' ? rtx : (rtx & 0x3) | 0x8).toString(16)
+    }
+  )
 
-const UUID_REPLACE = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
-const UUID_TYPES = {
-  SMALL: 8,
-  MEDIUM: 18,
-  LARGE: 32,
+  return _uuid
 }
-
-const uuid = () => randomUUID()
 
 export { uuid }

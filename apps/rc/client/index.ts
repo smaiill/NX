@@ -25,6 +25,7 @@ class Client {
   LoadingBar: typeof LoadingBar
   Timeline: typeof Timeline
   Menu: typeof Menu
+
   constructor() {
     this.EventsService = Events
     this.Objects = Object

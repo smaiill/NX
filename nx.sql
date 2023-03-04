@@ -72,7 +72,7 @@ CREATE TABLE `nx_users` (
   `charinfo` longtext DEFAULT '{}',
   `position` varchar(255) DEFAULT '{"x":-269.4,"y":-955.3,"z":31.2,"heading":205.8}',
   `skin` longtext DEFAULT '{"sex" : 1}',
-  `uid` varchar(45) NOT NULL,
+  `uid` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `credits` int(11) NOT NULL DEFAULT 0
