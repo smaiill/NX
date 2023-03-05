@@ -7,7 +7,7 @@ const __BODY = z
   .required()
 
 export const createNotificationSchema = z.object({
-  type: z.enum(['SUCCES', 'WARN', 'NORMAL', 'ERROR']).default('NORMAL'),
+  type: z.enum(['SUCCESS', 'WARN', 'NORMAL', 'ERROR']).default('NORMAL'),
   duration: z.number().default(5),
   body: __BODY,
 })

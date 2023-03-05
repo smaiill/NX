@@ -18,7 +18,6 @@ files {
   'dist/ui/index.html',
   'dist/ui/**/*',
   'config/*.json'
- 
 }
 
 dependency {

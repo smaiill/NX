@@ -1,14 +1,14 @@
-export type NotificationTypes = 'SUCCES' | 'WARN' | 'NORMAL' | 'ERROR'
+export type NotificationTypes = 'SUCCESS' | 'WARN' | 'NORMAL' | 'ERROR'
 
 export enum NotificationBGColors {
-  SUCCES = 'rgba(11, 135, 45, 0.3)',
+  SUCCESS = 'rgba(11, 135, 45, 0.3)',
   WARN = 'rgba(239, 148, 0, 0.3)',
   NORMAL = 'rgba(0, 108, 228, 0.3)',
   ERROR = 'rgba(236, 78, 43, 0.3)',
 }
 
 export enum NotificationMainColors {
-  SUCCES = '#0B872D',
+  SUCCESS = '#0B872D',
   WARN = '#ef9400',
   NORMAL = '#006ce4',
   ERROR = '#ec4e2b',

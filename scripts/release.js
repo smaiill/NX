@@ -61,7 +61,7 @@ process.exec('cd apps/rc && pnpm build', (error, stdout, stderr) => {
                       'cd apps/ui && yarn build',
                       (error, stdout, stderr) => {
                         console.log(
-                          '\x1b[32mRelease folder was created with succes !',
+                          '\x1b[32mRelease folder was created with success !',
                           '\x1b[0m'
                         )
 

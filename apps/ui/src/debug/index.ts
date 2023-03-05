@@ -1,4 +1,4 @@
-import { injectMockData } from '../utils/mock.data'
+const NX: any = {}
 
 // export const __teste = 'teste'
 // injectMockData([
@@ -6,10 +6,10 @@ import { injectMockData } from '../utils/mock.data'
 //     app: 'NX::notification',
 //     method: 'NX::createNotification',
 //     data: {
-//       type: 'SUCCES',
+//       type: 'SUCCESS',
 //       duration: 500,
 //       body: {
-//         content: '^6SUCCES',
+//         content: '^6Success Example',
 //       },
 //     },
 //   },
@@ -20,7 +20,7 @@ import { injectMockData } from '../utils/mock.data'
 //       type: 'WARN',
 //       duration: 500,
 //       body: {
-//         content: 'WARN',
+//         content: 'Warn example',
 //       },
 //     },
 //   },
@@ -31,7 +31,7 @@ import { injectMockData } from '../utils/mock.data'
 //       type: 'ERROR',
 //       duration: 500,
 //       body: {
-//         content: 'ERROR qzdzqdqzd ^3qzdqzdqzd qzdqzdg ^0qzdqzdzdqzdqzdqzdqzd',
+//         content: 'Error ^5example',
 //       },
 //     },
 //   },
@@ -42,11 +42,41 @@ import { injectMockData } from '../utils/mock.data'
 //       type: 'NORMAL',
 //       duration: 500,
 //       body: {
-//         content: 'normal qzdqzdqzqzdz qzd qd qzd ^4qzd qd qd qd ',
+//         content: '^3Normal example',
 //       },
 //     },
 //   },
 // ])
+
+// NX.Input.Create({
+//   title: 'Register',
+//   rows: [
+//     {
+//       label: 'Nom',
+//       id: 'name',
+//       type: 'text',
+//       required: true,
+//     },
+//     {
+//       label: 'Prénom',
+//       id: 'amount',
+//       type: 'text',
+//       required: true,
+//     },
+//     {
+//       label: 'Age',
+//       id: 'age',
+//       type: 'text',
+//       required: true,
+//     },
+//     {
+//       label: 'Color',
+//       id: 'color',
+//       type: 'color',
+//       required: true,
+//     },
+//   ],
+// })
 
 // setTimeout(() => {
 //   injectMockData([
@@ -91,17 +121,17 @@ import { injectMockData } from '../utils/mock.data'
 //     app: 'NX::loadingBar',
 //     method: 'NX::createLoadingBar',
 //     data: {
-//       duration: 5,
+//       duration: 40,
 //       type: 'circle',
 //       style: {
 //         label: {
-//           color: 'cyan',
+//           color: 'white',
 //         },
 //         container: {
-//           backgroundColor: 'green',
+//           backgroundColor: '#232323',
 //         },
 //         bar: {
-//           backgroundColor: 'red',
+//           backgroundColor: '#363434',
 //         },
 //       },
 //     },
@@ -199,59 +229,60 @@ import { injectMockData } from '../utils/mock.data'
 
 */
 
-setTimeout(() => {
-  injectMockData([
-    {
-      app: 'NX::menu',
-      method: 'NX::createMenu',
-      data: {
-        options: {
-          title: 'Custom',
-          // banner:
-          //   'https://img.freepik.com/free-vector/yellow-background-with-halftone-lines-design_1017-30148.jpg?w=2000',
-          width: 400,
-          //           // color: ''
-        },
-        items: [
-          {
-            type: 'BUTTON',
-            label: 'Button',
-          },
-          {
-            type: 'SLIDER',
-            label: 'Slider',
-            max: 15,
-            min: 5,
-          },
-          {
-            type: 'SEPARATOR',
-            label: 'SEPARATOR',
-          },
-          {
-            type: 'CHECKBOX',
-            label: 'Chckbox',
-          },
-          {
-            type: 'LIST',
-            label: 'List',
-            choices: [
-              {
-                id: '1',
-                label: 'Un',
-              },
-              {
-                id: '2',
-                label: 'Deux',
-              },
-              {
-                id: '3',
-                label: 'Trois',
-              },
-            ],
-          },
-        ],
-      },
-    },
-  ])
-}, 100)
+// setTimeout(() => {
+//   injectMockData([
+//     {
+//       app: 'NX::menu',
+//       method: 'NX::createMenu',
+//       data: {
+//         options: {
+//           title: 'MENU TITLE',
+//           width: 400,
+//         },
+//         items: [
+//           {
+//             type: 'BUTTON',
+//             label: 'Button',
+//           },
+//           {
+//             type: 'SLIDER',
+//             label: 'Slider',
+//             max: 15,
+//             min: 5,
+//           },
+//           {
+//             type: 'SEPARATOR',
+//             label: '------',
+//           },
+//           {
+//             type: 'CHECKBOX',
+//             label: 'Chckbox',
+//           },
+//           {
+//             type: 'CHECKBOX',
+//             label: 'Chckbox 2',
+//           },
+//           {
+//             type: 'LIST',
+//             label: 'List',
+//             choices: [
+//               {
+//                 id: '1',
+//                 label: 'One',
+//               },
+//               {
+//                 id: '2',
+//                 label: 'Two',
+//               },
+//               {
+//                 id: '3',
+//                 label: 'Three',
+//               },
+//             ],
+//           },
+//         ],
+//       },
+//     },
+//   ])
+// }, 100)
 export const teste = 'zdqzd'
