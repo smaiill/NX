@@ -1,9 +1,9 @@
-import { ResponseCB } from '@nx/types'
+import { Response, ResponseCB } from '@nx/types'
 import { uuid } from '@shared/utils/random'
 import { LG } from '@utils/logger'
 
 class _EventsService {
-  private events: Map<string, Function>
+  private events: Map<string, () => void>
   constructor() {
     this.events = new Map()
   }
@@ -15,7 +15,7 @@ class _EventsService {
   ): void {
     if (!callback || typeof callback !== 'function') {
       return LG.error(
-        `can't trigger event: ^2[${eventName}] ^9callback most be provided !`
+        `can't trigger event: ^2[${eventName}] ^9callback most be provided !`,
       )
     }
 
@@ -36,9 +36,9 @@ class _EventsService {
     onNet(respEventName, handleRespEvent)
   }
 
-  public emitNuiEvent<T = any>(
+  public emitNuiEvent<T = unknown>(
     { app, method, data }: { app: string; method: string; data?: T },
-    useCursor: boolean = false
+    useCursor = false,
   ): void {
     SetNuiFocus(useCursor, useCursor)
     SendNuiMessage(
@@ -46,14 +46,17 @@ class _EventsService {
         app,
         method,
         data,
-      })
+      }),
     )
   }
 
-  public onNuiEvent<T = any>(eventName: string, handler: Function): void {
+  public onNuiEvent<T = unknown>(
+    eventName: string,
+    handler: (data: T, cb?: (res: Response) => void) => void,
+  ): void {
     RegisterNuiCallbackType(eventName)
-    on(`__cfx_nui:${eventName}`, (data?: T, cb?: ResponseCB) => {
-      handler(data, cb)
+    on(`__cfx_nui:${eventName}`, (data: T, cb?: ResponseCB) => {
+      return handler(data, cb)
     })
   }
 }

@@ -3,7 +3,7 @@ import {
   CodeColors,
   InventoryItem,
   NXPlayer,
-  PlayerDataBase,
+  NXPlayerMethodsCapitalized,
   PlayerEvents,
 } from '@nx/types'
 import { LG } from '@utils/logger'
@@ -33,16 +33,18 @@ class _PlayerService {
   public async newPlayer(identifiers: string[], source: number): Promise<void> {
     const license = await PlayerUtils.getPlayerIdentifier(
       identifiers,
-      'license'
+      'license',
     )
 
     if (!license) {
       throw 'License not found !'
     }
 
-    const [player] = await this.playerDB.getPlayerFromDB(license)
+    const player = await this.playerDB.getPlayerFromDB(license)
 
-    if (!player) return this.createPlayer(license, source)
+    if (!player) {
+      return this.createPlayer(license, source)
+    }
 
     this.loadPlayer(player, source)
   }
@@ -60,8 +62,8 @@ class _PlayerService {
     } catch (error) {
       LG.error(
         `Error while saving player: [${GetPlayerName(
-          source as unknown as string
-        )}] | ERROR: ${error}`
+          source as unknown as string,
+        )}] | ERROR: ${error}`,
       )
     }
   }
@@ -77,16 +79,7 @@ class _PlayerService {
     LG.info(`Saved all players in ${CodeColors.WHITE}[${duration}] ms`)
   }
 
-  private async loadPlayer(
-    player: PlayerDataBase,
-    source: number
-  ): Promise<void> {
-    player.inventory = JSON.parse(player.inventory)
-    player.accounts = JSON.parse(player.accounts)
-    player.position = JSON.parse(player.position as unknown as string)
-    player.skin = JSON.parse(player.skin)
-    player.charinfo = JSON.parse(player.charinfo)
-
+  private async loadPlayer(player: NXPlayer, source: number): Promise<void> {
     const nxPlayerData: {
       inventory: Record<string, InventoryItem>
       weight: number
@@ -121,12 +114,12 @@ class _PlayerService {
       nxPlayerData.inventory,
       player.accounts as unknown as Record<string, number>,
       player.position,
-      player.permissions,
+      player.group,
       nxPlayerData.weight,
       GetPlayerName(source.toString()),
       source,
       player.uid,
-      player.skin
+      player.skin,
     )
 
     // console.log(nxPlayer)
@@ -141,14 +134,14 @@ class _PlayerService {
       identifier: nxPlayer.identifier,
       inventory: nxPlayer.inventory,
       charinfo: nxPlayer.charinfo,
-      permissions: nxPlayer.permissions,
+      group: nxPlayer.group,
       uid: nxPlayer.uid,
       skin: nxPlayer.skin,
     })
   }
 
   public doesPlayerExist(identifier: string): NXPlayer | false {
-    for (const [_, player] of this.playersCollection) {
+    for (const [, player] of this.playersCollection) {
       if (player.identifier === identifier) {
         return player
       }
@@ -167,10 +160,10 @@ class _PlayerService {
     if (!res)
       return DropPlayer(
         source as unknown as string,
-        'error while creating your data into the database.'
+        'error while creating your data into the database.',
       )
 
-    const [player] = await this.playerDB.getPlayerFromDB(license)
+    const player = await this.playerDB.getPlayerFromDB(license)
 
     await this.loadPlayer(player, source)
 
@@ -195,7 +188,9 @@ class _PlayerService {
     return nxPlayersSources
   }
 
-  public async getPlayer(source: number): Promise<any> {
+  public async getPlayer(
+    source: number,
+  ): Promise<NXPlayerMethodsCapitalized | false> {
     const nxPlayer = await this.findPlayer(source)
 
     if (!nxPlayer) return false
@@ -210,7 +205,7 @@ class _PlayerService {
       GetMaxWeight: nxPlayer.getMaxWeight.bind(nxPlayer),
       GetInventory: nxPlayer.getInventory.bind(nxPlayer),
       GetAccounts: nxPlayer.getAccounts.bind(nxPlayer),
-      GetPermissions: nxPlayer.getPermissions.bind(nxPlayer),
+      GetGroup: nxPlayer.getGroup.bind(nxPlayer),
       GetBloodType: nxPlayer.getBloodType.bind(nxPlayer),
       GetThirst: nxPlayer.getThirst.bind(nxPlayer),
       GetHunger: nxPlayer.getHunger.bind(nxPlayer),
@@ -219,14 +214,14 @@ class _PlayerService {
       GetUID: nxPlayer.getUID.bind(nxPlayer),
       SetCoords: nxPlayer.setCoords.bind(nxPlayer),
       SetJob: nxPlayer.setJob.bind(nxPlayer),
-      SetPermissions: nxPlayer.setPermissions.bind(nxPlayer),
+      SetGroup: nxPlayer.setGroup.bind(nxPlayer),
       SetThirst: nxPlayer.setThirst.bind(nxPlayer),
       SetHunger: nxPlayer.setHunger.bind(nxPlayer),
       SetCharInfoKey: nxPlayer.setCharInfoKey.bind(nxPlayer),
       SetAccountMoney: nxPlayer.setAccountMoney.bind(nxPlayer),
       HasItem: nxPlayer.hasItem.bind(nxPlayer),
-      RemoveItem: nxPlayer.removeInventoryItem.bind(nxPlayer),
-      AddItem: nxPlayer.addInventoryItem.bind(nxPlayer),
+      RemoveItem: nxPlayer.removeItem.bind(nxPlayer),
+      AddItem: nxPlayer.addItem.bind(nxPlayer),
       EmitEvent: nxPlayer.emitEvent.bind(nxPlayer),
       Kick: nxPlayer.kick.bind(nxPlayer),
       Save: nxPlayer.save.bind(nxPlayer),

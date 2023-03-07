@@ -86,7 +86,7 @@ class _MenuService {
     this.keyInterval = new Date().getTime()
 
     if (key == Keys.BACK && this.actualMenu !== null) {
-      this.hideMenu(this.actualMenu.uuid!)
+      this.hideMenu(this.actualMenu.uuid as string)
     }
 
     if (key === Keys.UP || key === Keys.DOWN) {
@@ -152,6 +152,8 @@ class _MenuService {
       if (this.actualMenu.items[this.actualIndex].type === MenuItemEnum.LIST) {
         const item = this.findItemChoices(this.actualIndex)
 
+        if (!item) return
+
         if (key === Keys.LEFT) {
           item.actualChoice.index--
         }
@@ -168,12 +170,14 @@ class _MenuService {
           return (item.actualChoice.index = 0)
         }
 
-        if (this.actualMenu.items[this.actualIndex].onChange) {
-          this.actualMenu.items[this.actualIndex].onChange!(
+        const __onChangeList = this.actualMenu.items[this.actualIndex].onChange
+
+        if (__onChangeList) {
+          __onChangeList(
             // @ts-ignore
             this.actualMenu.items[this.actualIndex].choices[
               item.actualChoice.index
-            ]
+            ],
           )
         }
 
@@ -198,25 +202,23 @@ class _MenuService {
 
         if (isChecked) {
           this.activeCheckboxs = this.activeCheckboxs.filter(
-            (element) => element.cid !== this.actualIndex
+            (element) => element.cid !== this.actualIndex,
           )
         } else {
           this.activeCheckboxs.push({
             cid: this.actualIndex,
-            // @ts-ignore
-            mid: this.actualMenu.uuid,
+            mid: this.actualMenu.uuid as string,
           })
         }
 
-        if (this.actualMenu.items[this.actualIndex].onChange) {
-          this.actualMenu.items[this.actualIndex].onChange!(
-            // @ts-ignore
-            {
-              id: this.actualMenu.items[this.actualIndex].id,
-              label: this.actualMenu.items[this.actualIndex].label,
-              checked: isChecked,
-            }
-          )
+        const __onChange = this.actualMenu.items[this.actualIndex].onChange
+
+        if (__onChange) {
+          __onChange({
+            id: this.actualMenu.items[this.actualIndex].id,
+            label: this.actualMenu.items[this.actualIndex].label,
+            checked: isChecked,
+          })
         }
 
         EventsService.emitNuiEvent({
@@ -233,8 +235,9 @@ class _MenuService {
       if (
         this.actualMenu.items[this.actualIndex].type === MenuItemEnum.BUTTON
       ) {
-        if (this.actualMenu.items[this.actualIndex].onClick) {
-          this.actualMenu.items[this.actualIndex].onClick!()
+        const __onClick = this.actualMenu.items[this.actualIndex].onClick
+        if (__onClick) {
+          __onClick()
         }
       }
     }
@@ -251,8 +254,8 @@ class _MenuService {
   }
 
   private findItemChoices(index: number) {
-    const item = this.actualMenu?.listChoices.find(
-      (list: any) => list.itemID === index
+    const item = this.actualMenu?.listChoices?.find(
+      (list) => list.itemID === index,
     )
 
     return item
@@ -306,22 +309,21 @@ class _MenuService {
 
     if (menu?.active) return
 
-    // @ts-ignore
     menu.active = true
     this.actualMenu = menu
     this.actualMenu.listChoices = []
 
-    let ii: number = 0
+    let ii = 0
 
     for (const item of this.actualMenu.items) {
       if (item.type === MenuItemEnum.LIST) {
         this.actualMenu.listChoices.push({
           itemID: ii,
           actualChoice: {
-            id: item.choices![0].id,
+            id: item.choices[0].id,
             index: 0,
           },
-          maxChoices: item.choices?.length! - 1,
+          maxChoices: item.choices.length - 1,
         })
       }
       ii++
@@ -329,7 +331,6 @@ class _MenuService {
 
     ii = 0
 
-    // @ts-ignore
     this.actualMenu.itemsLength = this.actualMenu.items.length - 1
     EventsService.emitNuiEvent({
       app: NuiAPPS.MENU,
@@ -354,4 +355,5 @@ class _MenuService {
 }
 
 const MenuService = new _MenuService()
+
 export { MenuService }

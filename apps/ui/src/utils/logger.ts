@@ -1,6 +1,4 @@
-class _Logger {
-  constructor() {}
-}
+class _Logger {}
 
 const LG = new _Logger()
 export { LG }

@@ -6,12 +6,12 @@ import React, {
 } from 'react'
 import style from './Checkbox.module.scss'
 
-export interface ICheckbox extends InputHTMLAttributes<HTMLInputElement> {}
+export type ICheckbox = InputHTMLAttributes<HTMLInputElement>
 
 const Checkbox = forwardRef(
   (
     props: PropsWithChildren<ICheckbox>,
-    ref: ForwardedRef<HTMLInputElement>
+    ref: ForwardedRef<HTMLInputElement>,
   ) => {
     const { children, ...rest } = props
 
@@ -37,7 +37,7 @@ const Checkbox = forwardRef(
         {children && <label>{children}</label>}
       </div>
     )
-  }
+  },
 )
 
 export default Checkbox

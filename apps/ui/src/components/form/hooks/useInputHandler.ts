@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 const useInputHandler = () => {
   const [inputsState, setInputsState] = useState<
-    { [key: string]: string; value: any } | {}
+    { [key: string]: string; value: string } | object
   >({})
 
   const handleInputs = (value: string, inputData: InputRow) => {

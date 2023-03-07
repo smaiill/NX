@@ -1,8 +1,8 @@
-import { NotificationData, NotificationSliceState } from '@nx/types'
+import { ICreatedNotification, NotificationSliceState } from '@nx/types'
 import { create } from 'zustand'
 
 type NotificationStore = NotificationSliceState & {
-  createNotification: (notification: NotificationData) => void
+  createNotification: (notification: ICreatedNotification) => void
   removeNotification: (uuid: string) => void
 }
 
@@ -15,7 +15,7 @@ const useNotificationStore = create<NotificationStore>((set) => ({
   removeNotification: (uuid) =>
     set((state) => ({
       notifications: state.notifications.filter(
-        (noti: any) => noti.uuid !== uuid
+        (notification) => notification.uuid !== uuid,
       ),
     })),
 }))

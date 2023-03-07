@@ -15,7 +15,13 @@ export interface Icon {
   otherClass?: string
 }
 
-export enum DefaultData {
-  LOADING_BAR = 'LOADING_BAR',
-  NOTIFICATION = 'NOTIFICATION',
+export interface Defferals {
+  defer(): void
+  update(message: string): void
+  presentCard<T = unknown>(
+    card: object | string,
+    cb?: (data: T, rawData: string) => void,
+  ): void
+  done(failureReason?: string): void
+  handover(data: { [key: string]: unknown }): void
 }

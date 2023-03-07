@@ -9,7 +9,7 @@ const __pServer = {
       } else {
         console.log(
           '\x1b[36m%s\x1b[0m',
-          `Build with success \x1b[32m[SERVER]\x1b[0m : ${new Date().toLocaleString()}`
+          `Build with success \x1b[32m[SERVER]\x1b[0m : ${new Date().toLocaleString()}`,
         )
       }
     })
@@ -25,7 +25,7 @@ const __pClient = {
       } else {
         console.log(
           '\x1b[36m%s\x1b[0m',
-          `Build with success \x1b[32m[CLIENT]\x1b[0m : ${new Date().toLocaleString()}`
+          `Build with success \x1b[32m[CLIENT]\x1b[0m : ${new Date().toLocaleString()}`,
         )
       }
     })

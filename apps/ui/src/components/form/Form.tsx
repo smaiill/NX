@@ -6,7 +6,7 @@ import { useInputHandler } from './hooks/useInputHandler'
 import { useInputServices } from './hooks/useInputService'
 
 const Form = () => {
-  const { inputData, invalidInputs } = useInputStore()
+  const { inputData } = useInputStore()
 
   const { handleInputs, inputsState } = useInputHandler()
   const { handleSubmitData } = useInputServices()

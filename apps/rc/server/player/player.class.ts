@@ -5,13 +5,14 @@ import {
   InventoryActions,
   InventoryEvents,
   InventoryItem,
+  JobCB,
   JobsEvents,
   NXPlayer,
   NXPlayerCharInfo,
   PlayerEvents,
+  Position,
   ResponseCB,
 } from '@nx/types'
-import { Position } from '@nx/types/src/player'
 import { config } from '@shared/load.file'
 import { LG } from '@utils/logger'
 import { PlayerDB } from './player.db'
@@ -22,7 +23,7 @@ class _Player implements NXPlayer {
   inventory
   accounts
   position
-  permissions
+  group
   weight
   name
   source
@@ -37,19 +38,19 @@ class _Player implements NXPlayer {
     inventory: Record<string, InventoryItem>,
     accounts: Record<string, number>,
     position: Position,
-    permissions: string,
+    group: string,
     weight: number,
     name: string,
     source: number,
     uid: string,
-    skin: Record<string, any>
+    skin: Record<string, any>,
   ) {
     this.identifier = identifier
     this.charinfo = charinfo
     this.inventory = inventory
     this.accounts = accounts
     this.position = position
-    this.permissions = permissions
+    this.group = group
     this.weight = weight
     this.name = name
     this.source = source
@@ -57,14 +58,6 @@ class _Player implements NXPlayer {
     this.config = config
     this.maxWeight = this.config.player.maxWeight
     this.skin = skin
-
-    this.init()
-  }
-
-  private init() {
-    ExecuteCommand(
-      `add_principal identifier.${this.identifier} group.${this.permissions}`
-    )
   }
 
   public getWeight() {
@@ -99,8 +92,8 @@ class _Player implements NXPlayer {
     return this.accounts
   }
 
-  public getPermissions() {
-    return this.permissions
+  public getGroup() {
+    return this.group
   }
 
   public getBloodType() {
@@ -132,7 +125,7 @@ class _Player implements NXPlayer {
   public getJob(type: number | '' = 1) {
     if (type === 1) type = ''
 
-    const job = JobsService.findJob(this.charinfo[`job${type}`])
+    const job = JobsService.findJob(this.charinfo[`job${type}`] as string)
 
     if (!job)
       return {
@@ -167,17 +160,12 @@ class _Player implements NXPlayer {
     this.charinfo.hunger = value
   }
 
-  public setPermissions(permission: string) {
-    ExecuteCommand(
-      `remove_principal identifier.${this.identifier} group.${this.permissions}`
-    )
-    this.permissions = permission
-    ExecuteCommand(
-      `add_principal identifier.${this.identifier} group.${this.permissions}`
-    )
+  public setGroup(permission: string) {
+    this.group = permission
+
     this.emitEvent(PlayerEvents.UPDATE_LOCALE_CACHE_BY_KEY, {
-      key: 'permissions',
-      value: this.permissions,
+      key: 'group',
+      value: this.group,
     })
   }
 
@@ -194,7 +182,12 @@ class _Player implements NXPlayer {
     })
   }
 
-  public setJob(name: string, grade: string, type: number, cb?: Function) {
+  public setJob(
+    name: string,
+    grade: string,
+    type: number,
+    cb?: (res: JobCB) => void,
+  ) {
     const isValid = JobsService.isValid(name, grade, type)
 
     if (!isValid) return
@@ -259,7 +252,7 @@ class _Player implements NXPlayer {
     })
   }
 
-  public emitEvent(name: string, ...args: any[]) {
+  public emitEvent(name: string, ...args: unknown[]) {
     emitNet(name, this.source, ...args)
   }
 
@@ -271,7 +264,7 @@ class _Player implements NXPlayer {
     return item
   }
 
-  public removeInventoryItem(name: string, amount: number, cb?: ResponseCB) {
+  public removeItem(name: string, amount: number, cb?: ResponseCB) {
     const item = this.hasItem(name)
 
     if (!item) {
@@ -290,7 +283,7 @@ class _Player implements NXPlayer {
       return
     }
 
-    let count: number = 0
+    let count = 0
 
     const itemData = ItemsService.getItem(name)
 
@@ -330,7 +323,7 @@ class _Player implements NXPlayer {
     return true
   }
 
-  public addInventoryItem(name: string, amount: number, cb?: ResponseCB) {
+  public addItem(name: string, amount: number, cb?: ResponseCB) {
     const isItemValid = ItemsService.isValidItem(name)
 
     if (!isItemValid) {
@@ -353,7 +346,7 @@ class _Player implements NXPlayer {
       return
     }
 
-    let count: number = 0
+    let count = 0
 
     const itemData = ItemsService.getItem(name)
 
@@ -365,7 +358,9 @@ class _Player implements NXPlayer {
       }
     } else {
       count = amount
-      // @ts-ignore
+      if (!itemData) {
+        return
+      }
       this.inventory[name] = {
         ...itemData,
         amount: amount,
@@ -392,7 +387,7 @@ class _Player implements NXPlayer {
       inventory: this.inventory,
       accounts: this.accounts,
       position: this.position,
-      permissions: this.permissions,
+      group: this.group,
       identifier: this.identifier,
       skin: this.skin,
     })
@@ -403,15 +398,15 @@ class _Player implements NXPlayer {
       .catch((err) => {
         LG.error(
           `Error while saving player: [${GetPlayerName(
-            this.source as unknown as string
-          )}] | ERROR: ${err}`
+            this.source as unknown as string,
+          )}] | ERROR: ${err}`,
         )
 
         cb?.({ ok: false, message: err })
       })
   }
 
-  kick(reason: string = 'no reason') {
+  kick(reason = 'no reason') {
     DropPlayer(this.source as unknown as string, reason)
   }
 }

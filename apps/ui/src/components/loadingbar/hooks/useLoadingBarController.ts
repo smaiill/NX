@@ -8,7 +8,7 @@ const useLoadingBarController = () => {
   useNuiEvent(
     NuiAPPS.LOADING_BAR,
     LoadingBarEvents.CREATE_LOADING_BAR,
-    handleCreateLoadingBar
+    handleCreateLoadingBar,
   )
 }
 

@@ -16,6 +16,7 @@
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
-    "check:tsc": "tsc --noEmit"
+    "check:tsc": "tsc --noEmit",
+    "clean": "rimraf dist"
   }
 }

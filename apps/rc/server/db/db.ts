@@ -8,11 +8,11 @@ class _DB {
     this.querys = Querys
   }
 
-  public async exec(
+  public async exec<T = unknown>(
     query: string,
-    values: any[] = [],
-    cb?: ResponseCB
-  ): Promise<any> {
+    values: unknown[] = [],
+    cb?: ResponseCB,
+  ) {
     try {
       const res = await pool?.execute(query, values)
 
@@ -21,14 +21,14 @@ class _DB {
       }
 
       cb?.({ ok: true, data: res[0] })
-      return res[0]
+      return res[0] as T
     } catch (e) {
-      cb?.({ ok: false, message: e })
+      cb?.({ ok: false, message: e as string })
       throw e
     }
   }
 
-  public async findAll(table: string, cb?: ResponseCB): Promise<any> {
+  public async findAll(table: string, cb?: ResponseCB) {
     try {
       const query = `SELECT * FROM ${table}`
       const res = await pool?.execute(query)
@@ -37,7 +37,7 @@ class _DB {
         return res[0]
       }
     } catch (e) {
-      cb?.({ ok: false, message: e })
+      cb?.({ ok: false, message: e as string })
       throw e
     }
   }

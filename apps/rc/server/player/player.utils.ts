@@ -15,7 +15,7 @@ class _PlayerUtils {
 
   public getPlayerIdentifier(
     identifiers: string[],
-    identifierToFind: string
+    identifierToFind: string,
   ): string | false {
     for (const ID of identifiers) {
       const [IDName, IDValue] = ID.split(':')

@@ -28,12 +28,15 @@ export enum NotificationColorsReplace {
 export interface NotificationData {
   type: NotificationTypes
   duration: number
-  uuid?: string
   body: {
     content: string
   }
 }
 
+export type ICreatedNotification = NotificationData & {
+  uuid: string
+}
+
 export interface NotificationSliceState {
-  notifications: any
+  notifications: ICreatedNotification[]
 }

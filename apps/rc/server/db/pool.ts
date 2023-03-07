@@ -11,7 +11,7 @@ export const generateConnectionPool = (): mysql.Pool | undefined => {
       database: config.database.database,
       connectTimeout: 60000,
     })
-  } catch (e: any) {
+  } catch (e) {
     LG.error(`Error while creating pool connection: ${e}`)
   }
 }

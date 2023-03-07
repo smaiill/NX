@@ -35,7 +35,7 @@ const Debug = () => {
       <ButtonSuccess>Hello world !</ButtonSuccess>
       <ButtonWarn>Hello world !</ButtonWarn>
 
-      <Input label="Hello world !" description="Il sagi dun mzdhqzdyhqz,d" />
+      <Input label="Hello world !" />
 
       <Checkbox>Hello world</Checkbox>
 

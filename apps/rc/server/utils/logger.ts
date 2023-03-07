@@ -12,7 +12,7 @@ const LG = createLogger({
         format.timestamp({
           format: 'MM-DD-YYYY HH:mm',
         }),
-        format.json()
+        format.json(),
       ),
     }),
     new transports.Console({
@@ -25,9 +25,9 @@ const LG = createLogger({
           label: 'NX',
         }),
         format.printf(
-          (log: any): string =>
-            `[${log.label}] | ${log.timestamp} [${log.level}]: ${log.message}`
-        )
+          (log): string =>
+            `[${log.label}] | ${log.timestamp} [${log.level}]: ${log.message}`,
+        ),
       ),
     }),
   ],

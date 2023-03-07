@@ -11,7 +11,6 @@ import './items'
 import { ItemsService } from './items/items.service'
 import './player'
 import { PlayerService } from './player/player.service'
-import { Command } from '@commands/commands.builder'
 
 class Server {
   Players: typeof PlayerService

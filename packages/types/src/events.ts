@@ -52,14 +52,6 @@ export enum TimelineEvents {
   DESTROY_TIMELINE = 'NX::destroyTimeline',
 }
 
-export enum PermissionsEvents {
-  PERMISSIONS_UPDATED = 'NX::permissionsUpdated',
-}
-
-export enum AccountsEvents {
-  ACCOUNT_UPDATED = 'NX::accountUpdated',
-}
-
 export enum JobsEvents {
   JOB_UPDATED = 'NX::jobUpdated',
 }

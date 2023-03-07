@@ -1,7 +1,9 @@
-import { Ban } from '@nx/types'
-import { SavedBan } from '@nx/types/src/main'
+import { Ban, PermissionsFlags, SavedBan } from '@nx/types'
 import { PlayerService } from '@player/player.service'
 import { uuid } from '@shared/utils/random'
+import { LG } from '@utils/logger'
+import { getSrc } from '@utils/src'
+import { PermissionsService } from 'services/permissions.service'
 import { BansDB } from './bans.db'
 import { createBanSchema, CreateBanType } from './bans.schema'
 
@@ -51,7 +53,7 @@ class _BansService {
 
   private createExpirationDate(days: number): Date | number {
     if (days === 0) {
-      return new Date(this.permaBanValue)
+      return this.msToS(new Date(this.permaBanValue))
     }
 
     const date = new Date()
@@ -61,11 +63,27 @@ class _BansService {
 
   public async banPlayer(data: CreateBanType): Promise<Ban> {
     const res = createBanSchema.safeParse(data)
+    const src = getSrc()
 
     if (!res.success) {
       throw 'Invalid data for to ban player.'
     }
+
     // TODO: Check player permissions
+    const banAuthor = await PlayerService.getPlayer(src)
+
+    if (!banAuthor) {
+      throw 'Invalid ban author.'
+    }
+
+    const canBan = PermissionsService.doesGroupHasFlag({
+      group: banAuthor.GetGroup(),
+      flag: PermissionsFlags.PLAYER_BAN,
+    })
+
+    if (!canBan) {
+      throw 'Invalid permissions to ban player.'
+    }
 
     const nxTarget = await PlayerService.getPlayer(data.target)
 
@@ -74,7 +92,7 @@ class _BansService {
     }
 
     const expirationTimestamp = this.createExpirationDate(
-      Number(data.duration ?? 0)
+      Number(data.duration ?? 0),
     )
 
     const id = uuid()
@@ -116,6 +134,7 @@ class _BansService {
 
       return true
     } catch (error) {
+      LG.error(`Couldn't unban player with ID: ${id}`)
       throw error
     }
   }

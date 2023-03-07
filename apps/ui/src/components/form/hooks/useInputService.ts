@@ -17,7 +17,7 @@ const useInputServices = () => {
         return
       }
 
-      addInvalidInputs(res.message)
+      addInvalidInputs(res.message as string)
     })
   }
 

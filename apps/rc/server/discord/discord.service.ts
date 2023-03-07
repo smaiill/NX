@@ -2,8 +2,6 @@ import { DiscordWebhook } from '@nx/types'
 import { LG } from '@utils/logger'
 
 class _DiscordService {
-  constructor() {}
-
   public sendWebhook({ data, options }: DiscordWebhook): void {
     if (!data) {
       LG.error('Invalid data for webhook.')

@@ -22,13 +22,16 @@ const useMenuStore = create<MenuStoreState>((set) => ({
   setSelected: (index: number) =>
     set((state: MenuState) => {
       const menu = state.menu
-      if (menu) {
-        menu.items.forEach((item, i) => {
-          item.selected = i === index
-        })
-        return { ...state, menu }
+
+      if (!menu) {
+        return state
       }
-      return state
+
+      menu.items.forEach((item, i) => {
+        item.selected = i === index
+      })
+
+      return { ...state, menu }
     }),
 
   hideMenu: () => set((state: MenuState) => ({ ...state, menu: null })),

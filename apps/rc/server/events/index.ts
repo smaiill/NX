@@ -3,32 +3,31 @@ import { LG } from '@utils/logger'
 import { getSrc } from '@utils/src'
 
 class _EventsService {
-  private events: Map<string, Function>
+  private events: Map<string, (src: number, ...args: unknown[]) => void>
   private activeEvents: string[]
   constructor() {
     this.events = new Map()
     this.activeEvents = []
   }
 
-  async onServerEvent(eventName: string, callback: Function) {
+  async onServerEvent(eventName: string, callback: () => void) {
     if (!callback || typeof callback !== 'function') {
       LG.warn(
-        `Can't register event: ${CodeColors.GREEN}[${eventName}] ${CodeColors.ORANGE}callback most be provided !${CodeColors.WHITE}`
+        `Can't register event: ${CodeColors.GREEN}[${eventName}] ${CodeColors.ORANGE}callback most be provided !${CodeColors.WHITE}`,
       )
       return
     }
 
-    const eventHandler: Function = (
-      respEventName: string,
-      ...args: any[]
-    ): void => {
+    const eventHandler = (respEventName: string, ...args: unknown[]): void => {
       const src = getSrc()
       const eventCallback = this.events.get(eventName)
-      if (eventCallback) {
-        eventCallback(src, ...args, (...respArgs: any[]) => {
-          emitNet(respEventName, src, ...respArgs)
-        })
+      if (!eventCallback) {
+        return
       }
+
+      eventCallback(src, ...args, (...respArgs: unknown[]) => {
+        emitNet(respEventName, src, ...respArgs)
+      })
     }
 
     this.events.set(eventName, callback)

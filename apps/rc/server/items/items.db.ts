@@ -1,6 +1,5 @@
 import { DB } from '@db/db'
-import { Item } from '@nx/types'
-import { SavedItem } from '@nx/types/src/items'
+import { Item, SavedItem } from '@nx/types'
 
 class _ItemsDB {
   private db: typeof DB

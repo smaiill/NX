@@ -1,10 +1,10 @@
-import { NotificationBGColors, NotificationData } from '@nx/types'
+import { ICreatedNotification, NotificationBGColors } from '@nx/types'
 import { Icon } from '../../misc/Icon'
 
 const NotificationWrapper = ({
   notification,
 }: {
-  notification: NotificationData
+  notification: ICreatedNotification
 }) => {
   return (
     <div

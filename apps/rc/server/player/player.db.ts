@@ -1,6 +1,8 @@
 import { DB } from '@db/db'
+import { NXPlayer } from '@nx/types'
 import { config } from '@shared/load.file'
 import { uuid } from '@shared/utils/random'
+import { LG } from '@utils/logger'
 import { PlayerUtils } from './player.utils'
 
 class _PlayerDB {
@@ -11,17 +13,25 @@ class _PlayerDB {
 
   public async getPlayerFromDB(license: string): Promise<any> {
     try {
-      const res = await DB.exec(this.db.querys.Player.SELECT_WITH_IDENTIFIER, [
-        license,
-      ])
+      const [res] = await DB.exec<any>(
+        this.db.querys.Player.SELECT_WITH_IDENTIFIER,
+        [license],
+      )
 
-      return res
+      res.inventory = JSON.parse(res.inventory as unknown as string)
+      res.accounts = JSON.parse(res.accounts as unknown as string)
+      res.position = JSON.parse(res.position as unknown as string)
+      res.skin = JSON.parse(res.skin as unknown as string)
+      res.charinfo = JSON.parse(res.charinfo as unknown as string)
+
+      return res as NXPlayer
     } catch (error) {
+      LG.silly('Player not found in DB')
       throw error
     }
   }
 
-  public async createPlayer(license: string): Promise<any> {
+  public async createPlayer(license: string) {
     const bloodType = PlayerUtils.generateBloodType()
     const uid = uuid()
 
@@ -47,6 +57,7 @@ class _PlayerDB {
 
       return res
     } catch (error) {
+      LG.silly("Couldn't create the player")
       throw error
     }
   }
@@ -62,13 +73,14 @@ class _PlayerDB {
         JSON.stringify(nxPlayer.inventory),
         JSON.stringify(nxPlayer.accounts),
         JSON.stringify(nxPlayer.position),
-        nxPlayer.permissions,
+        nxPlayer.group,
         nxPlayer.identifier,
         JSON.stringify(nxPlayer.skin),
       ])
 
       return res
     } catch (error) {
+      LG.silly("Couldn't save the player")
       throw error
     }
   }

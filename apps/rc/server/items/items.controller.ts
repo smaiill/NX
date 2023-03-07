@@ -9,7 +9,7 @@ onNet(ItemsEvents.DROP_ITEM, (data: { name: string; amount: number }): void => {
 
   if (!src) {
     LG.warn(
-      `someone tried to drop item from server side, info provided: [${data}]`
+      `someone tried to drop item from server side, info provided: [${data}]`,
     )
     return
   }
@@ -25,7 +25,7 @@ onNet(ItemsEvents.PICKUP_ITEM, (uuid: string): void => {
     LG.warn(
       `someone tried to pickup item from server side, info provided: ${{
         uuid,
-      }}`
+      }}`,
     )
     return
   }
@@ -34,14 +34,14 @@ onNet(ItemsEvents.PICKUP_ITEM, (uuid: string): void => {
 })
 
 // ? Only Client side.
-onNet(ItemsEvents.USE_ITEM, (name: string, ...args: any[]): void => {
+onNet(ItemsEvents.USE_ITEM, (name: string, ...args: unknown[]): void => {
   const src = isRPCFromClientSide()
 
   if (!src) {
     LG.warn(
       `someone tried to use item from server side, info provided: ${{
         ...args,
-      }}`
+      }}`,
     )
     return
   }
@@ -55,7 +55,7 @@ on(ItemsEvents.CREATE_ITEM, (data: Item, cb?: ResponseCB): void => {
 
   if (src) {
     LG.warn(
-      `someone tried to create item from client side, info provided: ${data}`
+      `someone tried to create item from client side, info provided: ${data}`,
     )
     return
   }

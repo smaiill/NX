@@ -20,7 +20,7 @@ const parseNotificationContent = (content: string): string => {
 
     content = content.replace(
       `^${matchedNumber}`,
-      `<span class='special-color-${matchedNumber}'>`
+      `<span class='special-color-${matchedNumber}'>`,
     )
   }
   return content

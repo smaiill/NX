@@ -1,8 +1,8 @@
-import { TimelineUpdateActions } from '@nx/types'
+import { TimelineData, TimelineUpdateActions } from '@nx/types'
 import { z } from 'zod'
 
-const uniqueIDS = (timeline: any) => {
-  const rowsIDS = timeline.rows.map((row: any) => row.id)
+const uniqueIDS = (timeline: TimelineData) => {
+  const rowsIDS = timeline.rows.map((row) => row.id)
   const nonDuplicateArray = [...new Set(rowsIDS)]
 
   if (nonDuplicateArray.length !== rowsIDS.length) {

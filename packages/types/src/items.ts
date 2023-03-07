@@ -5,7 +5,7 @@ export interface Pickup {
   uuid?: string
   label: string
   propsType: string
-  object?: any
+  object?: number
   itemType: string
   _unique: boolean
   maxInSlot: number
@@ -18,13 +18,13 @@ export interface Item {
   props: string
   _unique: boolean
   maxInSlot: number
-  data: Record<string, any>
+  data: Record<string, unknown>
 }
 
 export type SavedItem = Item & { id: number }
 
 export interface UsableItem {
-  [property: string]: Function
+  [property: string]: () => void
 }
 
 export interface InventoryItem extends Item {

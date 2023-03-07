@@ -12,11 +12,11 @@ class _PlayerCache {
     return this.loaded
   }
 
-  public setData(data: any): void {
-    return (this.playerData = data)
+  public setData(data: Record<string, unknown>): void {
+    this.playerData = data
   }
 
-  public getData(): any {
+  public getData() {
     return JSON.parse(JSON.stringify(this.playerData))
   }
 
@@ -24,7 +24,7 @@ class _PlayerCache {
     return (this.playerData[key] = value)
   }
 
-  public getValue(key: string): any {
+  public getValue(key: string) {
     return this.playerData[key]
   }
 

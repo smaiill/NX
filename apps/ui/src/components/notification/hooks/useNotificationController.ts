@@ -8,7 +8,7 @@ const useNotificationController = () => {
   useNuiEvent(
     NuiAPPS.NOTIFICATION,
     NotificationEvents.CREATE_NOTIFICATION,
-    handleCreateNotification
+    handleCreateNotification,
   )
 }
 

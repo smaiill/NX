@@ -9,11 +9,14 @@ import {
 import { LG } from '@utils/logger'
 import { InputUtils } from './input.utils'
 
+type HandlerCB = (res: Response<unknown>) => void
+type HandlerCBNullish = HandlerCB | null
+
 class _InputService {
   private inputUtils: typeof InputUtils
   private readonly currentInputState: {
     active: boolean
-    handler: Function | null
+    handler: HandlerCBNullish
     data: InputsData | null
   }
   constructor() {
@@ -69,7 +72,7 @@ class _InputService {
         method: InputEvents.CREATE_INPUT,
         data,
       },
-      true
+      true,
     )
 
     this.setState('handler', handler)
@@ -84,8 +87,9 @@ class _InputService {
     ) {
       const { isValid, message } = await this.inputUtils.isDataValid(
         res.data,
-        this.currentInputState.data!
+        this.currentInputState.data as InputsData,
       )
+
       if (!isValid) {
         cb({ ok: false, message: message })
         return

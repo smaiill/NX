@@ -1,23 +1,17 @@
-import { PlayerService } from '@player/player.service'
+// import { PlayerService } from '@player/player.service'
 
-const DEBUG = false
+// const DEBUG = false
 
-if (DEBUG) {
-  async function run() {
-    await PlayerService.newPlayer(
-      ['license:a8ba95eb67cf3857bda530724b653569e42f8160'],
-      1
-    )
+// if (DEBUG) {
+//   async function run() {
+//     setTimeout(async() => {
+//         await PlayerService.newPlayer(
+//             ['license:a8ba95eb67cf3857bda530724b653569e42f8160'],
+//             1
+//           )
+//     }, 2000);
 
-    setTimeout(async () => {
-      const nxPlayer = await PlayerService.getPlayer(1)
+//   }
 
-      console.log('---------------------------------------')
-      // console.log(nxPlayer)
-
-      // nxPlayer.Save()
-    }, 2000)
-  }
-
-  run()
-}
+//   run()
+// }

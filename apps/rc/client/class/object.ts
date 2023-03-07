@@ -1,8 +1,6 @@
 import { ResponseCB } from '@nx/types'
 
 class _Object {
-  constructor() {}
-
   public create(entity: string, cb?: ResponseCB): number | void {
     if (!entity || !IsModelValid(entity)) {
       cb?.({
@@ -24,7 +22,7 @@ class _Object {
           pos[2],
           true,
           false,
-          true
+          true,
         )
         clearInterval(i)
         SetEntityAsNoLongerNeeded(entity as unknown as number)

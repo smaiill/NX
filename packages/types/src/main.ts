@@ -28,19 +28,17 @@ export interface Ban {
 
 export type SavedBan = Ban & { date: Date }
 
-export interface Response {
+export interface Response<T = any> {
   ok: boolean
-  message?: any
-  data?: any
+  message?: string
+  data?: T
 }
 
 export interface DiscordWebhook {
-  data: any
+  data: unknown
   options: {
     url: string
   }
 }
 
-export interface ResponseCB {
-  ({ ok, message, data }: Response): void
-}
+export type ResponseCB<T = any> = ({ ok, message, data }: Response<T>) => void

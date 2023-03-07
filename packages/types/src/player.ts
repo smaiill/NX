@@ -1,4 +1,5 @@
 import { InventoryItem } from './items'
+import { JobCB } from './jobs'
 import { ResponseCB } from './main'
 
 export type BloodTypes = 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-'
@@ -23,7 +24,7 @@ export interface NXPlayerMethods {
   getCoords(): Position
   getInventory(): Record<string, InventoryItem>
   getAccounts(): Record<string, number>
-  getPermissions(): string
+  getGroup(): string
   getBloodType(): string
   getThirst(): number
   getHunger(): number
@@ -34,18 +35,32 @@ export interface NXPlayerMethods {
   getJobs(): Array<{ name: string; grade: string; label: string }>
   setThirst(value: number): void
   setHunger(value: number): void
-  setPermissions(permission: string): void
+  setGroup(permission: string): void
   setAccountMoney(account: string, money: number): void
-  setJob(name: string, grade: string, type: number, cb?: Function): void
+  setJob(
+    name: string,
+    grade: string,
+    type: number,
+    cb?: (res: JobCB) => void,
+  ): void
   setCoords(x: number, y: number, z: number, heading: number): void
-  emitEvent(name: string, ...args: any[]): void
-  hasItem(name: string): boolean | any
-  removeInventoryItem(name: string, amount: number, cb?: ResponseCB): void
-  canTakeItem(name: string, amount: number): boolean
+  emitEvent(name: string, ...args: unknown[]): void
+  hasItem(name: string): boolean | InventoryItem
+  removeItem(name: string, amount: number, cb?: ResponseCB): void
   setCharInfoKey(key: string, value: string): void
-  addInventoryItem(name: string, amount: number, cb?: ResponseCB): void
+  addItem(name: string, amount: number, cb?: ResponseCB): void
   save(cb?: ResponseCB): Promise<void>
   kick(reason: string): void
+}
+
+export type NXPlayerMethodsCapitalized = {
+  [P in keyof NXPlayerMethods as Capitalize<P>]: NXPlayerMethods[P]
+}
+
+export interface IGroup {
+  label: string
+  value: string
+  flags: PermissionsFlags[]
 }
 
 export interface Position {
@@ -61,29 +76,20 @@ export interface NXPlayer extends NXPlayerMethods {
   inventory: Record<string, InventoryItem>
   accounts: Record<string, number>
   position: Position
-  permissions: string
+  group: string
   weight: number
   name: string
   source: number
   maxWeight: number
   uid: string
-  skin?: any
+  skin: Record<string, number | string>
 }
 
-export interface PlayerDataBase {
-  id: number
-  identifier: string
-  accounts: string
-  permissions: string
-  inventory: null | any
-  charinfo: any
-  position: Position
-  skin: any
-  uid: string
-  created_at: string
-  updated_at: string
-}
+export enum PermissionsFlags {
+  PLAYER_KICK = 'PLAYER_KICK',
+  PLAYER_BAN = 'PLAYER_BAN',
+  PLAYER_ALL = 'PLAYER_ALL',
 
-export interface PlayerMessage {
-  message: string
+  VEHICLE_CREATE = 'VEHICLE_CREATE',
+  VEHICLE_ALL = 'VEHICLE_ALL',
 }

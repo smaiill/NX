@@ -26,13 +26,12 @@ onNet(
     const nxPlayerData = PlayerCache.getData()
     PlayerCache.setStatus(
       status,
-      parseFloat(nxPlayerData.charinfo[status]) + amount
+      parseFloat(nxPlayerData.charinfo[status]) + amount,
     )
-  }
+  },
 )
 
 onNet(PlayerEvents.PLAYER_LOADED, async (nxPlayer: any) => {
-  console.log(nxPlayer)
   globalThis.exports.spawnmanager.spawnPlayer(
     {
       x: nxPlayer.position.x,
@@ -49,7 +48,7 @@ onNet(PlayerEvents.PLAYER_LOADED, async (nxPlayer: any) => {
       PlayerService.syncPlayer()
 
       emit(PlayerEvents.ON_PLAYER_LOADED, nxPlayer)
-    }
+    },
   )
 })
 
@@ -85,12 +84,12 @@ onNet(
 
         break
     }
-  }
+  },
 )
 
 onNet(
   PlayerEvents.UPDATE_LOCALE_CACHE_BY_KEY,
   ({ key, value }: { key: string; value: unknown }) => {
     PlayerService.setLocalCacheByKey({ key, value })
-  }
+  },
 )

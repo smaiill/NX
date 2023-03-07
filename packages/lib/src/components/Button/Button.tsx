@@ -32,7 +32,12 @@ const Button = forwardRef(
 
     return (
       <button
-        className={cls(style.btn, style[_type], loading ? style.loading : '')}
+        className={cls(
+          style.btn,
+          style[_type],
+          loading ? style.loading : '',
+          className,
+        )}
         ref={ref}
         {...rest}
       >
@@ -41,29 +46,29 @@ const Button = forwardRef(
         {suffixElement}
       </button>
     )
-  }
+  },
 )
 
 export const ButtonPrimary = forwardRef(
   (props: ForwardButton, ref: ForwardedRef<HTMLButtonElement>) => {
     return <Button {...props} ref={ref} _type="primary" />
-  }
+  },
 )
 
 export const ButtonDanger = forwardRef(
   (props: ForwardButton, ref: ForwardedRef<HTMLButtonElement>) => {
     return <Button {...props} ref={ref} _type="danger" />
-  }
+  },
 )
 
 export const ButtonSuccess = forwardRef(
   (props: ForwardButton, ref: ForwardedRef<HTMLButtonElement>) => {
     return <Button {...props} ref={ref} _type="success" />
-  }
+  },
 )
 
 export const ButtonWarn = forwardRef(
   (props: ForwardButton, ref: ForwardedRef<HTMLButtonElement>) => {
     return <Button {...props} ref={ref} _type="warn" />
-  }
+  },
 )

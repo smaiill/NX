@@ -84,7 +84,7 @@ globalThis.exports('useClient', () => {
       CreatePed: client.Misc.createPed.bind(client.Misc),
       CreateNotification: client.Notification.create.bind(client.Notification),
       EmitServerEvent: client.EventsService.emitServerEvent.bind(
-        client.EventsService
+        client.EventsService,
       ),
     },
   }

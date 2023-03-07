@@ -14,17 +14,17 @@ class _DiscordService {
     SetDiscordAppId(this.config.discord.richPresence.appID)
     SetDiscordRichPresenceAsset(this.config.discord.richPresence.image)
     SetDiscordRichPresenceAssetText(
-      this.config.discord.richPresence.imageHoverText
+      this.config.discord.richPresence.imageHoverText,
     )
     SetDiscordRichPresenceAction(
       0,
       this.config.discord.richPresence.buttons[0].label,
-      this.config.discord.richPresence.buttons[0].href
+      this.config.discord.richPresence.buttons[0].href,
     )
     SetDiscordRichPresenceAction(
       1,
       this.config.discord.richPresence.buttons[1].label,
-      this.config.discord.richPresence.buttons[1].href
+      this.config.discord.richPresence.buttons[1].href,
     )
     SetRichPresence(this.config.discord.richPresence.text)
   }

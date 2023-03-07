@@ -1,7 +1,8 @@
+import { PermissionsFlags } from '@nx/types'
 import { LG } from '@utils/logger'
 import { CommandsServices } from './commands.service'
 
-type CB = (source: number, args: string[]) => void
+type CB = (source: number, args: unknown[]) => void
 type NullishCB = null | CB
 
 export class Command {
@@ -22,7 +23,7 @@ export class Command {
     return this
   }
 
-  public setHandler(cb: (source: number, args: string[]) => void) {
+  public setHandler(cb: (source: number, args: unknown[]) => void) {
     this.cb = cb
 
     return this
@@ -44,7 +45,7 @@ export class Command {
     this._cmdServices.addCommand(
       this.name as unknown as string,
       this.cb as unknown as CB,
-      this.authPermissions as unknown as string[]
+      this.authPermissions as unknown as PermissionsFlags[],
     )
   }
 
@@ -56,7 +57,7 @@ export class Command {
 
     if (!this.authPermissions || !Array.isArray(this.authPermissions)) {
       LG.error(
-        'Invalid permissions for building command use: setPermissions(permissions)'
+        'Invalid permissions for building command use: setPermissions(permissions)',
       )
       return false
     }

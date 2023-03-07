@@ -1,4 +1,4 @@
-import { CodeColors } from '@nx/types'
+import { CodeColors, Defferals } from '@nx/types'
 import { PlayerService } from '@player/player.service'
 import { PlayerUtils } from '@player/player.utils'
 import { LG } from '@utils/logger'
@@ -20,7 +20,7 @@ class _DeferralsService {
     source: number
     playerName: string
     identifiers: string[]
-    deferrals: any
+    deferrals: Defferals
   }) {
     deferrals.defer()
     deferrals.update(`${playerName} wait while checking your license`)
@@ -36,7 +36,7 @@ class _DeferralsService {
 
       if (!unban) {
         deferrals.done(
-          `you are banned from this server.\nReason: ${isBanned.reason}.\nBan Date: ${isBanned.date}.\nExpiration: ${isBanned.expire}`
+          `you are banned from this server.\nReason: ${isBanned.reason}.\nBan Date: ${isBanned.date}.\nExpiration: ${isBanned.expire}`,
         )
         return
       }
@@ -51,10 +51,10 @@ class _DeferralsService {
     }
 
     deferrals.done(
-      `Player already connected with the same license [${license}]`
+      `Player already connected with the same license [${license}]`,
     )
     LG.warn(
-      `Player: [${playerName}] tried to connect with the same license as: ${CodeColors.ORANGE}[${alreadyPlayerWithSameLicense.name}] | license: ${CodeColors.ORANGE}${license}`
+      `Player: [${playerName}] tried to connect with the same license as: ${CodeColors.ORANGE}[${alreadyPlayerWithSameLicense.name}] | license: ${CodeColors.ORANGE}${license}`,
     )
   }
 }

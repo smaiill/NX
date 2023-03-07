@@ -7,8 +7,6 @@ import {
 } from './notification.schema'
 
 class _NotificationService {
-  constructor() {}
-
   public async create(notification: CreateNotificationType): Promise<void> {
     const res = createNotificationSchema.safeParse(notification)
 
@@ -25,7 +23,7 @@ class _NotificationService {
         method: NotificationEvents.CREATE_NOTIFICATION,
         data,
       },
-      false
+      false,
     )
   }
 }

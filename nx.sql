@@ -67,7 +67,7 @@ CREATE TABLE `nx_users` (
   `id` int(11) NOT NULL,
   `identifier` varchar(100) NOT NULL,
   `accounts` longtext DEFAULT '{"bank":0}',
-  `permissions` varchar(50) DEFAULT 'user',
+  `group` varchar(50) DEFAULT 'user',
   `inventory` longtext DEFAULT '{}',
   `charinfo` longtext DEFAULT '{}',
   `position` varchar(255) DEFAULT '{"x":-269.4,"y":-955.3,"z":31.2,"heading":205.8}',

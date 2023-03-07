@@ -13,7 +13,7 @@ export interface IContainer extends HTMLAttributes<HTMLDivElement> {
   _type: ITypes
 }
 
-export interface IContainerChildren extends Omit<IContainer, '_type'> {}
+export type IContainerChildren = Omit<IContainer, '_type'>
 
 const ContainerBase = forwardRef(
   (props: PropsWithChildren<IContainer>, ref: ForwardedRef<HTMLDivElement>) => {
@@ -27,13 +27,13 @@ const ContainerBase = forwardRef(
         {children}
       </div>
     )
-  }
+  },
 )
 
 const ContainerPrimary = forwardRef(
   (
     props: PropsWithChildren<IContainerChildren>,
-    ref: ForwardedRef<HTMLDivElement>
+    ref: ForwardedRef<HTMLDivElement>,
   ) => {
     const { children, ...rest } = props
     return (
@@ -41,13 +41,13 @@ const ContainerPrimary = forwardRef(
         {children}
       </ContainerBase>
     )
-  }
+  },
 )
 
 const ContainerSecondary = forwardRef(
   (
     props: PropsWithChildren<IContainerChildren>,
-    ref: ForwardedRef<HTMLDivElement>
+    ref: ForwardedRef<HTMLDivElement>,
   ) => {
     const { children, ...rest } = props
     return (
@@ -55,13 +55,13 @@ const ContainerSecondary = forwardRef(
         {children}
       </ContainerBase>
     )
-  }
+  },
 )
 
 const Container = forwardRef(
   (
     props: PropsWithChildren<IContainerChildren>,
-    ref: ForwardedRef<HTMLDivElement>
+    ref: ForwardedRef<HTMLDivElement>,
   ) => {
     const { children, ...rest } = props
     return (
@@ -69,7 +69,7 @@ const Container = forwardRef(
         {children}
       </ContainerBase>
     )
-  }
+  },
 )
 
 export { Container, ContainerPrimary, ContainerSecondary }

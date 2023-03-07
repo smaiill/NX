@@ -21,6 +21,14 @@
     "check:tsc": {
       "outputs": [],
       "cache": false
+    },
+    "lint": {
+      "outputs": [],
+      "cache": false
+    },
+    "clean": {
+      "outputs": [],
+      "cache": false
     }
   }
 }

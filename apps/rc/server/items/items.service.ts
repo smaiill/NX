@@ -8,7 +8,7 @@ import { createItemSchema, CreateItemType } from './items.schema'
 class _ItemsService {
   private items: Item[]
   private pickups: Pickup[]
-  private usableItems: Map<string, Function>
+  private usableItems: Map<string, (source: number, ...args: unknown[]) => void>
   private db: typeof ItemsDB
   constructor() {
     this.items = []
@@ -69,7 +69,7 @@ class _ItemsService {
     propsType: string,
     itemType: string,
     _unique: boolean,
-    maxInSlot: number
+    maxInSlot: number,
   ): void {
     const uuid = _uuid()
     this.pickups.push({
@@ -111,7 +111,7 @@ class _ItemsService {
 
   public async dropItem(
     source: number,
-    { amount, name }: { amount: number; name: string }
+    { amount, name }: { amount: number; name: string },
   ): Promise<void> {
     const nxPlayer = await PlayerService.getPlayer(source)
     const itemInfo = await this.findItem(name)
@@ -124,7 +124,7 @@ class _ItemsService {
     const propsToCreate = await this.getPropsToCreate(
       name,
       amount,
-      itemInfo.props
+      itemInfo.props,
     )
     nxPlayer.RemoveItem(name, amount, (resp: Response) => {
       if (!resp.ok) {
@@ -140,7 +140,7 @@ class _ItemsService {
         propsToCreate,
         itemInfo.type,
         itemInfo._unique,
-        itemInfo.maxInSlot
+        itemInfo.maxInSlot,
       )
     })
   }
@@ -170,7 +170,7 @@ class _ItemsService {
         nxPlayer.AddItem(pickup.name, pickup.amount, (resp: Response) => {
           if (resp.ok) {
             this.pickups = this.pickups.filter(
-              (pic) => pic.uuid !== pickup.uuid
+              (pic) => pic.uuid !== pickup.uuid,
             )
             emitNet(ItemsEvents.REMOVE_PICKUP, -1, pickup.uuid)
           }
@@ -181,7 +181,7 @@ class _ItemsService {
     }
   }
 
-  public registerUsableItem(name: string, cb: Function): void {
+  public registerUsableItem(name: string, cb: () => void): void {
     if (!cb || typeof cb !== 'function') {
       LG.error('function callback most be provided. [Misc.RegisterUsableItem]')
       return
@@ -189,7 +189,7 @@ class _ItemsService {
 
     if (this.usableItems.has(name)) {
       LG.warn(
-        `item: [${name}] has already being registerd. [MISC.RegisterUsableItem]`
+        `item: [${name}] has already being registerd. [MISC.RegisterUsableItem]`,
       )
     }
 
@@ -199,7 +199,7 @@ class _ItemsService {
   public async useItem(
     name: string,
     source: number,
-    ...args: any
+    ...args: unknown[]
   ): Promise<void> {
     if (!this.usableItems.has(name)) {
       LG.error(`Can't use item: ${name} he is not registerd !`)
@@ -226,7 +226,7 @@ class _ItemsService {
     if (alreadyExist) {
       cb?.({
         ok: false,
-        message: `Can\'t create item [${res.data.name}] already exists !`,
+        message: `Can't create item [${res.data.name}] already exists !`,
       })
       return
     }

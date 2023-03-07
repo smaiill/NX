@@ -1,5 +1,4 @@
-import { Job } from '@nx/types'
-import { SavedJob } from '@nx/types/src/jobs'
+import { Job, SavedJob } from '@nx/types'
 import { JobsDB } from './jobs.db'
 
 class _JobsService {
@@ -11,12 +10,12 @@ class _JobsService {
     this.init()
   }
 
-  public findJob(name: string): Job | false {
+  public findJob(name: string): Job | null {
     const job = this.jobs.find((job) => job.name === name)
 
     if (job) return job
 
-    return false
+    return null
   }
 
   public isValid(name: string, grade: string, type: number): boolean {

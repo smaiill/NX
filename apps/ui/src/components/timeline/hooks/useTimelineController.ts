@@ -9,19 +9,19 @@ const useTimelineController = () => {
   useNuiEvent(
     NuiAPPS.TIMELINE,
     TimelineEvents.CREATE_TIMELINE,
-    handleCreateTimeline
+    handleCreateTimeline,
   )
 
   useNuiEvent(
     NuiAPPS.TIMELINE,
     TimelineEvents.UPDATE_TIMELINE,
-    handleUpdateTimeline
+    handleUpdateTimeline,
   )
 
   useNuiEvent(
     NuiAPPS.TIMELINE,
     TimelineEvents.DESTROY_TIMELINE,
-    handleRemoveTimeline
+    handleRemoveTimeline,
   )
 }
 

@@ -5,12 +5,10 @@ import { PlayerCache } from '../player/player.class'
 
 class _ItemsService {
   private Pickups: Pickup[]
-  private NearbyPickups: Pickup[]
   private readonly pickupAnimation: { name: string; dict: string }
   private readonly REFRESH_TIME: number
   constructor() {
     this.Pickups = []
-    this.NearbyPickups = []
     this.pickupAnimation = { name: 'putdown_low', dict: 'pickup_object' }
     this.REFRESH_TIME = 0
   }
@@ -36,7 +34,7 @@ class _ItemsService {
           coords[2],
           false,
           false,
-          true
+          true,
         )
         SetEntityAsMissionEntity(object, true, false)
         SetEntityCollision(object, false, true)
@@ -96,7 +94,7 @@ class _ItemsService {
           pickup.coords[0],
           pickup.coords[1],
           pickup.coords[2],
-          true
+          true,
         )
 
         if (distance < 3) {
@@ -120,14 +118,14 @@ class _ItemsService {
                     0.0,
                     false,
                     false,
-                    false
+                    false,
                   )
                   RemoveAnimDict(this.pickupAnimation.dict)
                   setTimeout(() => {
                     emitNet(ItemsEvents.PICKUP_ITEM, pickup.uuid)
                   }, 250)
                 }
-              }
+              },
             )
           }
         }
@@ -152,7 +150,7 @@ class _ItemsService {
 
     if (!pickup) return
 
-    ObjectManager.delete(pickup.object, () => {
+    ObjectManager.delete(pickup.object as number, () => {
       this.Pickups = this.Pickups.filter((pic) => pic.uuid !== pickup.uuid)
     })
   }

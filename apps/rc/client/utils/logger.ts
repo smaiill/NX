@@ -28,7 +28,7 @@ class _Logger {
     console.log(`${this.logsCodes.warn}: ${message}`)
   }
 
-  public debug(message: string = 'debug message.'): void {
+  public debug(message = 'debug message.'): void {
     if (process.env.NODE_ENV === 'development') {
       console.log(`${this.logsCodes.debug}: ${message}`)
     }

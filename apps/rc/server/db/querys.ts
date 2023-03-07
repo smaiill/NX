@@ -1,6 +1,6 @@
 const PlayerQuerys = {
   UPDATE:
-    'UPDATE nx_users SET charinfo = ?, inventory = ?, accounts = ?, position = ?, permissions = ?, skin = ? WHERE identifier = ?',
+    'UPDATE nx_users SET charinfo = ?, inventory = ?, accounts = ?, position = ?, group = ?, skin = ? WHERE identifier = ?',
   CREATE:
     'INSERT INTO nx_users (identifier, charinfo, uid, accounts) VALUES (?, ?, ?, ?)',
   SELECT_WITH_IDENTIFIER: 'SELECT * FROM nx_users WHERE identifier = ? ',

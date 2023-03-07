@@ -5,6 +5,7 @@
   "author": "niiyy",
   "license": "CC-BY-NC-SA-4.0",
   "private": true,
+  "type": "module",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -16,17 +17,25 @@
     "format": "prettier --write .",
     "dev": "turbo run dev",
     "dev:ig": "turbo run dev:ig",
-    "build": "turbo run build",
+    "build": "pnpm clean && turbo run build",
     "release": "node scripts/release",
     "dev:rc": "turbo run dev:rc",
     "p": "husky install",
     "check:tsc": "turbo run check:tsc",
-    "dev:i": "turbo run dev:i"
+    "dev:i": "turbo run dev:i",
+    "lint": "eslint .",
+    "clean": "rimraf dist && turbo run clean"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "@typescript-eslint/parser": "^5.54.1",
+    "eslint": "^8.35.0",
+    "eslint-plugin-react": "^7.32.2",
     "husky": "^8.0.3",
     "prettier": "^2.8.4",
-    "prettier-plugin-organize-imports": "^3.2.2"
+    "prettier-plugin-organize-imports": "^3.2.2",
+    "rimraf": "^4.3.1",
+    "typescript": "^4.9.5"
   },
   "dependencies": {
     "turbo": "^1.8.0"

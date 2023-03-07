@@ -31,7 +31,7 @@ export interface Configuration {
         {
           readonly label: string
           readonly href: string
-        }
+        },
       ]
       readonly text: string
     }

@@ -15,7 +15,7 @@ build({
   .then(() => {
     console.log(
       '\x1b[32m[CLIENT]\x1b[0m --',
-      '\x1b[36mClient build finished with success\x1b[0m'
+      '\x1b[36mClient build finished with success\x1b[0m',
     )
   })
   .catch((err) => {
@@ -41,7 +41,7 @@ build({
   .then(() => {
     console.log(
       '\x1b[32m[SERVER]\x1b[0m --',
-      '\x1b[36mServer build finished with success\x1b[0m'
+      '\x1b[36mServer build finished with success\x1b[0m',
     )
   })
   .catch((err) => {

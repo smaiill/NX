@@ -1,12 +1,3 @@
-export type MenuItemTypes =
-  | 'BUTTON'
-  | 'SLIDER'
-  | 'LIST'
-  | 'CHECKBOX'
-  | 'SEPARATOR'
-
-export type KeysTypes = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT' | 'RETURN' | 'BACK'
-
 export interface KeyPressedHandler {
   key: KeysTypes
   index: number
@@ -22,6 +13,8 @@ export enum MenuItemEnum {
   SEPARATOR = 'SEPARATOR',
 }
 
+export type MenuItemTypes = keyof typeof MenuItemEnum
+
 export enum Keys {
   UP = 'UP',
   DOWN = 'DOWN',
@@ -31,13 +24,23 @@ export enum Keys {
   BACK = 'BACK',
 }
 
+export type KeysTypes = keyof typeof Keys
+
+export interface IListChoice {
+  itemID: number
+  actualChoice: {
+    id: string
+    index: number
+  }
+  maxChoices: number
+}
 export interface Menu {
   options: MenuOptions
   items: MenuItem[]
   uuid?: string
   active?: boolean
   itemsLength?: number
-  listChoices?: any
+  listChoices?: IListChoice[]
 }
 
 export interface MenuOptions {
@@ -46,32 +49,52 @@ export interface MenuOptions {
   width?: number
 }
 
-export interface ItemSliderOptions {
+export interface ItemListChoice {
+  label: string
+  id: string
+}
+
+export interface MenuItemBase {
+  label: string
+  id: string
+  onClick?: (...args: unknown[]) => void
+  onChange?: (...args: unknown[]) => void
+  selected?: boolean
+}
+
+export interface ListMenuItem extends MenuItemBase {
+  type: 'LIST'
+  choices: ItemListChoice[]
+}
+
+export interface ButtonMenuItem extends MenuItemBase {
+  type: 'BUTTON'
+}
+
+export interface SeparatorMenuItem extends MenuItemBase {
+  type: 'SEPARATOR'
+}
+
+export interface SliderMenuItem extends MenuItemBase {
+  type: 'SLIDER'
   min?: number
   max?: number
 }
 
-export interface ItemListChoices {
-  label: string
-  id: string
+export interface CheckboxMenuItem extends MenuItemBase {
+  type: 'CHECKBOX'
 }
 
-export interface ItemListOptions {
-  choices?: ItemListChoices[]
-}
-
-export interface MenuItem extends ItemSliderOptions, ItemListOptions {
-  type: MenuItemTypes
-  label: string
-  id: string
-  selected?: boolean
-  onClick?: Function
-  onChange?: Function
-}
+export type MenuItem =
+  | ButtonMenuItem
+  | ListMenuItem
+  | SeparatorMenuItem
+  | SliderMenuItem
+  | CheckboxMenuItem
 
 export interface KeyMapping {
   key: string
   description: string
   command: string
-  handler: (key: string) => void
+  handler: (key: KeysTypes) => void
 }

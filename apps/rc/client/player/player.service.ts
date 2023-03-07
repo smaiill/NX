@@ -2,8 +2,6 @@ import { InventoryActionData, PlayerEvents } from '@nx/types'
 import { PlayerCache } from './player.class'
 
 class _PlayerService {
-  constructor() {}
-
   private syncCoords(): void {
     setInterval(() => {
       const ped = PlayerCache.getValue('ped')
@@ -18,11 +16,11 @@ class _PlayerService {
       const nxPlayerData = PlayerCache.getData()
       PlayerCache.setStatus(
         'thirst',
-        parseFloat(nxPlayerData.charinfo.thirst) - 0.4
+        parseFloat(nxPlayerData.charinfo.thirst) - 0.4,
       )
       PlayerCache.setStatus(
         'hunger',
-        parseFloat(nxPlayerData.charinfo.hunger) - 0.4
+        parseFloat(nxPlayerData.charinfo.hunger) - 0.4,
       )
     }, 30_000)
   }

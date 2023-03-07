@@ -1,6 +1,5 @@
 import { DB } from '@db/db'
-import { Ban } from '@nx/types'
-import { SavedBan } from '@nx/types/src/main'
+import { Ban, SavedBan } from '@nx/types'
 
 class _BansDB {
   private db: typeof DB

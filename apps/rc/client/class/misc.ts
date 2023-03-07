@@ -2,12 +2,10 @@ import { ResponseCB } from '@nx/types'
 import { LG } from '@utils/logger'
 
 class Misc {
-  constructor() {}
-
   public createPed(
     pedType: 1 | 2,
     model: string,
-    cb?: ResponseCB
+    cb?: ResponseCB,
   ): number | void {
     if (
       !pedType ||
@@ -37,7 +35,7 @@ class Misc {
           pos[2],
           100,
           true,
-          false
+          false,
         )
         clearInterval(i)
         SetModelAsNoLongerNeeded(model)
@@ -55,7 +53,7 @@ class Misc {
     text: string,
     size: number,
     font: number,
-    color: [number, number, number] = [255, 255, 255]
+    color: [number, number, number] = [255, 255, 255],
   ): void {
     if (!coords || !text || !size || !font) {
       return LG.error('not valid params to draw 3D text.')
@@ -68,7 +66,7 @@ class Misc {
       camCoords[0],
       camCoords[1],
       camCoords[2],
-      true
+      true,
     )
 
     let scale = (size / distance) * 2

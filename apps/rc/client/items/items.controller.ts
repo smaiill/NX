@@ -9,7 +9,7 @@ on(
     }
     const pickups = await ItemsService.getAllPickups()
     emit(returnEventName, pickups)
-  }
+  },
 )
 
 // server -> client.
@@ -37,7 +37,7 @@ onNet(
       _unique,
       maxInSlot,
     })
-  }
+  },
 )
 
 onNet(ItemsEvents.CREATE_MISSING_PICKUPS, (pickups: Pickup[]): void => {

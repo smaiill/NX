@@ -1,5 +1,3 @@
-const NX: any = {}
-
 // export const __teste = 'teste'
 // injectMockData([
 //   {

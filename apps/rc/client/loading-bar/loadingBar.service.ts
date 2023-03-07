@@ -22,7 +22,7 @@ class _LoadingBarService {
 
   private setState(
     key: keyof typeof this.currentLoadingBarState,
-    value: any
+    value: any,
   ): void {
     this.currentLoadingBarState[key] = value
   }

@@ -14,10 +14,9 @@ const useMenuServices = () => {
     }
 
     if (data.type === MenuItemEnum.SLIDER) {
-      // @ts-ignore
-      const element: HTMLInputElement = document.getElementById(
-        `slider-${data.index}`
-      )
+      const element = document.getElementById(
+        `slider-${data.index}`,
+      ) as HTMLInputElement
 
       if (data.key === Keys.LEFT) {
         element.stepDown(1)
@@ -29,10 +28,9 @@ const useMenuServices = () => {
     }
 
     if (data.type === MenuItemEnum.CHECKBOX) {
-      // @ts-ignore
-      const element: HTMLInputElement = document.getElementById(
-        `checkbox-${data.index}`
-      )
+      const element = document.getElementById(
+        `checkbox-${data.index}`,
+      ) as HTMLInputElement
       element.checked = !element.checked
     }
 

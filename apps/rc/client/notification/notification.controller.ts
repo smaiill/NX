@@ -6,5 +6,5 @@ onNet(
   NotificationEvents.CREATE_NOTIFICATION,
   (data: CreateNotificationType): void => {
     NotificationService.create(data)
-  }
+  },
 )

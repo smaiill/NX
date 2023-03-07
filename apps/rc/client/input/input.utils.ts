@@ -1,11 +1,9 @@
 import { InputsData } from '@nx/types'
 
 class _InputUtils {
-  constructor() {}
-
   public isDataValid(
-    submitedData: any,
-    validData: InputsData
+    submitedData: Record<string, HTMLInputElement>,
+    validData: InputsData,
   ): { isValid: boolean; message: string } {
     for (const validInput of validData.rows) {
       if (

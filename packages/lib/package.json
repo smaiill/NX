@@ -10,7 +10,8 @@
   "scripts": {
     "build": "rollup -c",
     "dev:i": "rollup -c -w",
-    "check:tsc": "tsc --noEmit"
+    "check:tsc": "tsc --noEmit",
+    "clean": "rimraf dist"
   },
   "license": "MIT",
   "peerDependencies": {

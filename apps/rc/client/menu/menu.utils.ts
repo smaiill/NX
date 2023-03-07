@@ -1,8 +1,6 @@
 import { Menu } from '@nx/types'
 
 class _MenuUtils {
-  constructor() {}
-
   public validateMenuCreation(menu: Menu): {
     isValid: boolean
     message: string
@@ -10,7 +8,7 @@ class _MenuUtils {
     if (!menu.items || menu.items.length === 0)
       return { isValid: false, message: 'Invalid items !' }
 
-    let itemIDS: string[] = []
+    const itemIDS: string[] = []
 
     for (const item of menu.items) {
       if (item.onClick && typeof item.onClick !== 'function') {

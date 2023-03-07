@@ -15,7 +15,7 @@ class _BootService {
       LG.info(
         t('DB_CONNECTED', {
           duration,
-        })
+        }),
       )
 
       emit(DBEvents.DB_CONNECTED)
@@ -23,7 +23,7 @@ class _BootService {
       LG.error(
         t('DB_CONNECTION_ERROR', {
           error: e,
-        })
+        }),
       )
     }
   }
@@ -34,15 +34,13 @@ class _BootService {
 
   private ascii() {
     console.log(`
-    __    __  __    __ 
-    /  \  /   |/  |  /  |
-    $$  \ $$  |$$ |  $$ |
-    $$$  \$$  |$$  \/$$/ 
-    $$$$  $$ | $$  $$<  
-    $$ $$ $$ |  $$$$  \ 
-    $$ |$$$$ | $$ /$$  |
-    $$ | $$$ |$$ |  $$ |
-    $$/   $$/ $$/   $$/     
+    $$    $$ $$      $$ 
+    $$$   $$  $$    $$ 
+    $$$$  $$   $$  $$  
+    $$ $$ $$    $$$$   
+    $$  $$$$   $$  $$  
+    $$   $$$  $$    $$ 
+    $$   $$$ $$      $$     
     `)
   }
 
@@ -55,7 +53,7 @@ class _BootService {
       if (!isUsed) return
 
       LG.error(
-        `You are using a resource that will get in conflict with the framework, you most remove it for a perfect setup. ${CodeColors.ORANGE}[${resource}]^0`
+        `You are using a resource that will get in conflict with the framework, you most remove it for a perfect setup. ${CodeColors.ORANGE}[${resource}]^0`,
       )
     }
   }

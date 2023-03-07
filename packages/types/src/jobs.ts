@@ -14,4 +14,10 @@ export interface Job {
   grades: JobGrade[]
 }
 
+export interface JobCB {
+  job: string
+  job_grade: string
+  type: number
+}
+
 export type SavedJob = Job & { id: number }

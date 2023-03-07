@@ -18,12 +18,12 @@ class _TimelineService {
   timelineState: TimelineState
   lastTaskID: string
   constructor() {
-    ;(this.timelineState = {
+    this.timelineState = {
       active: false,
       completedTasks: [],
       rows: [],
-    }),
-      (this.lastTaskID = '')
+    }
+    this.lastTaskID = ''
   }
 
   private setState(state: keyof TimelineState, value: any) {
@@ -32,7 +32,7 @@ class _TimelineService {
 
   private findTaskById(id: string) {
     const task = this.timelineState.completedTasks.find(
-      (task) => task.id === id
+      (task) => task.id === id,
     )
 
     return task
@@ -40,7 +40,7 @@ class _TimelineService {
 
   private findTaskByIndex(index: number) {
     const task = this.timelineState.completedTasks.find(
-      (task) => task.index === index
+      (task) => task.index === index,
     )
 
     return task
@@ -50,14 +50,14 @@ class _TimelineService {
     if (index === 1) return true
     const previusTask = this.findTaskByIndex(index - 1)
 
-    return previusTask.completed
+    return previusTask?.completed ?? false
   }
 
   private isNextTaskCompleted(index: number) {
-    if (index === this.findTaskById(this.lastTaskID).index) return false
+    if (index === this.findTaskById(this?.lastTaskID)?.index) return false
     const nextTask = this.findTaskByIndex(index + 1)
 
-    return nextTask.completed
+    return nextTask?.completed
   }
 
   private canUpdate(type: keyof typeof TimelineUpdateActions, id: string) {

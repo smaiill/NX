@@ -41,7 +41,7 @@ class Vehicle {
           pos[2],
           GetEntityHeading(playerPed),
           true,
-          false
+          false,
         )
         SetPedIntoVehicle(playerPed, vehicle, -1)
 
@@ -98,10 +98,10 @@ class Vehicle {
     this.create(randomCar, (resp: Response) => {
       if (!resp.ok) return
       const randomColor = Math.floor(
-        Math.random() * this.MAXIMUM_COLORS_VEHICLE
+        Math.random() * this.MAXIMUM_COLORS_VEHICLE,
       )
       const randomColor2 = Math.floor(
-        Math.random() * this.MAXIMUM_COLORS_VEHICLE
+        Math.random() * this.MAXIMUM_COLORS_VEHICLE,
       )
       SetVehicleColours(resp.data, randomColor, randomColor2)
     })

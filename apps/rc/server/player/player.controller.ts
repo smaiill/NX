@@ -1,4 +1,4 @@
-import { PlayerEvents } from '@nx/types'
+import { Defferals, PlayerEvents } from '@nx/types'
 import { getSrc } from '@utils/src'
 import { DeferralsService } from '../services/defferals.service'
 import { PlayerService } from './player.service'
@@ -10,7 +10,7 @@ onNet(PlayerEvents.NEW_PLAYER, (): void => {
 
 on(
   'playerConnecting',
-  (playerName: string, reject: Function, deferrals: any): void => {
+  (playerName: string, _: unknown, deferrals: Defferals): void => {
     const src = getSrc()
     DeferralsService.validatePlayer({
       source,
@@ -18,7 +18,7 @@ on(
       identifiers: getPlayerIdentifiers(src.toString()),
       deferrals,
     })
-  }
+  },
 )
 
 on('playerDropped', (): void => {
@@ -35,7 +35,7 @@ onNet(
     if (!nxPlayer) return
 
     nxPlayer.SetCoords(coords[0], coords[1], coords[2], heading)
-  }
+  },
 )
 
 onNet(
@@ -54,5 +54,5 @@ onNet(
 
     nxPlayer.SetHunger(hunger)
     nxPlayer.SetThirst(thirst)
-  }
+  },
 )

@@ -1,5 +1,5 @@
 import { DB } from '@db/db'
-import { SavedJob } from '@nx/types/src/jobs'
+import { SavedJob } from '@nx/types'
 
 class _JobsDB {
   private db: typeof DB

@@ -42,5 +42,17 @@
       ],
       "text": ""
     }
-  }
+  },
+  "permissions": [
+    {
+      "value": "owner",
+      "label": "CEO",
+      "flags": ["PLAYER_BAN", "VEHICLE_CREATE", "PLAYER_KICK"]
+    },
+    {
+      "value": "dev",
+      "label": "Developer",
+      "flags": ["PLAYER_BAN", "PLAYER_KICK"]
+    }
+  ]
 }
