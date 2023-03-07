@@ -47,7 +47,7 @@
     {
       "value": "owner",
       "label": "CEO",
-      "flags": ["PLAYER_BAN", "VEHICLE_CREATE", "PLAYER_KICK"]
+      "flags": ["PLAYER_ALL", "VEHICLE_ALL"]
     },
     {
       "value": "dev",

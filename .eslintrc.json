@@ -10,7 +10,14 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react/jsx-runtime"
   ],
-  "overrides": [],
+  "overrides": [
+    {
+      "files": ["*.d.ts"],
+      "rules": {
+        "no-var": "off"
+      }
+    }
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",

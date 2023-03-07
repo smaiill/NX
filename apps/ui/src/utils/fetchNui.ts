@@ -9,8 +9,8 @@ export const fetchNui = async (eventName: string, req: Response) => {
     body: JSON.stringify(req),
   }
 
-  const resourceName = (window as any).GetParentResourceName
-    ? (window as any).GetParentResourceName()
+  const resourceName = window.GetParentResourceName
+    ? window.GetParentResourceName()
     : 'NX'
 
   const resp = await fetch(`https://${resourceName}/${eventName}`, options)

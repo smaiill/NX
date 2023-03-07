@@ -1,4 +1,4 @@
-const isEnvBrowser = (): boolean => !(window as any).invokeNative
+const isEnvBrowser = (): boolean => !window.invokeNative
 
 const uuid = () => crypto.randomUUID()
 

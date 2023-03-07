@@ -18,5 +18,6 @@
     "types": ["@types/node"]
   },
   "include": ["src"],
+  "files": ["src/common.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
