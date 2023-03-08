@@ -104,14 +104,14 @@ class _BansService {
       throw `The user with license: ${nxTargetIdentifier} is already banned`
     }
 
-    const banData: Ban = {
+    const banData = {
       license: nxTargetIdentifier,
       bannedBy: 'niiyy',
       identifiers: getPlayerIdentifiers(data.target),
       reason: data.reason,
       id,
       expire: expirationTimestamp as number,
-    }
+    } as Ban
 
     try {
       await this.db.create(banData)

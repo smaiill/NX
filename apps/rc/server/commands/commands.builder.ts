@@ -5,7 +5,7 @@ import { CommandsServices } from './commands.service'
 type CB = (source: number, args: unknown[]) => void
 type NullishCB = null | CB
 
-export class Command {
+export class CommandBuilder {
   private name: string | null
   private cb: NullishCB
   private authPermissions: string[] | null

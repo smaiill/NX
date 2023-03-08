@@ -60,6 +60,7 @@ export type NXPlayerMethodsCapitalized = {
 export interface IGroup {
   label: string
   value: string
+  power: number
   flags: PermissionsFlags[]
 }
 

@@ -6,9 +6,9 @@ import { BansService } from './bans.service'
 
 // ? Only from client side !
 onNet(PlayerEvents.BAN_PLAYER, async (data: CreateBanType): Promise<void> => {
-  const src = isRPCFromClientSide()
+  const isClientSide = isRPCFromClientSide()
 
-  if (!src) {
+  if (!isClientSide) {
     LG.warn(`someone tried to ban from server side, info provided: ${data}`)
     return
   }

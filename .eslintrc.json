@@ -34,5 +34,5 @@
     ],
     "react/display-name": ["off"]
   },
-  "ignorePatterns": ["**/dist/*"]
+  "ignorePatterns": ["**/dist/*", "apps/rc/shared/load.file.ts"]
 }

@@ -47,11 +47,13 @@
     {
       "value": "owner",
       "label": "CEO",
+      "power": 500,
       "flags": ["PLAYER_ALL", "VEHICLE_ALL"]
     },
     {
       "value": "dev",
       "label": "Developer",
+      "power": 450,
       "flags": ["PLAYER_BAN", "PLAYER_KICK"]
     }
   ]

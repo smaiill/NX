@@ -2,7 +2,7 @@ import { config } from '@shared/load.file'
 import { LG } from '@utils/logger'
 import { getSrc } from '@utils/src'
 
-if (config.discord.logs.logsConfiguration['playerJoin']) {
+if (config.discord.logs.logsConfiguration.playerJoin) {
   on('playerConnecting', (): void => {
     const src = getSrc()
 
@@ -10,7 +10,7 @@ if (config.discord.logs.logsConfiguration['playerJoin']) {
   })
 }
 
-if (config.discord.logs.logsConfiguration['playerDropped']) {
+if (config.discord.logs.logsConfiguration.playerDropped) {
   on('playerDropped', (): void => {
     const src = getSrc()
 

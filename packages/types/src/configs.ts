@@ -1,39 +1,51 @@
+import { IGroup } from './player'
+
+interface DBConfiguration {
+  host: string
+  user: string
+  password: string
+  database: string
+}
+
+interface PlayerConfiguration {
+  maxWeight: number
+}
+
+interface DiscordConfiguration {
+  logs: {
+    webhook: string
+    logsConfiguration: {
+      playerJoin: boolean
+      playerDropped: boolean
+    }
+  }
+  richPresence: {
+    active: boolean
+    appID: string
+    image: string
+    imageHoverText: string
+    buttons: [
+      {
+        label: string
+        href: string
+      },
+      {
+        label: string
+        href: string
+      },
+    ]
+    text: string
+  }
+}
+
 export interface Configuration {
-  readonly database: {
-    readonly host: string
-    readonly user: string
-    readonly password: string
-    readonly database: string
+  database: DBConfiguration
+  player: PlayerConfiguration
+
+  accounts: {
+    [key: string]: number
   }
 
-  readonly player: {
-    readonly maxWeight: number
-  }
-  readonly discord: {
-    readonly logs: {
-      readonly webhook: string
-      readonly logsConfiguration: {
-        readonly playerJoin: boolean
-        readonly playerDropped: false
-      }
-    }
-
-    readonly richPresence: {
-      readonly active: boolean
-      readonly appID: string
-      readonly image: string
-      readonly imageHoverText: string
-      readonly buttons: [
-        {
-          readonly label: string
-          readonly href: string
-        },
-        {
-          readonly label: string
-          readonly href: string
-        },
-      ]
-      readonly text: string
-    }
-  }
+  discord: DiscordConfiguration
+  permissions: IGroup[]
 }

@@ -62,6 +62,17 @@ class _PermissionsService {
 
     return hasAllFlags
   }
+
+  private getGroupValueByKey(group: string, key: keyof IGroup) {
+    return this.getGroup(group)?.[key]
+  }
+
+  public hasMorePermissions(srcGroup: string, targetGroup: string) {
+    const srcGroupPower = this.getGroupValueByKey(srcGroup, 'power') ?? 0
+    const targetGroupPower = this.getGroupValueByKey(targetGroup, 'power') ?? 0
+
+    return srcGroupPower > targetGroupPower
+  }
 }
 
 const PermissionsService = new _PermissionsService()
