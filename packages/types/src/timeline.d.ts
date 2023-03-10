@@ -30,6 +30,7 @@ export interface TimelineStateSlice {
 export type CompletedTask = Pick<TimelineRow, 'id' | 'completed'> & {
   index: number
 }
+
 export interface TimelineState {
   active: boolean
   rows: TimelineRow[]

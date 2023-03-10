@@ -1,4 +1,4 @@
-import { IGroup } from './player'
+import { IGroup } from './permissions'
 
 interface DBConfiguration {
   host: string

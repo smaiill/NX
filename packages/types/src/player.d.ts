@@ -57,13 +57,6 @@ export type NXPlayerMethodsCapitalized = {
   [P in keyof NXPlayerMethods as Capitalize<P>]: NXPlayerMethods[P]
 }
 
-export interface IGroup {
-  label: string
-  value: string
-  power: number
-  flags: PermissionsFlags[]
-}
-
 export interface Position {
   x: number
   y: number
@@ -84,13 +77,4 @@ export interface NXPlayer extends NXPlayerMethods {
   maxWeight: number
   uid: string
   skin: Record<string, number | string>
-}
-
-export enum PermissionsFlags {
-  PLAYER_KICK = 'PLAYER_KICK',
-  PLAYER_BAN = 'PLAYER_BAN',
-  PLAYER_ALL = 'PLAYER_ALL',
-
-  VEHICLE_CREATE = 'VEHICLE_CREATE',
-  VEHICLE_ALL = 'VEHICLE_ALL',
 }
