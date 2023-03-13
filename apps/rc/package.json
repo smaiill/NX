@@ -2,10 +2,10 @@
   "name": "@nx/rc",
   "version": "1.0.0",
   "scripts": {
-    "dev": "node esbuild.dev.js",
-    "build": "node esbuild.prod.js",
-    "dev:rc": "node esbuild.dev.js",
-    "dev:ig": "node esbuild.dev.js",
+    "dev": "node scripts/esbuild.dev.js",
+    "build": "node scripts/esbuild.prod.js",
+    "dev:rc": "node scripts/esbuild.dev.js",
+    "dev:ig": "node scripts/esbuild.dev.js",
     "check:tsc": "cd client && tsc --noEmit && cd ../server && tsc --noEmit"
   },
   "type": "module",
@@ -17,13 +17,15 @@
     "@citizenfx/server": "^2.0.5151-1",
     "@nx/types": "workspace:*",
     "@types/node": "^17.0.5",
+    "@types/reflect-metadata": "^0.1.0",
     "esbuild": "^0.17.8",
     "typescript": "^4.5.4"
   },
   "dependencies": {
+    "@nx/locale": "workspace:*",
     "mysql2": "^2.3.3",
+    "reflect-metadata": "^0.1.13",
     "winston": "^3.8.0",
-    "zod": "^3.20.6",
-    "@nx/locale": "workspace:*"
+    "zod": "^3.20.6"
   }
 }

@@ -1,50 +1,52 @@
-// export const __teste = 'teste'
-// injectMockData([
-//   {
-//     app: 'NX::notification',
-//     method: 'NX::createNotification',
-//     data: {
-//       type: 'SUCCESS',
-//       duration: 500,
-//       body: {
-//         content: '^6Success Example',
-//       },
-//     },
-//   },
-//   {
-//     app: 'NX::notification',
-//     method: 'NX::createNotification',
-//     data: {
-//       type: 'WARN',
-//       duration: 500,
-//       body: {
-//         content: 'Warn example',
-//       },
-//     },
-//   },
-//   {
-//     app: 'NX::notification',
-//     method: 'NX::createNotification',
-//     data: {
-//       type: 'ERROR',
-//       duration: 500,
-//       body: {
-//         content: 'Error ^5example',
-//       },
-//     },
-//   },
-//   {
-//     app: 'NX::notification',
-//     method: 'NX::createNotification',
-//     data: {
-//       type: 'NORMAL',
-//       duration: 500,
-//       body: {
-//         content: '^3Normal example',
-//       },
-//     },
-//   },
-// ])
+import { injectMockData } from '../utils/mock.data'
+
+export const __teste = 'teste'
+injectMockData([
+  {
+    app: 'NX::notification',
+    method: 'NX::createNotification',
+    data: {
+      type: 'SUCCESS',
+      duration: 500,
+      body: {
+        content: '^6Success Example',
+      },
+    },
+  },
+  {
+    app: 'NX::notification',
+    method: 'NX::createNotification',
+    data: {
+      type: 'WARN',
+      duration: 500,
+      body: {
+        content: 'Warn example',
+      },
+    },
+  },
+  {
+    app: 'NX::notification',
+    method: 'NX::createNotification',
+    data: {
+      type: 'ERROR',
+      duration: 500,
+      body: {
+        content: 'Error ^5example',
+      },
+    },
+  },
+  {
+    app: 'NX::notification',
+    method: 'NX::createNotification',
+    data: {
+      type: 'NORMAL',
+      duration: 500,
+      body: {
+        content: '^3Normal example',
+      },
+    },
+  },
+])
 
 // NX.Input.Create({
 //   title: 'Register',

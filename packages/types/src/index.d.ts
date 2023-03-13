@@ -1,4 +1,5 @@
 export * from './configs'
+export * from './decorators'
 export * from './events'
 export * from './input'
 export * from './items'

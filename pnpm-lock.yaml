@@ -33,14 +33,17 @@ importers:
       '@nx/locale': workspace:*
       '@nx/types': workspace:*
       '@types/node': ^17.0.5
+      '@types/reflect-metadata': ^0.1.0
       esbuild: ^0.17.8
       mysql2: ^2.3.3
+      reflect-metadata: ^0.1.13
       typescript: ^4.5.4
       winston: ^3.8.0
       zod: ^3.20.6
     dependencies:
       '@nx/locale': link:../../packages/locale
       mysql2: 2.3.3
+      reflect-metadata: 0.1.13
       winston: 3.8.2
       zod: 3.20.6
     devDependencies:
@@ -48,6 +51,7 @@ importers:
       '@citizenfx/server': 2.0.5151-1
       '@nx/types': link:../../packages/types
       '@types/node': 17.0.45
+      '@types/reflect-metadata': 0.1.0
       esbuild: 0.17.8
       typescript: 4.9.5
 
@@ -1007,6 +1011,16 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
       csstype: 3.1.1
+    dev: true
+
+  /@types/reflect-metadata/0.1.0:
+    resolution:
+      {
+        integrity: sha512-bXltFLY3qhzCnVYP5iUpeSICagQ8rc9K2liS+8M0lBcz54BHs3O6W5UvqespVSuebo1BXLi+/y9ioELAW9SC2A==,
+      }
+    deprecated: This is a stub types definition for reflect-metadata (https://github.com/rbuckton/ReflectDecorators). reflect-metadata provides its own type definitions, so you don't need @types/reflect-metadata installed!
+    dependencies:
+      reflect-metadata: 0.1.13
     dev: true
 
   /@types/scheduler/0.16.2:
@@ -4524,6 +4538,12 @@ packages:
     engines: { node: '>=8.10.0' }
     dependencies:
       picomatch: 2.3.1
+
+  /reflect-metadata/0.1.13:
+    resolution:
+      {
+        integrity: sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==,
+      }
 
   /regexp.prototype.flags/1.4.3:
     resolution:

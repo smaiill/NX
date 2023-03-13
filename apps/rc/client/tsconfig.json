@@ -10,6 +10,7 @@
     "noImplicitAny": true,
     "lib": ["ESNext", "DOM"],
     "types": ["@citizenfx/client", "@types/node"],
+    "experimentalDecorators": true,
     "outDir": "./",
     "baseUrl": "./",
     "paths": {

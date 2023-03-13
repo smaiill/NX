@@ -11,7 +11,13 @@ class _NotificationService {
     const res = createNotificationSchema.safeParse(notification)
 
     if (!res.success) {
-      LG.error(`Couldn't create Timeline invalid data: ${JSON.stringify(res)}`)
+      LG.error(
+        `Couldn't create Notification line invalid data: ${JSON.stringify(
+          res,
+          undefined,
+          2,
+        )}`,
+      )
       return
     }
 
