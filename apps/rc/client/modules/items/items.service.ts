@@ -1,6 +1,6 @@
-import { ItemsEvents, Pickup, Response } from '@nx/types'
 import MiscManager from '@modules/class/misc'
 import ObjectManager from '@modules/class/object'
+import { ItemsEvents, Pickup, Response } from '@nx/types'
 import { PlayerCache } from '../player/player.class'
 
 class _ItemsService {

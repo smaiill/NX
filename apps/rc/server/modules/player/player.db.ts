@@ -28,7 +28,6 @@ class _PlayerDB {
       return res as NXPlayer
     } catch (error) {
       LG.silly('Player not found in DB')
-      throw new PlayerError(`Player not found in DB`)
     }
   }
 
@@ -74,8 +73,8 @@ class _PlayerDB {
         JSON.stringify(nxPlayer.accounts),
         JSON.stringify(nxPlayer.position),
         nxPlayer.group,
-        nxPlayer.identifier,
         JSON.stringify(nxPlayer.skin),
+        nxPlayer.identifier,
       ])
 
       return res
