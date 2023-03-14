@@ -14,11 +14,9 @@
     "outDir": "./",
     "baseUrl": "./",
     "paths": {
-      "@class/*": ["class/*"],
-      "@events/*": ["events/*"],
-      "@items/*": ["items/*"],
-      "@player/*": ["player/*"],
+      "@modules/*": ["modules/*"],
       "@utils/*": ["utils/*"],
+      "@decorators/*": ["decorators/*"],
       "@shared/*": ["../shared/*"]
     }
   },

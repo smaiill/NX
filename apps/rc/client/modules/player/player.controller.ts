@@ -1,4 +1,5 @@
-import { ItemsService } from '@items/items.service'
+import { OnNet } from '@decorators/Event'
+import { ItemsService } from '@modules/items/items.service'
 import {
   InventoryActionData,
   InventoryActions,
@@ -19,48 +20,63 @@ const interval = setInterval(() => {
   }
 }, 500)
 
-onNet(
-  PlayerEvents.ADD_STATUS,
-  ({ status, amount }: { status: string; amount: number }) => {
+export class PlayerController {
+  @OnNet(PlayerEvents.ADD_STATUS)
+  public handleAddStatus({
+    status,
+    amount,
+  }: {
+    status: string
+    amount: number
+  }) {
     if (status !== 'thirst' && status !== 'hunger') return
     const nxPlayerData = PlayerCache.getData()
     PlayerCache.setStatus(
       status,
       parseFloat(nxPlayerData.charinfo[status]) + amount,
     )
-  },
-)
+  }
 
-onNet(PlayerEvents.PLAYER_LOADED, async (nxPlayer: any) => {
-  globalThis.exports.spawnmanager.spawnPlayer(
-    {
-      x: nxPlayer.position.x,
-      y: nxPlayer.position.y,
-      z: nxPlayer.position.z,
-      heading: nxPlayer.position.heading,
-      model: GetHashKey('mp_m_freemode_01'),
-      skipFade: true,
-    },
-    async () => {
-      await PlayerService.setPlayerLoadedData(nxPlayer)
-      emit('skinchanger:loadSkin', nxPlayer.skin)
-      ItemsService.handlePickupsPickup()
-      PlayerService.syncPlayer()
+  @OnNet(PlayerEvents.PLAYER_LOADED)
+  public handlePlayerLoaded(nxPlayer: any) {
+    globalThis.exports.spawnmanager.spawnPlayer(
+      {
+        x: nxPlayer.position.x,
+        y: nxPlayer.position.y,
+        z: nxPlayer.position.z,
+        heading: nxPlayer.position.heading,
+        model: GetHashKey('mp_m_freemode_01'),
+        skipFade: true,
+      },
+      async () => {
+        PlayerService.setPlayerLoadedData(nxPlayer)
+        emit('skinchanger:loadSkin', nxPlayer.skin)
+        ItemsService.handlePickupsPickup()
+        PlayerService.syncPlayer()
 
-      emit(PlayerEvents.ON_PLAYER_LOADED, nxPlayer)
-    },
-  )
-})
+        emit(PlayerEvents.ON_PLAYER_LOADED, nxPlayer)
+      },
+    )
+  }
 
-onNet(
-  InventoryEvents.UPDATE_INVENTORY,
-  ({
+  @OnNet(PlayerEvents.UPDATE_LOCALE_CACHE_BY_KEY)
+  public handleUpdateLocaleCache({
+    key,
+    value,
+  }: {
+    key: string
+    value: unknown
+  }) {
+    PlayerService.setLocalCacheByKey({ key, value })
+  }
+
+  public handleUpdateLocaleInventory({
     item,
     type,
   }: {
     type: keyof typeof InventoryActions
     item: InventoryActionData
-  }) => {
+  }) {
     emit(InventoryEvents.ON_INVENTORY_UPDATED, {
       type,
       item,
@@ -84,12 +100,5 @@ onNet(
 
         break
     }
-  },
-)
-
-onNet(
-  PlayerEvents.UPDATE_LOCALE_CACHE_BY_KEY,
-  ({ key, value }: { key: string; value: unknown }) => {
-    PlayerService.setLocalCacheByKey({ key, value })
-  },
-)
+  }
+}

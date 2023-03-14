@@ -1,4 +1,4 @@
-import { EventsService } from '@events/events.service'
+import { EventsService } from '@modules/events/events.service'
 import { InputEvents, Response } from '@nx/types'
 import { InputService } from './input.service'
 

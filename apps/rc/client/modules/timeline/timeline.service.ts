@@ -1,4 +1,5 @@
-import { EventsService } from '@events/events.service'
+import { ExportMethod, ExportService } from '@decorators/Export'
+import { EventsService } from '@modules/events/events.service'
 import {
   NuiAPPS,
   TimelineData,
@@ -14,6 +15,7 @@ import {
   UpdateTimelineType,
 } from './timeline.schema'
 
+@ExportService('Timeline')
 class _TimelineService {
   timelineState: TimelineState
   lastTaskID: string
@@ -94,6 +96,7 @@ class _TimelineService {
     return false
   }
 
+  @ExportMethod()
   public create(timeline: CreateTimelineType) {
     const res = createTimelineSchema.safeParse(timeline)
 
@@ -124,6 +127,7 @@ class _TimelineService {
     })
   }
 
+  @ExportMethod()
   public update(data: UpdateTimelineType) {
     const res = createTimelineSchema.safeParse(data)
 
@@ -143,6 +147,7 @@ class _TimelineService {
     })
   }
 
+  @ExportMethod()
   public destroy() {
     if (!this.isActive()) {
       LG.error('Not active timeline !')
@@ -161,6 +166,7 @@ class _TimelineService {
     }, 1000)
   }
 
+  @ExportMethod()
   public isActive() {
     return this.timelineState.active
   }

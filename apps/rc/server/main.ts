@@ -12,8 +12,8 @@ import './modules/player'
 import { PlayerService } from './modules/player/player.service'
 import { DecoratorsTokens } from '@nx/types'
 import { LG } from '@utils/logger'
-import { _export } from 'globals'
 import { PermissionsService } from '@modules/services/permissions.service'
+import { _export } from '@shared/_export'
 
 class Server {
   private _services: { [key: string]: any }

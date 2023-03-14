@@ -1,4 +1,4 @@
-import { EventsService } from '@events/events.service'
+import { EventsService } from '@modules/events/events.service'
 import { NotificationData, NotificationEvents, NuiAPPS } from '@nx/types'
 import { LG } from '@utils/logger'
 import {

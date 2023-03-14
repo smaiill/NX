@@ -1,13 +1,16 @@
+import { ExportMethod, ExportService } from '@decorators/Export'
 import { Response, ResponseCB } from '@nx/types'
 import { uuid } from '@shared/utils/random'
 import { LG } from '@utils/logger'
 
+@ExportService('Event')
 class _EventsService {
   private events: Map<string, () => void>
   constructor() {
     this.events = new Map()
   }
 
+  @ExportMethod()
   public emitServerEvent(
     eventName: string,
     callback: (...args: unknown[]) => void,

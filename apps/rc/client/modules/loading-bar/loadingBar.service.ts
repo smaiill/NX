@@ -1,4 +1,5 @@
-import { EventsService } from '@events/events.service'
+import { ExportMethod, ExportService } from '@decorators/Export'
+import { EventsService } from '@modules/events/events.service'
 import { LoadingBarData, LoadingBarEvents, NuiAPPS } from '@nx/types'
 import { LG } from '@utils/logger'
 import {
@@ -6,6 +7,7 @@ import {
   CreationLoadingbarType,
 } from './loaderbar.schema'
 
+@ExportService('LoadingBar')
 class _LoadingBarService {
   private readonly currentLoadingBarState: {
     isActive: boolean
@@ -16,6 +18,7 @@ class _LoadingBarService {
     }
   }
 
+  @ExportMethod()
   public isActive(): boolean {
     return this.currentLoadingBarState.isActive
   }
@@ -27,6 +30,7 @@ class _LoadingBarService {
     this.currentLoadingBarState[key] = value
   }
 
+  @ExportMethod()
   public async create(loadingbar: CreationLoadingbarType): Promise<void> {
     const res = createLoadingbarSchema.safeParse(loadingbar)
 

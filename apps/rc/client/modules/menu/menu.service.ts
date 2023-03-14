@@ -1,4 +1,5 @@
-import { EventsService } from '@events/events.service'
+import { ExportMethod, ExportService } from '@decorators/Export'
+import { EventsService } from '@modules/events/events.service'
 import {
   KeyMapping,
   Keys,
@@ -15,6 +16,7 @@ import { MenuUtils } from './menu.utils'
 // ! This file needs a big refactor
 //
 
+@ExportService('Menu')
 class _MenuService {
   private KEYS: KeyMapping[]
   private keyInterval: number
@@ -261,6 +263,7 @@ class _MenuService {
     return item
   }
 
+  @ExportMethod('Create')
   public createMenu(menu: Menu) {
     const { isValid, message } = MenuUtils.validateMenuCreation(menu)
 

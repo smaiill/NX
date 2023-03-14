@@ -1,25 +1,11 @@
-import Misc from '@class/misc'
-import Object from '@class/object'
-import Vehicle from '@class/vehicle'
-import { DiscordService as Discord } from './discord/discord.service'
-import { EventsService as Events } from './events/events.service'
-import { InputService as Input } from './input/input.service'
-import { LoadingBarService as LoadingBar } from './loading-bar/loadingBar.service'
-import { MenuService as Menu } from './menu/menu.service'
-import { NotificationService as Notification } from './notification/notification.service'
-import { PlayerCache as Player } from './player/player.class'
-import { TimelineService as Timeline } from './timeline/timeline.service'
-
-export {
-  Object,
-  Vehicle,
-  Misc,
-  Events,
-  Player,
-  Input,
-  Discord,
-  Notification,
-  LoadingBar,
-  Timeline,
-  Menu,
-}
+export { default as Misc } from '@modules/class/misc'
+export { default as Object } from '@modules/class/object'
+export { default as Vehicle } from '@modules/class/vehicle'
+export { DiscordService as Discord } from '@modules/discord/discord.service'
+export { EventsService as Events } from '@modules/events/events.service'
+export { InputService as Input } from '@modules/input/input.service'
+export { LoadingBarService as LoadingBar } from '@modules/loading-bar/loadingBar.service'
+export { MenuService as Menu } from '@modules/menu/menu.service'
+export { NotificationService as Notification } from '@modules/notification/notification.service'
+export { PlayerCache as Player } from '@modules/player/player.class'
+export { TimelineService as Timeline } from '@modules/timeline/timeline.service'

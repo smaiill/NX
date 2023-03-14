@@ -1,5 +1,7 @@
+import { ExportMethod, ExportService } from '@decorators/Export'
 import { PlayerEvents } from '@nx/types'
 
+@ExportService('Player')
 class _PlayerCache {
   public loaded: boolean
   public playerData: Record<string, any>
@@ -8,14 +10,17 @@ class _PlayerCache {
     this.playerData = {}
   }
 
+  @ExportMethod()
   public hasLoaded() {
     return this.loaded
   }
 
+  @ExportMethod()
   public setData(data: Record<string, unknown>): void {
     this.playerData = data
   }
 
+  @ExportMethod()
   public getData() {
     return JSON.parse(JSON.stringify(this.playerData))
   }

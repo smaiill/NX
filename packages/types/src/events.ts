@@ -25,7 +25,6 @@ export enum ItemsEvents {
   USE_ITEM = 'NX::useItem',
   CREATE_ITEM = 'NX::createItem',
   ITEM_CREATED = 'NX::itemCreated',
-  GET_ALL_CLIENT_PICKUPS = 'NX::getAllClientPickups',
 }
 
 export enum MenuEvents {

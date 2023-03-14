@@ -1,7 +1,7 @@
 import { LG } from '@utils/logger'
 import { isRPCFromClientSide } from '@utils/src'
 
-export function On<T = unknown>(eventName: string) {
+export const On = <T = object>(eventName: string) => {
   return function (target: T, _: unknown, descriptor: PropertyDescriptor) {
     on(eventName, async (...args: unknown[]) => {
       await descriptor.value.apply(target, args)
@@ -9,7 +9,7 @@ export function On<T = unknown>(eventName: string) {
   }
 }
 
-export function OnNet<T = unknown>(eventName: string) {
+export const OnNet = <T = object>(eventName: string) => {
   return function (target: T, _: unknown, descriptor: PropertyDescriptor) {
     onNet(eventName, async (...args: unknown[]) => {
       await descriptor.value.apply(target, args)
@@ -17,10 +17,10 @@ export function OnNet<T = unknown>(eventName: string) {
   }
 }
 
-export function OnlyClient<T = unknown>() {
+export const OnlyClient = () => {
   return function (
-    target: T,
-    methodName: unknown,
+    _: unknown,
+    methodName: string,
     descriptor: PropertyDescriptor,
   ) {
     const __defaultMethod = descriptor.value

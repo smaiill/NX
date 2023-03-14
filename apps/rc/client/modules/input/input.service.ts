@@ -1,4 +1,5 @@
-import { EventsService } from '@events/events.service'
+import { ExportMethod, ExportService } from '@decorators/Export'
+import { EventsService } from '@modules/events/events.service'
 import {
   InputEvents,
   InputsData,
@@ -12,6 +13,7 @@ import { InputUtils } from './input.utils'
 type HandlerCB = (res: Response<unknown>) => void
 type HandlerCBNullish = HandlerCB | null
 
+@ExportService('Input')
 class _InputService {
   private inputUtils: typeof InputUtils
   private readonly currentInputState: {
@@ -28,6 +30,7 @@ class _InputService {
     this.inputUtils = InputUtils
   }
 
+  @ExportMethod()
   public isActive(): boolean {
     return this.currentInputState.active
   }
@@ -36,6 +39,7 @@ class _InputService {
     this.currentInputState[key] = value
   }
 
+  @ExportMethod()
   public destroy(cb?: ResponseCB): void {
     if (!this.isActive()) {
       cb?.({
@@ -57,6 +61,7 @@ class _InputService {
     })
   }
 
+  @ExportMethod()
   public create(data: InputsData, handler: () => void): void {
     if (this.isActive()) {
       return LG.error(`another input already showed.`)
