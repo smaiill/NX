@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 importers:
   .:
     specifiers:
+      '@types/node': ^17.0.5
       '@typescript-eslint/eslint-plugin': ^5.54.1
       '@typescript-eslint/parser': ^5.54.1
       eslint: ^8.35.0
@@ -16,6 +17,7 @@ importers:
     dependencies:
       turbo: 1.8.0
     devDependencies:
+      '@types/node': 17.0.45
       '@typescript-eslint/eslint-plugin': 5.54.1_mlk7dnz565t663n4razh6a6v6i
       '@typescript-eslint/parser': 5.54.1_ycpbpc6yetojsgtrx3mwntkhsu
       eslint: 8.35.0
@@ -32,7 +34,6 @@ importers:
       '@citizenfx/server': ^2.0.5151-1
       '@nx/locale': workspace:*
       '@nx/types': workspace:*
-      '@types/node': ^17.0.5
       '@types/reflect-metadata': ^0.1.0
       esbuild: ^0.17.8
       mysql2: ^2.3.3
@@ -50,7 +51,6 @@ importers:
       '@citizenfx/client': 2.0.5151-1
       '@citizenfx/server': 2.0.5151-1
       '@nx/types': link:../../packages/types
-      '@types/node': 17.0.45
       '@types/reflect-metadata': 0.1.0
       esbuild: 0.17.8
       typescript: 4.9.5

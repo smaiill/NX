@@ -1,4 +1,4 @@
-import { Configuration } from '../../../packages/types/src'
+import { Configuration } from '@nx/types'
 // @
 
 declare var GetCurrentResourceName: () => string

@@ -3,6 +3,8 @@
 **/.turbo
 
 
+_.txt
+_doc.json
 nx.logs.log
 todo.txt
 run.bat
