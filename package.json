@@ -20,7 +20,7 @@
     "build": "pnpm clean && turbo run build",
     "release": "node scripts/release",
     "dev:rc": "turbo run dev:rc",
-    "p": "husky install",
+    "prepare": "husky install",
     "check:tsc": "turbo run check:tsc",
     "dev:i": "turbo run dev:i",
     "lint": "eslint .",

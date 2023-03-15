@@ -47,20 +47,21 @@ const findDirServiceFiles = (dir) => {
 }
 
 const formatNodeParams = (nodeParams) => {
-  const _params = {}
+  const _params = []
   for (const params of nodeParams) {
     const paramsName = params.name.escapedText
     const paramsType = params.type?.getText() ?? 'unknown'
     const hasDefaultValue = params.initializer !== undefined
-    const defaultValue = (hasDefaultValue && params.initializer.getText()) ?? ''
+    const defaultValue = hasDefaultValue ? params.initializer.getText() : '-'
     const isOptional = params.questionToken !== undefined
 
-    _params[ts.isObjectBindingPattern(params.name) ? 'object' : paramsName] = {
+    _params.push({
+      name: ts.isObjectBindingPattern(params.name) ? 'object' : paramsName,
       type: paramsType,
       hasDefaultValue,
       defaultValue,
       isOptional,
-    }
+    })
   }
   return _params
 }
@@ -70,7 +71,7 @@ async function main() {
 
   const exportedMethods = []
 
-  const findExportMethods = (node) => {
+  const findExportMethods = (node, pathName) => {
     if (ts.isClassDeclaration(node)) {
       const classDecorators = ts.getDecorators(node)
 
@@ -94,6 +95,7 @@ async function main() {
             })
 
           const _nodeParams = formatNodeParams(member.parameters)
+          const returnType = member?.type?.getText() ?? 'void'
 
           const methodName =
             (methodDecorators &&
@@ -109,28 +111,34 @@ async function main() {
               name: methodName,
               service: serviceName,
               file: node.parent.fileName,
-              params: { ..._nodeParams },
+              params: _nodeParams,
+              return: returnType,
+              category: `${pathName.charAt(0).toUpperCase()}${pathName.slice(
+                1,
+              )}`,
             })
           }
         }
       }
     }
 
-    ts.forEachChild(node, findExportMethods)
+    ts.forEachChild(node, (_n) => findExportMethods(_n, pathName))
   }
 
-  for (const [, _path] of Object.entries(PATHS)) {
+  for (const [pathName, _path] of Object.entries(PATHS)) {
     const files = findDirServiceFiles(_path)
 
-    for (const file of files) {
-      const sourceFile = ts.createSourceFile(
-        file,
-        fs.readFileSync(file).toString(),
-        ts.ScriptTarget.Latest,
-        true,
-      )
+    if (!__DEBUG) {
+      for (const file of files) {
+        const sourceFile = ts.createSourceFile(
+          file,
+          fs.readFileSync(file).toString(),
+          ts.ScriptTarget.Latest,
+          true,
+        )
 
-      findExportMethods(sourceFile)
+        findExportMethods(sourceFile, pathName)
+      }
     }
 
     if (__DEBUG) {

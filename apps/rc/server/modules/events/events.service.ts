@@ -13,13 +13,6 @@ class _EventsService {
   }
 
   @ExportMethod()
-  async _debug({ name, age }: { name: string; age: number }): Promise<string> {
-    console.log(`Hello world ! ${age}`, name)
-
-    return ''
-  }
-
-  @ExportMethod()
   async onServerEvent(eventName: string, callback: () => void) {
     if (!callback || typeof callback !== 'function') {
       LG.warn(
