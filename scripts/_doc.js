@@ -86,7 +86,22 @@ const formatNodeParams = (nodeParams) => {
   return _params
 }
 
-async function main() {
+const removeEmptyServices = (data) => {
+  if (!Array.isArray(data)) return
+
+  for (const item of data) {
+    if (item.items && item.items.length === 0) {
+      const serviceIndex = data.findIndex(
+        (_service) => _service.uuid === item.uuid,
+      )
+      data.splice(serviceIndex, 1)
+    } else {
+      removeEmptyServices(item.items)
+    }
+  }
+}
+
+const main = async () => {
   _customLog(COLORS.GREEN, '> Started the export')
 
   const exportedMethods = []
@@ -127,8 +142,13 @@ async function main() {
               .toUpperCase()}${__methodDefaultName.slice(1)}`
 
           if (isExported) {
-            const path = exportedMethods.find((_path) => _path.name === pathName)
-            const service = path.items.find((_service) => _service.name.toLowerCase() === serviceName.toLowerCase())
+            const path = exportedMethods.find(
+              (_path) => _path.name === pathName,
+            )
+            const service = path.items.find(
+              (_service) =>
+                _service.name.toLowerCase() === serviceName.toLowerCase(),
+            )
 
             service.items.push({
               name: methodName,
@@ -139,7 +159,8 @@ async function main() {
               category: `${pathName.charAt(0).toUpperCase()}${pathName.slice(
                 1,
               )}`,
-              uuid: uuid()
+              uuid: uuid(),
+              type: 'method',
             })
           }
         }
@@ -159,10 +180,12 @@ async function main() {
 
     if (!__DEBUG) {
       for (const { dir, pathName: _pathName, fileName } of files) {
-        const path = exportedMethods.find(_path => _path.name === _pathName)
+        const path = exportedMethods.find((_path) => _path.name === _pathName)
         path.items.push({
           name: fileName,
           items: [],
+          uuid: uuid(),
+          type: 'service',
         })
         const sourceFile = ts.createSourceFile(
           dir,
@@ -187,14 +210,17 @@ async function main() {
     }
   }
 
+  removeEmptyServices(exportedMethods)
+
   fs.writeFile(
     path.resolve(process.cwd(), __OUTPUT_FILE),
     JSON.stringify(exportedMethods, null, 2),
-    (error) => {
+    async (error) => {
       if (error) {
         _customLog(COLORS.RED, `> An error has occurred: ${error}`)
         return
       }
+
       _customLog(
         COLORS.GREEN,
         `> Data writed to ${COLORS.CYAN}[${__OUTPUT_FILE}]${COLORS.GREEN} with success !`,
