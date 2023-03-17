@@ -3,7 +3,7 @@ import { Response, ResponseCB } from '@nx/types'
 import { uuid } from '@shared/utils/random'
 import { LG } from '@utils/logger'
 
-@ExportService('Event')
+@ExportService('Events')
 class _EventsService {
   private events: Map<string, () => void>
   constructor() {

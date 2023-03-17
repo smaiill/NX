@@ -13,7 +13,7 @@ import { getPlayerMethods } from './player.methods'
 import { PlayerError, PlayerLogger } from './player.misc'
 import { PlayerUtils } from './player.utils'
 
-@ExportService('Players')
+@ExportService('Player')
 class _PlayerService {
   private playersCollection: Map<number, NXPlayer>
   private playerDB: typeof PlayerDB

@@ -31,7 +31,20 @@ const PATHS = {
   server: 'apps/rc/server/modules',
 }
 
-const findDirServiceFiles = (dir) => {
+const uuid = () => {
+  const dt = new Date().getTime()
+  const _uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+    /[xy]/g,
+    (value) => {
+      const rtx = (dt + Math.random() * 16) % 16 | 0
+      return (value == 'x' ? rtx : (rtx & 0x3) | 0x8).toString(16)
+    },
+  )
+
+  return _uuid
+}
+
+const findDirServiceFiles = (dir, pathName) => {
   const serviceFiles = []
   const dirSubFolders = fs.readdirSync(dir)
 
@@ -39,7 +52,14 @@ const findDirServiceFiles = (dir) => {
     const files = fs.readdirSync(`${dir}/${folder}`)
 
     for (const file of files) {
-      file.includes('service') && serviceFiles.push(`${dir}/${folder}/${file}`)
+      if (file.includes('service')) {
+        const fileName = file.split('.')[0]
+        serviceFiles.push({
+          dir: `${dir}/${folder}/${file}`,
+          fileName: fileName.toLowerCase(),
+          pathName,
+        })
+      }
     }
   }
 
@@ -107,7 +127,10 @@ async function main() {
               .toUpperCase()}${__methodDefaultName.slice(1)}`
 
           if (isExported) {
-            exportedMethods.push({
+            const path = exportedMethods.find((_path) => _path.name === pathName)
+            const service = path.items.find((_service) => _service.name.toLowerCase() === serviceName.toLowerCase())
+
+            service.items.push({
               name: methodName,
               service: serviceName,
               file: node.parent.fileName,
@@ -116,6 +139,7 @@ async function main() {
               category: `${pathName.charAt(0).toUpperCase()}${pathName.slice(
                 1,
               )}`,
+              uuid: uuid()
             })
           }
         }
@@ -126,13 +150,23 @@ async function main() {
   }
 
   for (const [pathName, _path] of Object.entries(PATHS)) {
-    const files = findDirServiceFiles(_path)
+    exportedMethods.push({
+      name: pathName,
+      _path,
+      items: [],
+    })
+    const files = findDirServiceFiles(_path, pathName)
 
     if (!__DEBUG) {
-      for (const file of files) {
+      for (const { dir, pathName: _pathName, fileName } of files) {
+        const path = exportedMethods.find(_path => _path.name === _pathName)
+        path.items.push({
+          name: fileName,
+          items: [],
+        })
         const sourceFile = ts.createSourceFile(
-          file,
-          fs.readFileSync(file).toString(),
+          dir,
+          fs.readFileSync(dir).toString(),
           ts.ScriptTarget.Latest,
           true,
         )
