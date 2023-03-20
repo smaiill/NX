@@ -27,9 +27,15 @@ const _customLog = (color, content) => {
 }
 
 const PATHS = {
-  client: 'apps/rc/client/modules',
+  // client: 'apps/rc/client/modules',
   server: 'apps/rc/server/modules',
 }
+
+// const program = ts.createProgram(
+//   ['./apps/rc/server/modules/services/permissions.service.ts'],
+//   {},
+// )
+// const typeChecker = program.getTypeChecker()
 
 const uuid = () => {
   const dt = new Date().getTime()
@@ -66,24 +72,33 @@ const findDirServiceFiles = (dir, pathName) => {
   return serviceFiles
 }
 
-const formatNodeParams = (nodeParams) => {
-  const _params = []
-  for (const params of nodeParams) {
-    const paramsName = params.name.escapedText
-    const paramsType = params.type?.getText() ?? 'unknown'
-    const hasDefaultValue = params.initializer !== undefined
-    const defaultValue = hasDefaultValue ? params.initializer.getText() : '-'
-    const isOptional = params.questionToken !== undefined
+const formatNodeParams = (nodeParams, JSDoc) => {
+  return nodeParams.map((param) => {
+    const paramName = param.name.escapedText
+    const paramType = param.type ? param.type.getText() : 'unknown'
+    const hasDefaultValue = !!param.initializer
+    const defaultValue = hasDefaultValue ? param.initializer.getText() : '-'
+    const isOptional = !!param.questionToken
 
-    _params.push({
-      name: ts.isObjectBindingPattern(params.name) ? 'object' : paramsName,
-      type: paramsType,
+    let comment = ''
+    if (JSDoc) {
+      const paramTag = JSDoc.find(
+        (tag) => tag.name && tag.name.getText() === paramName,
+      )
+      if (paramTag && paramTag.comment) {
+        comment = paramTag.comment.trim()
+      }
+    }
+
+    return {
+      name: ts.isObjectBindingPattern(param.name) ? 'object' : paramName,
+      type: paramType,
       hasDefaultValue,
       defaultValue,
       isOptional,
-    })
-  }
-  return _params
+      comment,
+    }
+  })
 }
 
 const removeEmptyServices = (data) => {
@@ -120,6 +135,7 @@ const main = async () => {
         if (ts.isMethodDeclaration(member)) {
           const methodDecorators = ts.getDecorators(member)
           const __methodDefaultName = member.name.text
+          const sourceFile = member.getSourceFile()
 
           const isExported =
             methodDecorators &&
@@ -129,7 +145,6 @@ const main = async () => {
                 .includes(__EXPORT_METHOD_TOKEN)
             })
 
-          const _nodeParams = formatNodeParams(member.parameters)
           const returnType = member?.type?.getText() ?? 'void'
 
           const methodName =
@@ -141,7 +156,16 @@ const main = async () => {
               .charAt(0)
               .toUpperCase()}${__methodDefaultName.slice(1)}`
 
+          const { line } = ts.getLineAndCharacterOfPosition(
+            sourceFile,
+            member.getStart(),
+          )
+
           if (isExported) {
+            const JSDoc = ts.getJSDocTags(member)
+            const _nodeParams = formatNodeParams(member.parameters, JSDoc)
+            const returnTag = ts.getJSDocReturnTag(member)
+
             const path = exportedMethods.find(
               (_path) => _path.name === pathName,
             )
@@ -155,12 +179,17 @@ const main = async () => {
               service: serviceName,
               file: node.parent.fileName,
               params: _nodeParams,
-              return: returnType,
+              return: {
+                type: returnType,
+                comment: returnTag?.comment ?? '',
+              },
               category: `${pathName.charAt(0).toUpperCase()}${pathName.slice(
                 1,
               )}`,
               uuid: uuid(),
               type: 'method',
+              line,
+              description: JSDoc[0]?.parent?.comment ?? '',
             })
           }
         }

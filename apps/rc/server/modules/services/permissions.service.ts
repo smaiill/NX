@@ -71,6 +71,14 @@ class _PermissionsService {
     return this.getGroup(group)?.[key]
   }
 
+  /**
+   * Check if a group has more permissions then another
+   * Hello world from there
+   * There too !
+   * @param srcGroup  The first source group
+   * @param targetGroup The second group
+   * @returns Returns a boolean
+   */
   @ExportMethod()
   public hasMorePermissions(srcGroup: string, targetGroup: string) {
     const srcGroupPower = this.getGroupValueByKey(srcGroup, 'power') ?? 0
