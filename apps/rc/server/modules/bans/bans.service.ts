@@ -75,10 +75,10 @@ class _BansService {
       throw new BansError('Invalid ban author.')
     }
 
-    const canBan = PermissionsService.doesGroupHasFlag({
-      group: banAuthor.GetGroup(),
-      flag: PermissionsFlags.PLAYER_BAN,
-    })
+    const canBan = PermissionsService.doesGroupHasFlag(
+      banAuthor.GetGroup(),
+      PermissionsFlags.PLAYER_BAN,
+    )
 
     if (!canBan) {
       throw new BansError('Invalid permissions to ban player.')

@@ -15,14 +15,16 @@ class _PermissionsService {
     return _group
   }
 
+  /**
+   * Checks if a group has the specified permission flag.
+   * @param group The name of the group to check.
+   * @param flag The permission flag to check.
+   * @returns True if the group has the specified permission flag, false otherwise.
+   * @example
+   * DoesGroupHasFlag('owner', 'PLAYER_BAN')
+   */
   @ExportMethod()
-  public doesGroupHasFlag({
-    group,
-    flag,
-  }: {
-    group: string
-    flag: keyof typeof PermissionsFlags
-  }) {
+  public doesGroupHasFlag(group: string, flag: keyof typeof PermissionsFlags) {
     const _group = this.getGroup(group)
 
     const flagType = flag.split('_')[0]
@@ -36,14 +38,19 @@ class _PermissionsService {
     return hasTheFlag || hasMaximumPermissions
   }
 
+  /**
+   * Checks if a group has all the specified permission flags.
+   * @param group The name of the group to check.
+   * @param flags The permission flags to check.
+   * @returns True if the group has all the specified permission flags, false otherwise.
+   * @example
+   * DoesGroupHasAllFlags('owner', ['PLAYER_BAN', 'VEHICLE_CREATE'])
+   */
   @ExportMethod()
-  public doesGroupHasAllFlags({
-    group,
-    flags,
-  }: {
-    group: string
-    flags: Array<keyof typeof PermissionsFlags>
-  }) {
+  public doesGroupHasAllFlags(
+    group: string,
+    flags: Array<keyof typeof PermissionsFlags>,
+  ): boolean {
     const _group = this.getGroup(group)
 
     const hasAllFlags = flags.every((_flag) => {
@@ -73,14 +80,16 @@ class _PermissionsService {
 
   /**
    * Check if a group has more permissions then another
-   * Hello world from there
-   * There too !
-   * @param srcGroup  The first source group
+   * @param srcGroup The group to check if he has more permissions
    * @param targetGroup The second group
-   * @returns Returns a boolean
+   * @returns a boolean value
+   *
+   * @example
+   * // returns true
+   * hasMorePower('owner', 'admin');
    */
   @ExportMethod()
-  public hasMorePermissions(srcGroup: string, targetGroup: string) {
+  public hasMorePower(srcGroup: string, targetGroup: string): boolean {
     const srcGroupPower = this.getGroupValueByKey(srcGroup, 'power') ?? 0
     const targetGroupPower = this.getGroupValueByKey(targetGroup, 'power') ?? 0
 

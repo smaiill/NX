@@ -183,6 +183,13 @@ class _ItemsService {
     }
   }
 
+  /**
+   * Register an item as usable
+   * @param name The name of the item to register.
+   * @param cb The callback to execute when the item is used.
+   * @example
+   * RegisterUsableItem('phone', () => console.log('Item used'))
+   */
   @ExportMethod()
   public registerUsableItem(name: string, cb: () => void): void {
     if (typeof cb !== 'function') return

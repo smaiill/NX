@@ -30,6 +30,10 @@ class _InputService {
     this.inputUtils = InputUtils
   }
 
+  /**
+   * This will return true if the input is active otherwise false
+   * @returns true or false
+   */
   @ExportMethod()
   public isActive(): boolean {
     return this.currentInputState.active
@@ -39,6 +43,10 @@ class _InputService {
     this.currentInputState[key] = value
   }
 
+  /**
+   * This will destroy the current form
+   * @param cb The callback that well be execuetd when the form is submited
+   */
   @ExportMethod()
   public destroy(cb?: ResponseCB): void {
     if (!this.isActive()) {
@@ -61,6 +69,11 @@ class _InputService {
     })
   }
 
+  /**
+   * This will create a form
+   * @param data The data of the form
+   * @param handler A callback function that will be executed with the data when the form is submited
+   */
   @ExportMethod()
   public create(data: InputsData, handler: () => void): void {
     if (this.isActive()) {

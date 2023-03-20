@@ -12,6 +12,13 @@ class _EventsService {
     this.activeEvents = []
   }
 
+  /**
+   * Register an event
+   * @param eventName The event to register.
+   * @param callback The callback to execute when the event is called.
+   * @example
+   * OnServerEvent('NX::sayHelloWorld', () => console.log('sayHelloWorld'))
+   */
   @ExportMethod()
   async onServerEvent(eventName: string, callback: () => void) {
     if (!callback || typeof callback !== 'function') {

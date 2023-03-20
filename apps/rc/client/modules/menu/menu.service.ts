@@ -263,12 +263,39 @@ class _MenuService {
     return item
   }
 
+  /**
+   * This will create a menu
+   * @param menu The menu informations
+   * @returns 2 methods ShowMenu and HideMenu
+   * @example
+   * Create({
+   *  options: {
+   *    width: 500,
+   *    banner: 'IMG LINK'
+   *  }
+   *  items: [
+   *    {
+   *      type: 'BUTTON',
+   *      label: 'Click me',
+   *      onClick: ( ) => console.log('Button clicked')
+   *    },
+   *    {
+   *      type: 'CHECKBOX',
+   *      label: 'Hello im a checkbox',
+   *      onChange: ( ) => console.log('Checkbox changed')
+   *    }
+   *  ]
+   * })
+   */
   @ExportMethod('Create')
-  public createMenu(menu: Menu) {
+  public createMenu(menu: Menu): {
+    ShowMenu: () => void
+    HideMenu: () => void
+  } {
     const { isValid, message } = MenuUtils.validateMenuCreation(menu)
 
     if (!isValid) {
-      return message
+      throw message
     }
 
     const uuid = _uuid()

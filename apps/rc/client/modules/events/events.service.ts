@@ -10,6 +10,14 @@ class _EventsService {
     this.events = new Map()
   }
 
+  /**
+   * This will emit a server event previously declared with OnServerEvent
+   * @param eventName The event name to trigger
+   * @param callback The callback that well be executed when the server responds
+   * @param args Array that contains all the args to pass to the server event
+   * @example
+   * EmitServerEvent('NX::sayHelloWorld', ( ) => console.log('Server responds'), ['ARG1'])
+   */
   @ExportMethod()
   public emitServerEvent(
     eventName: string,

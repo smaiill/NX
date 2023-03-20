@@ -4,6 +4,8 @@
 // This is file is only used to generate a .json file thats contains data
 // About the methods/services that are exported, i use this to generate the documentation.
 
+'use strict'
+
 import fs from 'fs'
 import path from 'path'
 import ts from 'typescript'
@@ -13,6 +15,7 @@ const __EXPORT_METHOD_TOKEN = 'ExportMethod'
 const __DEBUG_FILE = 'apps/rc/server/modules/events/events.service.ts'
 const __OUTPUT_FILE = '_doc.json'
 const __DEBUG = false
+const __NXPlayerMethodsFile = 'apps/rc/server/modules/player/player.class.ts'
 
 const COLORS = {
   RED: '\x1b[31m',
@@ -27,14 +30,11 @@ const _customLog = (color, content) => {
 }
 
 const PATHS = {
-  // client: 'apps/rc/client/modules',
+  client: 'apps/rc/client/modules',
   server: 'apps/rc/server/modules',
 }
 
-// const program = ts.createProgram(
-//   ['./apps/rc/server/modules/services/permissions.service.ts'],
-//   {},
-// )
+// const program = ts.createProgram([PATHS.client], {})
 // const typeChecker = program.getTypeChecker()
 
 const uuid = () => {
@@ -116,6 +116,70 @@ const removeEmptyServices = (data) => {
   }
 }
 
+const getMethodExample = (JSDoc) => {
+  const examples = []
+
+  for (const _tag of JSDoc) {
+    if (_tag.tagName.text === 'example') {
+      examples.push(_tag.comment)
+    }
+  }
+
+  return examples
+}
+
+const getNXPlayerMethods = async (file) => {
+  const methods = []
+
+  ts.forEachChild(file, (node) => {
+    if (ts.isClassDeclaration(node)) {
+      for (const member of node.members) {
+        if (ts.isMethodDeclaration(member)) {
+          const __methodDefaultName = member.name.text
+          const sourceFile = member.getSourceFile()
+
+          const returnType = member?.type?.getText() ?? 'void'
+
+          const methodName = `${__methodDefaultName
+            .charAt(0)
+            .toUpperCase()}${__methodDefaultName.slice(1)}`
+
+          const { line } = ts.getLineAndCharacterOfPosition(
+            sourceFile,
+            member.getStart(),
+          )
+
+          const JSDoc = ts.getJSDocTags(member)
+          const _nodeParams = formatNodeParams(member.parameters, JSDoc)
+          const returnTag = ts.getJSDocReturnTag(member)
+
+          methods.push({
+            name: methodName,
+            file: node.parent.fileName,
+            params: _nodeParams,
+            return: {
+              type: returnType,
+              comment: returnTag?.comment ?? '',
+            },
+            uuid: uuid(),
+            type: 'p_method',
+            line,
+            description: JSDoc[0]?.parent?.comment ?? '',
+            examples: getMethodExample(JSDoc),
+          })
+        }
+      }
+    }
+  })
+
+  _customLog(
+    COLORS.GREEN,
+    `> Exported ${COLORS.CYAN}[${methods.length}]${COLORS.GREEN} player method`,
+  )
+
+  return methods
+}
+
 const main = async () => {
   _customLog(COLORS.GREEN, '> Started the export')
 
@@ -190,6 +254,7 @@ const main = async () => {
               type: 'method',
               line,
               description: JSDoc[0]?.parent?.comment ?? '',
+              examples: getMethodExample(JSDoc),
             })
           }
         }
@@ -198,6 +263,17 @@ const main = async () => {
 
     ts.forEachChild(node, (_n) => findExportMethods(_n, pathName))
   }
+
+  const NXPlayerMethodsSourceFile = ts.createSourceFile(
+    __NXPlayerMethodsFile,
+    fs.readFileSync(__NXPlayerMethodsFile).toString(),
+    ts.ScriptTarget.Latest,
+    true,
+  )
+
+  const NXPlayerMethodsArray = await getNXPlayerMethods(
+    NXPlayerMethodsSourceFile,
+  )
 
   for (const [pathName, _path] of Object.entries(PATHS)) {
     exportedMethods.push({
@@ -240,6 +316,12 @@ const main = async () => {
   }
 
   removeEmptyServices(exportedMethods)
+
+  exportedMethods.push({
+    name: 'nxPlayer',
+    items: [...NXPlayerMethodsArray],
+    uuid: uuid(),
+  })
 
   fs.writeFile(
     path.resolve(process.cwd(), __OUTPUT_FILE),

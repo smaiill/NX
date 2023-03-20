@@ -18,6 +18,12 @@ class _LoadingBarService {
     }
   }
 
+  /**
+   * This will return a boolean true if the loading bar is active otherwise false
+   * @returns true or false
+   * @example
+   * IsActive()
+   */
   @ExportMethod()
   public isActive(): boolean {
     return this.currentLoadingBarState.isActive
@@ -30,6 +36,15 @@ class _LoadingBarService {
     this.currentLoadingBarState[key] = value
   }
 
+  /**
+   * This will create a loading bar
+   * @param loadingbar The loadingbar data
+   * @example
+   * Create({
+   *  duration: 5 // in seconds,
+   *  label: 'Hello world'
+   * })
+   */
   @ExportMethod()
   public async create(loadingbar: CreationLoadingbarType): Promise<void> {
     const res = createLoadingbarSchema.safeParse(loadingbar)

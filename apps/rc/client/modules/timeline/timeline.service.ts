@@ -96,6 +96,20 @@ class _TimelineService {
     return false
   }
 
+  /**
+   * This will create a timeline
+   * @param timeline The timeline parametrs
+   * @example
+   * Create({
+   *  rows: [
+   *    {
+   *      id: '1',
+   *      type: 'DOT',
+   *      label: 'Kill a player'
+   *    }
+   *  ]
+   * })
+   */
   @ExportMethod()
   public create(timeline: CreateTimelineType) {
     const res = createTimelineSchema.safeParse(timeline)
@@ -127,6 +141,15 @@ class _TimelineService {
     })
   }
 
+  /**
+   * This will update the current timeline
+   * @param data The data to update
+   * @example
+   * Update({
+   *  id: '1',
+   *  type: 'SET_COMPLETED'
+   * })
+   */
   @ExportMethod()
   public update(data: UpdateTimelineType) {
     const res = createTimelineSchema.safeParse(data)
@@ -147,6 +170,11 @@ class _TimelineService {
     })
   }
 
+  /**
+   * This will destroy the current active timeline
+   * @example
+   * Destroy()
+   */
   @ExportMethod()
   public destroy() {
     if (!this.isActive()) {
@@ -166,8 +194,14 @@ class _TimelineService {
     }, 1000)
   }
 
+  /**
+   * Check if a timeline is active
+   * @returns true or false
+   * @example
+   * IsActive()
+   */
   @ExportMethod()
-  public isActive() {
+  public isActive(): boolean {
     return this.timelineState.active
   }
 }

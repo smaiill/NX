@@ -71,6 +71,11 @@ class _PlayerService {
     }
   }
 
+  /**
+   * Save all connected players to the database.
+   * @example
+   * SaveAll()
+   */
   @ExportMethod('SaveAll')
   public async savePlayers() {
     const start = Date.now()
@@ -180,6 +185,12 @@ class _PlayerService {
     }
   }
 
+  /**
+   * Get connected players sources
+   * @example
+   * const NXPlayers = GetAll()
+   * console.log(NXPlayers.length)
+   */
   @ExportMethod('GetAll')
   public async getPlayers(): Promise<number[] | []> {
     const nxPlayersSources: number[] = []
@@ -195,6 +206,12 @@ class _PlayerService {
     return nxPlayersSources
   }
 
+  /**
+   * Get connected player
+   * @example
+   * const NXPlayer = Get(1)
+   * console.log(NXPlayer.GetName())
+   */
   @ExportMethod('Get')
   public async getPlayer(
     source: number,
@@ -206,6 +223,12 @@ class _PlayerService {
     return getPlayerMethods(nxPlayer)
   }
 
+  /**
+   * Get all connected players
+   * @example
+   * const NXPlayers = GetAllData()
+   * console.log(NXPlayers.length)
+   */
   @ExportMethod('GetAllData')
   public async getPlayersData(): Promise<NXPlayer[] | []> {
     const nxPlayersData: NXPlayer[] = []
@@ -221,6 +244,12 @@ class _PlayerService {
     return nxPlayersData
   }
 
+  /**
+   * Get player data
+   * @example
+   * const NXPlayer = GetData(1)
+   * console.log(NXPlayer.charinfo.lastname)
+   */
   @ExportMethod('GetData')
   public async getPlayerData(source: number): Promise<NXPlayer | false> {
     const nxPlayer = await this.findPlayer(source)

@@ -6,6 +6,14 @@ import { PlayerService } from 'modules/player/player.service'
 
 @ExportService('Commands')
 class _CommandsServices {
+  /**
+   * Register a command
+   * @param name The command name.
+   * @param cb The callback to execute when the command is executed.
+   * @param authFlags The permissions flags to have to execute the command.
+   * @example
+   * AddCommand('ping', (_src) => console.log(`pong from: ${_src}`), ['PLAYER_TALK'])
+   */
   @ExportMethod()
   public async addCommand(
     name: string,
@@ -23,10 +31,10 @@ class _CommandsServices {
 
         if (!nxPlayer) return
 
-        const hasPermissions = PermissionsService.doesGroupHasAllFlags({
-          group: nxPlayer.GetGroup(),
-          flags: authFlags,
-        })
+        const hasPermissions = PermissionsService.doesGroupHasAllFlags(
+          nxPlayer.GetGroup(),
+          authFlags,
+        )
 
         if (!hasPermissions) {
           // DropPlayer(
