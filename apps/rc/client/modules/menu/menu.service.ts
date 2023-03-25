@@ -87,7 +87,7 @@ class _MenuService {
 
     this.keyInterval = new Date().getTime()
 
-    if (key == Keys.BACK && this.actualMenu !== null) {
+    if (key === Keys.BACK && this.actualMenu !== null) {
       this.hideMenu(this.actualMenu.uuid as string)
     }
 
