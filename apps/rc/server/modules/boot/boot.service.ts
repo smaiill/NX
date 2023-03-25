@@ -47,8 +47,8 @@ class _BootService {
   private hasBreakingResources() {
     for (const resource of breakingResources) {
       const isUsed =
-        GetResourceState(resource) == 'started' ||
-        GetResourceState(resource) == 'starting'
+        GetResourceState(resource) === 'started' ||
+        GetResourceState(resource) === 'starting'
 
       if (!isUsed) return
 
